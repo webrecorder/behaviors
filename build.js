@@ -9,26 +9,39 @@ const behaviorDir = path.join(srcDir, 'behaviors');
 const distDir = path.join(process.cwd(), 'dist');
 
 function makeWrapper(code) {
-  return prettier.format(`(function runner(xpg, debug = false) { 
+  return prettier.format(
+    `(function runner(xpg, debug = false) { 
 ${code.trim()} 
-})($x);`, {singleQuote: true, parser: 'babylon'});
+})($x);`,
+    { singleQuote: true, parser: 'babylon' }
+  );
 }
 
+const wrBundlePlugin = {
+  name: ' wr-behavior',
+  transformBundle(bundle) {
+    return {
+      code: makeWrapper(bundle)
+    };
+  }
+};
 
 async function build() {
   const behaviors = await fs.readdir(behaviorDir);
   for (let i = 0; i < behaviors.length; ++i) {
     const bundle = await rollup.rollup({
       input: path.join(behaviorDir, behaviors[i]),
-      plugins: []
+      plugins: [
+        wrBundlePlugin
+      ]
     });
     const results = await bundle.generate({
       format: 'es',
-      exports: 'none',
+      exports: 'none'
     });
-    console.log(results.code)
+    // console.log(results.code);
     // const code = results.code.replace('export default makeIterator;', '');
-    // await fs.writeFile(path.join(distDir, behaviors[i]), makeWrapper(code));
+    await fs.writeFile(path.join(distDir, behaviors[i]), results.code);
   }
 }
 
