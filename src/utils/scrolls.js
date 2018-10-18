@@ -1,84 +1,87 @@
-import Delays from './delays';
+import { delay } from './delays';
 
-export default class Scrolls {
-  /**
-   * @param {Element | HTMLElement | Node} elem
-   */
-  static scrollIntoView(elem) {
-    if (elem == null) return;
-    elem.scrollIntoView({
-      behavior: 'auto',
-      block: 'center',
-      inline: 'center'
-    });
-  }
+/**
+ * @param {Element | HTMLElement | Node} elem - The element to be scrolled into view
+ */
+export function scrollIntoView(elem) {
+  if (elem == null) return;
+  elem.scrollIntoView({
+    behavior: 'auto',
+    block: 'center',
+    inline: 'center'
+  });
+}
 
-  /**
-   * @param {Element | HTMLElement | Node} elem
-   * @param {number} [delayTime = 1000]
-   * @returns {Promise<void>}
-   */
-  static scrollIntoViewWithDelay(elem, delayTime = 1000) {
-    Scrolls.scrollIntoView(elem);
-    return Delays.delay(delayTime);
-  }
+/**
+ * @param {Element | HTMLElement | Node} elem - The element to be scrolled into view with delay
+ * @param {number} [delayTime = 1000] - How long is the delay
+ * @returns {Promise<void>}
+ */
+export function scrollIntoViewWithDelay(elem, delayTime = 1000) {
+  scrollIntoView(elem);
+  return delay(delayTime);
+}
 
-  /**
-   * @param {Element | HTMLElement | Node} elem
-   */
-  static scrollToElemOffset(elem) {
-    if (elem.offsetTop === 0) {
-      return Scrolls.scrollIntoView(elem);
-    }
-    window.scrollTo({
-      behavior: 'auto',
-      left: 0,
-      top: elem.offsetTop
-    });
+/**
+ * @desc Scrolls the window by the supplied elements offsetTop. If the elements
+ * offsetTop is zero then {@link scrollIntoView} is used
+ * @param {Element | HTMLElement | Node} elem - The element who's offsetTop will be used to scroll by
+ */
+export function scrollToElemOffset(elem) {
+  if (elem.offsetTop === 0) {
+    return scrollIntoView(elem);
   }
+  window.scrollTo({
+    behavior: 'auto',
+    left: 0,
+    top: elem.offsetTop
+  });
+}
 
-  /**
-   * @param {Element | HTMLElement | Node} elem
-   * @param {number} [delayTime = 1000]
-   * @returns {Promise<void>}
-   */
-  static scrollToElemOffsetWithDelay(elem, delayTime = 1000) {
-    Scrolls.scrollToElemOffset(elem);
-    return Delays.delay(delayTime)
-  }
+/**
+ * @desc Scrolls the window by the supplied elements offsetTop. If the elements
+ * offsetTop is zero then {@link scrollIntoView} is used
+ * @param {Element | HTMLElement | Node} elem - The element who's offsetTop will be used to scroll by
+ * @param {number} [delayTime = 1000] - How long is the delay
+ * @returns {Promise<void>}
+ */
+export function scrollToElemOffsetWithDelay(elem, delayTime = 1000) {
+  scrollToElemOffset(elem);
+  return delay(delayTime);
+}
 
-  /**
-   * @param {Element | HTMLElement | Node} elem
-   */
-  static scrollDownByElemHeight(elem) {
-    if (!elem) return;
-    const rect = elem.getBoundingClientRect();
-    window.scrollBy(0, rect.height + elem.offsetHeight);
-  }
+/**
+ * @param {Element | HTMLElement | Node} elem - The element to be
+ */
+export function scrollDownByElemHeight(elem) {
+  if (!elem) return;
+  const rect = elem.getBoundingClientRect();
+  window.scrollBy(0, rect.height + elem.offsetHeight);
+}
 
-  /**
-   * @param {Element | HTMLElement | Node} elem
-   * @param {number} [delayTime = 1000]
-   * @returns {Promise<void>}
-   */
-  static scrollDownByElemHeightWithDelay(elem, delayTime = 1000) {
-    Scrolls.scrollDownByElemHeight(elem);
-    return Delays.delay(delayTime);
-  }
+/**
+ * @param {Element | HTMLElement | Node} elem - The element to be
+ * @param {number} [delayTime = 1000] - How long is the delay
+ * @returns {Promise<void>}
+ */
+export function scrollDownByElemHeightWithDelay(elem, delayTime = 1000) {
+  scrollDownByElemHeight(elem);
+  return delay(delayTime);
+}
 
-  /**
-   * @returns {boolean}
-   */
-  static canScrollMore() {
-    return (
-      window.scrollY + window.innerHeight <
-      Math.max(
-        document.body.scrollHeight,
-        document.body.offsetHeight,
-        document.documentElement.clientHeight,
-        document.documentElement.scrollHeight,
-        document.documentElement.offsetHeight
-      )
-    );
-  }
+/**
+ * @desc Determines if we can scroll any more
+ * @return {boolean}
+ */
+export function canScrollMore() {
+  return (
+    window.scrollY + window.innerHeight <
+    Math.max(
+      document.body.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.clientHeight,
+      document.documentElement.scrollHeight,
+      document.documentElement.offsetHeight
+    )
+  );
 }

@@ -1,6 +1,10 @@
-import DOM from '../utils/dom';
-import Delays from '../utils/delays';
-import Scrolls from '../utils/scrolls';
+import {
+  maybePolyfillXPG,
+  markElemAsVisited,
+  maybeRemoveElemById
+} from '../utils/dom';
+import { delay } from '../utils/delays';
+import { scrollToElemOffsetWithDelay, canScrollMore } from '../utils/scrolls';
 
 /**
  * @desc This xpath query is based on the fact that the first item in a FB news feed
@@ -23,17 +27,8 @@ const removeAnnoyingElemId = 'pagelet_growth_expanding_cta';
  * @param {HTMLElement} elem - The current
  * @returns {boolean}
  */
-function newsFeedItemFilter (elem) {
+function newsFeedItemFilter(elem) {
   return elem.offsetTop !== 0;
-}
-
-/**
- * @param xpathGenerator
- * @return {function(query: string): HTMLElement[]}
- */
-function createXPG(xpathGenerator) {
-  const xpg = DOM.maybePolyfillXPG(xpathGenerator);
-  return query => xpg(query).filter(newsFeedItemFilter);
 }
 
 /**
@@ -52,32 +47,29 @@ function createXPG(xpathGenerator) {
  * @returns {AsyncIterator<HTMLElement>}
  */
 async function* makeIterator(xpathG) {
-  const getFeedItems = createXPG(xpathG);
+  const getFeedItems = query => xpathG(query).filter(newsFeedItemFilter);
   let feedItems = getFeedItems(feedItemSelector);
   let feedItem;
   do {
     while (feedItems.length > 0) {
       feedItem = feedItems.shift();
-      if (window.$WRSTP$) return;
-      await Scrolls.scrollToElemOffsetWithDelay(feedItem, scrollDelay);
-      DOM.markElemAsVisited(feedItem);
+      await scrollToElemOffsetWithDelay(feedItem, scrollDelay);
+      markElemAsVisited(feedItem);
       yield feedItem;
     }
-    if (window.$WRSTP$) return;
     feedItems = getFeedItems(feedItemSelector);
     if (feedItems.length === 0) {
-      await Delays.delay();
+      await delay();
       feedItems = getFeedItems(feedItemSelector);
     }
-    if (window.$WRSTP$) return;
-  } while (feedItems.length > 0 && Scrolls.canScrollMore());
+  } while (feedItems.length > 0 && canScrollMore());
 }
 
-let removedAnnoying = DOM.maybeRemoveElemById(removeAnnoyingElemId);
-window.$WRNFIterator$ = makeIterator(xpg);
+let removedAnnoying = maybeRemoveElemById(removeAnnoyingElemId);
+window.$WRNFIterator$ = makeIterator(maybePolyfillXPG(xpg));
 window.$WRIteratorHandler$ = async function() {
   if (!removedAnnoying) {
-    removedAnnoying = DOM.maybeRemoveElemById(removeAnnoyingElemId);
+    removedAnnoying = maybeRemoveElemById(removeAnnoyingElemId);
   }
   const next = await $WRNFIterator$.next();
   return next.done;
