@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "@types/fs-extra": "^5.0.4",
     "fs-extra": "^7.0.0",
     "babel-eslint": "^10.0.1",

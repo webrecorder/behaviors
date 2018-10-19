@@ -15,6 +15,7 @@ import {
   selectFromAndClickNTimesWithDelay
 } from '../utils/clicks';
 import { addBehaviorStyle, maybePolyfillXPG } from '../utils/dom';
+import OLC from '../utils/outlinkCollector';
 
 addBehaviorStyle('.wr-debug-visited {border: 6px solid #3232F1;}');
 
@@ -193,6 +194,7 @@ class InstagramPosts {
       // for each post in the row
       for (j = 0; j < numPosts; ++j) {
         post = posts[j];
+        OLC.collectFrom(post);
         // scroll it into view and check what type of post it is
         await this.scrollIntoView(post);
         if (this.isMultiImagePost(post)) {

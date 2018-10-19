@@ -1,9 +1,10 @@
 const rollup = require('rollup');
 const fs = require('fs-extra');
 const path = require('path');
-const behaviorWrapper = require('./behavior-wrapper-plugin');
 const inquirer = require('inquirer');
 const program = require('commander');
+const behaviorWrapper = require('./src/behavior-wrapper-plugin');
+const { noWrapperFiles } = require('./src/buildInfo');
 
 const srcDir = path.join(process.cwd(), 'src');
 const behaviorDir = path.join(srcDir, 'behaviors');
@@ -18,9 +19,7 @@ async function build(file, check = false) {
   const bundle = await rollup.rollup({
     input: path.join(behaviorDir, fp),
     plugins: [
-      behaviorWrapper({
-        noWrapperFiles: new Set(['autoscroll.js'])
-      })
+      behaviorWrapper({ noWrapperFiles })
     ]
   });
   const results = await bundle.generate({
@@ -58,9 +57,7 @@ async function watchConfig() {
       exports: 'none'
     },
     plugins: [
-      behaviorWrapper({
-        noWrapperFiles: new Set(['autoscroll.js'])
-      })
+      behaviorWrapper({ noWrapperFiles })
     ],
     watch: {
       chokidar: {

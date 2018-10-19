@@ -7,6 +7,7 @@ import {
 } from '../utils/dom';
 import { canScrollMore, scrollIntoViewWithDelay } from '../utils/scrolls';
 import { clickAndWaitFor, selectElemFromAndClick } from '../utils/clicks';
+import OLC from '../utils/outlinkCollector';
 
 addBehaviorStyle(
   '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
@@ -163,6 +164,7 @@ class Tweet {
   }
 
   async *visitThreadReplyTweets() {
+    OLC.collectFrom(this.fullTweetOverlay);
     let snapShot = xpathSnapShot(overlayTweetXpath, this.fullTweetOverlay);
     let aTweet;
     let i, len;
@@ -245,6 +247,7 @@ async function* timelineIterator(xpathQuerySelector, baseURI) {
         aTweet.tweet.classList.add('wr-debug-visited');
       }
       await scrollIntoViewWithDelay(aTweet.tweet, 500);
+      OLC.collectFrom(aTweet.tweet);
       yield aTweet.tweet;
       if (aTweet.hasRepliedOrInThread()) {
         yield* aTweet.viewRepliesOrThread();

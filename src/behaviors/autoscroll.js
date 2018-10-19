@@ -1,4 +1,14 @@
 (async () => {
+  if (document.readyState !== 'complete') {
+    await new Promise(r => {
+      const cb = () => {
+        document.readyState !== 'complete'
+          ? r()
+          : window.requestAnimationFrame(cb);
+      };
+      window.requestAnimationFrame(cb);
+    });
+  }
   let scrollingTO = 2000;
   let lastScrolled = Date.now();
   let scrollCount = 0;
