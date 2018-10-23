@@ -6,7 +6,7 @@ const { createBehaviorConfigs } = require('./src/buildInfo');
 
 export default createBehaviorConfigs((file, conf) => {
   conf.output.file = path.join(process.env.BEHAVIOR_DIR || 'dist', file);
-  conf.plugins.unshift(cleanup());
+  // conf.plugins.push(cleanup());
   return conf;
 });
 

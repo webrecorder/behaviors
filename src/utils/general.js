@@ -1,3 +1,4 @@
+
 /**
  * @desc Retrieves the property of an object, or item in array at index, based
  * on the supplied path.

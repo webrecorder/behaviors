@@ -45,7 +45,7 @@
     elem = found[i];
     let href = elem.href.trim();
     if (href.length > 0 && href !== ' ') {
-      if (!shouldIgnore(href) && !linksSeen.has(href)) {
+      if (!linksSeen.has(href) && !shouldIgnore(href)) {
         linksSeen.add(href);
         links.push(href);
       }

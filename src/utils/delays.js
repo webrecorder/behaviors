@@ -1,3 +1,4 @@
+
 /**
  * @param {number} [delayTime = 3000]
  * @returns {Promise<void>}
@@ -7,7 +8,6 @@ export function delay(delayTime = 3000) {
     setTimeout(resolve, delayTime);
   });
 }
-
 
 /**
  * @desc Returns a promise that resolves when the supplied predicate function
@@ -39,10 +39,25 @@ export function waitForPredicate(predicate) {
 export async function waitForAndSelectElement(fromNode, selector) {
   let elem = fromNode.querySelector(selector);
   if (!elem) {
-    await waitForPredicate(
-      () => fromNode.querySelector(selector) != null
-    );
+    await waitForPredicate(() => fromNode.querySelector(selector) != null);
     elem = fromNode.querySelector(selector);
   }
   return elem;
+}
+
+/**
+ * @return {Promise<void>}
+ */
+export function domCompletePromise() {
+  if (document.readyState !== 'complete') {
+    return new Promise(r => {
+      let i = setInterval(() => {
+        if (document.readyState === 'complete') {
+          clearInterval(i);
+          r();
+        }
+      }, 1000);
+    });
+  }
+  return Promise.resolve();
 }

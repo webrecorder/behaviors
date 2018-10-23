@@ -1,3 +1,4 @@
+
 /**
  * @param {string} xpathQuery
  * @param {Element | Document} startElem
@@ -172,4 +173,18 @@ export function addBehaviorStyle (styleDef) {
     style.textContent = styleDef;
     document.head.appendChild(style);
   }
+}
+
+/**
+ * @param {HTMLIFrameElement} iframe
+ * @return {boolean}
+ */
+export function canAcessIf (iframe) {
+  try {
+    iframe.contentWindow.window;
+  } catch (e) {
+    return false;
+  }
+
+  return iframe.contentDocument != null
 }

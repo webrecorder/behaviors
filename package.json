@@ -21,6 +21,7 @@
     "build-prod": "rollup -c rollup.prod.config.js",
     "build-docker": "rollup -c rollup.prod.config.js && chmod a+rw /dist/*.js",
     "build-dev": "rollup -c rollup.dev.config.js",
+    "build-deving": "rollup --watch -c rollup.deving.config.js",
     "build-watch": "rollup --watch -c rollup.dev.config.js"
   }
 }

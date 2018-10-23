@@ -1,0 +1,14 @@
+FROM node:10
+
+ENV DOCKER 1
+
+WORKDIR /build
+
+ADD package.json /build
+
+RUN yarn install
+
+VOLUME /dist
+VOLUME /src
+
+CMD ["yarn", "run", "build-docker"]

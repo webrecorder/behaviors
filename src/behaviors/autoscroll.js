@@ -1,25 +1,18 @@
-(async () => {
-  if (document.readyState !== 'complete') {
-    await new Promise(r => {
-      const cb = () => {
-        document.readyState !== 'complete'
-          ? r()
-          : window.requestAnimationFrame(cb);
-      };
-      window.requestAnimationFrame(cb);
-    });
-  }
+import { domCompletePromise } from '../utils/delays';
+import OLC from '../utils/outlinkCollector';
+
+/*!return!*/ domCompletePromise().then(() => {
   let scrollingTO = 2000;
   let lastScrolled = Date.now();
-  let scrollCount = 0;
   let maxScroll = Math.max(
     document.body.scrollHeight,
     document.documentElement.scrollHeight
   );
-  await new Promise((resolve, reject) => {
+  let scrollCount = 0;
+  return new Promise((resolve, reject) => {
     let scrollerInterval = setInterval(() => {
       let scrollPos = window.scrollY + window.innerHeight;
-      if (scrollCount < 20) {
+      if (scrollCount < 50) {
         maxScroll = Math.max(
           document.body.scrollHeight,
           document.documentElement.scrollHeight
@@ -27,9 +20,11 @@
         scrollCount += 1;
       }
       if (scrollPos < maxScroll) {
-        window.scrollBy(0, 200);
+        window.scrollBy(0, 300);
         lastScrolled = Date.now();
-      } else if (!lastScrolled || Date.now() - lastScrolled > scrollingTO) {
+      }
+      OLC.collectFromDoc();
+      if (!lastScrolled || Date.now() - lastScrolled > scrollingTO) {
         if (scrollerInterval === undefined) {
           return;
         }
@@ -41,6 +36,6 @@
         scrollerInterval = undefined;
         resolve();
       }
-    }, 200);
-  });
-})();
+    }, 500);
+  })
+});
