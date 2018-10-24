@@ -62,6 +62,15 @@ class OutLinkCollector {
   }
 
   /**
+   * @param {HTMLAnchorElement|HTMLAreaElement} elem
+   */
+  addOutlink(elem) {
+    if (!this.shouldIgnore(elem.href) && !this.outlinks.has(elem.href)) {
+      this.outlinks.add(elem.href)
+    }
+  }
+
+  /**
    * @return {string[]}
    */
   outLinkArray() {

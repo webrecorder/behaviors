@@ -93,39 +93,41 @@ export function maybePolyfillXPG(cliXPG) {
 
 /**
  * @param {string} selector - the selector to be use
- * @param {Element | Node | HTMLElement} [selectFrom] - element to use rather than document for the querySelector call
- * @returns {Element | Node | HTMLElement}
+ * @param {Element|Node|HTMLElement|Document} [context] - element to use rather than document for the querySelector call
+ * @returns {Element | Node | HTMLElement | HTMLIFrameElement}
  */
-export function qs(selector, selectFrom) {
-  if (selectFrom != null) return selectFrom.querySelector(selector);
+export function qs(selector, context) {
+  if (context != null) return context.querySelector(selector);
   return document.querySelector(selector);
 }
 
 /**
  * @param {string} selector - the selector to be use
- * @param {Element | Node | HTMLElement} [selectFrom]
+ * @param {Element | Node | HTMLElement | Document} [context]
  * @returns {NodeList<Element | Node | HTMLElement>}
  */
-export function qsa(selector, selectFrom) {
-  if (selectFrom != null) return selectFrom.querySelectorAll(selector);
+export function qsa(selector, context) {
+  if (context != null) return context.querySelectorAll(selector);
   return document.querySelectorAll(selector);
 }
 
 /**
  * @param {string} id
+ * @param {?Document} [context]
  * @returns {?HTMLElement}
  */
-export function getById(id) {
+export function getById(id, context) {
+  if (context != null) return context.getElementById(id);
   return document.getElementById(id);
 }
 
 /**
  * @param {string} selector - the selector to be use
- * @param {Element | Node | HTMLElement} [selectFrom] - element to use rather than document for the querySelector call
+ * @param {Element | Node | HTMLElement} [context] - element to use rather than document for the querySelector call
  * @returns {boolean}
  */
-export function maybeRemoveElem(selector, selectFrom) {
-  const elem = (selectFrom || document).querySelector(selector);
+export function maybeRemoveElem(selector, context) {
+  const elem = (context || document).querySelector(selector);
   let removed = false;
   if (elem) {
     elem.remove();
@@ -180,6 +182,7 @@ export function addBehaviorStyle (styleDef) {
  * @return {boolean}
  */
 export function canAcessIf (iframe) {
+  if (iframe == null) return false;
   try {
     iframe.contentWindow.window;
   } catch (e) {
@@ -187,4 +190,32 @@ export function canAcessIf (iframe) {
   }
 
   return iframe.contentDocument != null
+}
+
+/**
+ * @param {string} selectorOrId
+ * @param {Document | Element} [cntx]
+ * @return {boolean}
+ */
+export function elemExists (selectorOrId, cntx) {
+  const context = cntx != null ? cntx : document;
+  const test = context.querySelector(selectorOrId) != null;
+  return test ? test : context.getElementById(selectorOrId) != null;
+}
+
+/**
+ * @param {function(xpathQuery: string, startElem: ?Node): Node[]} xpg
+ * @param {string} tag
+ * @param {function(elem: Node): boolean} predicate
+ * @param {Document} [cntx]
+ * @return {Element | HTMLIFrameElement | Node}
+ */
+export function findTag (xpg, tag, predicate, cntx) {
+  const tags = xpg(`//${tag}`, cntx || document);
+  const len = tags.length;
+  let i = 0;
+  for(; i < len; ++i) {
+    if (predicate(tags[i])) return tags[i];
+  }
+  return null;
 }

@@ -27,8 +27,20 @@ export function autoFetchFromDoc() {
   }
 }
 
-export function autoFetchTheseURLS (urls) {
+export function sendAutoFetchWorkerURLs (urls) {
   if (window.$WBAutoFetchWorker$) {
     window.$WBAutoFetchWorker$.justFetch(urls);
   }
+}
+
+export function noop() {}
+
+/**
+ * @param {string} url
+ * @param {Window} [win]
+ * @return {Promise<Response>}
+ */
+export function safeFetch (url, win) {
+  if (win != null) return win.fetch(url).catch(noop);
+  return fetch(url).catch(noop);
 }

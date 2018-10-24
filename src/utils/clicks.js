@@ -11,8 +11,31 @@ export function click(elem) {
   let clicked = false;
   if (elem != null) {
     elem.dispatchEvent(
-      new MouseEvent('mouseover', {
+      new window.MouseEvent('mouseover', {
         view: window,
+        bubbles: true,
+        cancelable: true
+      })
+    );
+    elem.click();
+    clicked = true;
+  }
+  return clicked;
+}
+
+/**
+ * @desc Calls the click function on the supplied element if non-null/defined.
+ * Returns true or false to indicate if the click happened
+ * @param {HTMLElement | Element | Node} elem - The element to be clicked
+ * @param {Window} cntx - The context window
+ * @return {boolean}
+ */
+export function clickInContext(elem, cntx) {
+  let clicked = false;
+  if (elem != null) {
+    elem.dispatchEvent(
+      new cntx.MouseEvent('mouseover', {
+        view: cntx,
         bubbles: true,
         cancelable: true
       })
@@ -30,6 +53,20 @@ export function click(elem) {
  */
 export async function clickWithDelay(elem, delayTime = 1000) {
   let clicked = click(elem);
+  if (clicked) {
+    await delay(delayTime);
+  }
+  return clicked;
+}
+
+/**
+ * @param {HTMLElement | Element | Node} elem - The element to be clicked
+ * @param {Window} cntx - The context window
+ * @param {number} [delayTime = 1000] - How long is the delay
+ * @returns {Promise<boolean>}
+ */
+export async function clickInContextWithDelay(elem, cntx, delayTime = 1000) {
+  let clicked = clickInContext(elem, cntx);
   if (clicked) {
     await delay(delayTime);
   }

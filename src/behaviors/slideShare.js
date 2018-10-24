@@ -1,34 +1,45 @@
-import { canAcessIf } from '../utils/dom';
-import { clickWithDelay } from '../utils/clicks';
-import { autoFetchTheseURLS } from '../utils/general';
+import { canAcessIf, findTag, maybePolyfillXPG, qs, qsa, getById } from '../utils/dom';
+import { clickInContext, clickInContextWithDelay } from '../utils/clicks';
+import { sendAutoFetchWorkerURLs } from '../utils/general';
+import OLC from '../utils/outlinkCollector'
 
 const selectors = {
   iframeLoader: 'iframe.ssIframeLoader',
   nextSlide: 'btnNext',
   slideContainer: 'div.slide_container',
   showingSlide: 'div.slide.show',
-  slideImg: 'img.slide_image'
+  divSlide: 'div.slide',
+  sectionSlide: 'section.slide',
+  slideImg: 'img.slide_image',
+  relatedDecks: 'div.tab.related-tab',
+  moreComments: 'a.j-more-comments'
 };
+
+const isSlideShelfIF = _if => _if.src.endsWith('/slideshelf');
 
 /**
  * @param {Document | Element} doc
+ * @param {string} slideSelector
  * @return {number}
  */
-function getNumSlides(doc) {
-  const slideContainer = doc.querySelector(selectors.slideContainer);
+function getNumSlides(doc, slideSelector) {
+  const slideContainer = qs(selectors.slideContainer, doc);
   if (slideContainer) {
-    return slideContainer.childElementCount;
+    return qsa(slideSelector, doc).length;
   }
   return -1;
 }
 
-function fetchSlidesVariableImg(doc) {
-  const imgs = doc.querySelectorAll(selectors.slideImg);
+/**
+ * @param {Document} doc
+ */
+function extracAndPreserveSlideImgs(doc) {
+  const imgs = qsa(selectors.slideImg, doc);
   const len = imgs.length;
   const toFetch = [];
   let i = 0;
   let imgDset;
-  for(; i < len; ++i) {
+  for (; i < len; ++i) {
     imgDset = imgs[i].dataset;
     if (imgDset) {
       toFetch.push(imgDset.full);
@@ -36,38 +47,84 @@ function fetchSlidesVariableImg(doc) {
       toFetch.push(imgDset.small);
     }
   }
-  autoFetchTheseURLS(toFetch);
-}
-
-
-/**
- * @param {Document | Element} doc
- * @return {AsyncIterableIterator<*>}
- */
-async function* consumeSlides(doc) {
-  // add 1 to total to get end slide overlay
-  const numSlides = getNumSlides(doc) + 1;
-  console.log(`there are ${numSlides - 1}`);
-  fetchSlidesVariableImg(doc);
-  let i = 1;
-  for(; i < numSlides; ++i) {
-    await clickWithDelay(doc.getElementById(selectors.nextSlide));
-    yield doc.querySelector(selectors.showingSlide);
-  }
+  sendAutoFetchWorkerURLs(toFetch);
 }
 
 /**
- * @param {HTMLIFrameElement} iframe
+ * @param {Window} win
+ * @param {Document} doc
+ * @param {string} slideSelector
  * @return {Promise<void>}
  */
-async function doSlideShow(iframe) {
-  const slideDoc = iframe.contentDocument;
-  for await (const it of consumeSlides(slideDoc)) {
-    console.log(it)
+async function consumeSlides(win, doc, slideSelector) {
+  extracAndPreserveSlideImgs(doc);
+  const numSlides = getNumSlides(doc, slideSelector);
+  let i = 1;
+  for (; i < numSlides; ++i) {
+    clickInContext(getById(selectors.nextSlide, doc), win);
+  }
+  await clickInContextWithDelay(getById(selectors.nextSlide, doc), win);
+}
+
+/**
+ * @return {AsyncIterableIterator<*>}
+ */
+async function* handleSlideDeck() {
+  yield await consumeSlides(window, document, selectors.sectionSlide);
+}
+
+/**
+ * @param {Window} win
+ * @param {Document} doc
+ * @return {AsyncIterableIterator<*>}
+ */
+async function* doSlideShowInFrame(win, doc) {
+  const decks = qsa('li', qs(selectors.relatedDecks, doc));
+  const numDecks = decks.length;
+  const deckIF = qs(selectors.iframeLoader, doc);
+  yield await consumeSlides(
+    deckIF.contentWindow,
+    deckIF.contentDocument,
+    selectors.divSlide
+  );
+  let i = 1;
+  for (; i < numDecks; ++i) {
+    await new Promise(r => {
+      const loaded = () => {
+        deckIF.removeEventListener('load', loaded);
+        r();
+      };
+      deckIF.addEventListener('load', loaded);
+      OLC.addOutlink(decks[i].firstElementChild);
+      clickInContext(decks[i].firstElementChild, win);
+    });
+    yield await consumeSlides(
+      deckIF.contentWindow,
+      deckIF.contentDocument,
+      selectors.divSlide
+    );
   }
 }
 
-let slideIframe = document.querySelector(selectors.iframeLoader);
-if (canAcessIf(slideIframe)) {
-  doSlideShow(slideIframe).catch(error => console.error(error))
+/**
+ * @return {AsyncIterableIterator<*>}
+ */
+function init() {
+  if (canAcessIf(qs(selectors.iframeLoader))) {
+    // 'have iframe loader in top'
+    return doSlideShowInFrame(window, document);
+  }
+  const maybeIF = findTag(maybePolyfillXPG(xpg), 'iframe', isSlideShelfIF);
+  if (maybeIF && canAcessIf(maybeIF)) {
+    // have slideself loader in top
+    return doSlideShowInFrame(maybeIF.contentWindow, maybeIF.contentDocument);
+  }
+  // have slides in top
+  return handleSlideDeck();
 }
+
+window.$WRIterator$ = init();
+window.$WRIteratorHandler$ = async function() {
+  const next = await $WRIterator$.next();
+  return next.done;
+};
