@@ -1,7 +1,14 @@
-import { canAcessIf, findTag, maybePolyfillXPG, qs, qsa, getById } from '../utils/dom';
+import {
+  canAcessIf,
+  findTag,
+  maybePolyfillXPG,
+  qs,
+  qsa,
+  getById
+} from '../utils/dom';
 import { clickInContext, clickInContextWithDelay } from '../utils/clicks';
 import { sendAutoFetchWorkerURLs } from '../utils/general';
-import OLC from '../utils/outlinkCollector'
+import OLC from '../utils/outlinkCollector';
 
 const selectors = {
   iframeLoader: 'iframe.ssIframeLoader',

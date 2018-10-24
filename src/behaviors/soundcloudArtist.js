@@ -1,11 +1,17 @@
 import { scrollIntoViewWithDelay } from '../utils/scrolls';
-import { selectElemFromAndClick, selectElemFromAndClickWithDelay } from '../utils/clicks';
+import {
+  selectElemFromAndClick,
+  selectElemFromAndClickWithDelay
+} from '../utils/clicks';
 import { delay } from '../utils/delays';
-import { addBehaviorStyle, markElemAsVisited, maybePolyfillXPG } from '../utils/dom';
+import {
+  addBehaviorStyle,
+  markElemAsVisited,
+  maybePolyfillXPG
+} from '../utils/dom';
 import OLC from '../utils/outlinkCollector';
 
 addBehaviorStyle('.wr-debug-visited {border: 6px solid #3232F1;}');
-
 
 const xpQueries = {
   soundItem:
@@ -56,7 +62,10 @@ async function* vistSoundItems(xpathGenerator) {
       if (debug) soundItem.classList.add('wr-debug-visited');
       await scrollIntoViewWithDelay(soundItem);
       if (needToLoadMoreTracks(soundItem)) {
-        await selectElemFromAndClickWithDelay(soundItem, selectors.loadMoreTracks);
+        await selectElemFromAndClickWithDelay(
+          soundItem,
+          selectors.loadMoreTracks
+        );
         yield* playMultipleTracks(soundItem);
       } else {
         yield selectElemFromAndClick(soundItem, selectors.playSingleTrack);

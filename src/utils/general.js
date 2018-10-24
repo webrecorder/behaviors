@@ -1,4 +1,3 @@
-
 /**
  * @desc Retrieves the property of an object, or item in array at index, based
  * on the supplied path.
@@ -27,7 +26,7 @@ export function autoFetchFromDoc() {
   }
 }
 
-export function sendAutoFetchWorkerURLs (urls) {
+export function sendAutoFetchWorkerURLs(urls) {
   if (window.$WBAutoFetchWorker$) {
     window.$WBAutoFetchWorker$.justFetch(urls);
   }
@@ -40,7 +39,17 @@ export function noop() {}
  * @param {Window} [win]
  * @return {Promise<Response>}
  */
-export function safeFetch (url, win) {
+export function safeFetch(url, win) {
   if (win != null) return win.fetch(url).catch(noop);
   return fetch(url).catch(noop);
+}
+
+export function findAllMediaAndPlay() {
+  const mediaElems = document.querySelectorAll('audio, video');
+  let i = 0;
+  for (; i < mediaElems.length; i++) {
+    if (mediaElems[i].paused) {
+      mediaElems[i].play();
+    }
+  }
 }
