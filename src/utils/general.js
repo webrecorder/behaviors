@@ -18,3 +18,17 @@ export function getViaPath(obj, ...pathItems) {
   }
   return cur;
 }
+
+let didPauseAutoFetching = false;
+
+export function autoFetchFromDoc() {
+  if (window.$WBAutoFetchWorker$) {
+    window.$WBAutoFetchWorker$.extractFromLocalDoc();
+  }
+}
+
+export function autoFetchTheseURLS (urls) {
+  if (window.$WBAutoFetchWorker$) {
+    window.$WBAutoFetchWorker$.justFetch(urls);
+  }
+}
