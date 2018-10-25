@@ -112,13 +112,13 @@ export function qsa(selector, context) {
 }
 
 /**
- * @param {string} id
+ * @param {string} eid
  * @param {?Document} [context]
  * @returns {?HTMLElement}
  */
-export function getById(id, context) {
-  if (context != null) return context.getElementById(id);
-  return document.getElementById(id);
+export function id(eid, context) {
+  if (context != null) return context.getElementById(eid);
+  return document.getElementById(eid);
 }
 
 /**
@@ -127,7 +127,7 @@ export function getById(id, context) {
  * @returns {boolean}
  */
 export function maybeRemoveElem(selector, context) {
-  const elem = (context || document).querySelector(selector);
+  const elem = qs(selector, context);
   let removed = false;
   if (elem) {
     elem.remove();
@@ -141,7 +141,7 @@ export function maybeRemoveElem(selector, context) {
  * @returns {boolean}
  */
 export function maybeRemoveElemById(id) {
-  const elem = getById(id);
+  const elem = document.getElementById(id);
   let removed = false;
   if (elem) {
     elem.remove();
@@ -168,7 +168,7 @@ export function markElemAsVisited(elem, marker = 'wrvistited') {
   }
 }
 
-export function addBehaviorStyle (styleDef) {
+export function addBehaviorStyle(styleDef) {
   if (document.getElementById('$wrStyle$') == null) {
     const style = document.createElement('style');
     style.id = '$wrStyle$';
@@ -181,26 +181,32 @@ export function addBehaviorStyle (styleDef) {
  * @param {HTMLIFrameElement} iframe
  * @return {boolean}
  */
-export function canAcessIf (iframe) {
+export function canAcessIf(iframe) {
   if (iframe == null) return false;
   try {
     iframe.contentWindow.window;
   } catch (e) {
     return false;
   }
-
-  return iframe.contentDocument != null
+  return iframe.contentDocument != null;
 }
 
 /**
- * @param {string} selectorOrId
+ * @param {string} selector
  * @param {Document | Element} [cntx]
  * @return {boolean}
  */
-export function elemExists (selectorOrId, cntx) {
-  const context = cntx != null ? cntx : document;
-  const test = context.querySelector(selectorOrId) != null;
-  return test ? test : context.getElementById(selectorOrId) != null;
+export function selectorExists (selector, cntx) {
+  return qs(selector, cntx) != null;
+}
+
+/**
+ * @param {string} eid
+ * @param {Document | Element} [cntx]
+ * @return {boolean}
+ */
+export function idExists (eid, cntx) {
+  return id(eid, cntx) != null;
 }
 
 /**
@@ -208,14 +214,64 @@ export function elemExists (selectorOrId, cntx) {
  * @param {string} tag
  * @param {function(elem: Node): boolean} predicate
  * @param {Document} [cntx]
- * @return {Element | HTMLIFrameElement | Node}
+ * @return {?Element|?HTMLIFrameElement|?Node}
  */
-export function findTag (xpg, tag, predicate, cntx) {
+export function findTag(xpg, tag, predicate, cntx) {
   const tags = xpg(`//${tag}`, cntx || document);
   const len = tags.length;
   let i = 0;
-  for(; i < len; ++i) {
+  for (; i < len; ++i) {
     if (predicate(tags[i])) return tags[i];
   }
   return null;
+}
+
+export class MutationStream {
+  constructor() {
+    this.mo = new MutationObserver((ml, ob) => {
+      if (this._resolve) {
+        this._resolve(ml);
+      }
+    });
+    this._resolve = null;
+    this._loopStream = false;
+  }
+
+  /**
+   * @param elem
+   * @param config
+   */
+  observe(elem, config) {
+    this.mo.observe(elem, config);
+    this._loopStream = true;
+  }
+
+  disconnect() {
+    this.mo.disconnect();
+    this._loopStream = false;
+    if (this._resolve) {
+      this._resolve(null);
+    }
+  }
+
+  _getNext() {
+    return new Promise(resolve => {
+      this._resolve = resolve;
+    });
+  }
+
+  async *streamItr() {
+    while (this._loopStream) {
+      let next = await this._getNext();
+      if (next == null) {
+        break;
+      }
+      yield next;
+    }
+    this._resolve = null;
+  }
+
+  [Symbol.asyncIterator]() {
+    return this.streamItr();
+  }
 }

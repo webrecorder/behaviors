@@ -1,4 +1,4 @@
-import { delay } from './delays';
+import { delay, waitForPredicate } from './delays';
 
 /**
  * @param {Element | HTMLElement | Node} elem - The element to be scrolled into view
@@ -20,6 +20,11 @@ export function scrollIntoView(elem) {
 export function scrollIntoViewWithDelay(elem, delayTime = 1000) {
   scrollIntoView(elem);
   return delay(delayTime);
+}
+
+export function scrollIntoViewAndWaitFor (elem, predicate) {
+  scrollIntoView(elem);
+  return waitForPredicate(predicate);
 }
 
 /**

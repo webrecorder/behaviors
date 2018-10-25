@@ -3,8 +3,7 @@ import {
   findTag,
   maybePolyfillXPG,
   qs,
-  qsa,
-  getById
+  qsa
 } from '../utils/dom';
 import { clickInContext, clickInContextWithDelay } from '../utils/clicks';
 import { sendAutoFetchWorkerURLs } from '../utils/general';
@@ -68,9 +67,9 @@ async function consumeSlides(win, doc, slideSelector) {
   const numSlides = getNumSlides(doc, slideSelector);
   let i = 1;
   for (; i < numSlides; ++i) {
-    clickInContext(getById(selectors.nextSlide, doc), win);
+    clickInContext(id(selectors.nextSlide, doc), win);
   }
-  await clickInContextWithDelay(getById(selectors.nextSlide, doc), win);
+  await clickInContextWithDelay(id(selectors.nextSlide, doc), win);
 }
 
 /**

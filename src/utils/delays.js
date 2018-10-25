@@ -1,3 +1,4 @@
+import {qs, selectorExists} from './dom';
 
 /**
  * @param {number} [delayTime = 3000]
@@ -37,10 +38,10 @@ export function waitForPredicate(predicate) {
  * @return {Promise<Element | Node | HTMLElement>}
  */
 export async function waitForAndSelectElement(fromNode, selector) {
-  let elem = fromNode.querySelector(selector);
+  let elem = qs(selector, fromNode);
   if (!elem) {
-    await waitForPredicate(() => fromNode.querySelector(selector) != null);
-    elem = fromNode.querySelector(selector);
+    await waitForPredicate(() => selectorExists(selector));
+    elem = qs(selector, fromNode);
   }
   return elem;
 }

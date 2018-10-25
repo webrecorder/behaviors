@@ -1,10 +1,11 @@
+import { qs, id } from './dom';
 
 /**
  * @param {string} selector
  * @param {Document | Element} [cntx]
  */
 export async function selectAndPlay(selector, cntx) {
-  const elem = (cntx || document).querySelector(selector);
+  const elem = qs(selector, cntx);
   if (elem && elem.paused) {
     await elem.play();
   }
@@ -15,7 +16,7 @@ export async function selectAndPlay(selector, cntx) {
  * @param {Document} [cntx]
  */
 export async function selectIdAndPlay(selector, cntx) {
-  const elem = (cntx || document).getElementById(selector);
+  const elem = id(selector, cntx);
   if (elem && elem.paused) {
     await elem.play();
   }
