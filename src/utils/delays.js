@@ -1,4 +1,4 @@
-import {qs, selectorExists} from './dom';
+import { qs, selectorExists } from './dom';
 
 /**
  * @param {number} [delayTime = 3000]
@@ -26,6 +26,33 @@ export function waitForPredicate(predicate) {
       }
     };
     window.requestAnimationFrame(cb);
+  });
+}
+
+/**
+ * @desc Returns a promise that resolves when the supplied predicate function
+ * returns a truthy value. Polling via requestAnimationFrame.
+ * @param {function(): boolean} predicate
+ * @param {number} time
+ * @return {Promise<void>}
+ */
+export function waitForPredicateAtMax(predicate, time) {
+  return new Promise(resolve => {
+    let rafID = -1;
+    let to = -1;
+    const cb = () => {
+      if (predicate()) {
+        clearTimeout(to);
+        resolve();
+      } else {
+        rafID = window.requestAnimationFrame(cb);
+      }
+    };
+    to = setTimeout(() => {
+      window.cancelAnimationFrame(rafID);
+      resolve();
+    }, time);
+    rafID = window.requestAnimationFrame(cb);
   });
 }
 

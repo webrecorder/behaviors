@@ -6,7 +6,7 @@ import { delay, waitForPredicate } from './delays';
 export function scrollIntoView(elem) {
   if (elem == null) return;
   elem.scrollIntoView({
-    behavior: 'auto',
+    behavior: 'smooth',
     block: 'center',
     inline: 'center'
   });
