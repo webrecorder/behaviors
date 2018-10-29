@@ -12,47 +12,42 @@ export function delay(delayTime = 3000) {
 
 /**
  * @desc Returns a promise that resolves when the supplied predicate function
- * returns a truthy value. Polling via requestAnimationFrame.
+ * returns a truthy value. Polling via setInterval 1sec.
  * @param {function(): boolean} predicate
  * @return {Promise<void>}
  */
 export function waitForPredicate(predicate) {
   return new Promise(resolve => {
-    const cb = () => {
+    let int = setInterval(() => {
       if (predicate()) {
+        clearInterval(int);
         resolve();
-      } else {
-        window.requestAnimationFrame(cb);
       }
-    };
-    window.requestAnimationFrame(cb);
+    }, 1000);
   });
 }
 
 /**
  * @desc Returns a promise that resolves when the supplied predicate function
- * returns a truthy value. Polling via requestAnimationFrame.
+ * returns a truthy value. Polling via setInterval 1sec.
  * @param {function(): boolean} predicate
  * @param {number} time
  * @return {Promise<void>}
  */
 export function waitForPredicateAtMax(predicate, time) {
   return new Promise(resolve => {
-    let rafID = -1;
     let to = -1;
-    const cb = () => {
+    let int = setInterval(() => {
       if (predicate()) {
         clearTimeout(to);
+        clearInterval(int);
         resolve();
-      } else {
-        rafID = window.requestAnimationFrame(cb);
       }
-    };
+    }, 1000);
     to = setTimeout(() => {
-      window.cancelAnimationFrame(rafID);
+      clearInterval(int);
       resolve();
     }, time);
-    rafID = window.requestAnimationFrame(cb);
   });
 }
 
@@ -88,4 +83,45 @@ export function domCompletePromise() {
     });
   }
   return Promise.resolve();
+}
+
+/**
+ * @param {Element} parentElement
+ * @param {number} currentChildCount
+ * @param {{pollRate: number, max: number}} [opts]
+ * @return {Promise<void>}
+ */
+export function waitForAdditionalElemChildren(
+  parentElement,
+  currentChildCount,
+  opts
+) {
+  let pollRate = 1000;
+  let max = 6;
+  if (opts != null) {
+    if (opts.pollRate != null) pollRate = opts.pollRate;
+    if (opts.max != null) max = opts.max;
+  }
+  let n = 0;
+  let int = -1;
+  return new Promise(resolve => {
+    int = setInterval(() => {
+      if (!parentElement.isConnected) {
+        clearInterval(int);
+        return resolve();
+      }
+      if (
+        parentElement.children &&
+        parentElement.children.length > currentChildCount
+      ) {
+        clearInterval(int);
+        return resolve();
+      }
+      if (n > max) {
+        clearInterval(int);
+        return resolve();
+      }
+      n += 1;
+    }, pollRate);
+  });
 }

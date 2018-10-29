@@ -10,7 +10,7 @@
     'ftp:',
     'tel:'
   ];
-  const good = {'http:': true, 'https:': true};
+  const good = { 'http:': true, 'https:': true };
   const links = [];
   const linksSeen = new Set();
   const urlParer = new URL('about:blank');
@@ -21,7 +21,7 @@
     while (i--) {
       if (test.startsWith(ignore[i])) {
         ignored = true;
-        break
+        break;
       }
     }
     if (!ignored) {
@@ -36,20 +36,15 @@
     return ignored;
   }
 
-  const found = document.querySelectorAll(
-    'a[href], area[href]'
-  );
-  let elem;
+  const found = document.querySelectorAll('a[href], area[href]');
+  let href;
   let i = found.length;
   while (i--) {
-    elem = found[i];
-    let href = elem.href.trim();
-    if (href.length > 0 && href !== ' ') {
-      if (!linksSeen.has(href) && !shouldIgnore(href)) {
-        linksSeen.add(href);
-        links.push(href);
-      }
+    let href = found[i].href.trim();
+    if (href && !linksSeen.has(href) && !shouldIgnore(href)) {
+      linksSeen.add(href);
+      links.push(href);
     }
   }
-  return links
+  return links;
 })();

@@ -1,23 +1,20 @@
 import {
-  attrEq,
   id,
   markElemAsVisited,
-  maybePolyfillXPG,
-  MutationStream,
   qs,
-  selectorExists
+  qsa,
+  selectorExists,
+  nthChildElemOf
 } from '../utils/dom';
+import { waitForAdditionalElemChildren } from '../utils/delays';
 import { clickWithDelay, scrollIntoViewAndClick } from '../utils/clicks';
 import { selectAndPlay } from '../utils/media';
 import {
   scrollIntoViewAndWaitFor,
   scrollIntoViewWithDelay
 } from '../utils/scrolls';
-import {
-  delay,
-  waitForPredicate,
-  waitForPredicateAtMax
-} from '../utils/delays';
+import { MutationStream } from '../utils/mutations';
+import OLC from '../utils/outlinkCollector';
 
 const selectors = {
   videoInfoMoreId: 'more',
@@ -27,7 +24,8 @@ const selectors = {
   commentsContainerId: 'comments',
   loadedReplies: 'div[id="loaded-replies"]',
   loadingCommentsSpinner:
-    '#continuations > yt-next-continuation > paper-spinner'
+    '#continuations > yt-next-continuation > paper-spinner',
+  outlinks: 'ytd-thumbnail > a[id="thumbnail"]'
 };
 
 const commentsXpathQ = `//${
@@ -66,7 +64,7 @@ async function viewAllReplies(mStream, renderer) {
       () => !selectorExists(selectors.showMoreReplies, renderer)
     )) {
       // console.log(mutation);
-      await scrollIntoViewWithDelay(replies.lastChild, 500);
+      await scrollIntoViewWithDelay(replies.lastChild, 750);
       if (!loadMoreComments(renderer, selectors.showMoreReplies)) {
         mStream.disconnect();
         break;
@@ -76,30 +74,14 @@ async function viewAllReplies(mStream, renderer) {
   }
 }
 
-async function nextSetOfComments(xpg) {
-  let comments = xpg(commentsXpathQ);
-  if (comments.length === 0) {
-    // console.log('waiting for comments to load');
-    for (let i = 0; i < 6; i++) {
-      comments = xpg(commentsXpathQ);
-      if (comments.length > 0) return comments;
-      await delay(1000);
-    }
-    // console.log('comments loaded or hit max wait of 5 seconds');
-    return xpg(commentsXpathQ);
-  }
-  return comments;
+function nextComment(elem) {
+  const next = elem.nextElementSibling;
+  elem.remove();
+  return next;
 }
 
-async function pruneVisited(xpg) {
-  const visited = xpg(commentsVisitedXpathQ);
-  let i = 0;
-  for (; i < visited.length; i++) {
-    visited[i].remove();
-  }
-}
-
-async function* playVideoAndLoadComments(xpg) {
+async function* playVideoAndLoadComments() {
+// async function playVideoAndLoadComments() {
   await selectAndPlay('video');
   const videoInfo = id(selectors.videoInfoMoreId);
   if (videoInfo && !videoInfo.hidden) {
@@ -108,37 +90,37 @@ async function* playVideoAndLoadComments(xpg) {
   await scrollIntoViewAndWaitFor(id(selectors.commentsContainerId), () =>
     selectorExists(selectors.commentRenderer)
   );
+  const relatedVideos = nthChildElemOf(id('related'), 2);
+  if (relatedVideos) {
+    OLC.addOutLinks(qsa(selectors.outlinks, relatedVideos));
+  }
+  const commentsContainer = qs('#comments > #sections > #contents');
   const mStream = new MutationStream();
-  let commentRenderers = xpg(commentsXpathQ);
-  let len;
-  let i;
-  let renderer;
-  let visited = 0;
-  while (commentRenderers.length > 0) {
-    len = commentRenderers.length;
-    for (i = 0; i < len; ++i) {
-      visited += 1;
-      renderer = commentRenderers[i];
-      yield renderer;
-      markElemAsVisited(renderer);
-      // console.log('next renderer', renderer);
-      await scrollIntoViewWithDelay(renderer);
-      await viewAllReplies(mStream, renderer);
+  let comment = commentsContainer.children[0];
+  let numLoadedComments = commentsContainer.children.length;
+  while (comment != null) {
+    // console.log('viewing comment', comment);
+    markElemAsVisited(comment);
+    await scrollIntoViewWithDelay(comment);
+    await viewAllReplies(mStream, comment);
+    numLoadedComments = commentsContainer.children.length;
+    if (comment.nextElementSibling == null) {
+      // console.log('waiting for more comments to load');
+      await waitForAdditionalElemChildren(commentsContainer, numLoadedComments);
+      // console.log(
+      //   `next loaded size ${numLoadedComments}, next comment = `,
+      //   comment.nextElementSibling
+      // );
     }
-    if (visited >= 100) {
-      await pruneVisited(xpg);
-      visited = 0;
-    }
-    commentRenderers = await nextSetOfComments(xpg);
-    // console.log(commentRenderers);
+    yield comment;
+    comment = nextComment(comment);
   }
 }
 
-
-window.$WRIterator$ = playVideoAndLoadComments(maybePolyfillXPG(xpg));
+window.$WRIterator$ = playVideoAndLoadComments();
 window.$WRIteratorHandler$ = async function() {
   const next = await $WRIterator$.next();
   return next.done;
 };
 
-// playVideoAndLoadComments(maybePolyfillXPG(xpg));
+// playVideoAndLoadComments().then(() => console.log('done'));

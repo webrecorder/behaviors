@@ -1,4 +1,3 @@
-
 class OutLinkCollector {
   constructor() {
     /**
@@ -43,30 +42,31 @@ class OutLinkCollector {
   }
 
   collectFromDoc() {
-    this.collectFrom(document);
+    this.addOutLinks(document.querySelectorAll(this.outlinkSelector));
   }
 
   collectFrom(queryFrom) {
-    const found = queryFrom.querySelectorAll(this.outlinkSelector);
-    let elem;
-    let i = found.length;
+    this.addOutLinks(queryFrom.querySelectorAll(this.outlinkSelector));
+  }
+
+  addOutLinks(outlinks) {
+    let href;
+    let i = outlinks.length;
     while (i--) {
-      elem = found[i];
-      let href = elem.href.trim();
-      if (href.length > 0 && href !== ' ') {
-        if (!this.shouldIgnore(href) && !this.outlinks.has(href)) {
-          this.outlinks.add(href);
-        }
+      href = outlinks[i].href.trim();
+      if (href && !this.outlinks.has(href) && !this.shouldIgnore(href)) {
+        this.outlinks.add(href);
       }
     }
   }
 
   /**
-   * @param {HTMLAnchorElement|HTMLAreaElement} elem
+   * @param {HTMLAnchorElement|HTMLAreaElement|string} elemOrString
    */
-  addOutlink(elem) {
-    if (!this.shouldIgnore(elem.href) && !this.outlinks.has(elem.href)) {
-      this.outlinks.add(elem.href)
+  addOutlink(elemOrString) {
+    const href = (elemOrString.href || elemOrString).trim();
+    if (href && !this.outlinks.has(href) && !this.shouldIgnore(href)) {
+      this.outlinks.add(href);
     }
   }
 
@@ -80,7 +80,7 @@ class OutLinkCollector {
   /**
    * @return {string[]}
    */
-  toJSON () {
+  toJSON() {
     return this.outLinkArray();
   }
 
@@ -97,7 +97,7 @@ const OLC = new OutLinkCollector();
 Object.defineProperty(window, '$wbOutlinks$', {
   value: OLC,
   writable: false,
-  enumerable: false,
+  enumerable: false
 });
 
 export default OLC;
