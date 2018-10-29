@@ -4,9 +4,11 @@ ENV DOCKER 1
 
 WORKDIR /build
 
-ADD package.json /build
+ADD package.json .
 
 RUN yarn install
+
+ADD rollup.prod.config.js .
 
 VOLUME /dist
 VOLUME /src

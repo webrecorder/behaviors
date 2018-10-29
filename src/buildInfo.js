@@ -1,3 +1,4 @@
+if (process.env.DOCKER) module.paths.unshift('/build/node_modules');
 const path = require('path');
 const fs = require('fs-extra');
 const prettier = require('prettier');
