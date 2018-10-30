@@ -5,7 +5,7 @@ import {
 } from '../utils/dom';
 import { delay } from '../utils/delays';
 import { scrollToElemOffsetWithDelay, canScrollMore } from '../utils/scrolls';
-import OLC from '../utils/outlinkCollector';
+import {collectOutlinksFrom} from '../utils/outlinkCollector';
 
 /**
  * @desc This xpath query is based on the fact that the first item in a FB news feed
@@ -56,7 +56,7 @@ async function* makeIterator(xpathG) {
       feedItem = feedItems.shift();
       await scrollToElemOffsetWithDelay(feedItem, scrollDelay);
       markElemAsVisited(feedItem);
-      OLC.collectFrom(feedItem);
+      collectOutlinksFrom(feedItem);
       yield feedItem;
     }
     feedItems = getFeedItems(feedItemSelector);

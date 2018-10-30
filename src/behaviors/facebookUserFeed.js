@@ -10,7 +10,7 @@ import {
   scrollIntoViewWithDelay
 } from '../utils/scrolls';
 import { scrollIntoViewAndClickWithDelay } from '../utils/clicks';
-import OLC from '../utils/outlinkCollector';
+import {collectOutlinksFrom} from '../utils/outlinkCollector';
 
 addBehaviorStyle('.wr-debug-visited {border: 6px solid #3232F1;}');
 
@@ -62,7 +62,7 @@ async function* makeIterator(xpathGenerator) {
       if (debug) tlItem.classList.add('wr-debug-visited');
       await scrollIntoViewWithDelay(tlItem, delayTime);
       markElemAsVisited(tlItem);
-      OLC.collectFrom(tlItem);
+      collectOutlinksFrom(tlItem);
       yield tlItem;
       replies = tlItem.querySelector(moreReplies);
       if (replies) {

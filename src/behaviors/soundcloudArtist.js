@@ -9,7 +9,7 @@ import {
   markElemAsVisited,
   maybePolyfillXPG
 } from '../utils/dom';
-import OLC from '../utils/outlinkCollector';
+import {collectOutlinksFrom} from '../utils/outlinkCollector';
 
 addBehaviorStyle('.wr-debug-visited {border: 6px solid #3232F1;}');
 
@@ -58,7 +58,7 @@ async function* vistSoundItems(xpathGenerator) {
     for (; i < len; ++i) {
       soundItem = snapShot[i];
       markElemAsVisited(soundItem);
-      OLC.collectFrom(soundItem);
+      collectOutlinksFrom(soundItem);
       if (debug) soundItem.classList.add('wr-debug-visited');
       await scrollIntoViewWithDelay(soundItem);
       if (needToLoadMoreTracks(soundItem)) {

@@ -14,7 +14,7 @@ import {
   scrollIntoViewWithDelay
 } from '../utils/scrolls';
 import { MutationStream } from '../utils/mutations';
-import OLC from '../utils/outlinkCollector';
+import {addOutLinks} from '../utils/outlinkCollector';
 
 const selectors = {
   videoInfoMoreId: 'more',
@@ -92,7 +92,7 @@ async function* playVideoAndLoadComments() {
   );
   const relatedVideos = nthChildElemOf(id('related'), 2);
   if (relatedVideos) {
-    OLC.addOutLinks(qsa(selectors.outlinks, relatedVideos));
+    addOutLinks(qsa(selectors.outlinks, relatedVideos));
   }
   const commentsContainer = qs('#comments > #sections > #contents');
   const mStream = new MutationStream();

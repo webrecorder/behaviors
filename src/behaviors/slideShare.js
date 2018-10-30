@@ -7,7 +7,7 @@ import {
 } from '../utils/dom';
 import { clickInContext, clickInContextWithDelay } from '../utils/clicks';
 import { sendAutoFetchWorkerURLs } from '../utils/general';
-import OLC from '../utils/outlinkCollector';
+import {addOutlink} from '../utils/outlinkCollector';
 
 const selectors = {
   iframeLoader: 'iframe.ssIframeLoader',
@@ -101,7 +101,7 @@ async function* doSlideShowInFrame(win, doc) {
         r();
       };
       deckIF.addEventListener('load', loaded);
-      OLC.addOutlink(decks[i].firstElementChild);
+      addOutlink(decks[i].firstElementChild);
       clickInContext(decks[i].firstElementChild, win);
     });
     yield await consumeSlides(

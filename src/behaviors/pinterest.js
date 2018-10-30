@@ -4,7 +4,7 @@ import {
   reactInstanceFromDOMElem,
   reactInstancesFromElements
 } from '../utils/reactUtils';
-import OLC from '../utils/outlinkCollector';
+import {collectOutlinksFrom} from '../utils/outlinkCollector';
 
 addBehaviorStyle('.wr-debug-visited {border: 6px solid #3232F1;}');
 
@@ -16,7 +16,7 @@ async function* consumePins(renderedPins) {
   for (; i < numPins; ++i) {
     // scroll post row into view
     pin = renderedPins[i];
-    OLC.collectFrom(pin.node);
+    collectOutlinksFrom(pin.node);
     await scrollIntoViewWithDelay(pin.node);
     // pin.node.classList.add('wr-debug-visited');
     yield pin.node;

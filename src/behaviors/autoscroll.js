@@ -1,6 +1,6 @@
 import { domCompletePromise } from '../utils/delays';
 import { findAllMediaAndPlay } from '../utils/general';
-import OLC from '../utils/outlinkCollector';
+import {collectOutlinksFrom} from '../utils/outlinkCollector';
 
 /*!return!*/ domCompletePromise().then(() => {
   let scrollingTO = 2000;
@@ -24,7 +24,7 @@ import OLC from '../utils/outlinkCollector';
         window.scrollBy(0, 300);
         lastScrolled = Date.now();
       }
-      OLC.collectFromDoc();
+      collectOutlinksFrom(document);
       findAllMediaAndPlay();
       if (!lastScrolled || Date.now() - lastScrolled > scrollingTO) {
         if (scrollerInterval === undefined) {
