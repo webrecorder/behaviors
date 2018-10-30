@@ -35,11 +35,11 @@ function shouldIgnoreLink(test) {
   return ignored;
 }
 
-export function addOutLinks(outlinks) {
+export function addOutLinks(toAdd) {
   let href;
-  let i = outlinks.length;
+  let i = toAdd.length;
   while (i--) {
-    href = outlinks[i].href.trim();
+    href = toAdd[i].href.trim();
     if (href && !outlinks.has(href) && !shouldIgnoreLink(href)) {
       outlinks.add(href);
     }

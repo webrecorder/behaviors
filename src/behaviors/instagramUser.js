@@ -196,7 +196,7 @@ class InstagramPosts {
         post = posts[j];
         collectOutlinksFrom(post);
         // scroll it into view and check what type of post it is
-        await this.scrollIntoView(post);
+        await scrollIntoViewWithDelay(post);
         if (this.isMultiImagePost(post)) {
           await this.handleMultiImagePost(post);
         } else if (this.isVideoPost(post)) {

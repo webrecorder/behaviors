@@ -164,7 +164,7 @@ class Tweet {
   }
 
   async *visitThreadReplyTweets() {
-    OLC.collectFrom(this.fullTweetOverlay);
+    collectOutlinksFrom(this.fullTweetOverlay);
     let snapShot = xpathSnapShot(overlayTweetXpath, this.fullTweetOverlay);
     let aTweet;
     let i, len;
