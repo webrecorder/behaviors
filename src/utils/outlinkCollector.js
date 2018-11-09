@@ -1,4 +1,24 @@
-const outlinks = new Set();
+if (typeof window.$wbOutlinkSet$ === 'undefined') {
+  Object.defineProperty(window, '$wbOutlinkSet$', {
+    value: new Set(),
+    enumerable: false
+  });
+} else {
+  window.$wbOutlinkSet$.clear();
+}
+
+if (typeof window.$wbOutlinks$ === 'undefined') {
+  Object.defineProperty(window, '$wbOutlinks$', {
+    get() {
+      return Array.from(window.$wbOutlinkSet$);
+    },
+    set () {},
+    enumerable: false
+  });
+}
+
+const outlinks = window.$wbOutlinkSet$;
+
 const ignoredSchemes = [
   'about:',
   'data:',
@@ -63,12 +83,3 @@ export function addOutlink(elemOrString) {
     outlinks.add(href);
   }
 }
-
-
-Object.defineProperty(window, '$wbOutlinks$', {
-  get() {
-    return Array.from(outlinks);
-  },
-  set() {},
-  enumerable: false
-});
