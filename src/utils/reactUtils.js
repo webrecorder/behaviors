@@ -27,6 +27,18 @@ export function getInternalRootOnElem(elem) {
  * @param {HTMLElement | Element | Node} elem
  * @return {Object}
  */
+export function getReactRootContainer(elem) {
+  const hostContainer = elem[reactProps.rootContainer];
+  if (hostContainer) {
+    return hostContainer[reactProps.internalRoot];
+  }
+  throw new Error('cant get internal root on host contianer')
+}
+
+/**
+ * @param {HTMLElement | Element | Node} elem
+ * @return {Object}
+ */
 export function reactInstanceFromDOMElem(elem) {
   const keys = Object.keys(elem);
   let i = 0;

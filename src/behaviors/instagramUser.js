@@ -6,6 +6,7 @@ import {
   getReactRootHostElem,
   reactInstanceFromDOMElem,
   reactInstancesFromElements,
+  getReactRootContainer,
   reactProps
 } from '../utils/reactUtils';
 import { scrollIntoViewWithDelay } from '../utils/scrolls';
@@ -38,7 +39,7 @@ class InstagramPosts {
     /**
      * @type {Object}
      */
-    this.internalRoot = getInternalRootOnElem(this.reactRoot);
+    this.internalRoot = getReactRootContainer(this.reactRoot);
     this.profilePage = window._sharedData.entry_data.ProfilePage[0];
     this.userId = this.profilePage.graphql.user.id;
     this.userName = this.profilePage.graphql.user.username;
