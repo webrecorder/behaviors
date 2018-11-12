@@ -226,3 +226,33 @@ export async function selectFromAndClickNTimesWithDelay(
     }
   }
 }
+
+/**
+ * @param {HTMLElement | Element} selectFrom - The element to use to call querySelector(selector) on
+ * @param {string} selector - the css selector to use
+ * performing selectFrom.querySelector(selector)
+ * @param {Object} [opts = {}] - options about delayTime and safety time
+ */
+export async function selectFromAndClickUntilNullWithDelay(
+  selectFrom,
+  selector,
+  opts = {}
+) {
+  const delayTime = opts.delayTime || 1000;
+  let exit = false;
+  let safety;
+  if (opts.safety) {
+    safety = setTimeout(() => {
+      exit = true;
+    }, opts.safety);
+  }
+  let clickMe = selectFrom.querySelector(selector);
+  while (clickMe != null) {
+    if (exit) break;
+    await clickWithDelay(clickMe, delayTime);
+    clickMe = selectFrom.querySelector(selector);
+  }
+  if (opts.safety) {
+    clearTimeout(safety);
+  }
+}

@@ -9,11 +9,17 @@ const behaviorDir = path.join(__dirname, 'behaviors');
 
 const makePretty = code => prettier.format(code, prettierOpts);
 
+const debugMode = false;
+
+const SHOW_DEBUG = process.env.SHOW_DEBUG != null || debugMode;
+
+const outro = `})($x, ${SHOW_DEBUG});`;
+
 const wrappers = {
   setup: {
     intro: '(function runner(xpg, debug) { ',
     renderChunk: makePretty,
-    outro: '})($x, false);',
+    outro,
     name: 'wr-behavior-wrapper-setup',
   },
   runAwaitable: {
@@ -21,7 +27,7 @@ const wrappers = {
     renderChunk(code) {
       return makePretty(code.replace('/*!return!*/', 'return'));
     },
-    outro: '})($x, false);',
+    outro,
     name: 'wr-behavior-wrapper-async-run',
   },
   none: {

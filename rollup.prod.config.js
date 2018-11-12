@@ -1,4 +1,3 @@
-import cleanup from 'rollup-plugin-cleanup';
 import path from 'path';
 
 const { createBehaviorConfigs } = require('/src/buildInfo');
