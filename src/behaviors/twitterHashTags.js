@@ -83,7 +83,7 @@ async function* vistReplies(fullTweetOverlay) {
         addClass(aTweet, 'wr-debug-visited-thread-reply');
       }
       await scrollIntoViewWithDelay(aTweet);
-      yield aTweet;
+      yield false;
       i += 1;
     }
     snapShot = xpathSnapShot(overlayTweetXpath, fullTweetOverlay);
@@ -118,7 +118,7 @@ async function* vistThreadedTweet(fullTweetOverlay) {
         addClass(aTweet, 'wr-debug-visited-thread-reply');
       }
       await scrollIntoViewWithDelay(aTweet);
-      yield aTweet;
+      yield false;
       i += 1;
     }
     snapShot = xpathSnapShot(threadedTweetXpath, fullTweetOverlay);
@@ -133,10 +133,24 @@ async function* vistThreadedTweet(fullTweetOverlay) {
   } while (snapShot.snapshotLength > 0);
 }
 
+function hasVideo(tweet) {
+  const videoContainer = tweet.querySelector(
+    'div.AdaptiveMedia-videoContainer'
+  );
+  if (videoContainer != null) {
+    const video = videoContainer.querySelector('video');
+    if (video) {
+      video.play();
+    }
+    return true;
+  }
+  return false;
+}
+
 /**
  * @param {HTMLLIElement} tweetStreamLI
  * @param {string} originalBaseURI
- * @return {AsyncIterator<Element>}
+ * @return {AsyncIterator<boolean>}
  */
 async function* handleTweet(tweetStreamLI, originalBaseURI) {
   const notTweet = hasClass(tweetStreamLI, selectors.userProfileInStream);
@@ -146,9 +160,10 @@ async function* handleTweet(tweetStreamLI, originalBaseURI) {
     }
     collectOutlinksFrom(tweetStreamLI);
     await scrollIntoViewWithDelay(tweetStreamLI);
-    yield tweetStreamLI;
+    yield false;
     return;
   }
+
   const streamTweetDiv = tweetStreamLI.firstElementChild;
   const tweetContent = qs(selectors.tweetInStreamContent, streamTweetDiv);
   // logger.log('Tweet content', tweetContent);
@@ -156,6 +171,9 @@ async function* handleTweet(tweetStreamLI, originalBaseURI) {
     addClass(streamTweetDiv, 'wr-debug-visited');
   }
 
+  if (hasVideo(tweetStreamLI)) {
+    yield true;
+  }
   const footer = qs(selectors.tweetFooterSelector, tweetContent);
   const replyAction = qs(selectors.replyActionSelector, footer);
   const replyButton = qs(selectors.replyBtnSelector, replyAction);
@@ -177,13 +195,14 @@ async function* handleTweet(tweetStreamLI, originalBaseURI) {
     yield* vistThreadedTweet(tweetPermalinkOverlay);
   } else {
     collectOutlinksFrom(tweetPermalinkOverlay);
+    yield false;
   }
   // logger.log('closing tweet overlay');
   await closeTweetOverlay(originalBaseURI);
 }
 /**
  * @param originalBaseURI
- * @return {AsyncIterableIterator<Element>}
+ * @return {AsyncIterableIterator<boolean>}
  */
 async function* hashTagIterator(originalBaseURI) {
   const streamItems = qs(selectors.tweetStreamItems);
@@ -195,7 +214,7 @@ async function* hashTagIterator(originalBaseURI) {
       if (hasClass(tweetLI, 'AdaptiveSearchTimeline-separationModule')) {
         await scrollIntoViewWithDelay(tweetLI);
         collectOutlinksFrom(tweetLI);
-        yield tweetLI;
+        yield false;
       } else {
         yield* handleTweet(tweetLI, originalBaseURI);
       }
@@ -213,9 +232,9 @@ async function* hashTagIterator(originalBaseURI) {
 window.$WRTweetIterator$ = hashTagIterator(document.baseURI);
 window.$WRIteratorHandler$ = async function() {
   const next = await $WRTweetIterator$.next();
-  return next.done;
+  return {done: next.done, wait: !!next.value.wait};
 };
-
+//
 // async function run() {
 //   for await (const tweet of window.$WRTweetIterator$) {
 //     logger.log(tweet);

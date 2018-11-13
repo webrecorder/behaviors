@@ -7,7 +7,8 @@ import {
 } from '../utils/dom';
 import { canScrollMore, scrollIntoViewWithDelay } from '../utils/scrolls';
 import { clickAndWaitFor, selectElemFromAndClick } from '../utils/clicks';
-import {collectOutlinksFrom} from '../utils/outlinkCollector';
+import { collectOutlinksFrom } from '../utils/outlinkCollector';
+import { overlayTweetXpath } from '../shared/twitter';
 
 addBehaviorStyle(
   '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
@@ -65,13 +66,13 @@ const threadSelector = 'a.js-nav.show-thread-link';
 const tweetXpath =
   '//div[starts-with(@class,"tweet js-stream-tweet")]/div[@class="content"]';
 
-/**
- * @desc A variation of {@link tweetXpath} in that it is further constrained
- * to only search tweets within the overlay that appears when you click on
- * a tweet
- * @type {string}
- */
-const overlayTweetXpath = `//div[@id="permalink-overlay"]${tweetXpath}`;
+// /**
+//  * @desc A variation of {@link tweetXpath} in that it is further constrained
+//  * to only search tweets within the overlay that appears when you click on
+//  * a tweet
+//  * @type {string}
+//  */
+// const overlayTweetXpath = `//div[@id="permalink-overlay"]${tweetXpath}`;
 
 class Tweet {
   /**
@@ -109,6 +110,20 @@ class Tweet {
     this._baseURI = baseURI;
   }
 
+  hasVideo() {
+    const videoContainer = this.tweet.querySelector(
+      'div.AdaptiveMedia-videoContainer'
+    );
+    if (videoContainer != null) {
+      const video = videoContainer.querySelector('video');
+      if (video) {
+        video.play();
+      }
+      return true;
+    }
+    return false;
+  }
+
   tweetId() {
     return this.dataset.tweetId;
   }
@@ -131,7 +146,7 @@ class Tweet {
 
   /**
    * @desc Clicks (views) the currently visited tweet
-   * @return {AsyncIterator<HTMLElement>}
+   * @return {AsyncIterableIterator<boolean>}
    */
   async *viewRepliesOrThread() {
     await this.openFullTweet();
@@ -139,9 +154,12 @@ class Tweet {
     await this.closeFullTweetOverlay();
   }
 
+  /**
+   * @return {AsyncIterableIterator<boolean>}
+   */
   async *viewRegularTweet() {
     await this.openFullTweet();
-    yield this.fullTweetOverlay;
+    yield false;
     await this.closeFullTweetOverlay();
   }
 
@@ -163,6 +181,9 @@ class Tweet {
     });
   }
 
+  /**
+   * @return {AsyncIterableIterator<boolean>}
+   */
   async *visitThreadReplyTweets() {
     collectOutlinksFrom(this.fullTweetOverlay);
     let snapShot = xpathSnapShot(overlayTweetXpath, this.fullTweetOverlay);
@@ -179,7 +200,7 @@ class Tweet {
           aTweet.classList.add('wr-debug-visited-thread-reply');
         }
         await scrollIntoViewWithDelay(aTweet);
-        yield aTweet;
+        yield false;
         i += 1;
       }
       snapShot = xpathSnapShot(overlayTweetXpath, this.fullTweetOverlay);
@@ -235,7 +256,7 @@ class Tweet {
  *
  * @param {function(string,): Array<HTMLElement>} xpathQuerySelector
  * @param {string} baseURI - The timelines documents baseURI
- * @return {AsyncIterator<HTMLElement>}
+ * @return {AsyncIterator<boolean>}
  */
 async function* timelineIterator(xpathQuerySelector, baseURI) {
   let tweets = xpathQuerySelector(tweetXpath);
@@ -248,7 +269,9 @@ async function* timelineIterator(xpathQuerySelector, baseURI) {
       }
       await scrollIntoViewWithDelay(aTweet.tweet, 500);
       collectOutlinksFrom(aTweet.tweet);
-      yield aTweet.tweet;
+      if (aTweet.hasVideo()) {
+        yield true;
+      }
       if (aTweet.hasRepliedOrInThread()) {
         yield* aTweet.viewRepliesOrThread();
       } else {
@@ -269,5 +292,5 @@ window.$WRTweetIterator$ = timelineIterator(
 );
 window.$WRIteratorHandler$ = async function() {
   const next = await $WRTweetIterator$.next();
-  return next.done;
+  return { done: next.done, wait: !!next.value };
 };
