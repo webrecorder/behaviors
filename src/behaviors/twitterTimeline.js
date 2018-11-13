@@ -178,7 +178,7 @@ class Tweet {
         if (debug) {
           aTweet.classList.add('wr-debug-visited-thread-reply');
         }
-        await scrollIntoViewWithDelay(aTweet, 500);
+        await scrollIntoViewWithDelay(aTweet);
         yield aTweet;
         i += 1;
       }

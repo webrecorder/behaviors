@@ -257,3 +257,48 @@ export function nthChildElemOf(elem, nth) {
   }
   return null;
 }
+
+
+export function chainQs(startingSelectFrom, startingSelector, ...selectors) {
+  let selected = qs(startingSelector, startingSelectFrom);
+  if (selected != null) {
+    let len = selectors.length;
+    let i = 0;
+    for(; i < len; ++i) {
+      selected = qs(selectors[i], selected);
+      if (selected == null) return null;
+    }
+  }
+  return selected;
+}
+
+
+/**
+ * @param {?Element|?Node} elem
+ * @param {string} clazz
+ */
+export function addClass(elem, clazz) {
+  if (elem) {
+    elem.classList.add(clazz)
+  }
+}
+
+/**
+ * @param {?Element|?Node} elem
+ * @param {string} clazz
+ */
+export function removeClass(elem, clazz) {
+  if (elem) {
+    elem.classList.remove(clazz)
+  }
+}
+
+/**
+ * @param {?Element} elem
+ * @param {string} clazz
+ * @return {boolean}
+ */
+export function hasClass (elem, clazz) {
+  if (elem) return elem.classList.contains(clazz);
+  return false;
+}

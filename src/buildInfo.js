@@ -9,7 +9,7 @@ const behaviorDir = path.join(__dirname, 'behaviors');
 
 const makePretty = code => prettier.format(code, prettierOpts);
 
-const debugMode = false;
+const debugMode = true;
 
 const SHOW_DEBUG = process.env.SHOW_DEBUG != null || debugMode;
 

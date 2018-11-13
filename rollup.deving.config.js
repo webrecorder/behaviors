@@ -2,7 +2,7 @@ import * as path from 'path';
 
 const { behaviorDir, wrappers } = require('./src/buildInfo');
 
-const behavior = 'youtubeVideo';
+const behavior = 'twitterHashTags';
 
 console.log(behaviorDir);
 console.log(path.join(behaviorDir, `${behavior}.js`));
