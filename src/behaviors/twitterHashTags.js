@@ -232,7 +232,7 @@ async function* hashTagIterator(originalBaseURI) {
 window.$WRTweetIterator$ = hashTagIterator(document.baseURI);
 window.$WRIteratorHandler$ = async function() {
   const next = await $WRTweetIterator$.next();
-  return {done: next.done, wait: !!next.value.wait};
+  return {done: next.done, wait: !!next.value};
 };
 //
 // async function run() {

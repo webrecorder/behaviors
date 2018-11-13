@@ -8,7 +8,7 @@ import {
 import { canScrollMore, scrollIntoViewWithDelay } from '../utils/scrolls';
 import { clickAndWaitFor, selectElemFromAndClick } from '../utils/clicks';
 import { collectOutlinksFrom } from '../utils/outlinkCollector';
-import { overlayTweetXpath } from '../shared/twitter';
+import { overlayTweetXpath, tweetXpath } from '../shared/twitter';
 
 addBehaviorStyle(
   '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
@@ -34,45 +34,6 @@ const replyBtnSelector = 'button[data-modal="ProfileTweet-reply"]';
 const closeFullTweetSelector = 'div.PermalinkProfile-dismiss > span';
 const threadSelector = 'a.js-nav.show-thread-link';
 
-/**
- * @desc Xpath query used to traverse each tweet within a timeline.
- *
- * Because {@link timelineIterator} marks each tweet as visited by adding the
- * sentinel`$wrvisited$` to the classList of a tweet seen during timeline traversal,
- * normal usage of a CSS selector and `document.querySelectorAll` is impossible
- * unless significant effort is made in order to ensure each tweet is seen only
- * once during timeline traversal.
- *
- * Tweets in a timeline have the following structure:
- *  div.tweet.js-stream-tweet.js-actionable-tweet.js-profile-popup-actionable.dismissible-content...
- *    |- div.content
- *       |- ...
- *  div.tweet.js-stream-tweet.js-actionable-tweet.js-profile-popup-actionable.dismissible-content...
- *   |- div.content
- *      |- ...
- *
- * We care only about the minimal identifiable markers of a tweet:
- *  div.tweet.js-stream-tweet...
- *   |- div.content
- *
- * such that when a tweet is visited during timeline traversal it becomes:
- *  div.tweet.js-stream-tweet...
- *   |- div.content.wrvistited
- *
- * which invalidates the query on subsequent evaluations against the DOM,
- * thus allowing for unique traversal of each tweet in a timeline.
- * @type {string}
- */
-const tweetXpath =
-  '//div[starts-with(@class,"tweet js-stream-tweet")]/div[@class="content"]';
-
-// /**
-//  * @desc A variation of {@link tweetXpath} in that it is further constrained
-//  * to only search tweets within the overlay that appears when you click on
-//  * a tweet
-//  * @type {string}
-//  */
-// const overlayTweetXpath = `//div[@id="permalink-overlay"]${tweetXpath}`;
 
 class Tweet {
   /**
