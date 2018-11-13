@@ -403,7 +403,7 @@ async function* instagramFallback(xpg) {
     }
     await scrollIntoViewWithDelay(row);
     posts = row.childNodes;
-    numPosts = posts.length;
+    let numPosts = posts.length;
     // for each post in the row
     for (i = 0; i < numPosts; ++i) {
       post = posts[i];
