@@ -28,14 +28,6 @@ const selectors = {
   outlinks: 'ytd-thumbnail > a[id="thumbnail"]'
 };
 
-const commentsXpathQ = `//${
-  selectors.commentRenderer
-}[not(contains(@class, "wrvistited"))]`;
-
-const commentsVisitedXpathQ = `//${
-  selectors.commentRenderer
-}[contains(@class, "wrvistited")]`;
-
 const mutationConf = { attributes: false, childList: true, subtree: false };
 
 function loadMoreComments(cRenderer, selector) {
@@ -54,13 +46,13 @@ function loadMoreComments(cRenderer, selector) {
  */
 async function viewAllReplies(mStream, renderer) {
   const replies = qs(selectors.loadedReplies, renderer);
-  if (replies != null) {
+  if (replies != null && selectorExists('#more > div.more-button', renderer)) {
     // console.log('rendered has replies', replies);
     let mutation;
     for await (mutation of mStream.predicatedStream(
       replies,
       mutationConf,
-      () => loadMoreComments(renderer, selectors.loadMoreComments),
+      () => loadMoreComments(renderer, '#more > div.more-button'),
       () => !selectorExists(selectors.showMoreReplies, renderer)
     )) {
       // console.log(mutation);

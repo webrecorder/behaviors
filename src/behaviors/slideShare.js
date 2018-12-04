@@ -3,7 +3,8 @@ import {
   findTag,
   maybePolyfillXPG,
   qs,
-  qsa
+  qsa,
+  id
 } from '../utils/dom';
 import { clickInContext, clickInContextWithDelay } from '../utils/clicks';
 import { sendAutoFetchWorkerURLs } from '../utils/general';

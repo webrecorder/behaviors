@@ -247,6 +247,9 @@ async function* timelineIterator(xpathQuerySelector, baseURI) {
   } while (tweets.length > 0 && canScrollMore());
 }
 
+/**
+ * @type {AsyncIterator<boolean>}
+ */
 window.$WRTweetIterator$ = timelineIterator(
   maybePolyfillXPG(xpg),
   document.baseURI
