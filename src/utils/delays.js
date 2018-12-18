@@ -1,5 +1,42 @@
 import { qs, selectorExists } from './dom';
 
+
+/** TODO
+ * 
+ *
+ *
+*/
+
+export function setIntervalP(callback, timeout) {
+  return setInterval(function() {
+    if (!window.$WBBehaviorPaused) {
+      callback();
+    }
+  }, timeout);
+}
+
+
+
+/** TODO
+ * 
+ *
+ *
+*/
+
+export function setTimeoutP(callback, timeout) {
+  function execIfNotPaused() {
+    if (!window.$WBBehaviorPaused) {
+      callback();
+    } else {
+      setTimeout(execIfNotPaused, 500);
+    }
+  }
+
+  return setTimeout(execIfNotPaused, timeout);
+}
+  
+
+
 /**
  * @param {number} [delayTime = 3000]
  * @returns {Promise<void>}
@@ -18,7 +55,7 @@ export function delay(delayTime = 3000) {
  */
 export function waitForPredicate(predicate) {
   return new Promise(resolve => {
-    let int = setInterval(() => {
+    let int = setIntervalP(() => {
       if (predicate()) {
         clearInterval(int);
         resolve();
@@ -37,14 +74,14 @@ export function waitForPredicate(predicate) {
 export function waitForPredicateAtMax(predicate, time) {
   return new Promise(resolve => {
     let to = -1;
-    let int = setInterval(() => {
+    let int = setIntervalP(() => {
       if (predicate()) {
         clearTimeout(to);
         clearInterval(int);
         resolve();
       }
     }, 1000);
-    to = setTimeout(() => {
+    to = setTimeoutP(() => {
       clearInterval(int);
       resolve();
     }, time);
@@ -74,7 +111,7 @@ export async function waitForAndSelectElement(fromNode, selector) {
 export function domCompletePromise() {
   if (document.readyState !== 'complete') {
     return new Promise(r => {
-      let i = setInterval(() => {
+      let i = setIntervalP(() => {
         if (document.readyState === 'complete') {
           clearInterval(i);
           r();
@@ -105,7 +142,7 @@ export function waitForAdditionalElemChildren(
   let n = 0;
   let int = -1;
   return new Promise(resolve => {
-    int = setInterval(() => {
+    int = setIntervalP(() => {
       if (!parentElement.isConnected) {
         clearInterval(int);
         return resolve();

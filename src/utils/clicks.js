@@ -1,4 +1,4 @@
-import { delay, waitForPredicate } from './delays';
+import { delay, waitForPredicate, setTimeoutP } from './delays';
 import { scrollIntoView } from './scrolls';
 
 /**
@@ -242,7 +242,7 @@ export async function selectFromAndClickUntilNullWithDelay(
   let exit = false;
   let safety;
   if (opts.safety) {
-    safety = setTimeout(() => {
+    safety = setTimeoutP(() => {
       exit = true;
     }, opts.safety);
   }

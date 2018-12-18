@@ -1,3 +1,5 @@
+import { setIntervalP } from '../utils/delays';
+
 /**
  * @desc Observe dom mutation using a MutationObserver as a stream (AsyncIterator)
  */
@@ -99,7 +101,7 @@ export class MutationStream {
       let next = await Promise.race([
         this._getNext(),
         new Promise(resolve => {
-          checkTo = setInterval(() => {
+          checkTo = setIntervalP(() => {
             if (stopPredicate()) {
               clearInterval(checkTo);
               return resolve(null);
