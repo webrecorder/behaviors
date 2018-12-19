@@ -1,6 +1,17 @@
 import { qs, selectorExists } from './dom';
 
 
+export function resolveWhenUnPaused () {
+  return new Promise(resolve => {
+    let intervalId = setInterval(() => {
+      if (!window.$WBBehaviorPaused) {
+        clearInterval(intervalId);
+        resolve();
+      }
+    }, 2000);
+  });
+}
+
 /** TODO
  * 
  *
@@ -55,7 +66,7 @@ export function delay(delayTime = 3000) {
  */
 export function waitForPredicate(predicate) {
   return new Promise(resolve => {
-    let int = setIntervalP(() => {
+    let int = setInterval(() => {
       if (predicate()) {
         clearInterval(int);
         resolve();
@@ -74,14 +85,14 @@ export function waitForPredicate(predicate) {
 export function waitForPredicateAtMax(predicate, time) {
   return new Promise(resolve => {
     let to = -1;
-    let int = setIntervalP(() => {
+    let int = setInterval(() => {
       if (predicate()) {
         clearTimeout(to);
         clearInterval(int);
         resolve();
       }
     }, 1000);
-    to = setTimeoutP(() => {
+    to = setTimeout(() => {
       clearInterval(int);
       resolve();
     }, time);
@@ -142,7 +153,7 @@ export function waitForAdditionalElemChildren(
   let n = 0;
   let int = -1;
   return new Promise(resolve => {
-    int = setIntervalP(() => {
+    int = setInterval(() => {
       if (!parentElement.isConnected) {
         clearInterval(int);
         return resolve();

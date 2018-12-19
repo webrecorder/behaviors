@@ -11,6 +11,7 @@ import { scrollIntoViewWithDelay } from '../utils/scrolls';
 import { clickWithDelay, selectElemFromAndClickWithDelay, selectFromAndClickUntilNullWithDelay } from '../utils/clicks';
 import { addBehaviorStyle, maybePolyfillXPG } from '../utils/dom';
 import { collectOutlinksFrom } from '../utils/outlinkCollector';
+import runBehavior from '../shared/behaviorRunner'
 
 addBehaviorStyle('.wr-debug-visited {border: 6px solid #3232F1;}');
 
@@ -340,7 +341,7 @@ async function handlePost(post, xpg) {
 }
 
 /**
- * @desc Returns an async iterator that yields each post in the supplied post row.
+ * @desc Returns an async stepIterator that yields each post in the supplied post row.
  * Each the post is clicked and all comments are loaded plus:
  * If the post contains multiple images then all images in the post are visited
  * If the post contains a video then the video is played (uses a HTML video tag)
@@ -425,10 +426,7 @@ if (reactSetup != null) {
   window.$WRTLIterator$ = instagramFallback(maybePolyfillXPG(xpg));
 }
 
-window.$WRIteratorHandler$ = async function() {
-  const next = await $WRTLIterator$.next();
-  return next.done;
-};
+window.$WRIteratorHandler$ = runBehavior(window.$WRTLIterator$);
 
 // async function t() {
 //   for await (let next of window.$WRTLIterator$) {

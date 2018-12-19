@@ -53,3 +53,18 @@ export function findAllMediaAndPlay() {
     }
   }
 }
+
+/**
+ * @desc Automatically binds the non-inherited functions of the supplied
+ * class to itself.
+ * @param clazz
+ */
+export function autobind (clazz) {
+  for (const key of Object.getOwnPropertyNames(clazz.constructor.prototype)) {
+    const value = clazz[key];
+
+    if (key !== 'constructor' && typeof value === 'function') {
+      clazz[key] = value.bind(clazz);
+    }
+  }
+}
