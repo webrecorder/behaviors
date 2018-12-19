@@ -9,7 +9,8 @@ import {
   markElemAsVisited,
   maybePolyfillXPG
 } from '../utils/dom';
-import {collectOutlinksFrom} from '../utils/outlinkCollector';
+import { collectOutlinksFrom } from '../utils/outlinkCollector';
+import runBehavior from '../shared/behaviorRunner';
 
 addBehaviorStyle('.wr-debug-visited {border: 6px solid #3232F1;}');
 
@@ -79,8 +80,7 @@ async function* vistSoundItems(xpathGenerator) {
   } while (snapShot.length > 0);
 }
 
-window.$WRIterator$ = vistSoundItems(maybePolyfillXPG(xpg));
-window.$WRIteratorHandler$ = async function() {
-  const results = await $WRIterator$.next();
-  return { done: results.done, wait: results.value };
-};
+runBehavior(window, vistSoundItems(maybePolyfillXPG(xpg)), state => ({
+  done: state.done,
+  wait: state.value
+}));

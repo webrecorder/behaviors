@@ -11,6 +11,7 @@ import {
 } from '../utils/scrolls';
 import { scrollIntoViewAndClickWithDelay } from '../utils/clicks';
 import {collectOutlinksFrom} from '../utils/outlinkCollector';
+import runBehavior from '../shared/behaviorRunner';
 
 addBehaviorStyle('.wr-debug-visited {border: 6px solid #3232F1;}');
 
@@ -81,11 +82,13 @@ async function* makeIterator(xpathGenerator) {
 }
 
 let removedAnnoying = maybeRemoveElemById(removeAnnoyingElemId);
-window.$WRTLIterator$ = makeIterator(maybePolyfillXPG(xpg));
-window.$WRIteratorHandler$ = async function() {
+const actionIter = makeIterator(maybePolyfillXPG(x));
+
+function postStep (state) {
   if (!removedAnnoying) {
     removedAnnoying = maybeRemoveElemById(removeAnnoyingElemId);
   }
-  const next = await $WRTLIterator$.next();
-  return next.done;
-};
+  return state.done;
+}
+
+runBehavior(window,  actionIter, postStep);

@@ -4,7 +4,8 @@ import {
   qs,
   qsa,
   selectorExists,
-  nthChildElemOf
+  nthChildElemOf,
+  maybePolyfillXPG
 } from '../utils/dom';
 import { waitForAdditionalElemChildren } from '../utils/delays';
 import { clickWithDelay, scrollIntoViewAndClick } from '../utils/clicks';
@@ -14,7 +15,8 @@ import {
   scrollIntoViewWithDelay
 } from '../utils/scrolls';
 import { MutationStream } from '../utils/mutations';
-import {addOutLinks} from '../utils/outlinkCollector';
+import { addOutLinks } from '../utils/outlinkCollector';
+import runBehavior from '../shared/behaviorRunner';
 
 const selectors = {
   videoInfoMoreId: 'more',
@@ -73,7 +75,7 @@ function nextComment(elem) {
 }
 
 async function* playVideoAndLoadComments() {
-// async function playVideoAndLoadComments() {
+  // async function playVideoAndLoadComments() {
   await selectAndPlay('video');
   const videoInfo = id(selectors.videoInfoMoreId);
   if (videoInfo && !videoInfo.hidden) {
@@ -109,10 +111,7 @@ async function* playVideoAndLoadComments() {
   }
 }
 
-window.$WRIterator$ = playVideoAndLoadComments();
-window.$WRIteratorHandler$ = async function() {
-  const next = await $WRIterator$.next();
-  return next.done;
-};
+
+runBehavior(window, playVideoAndLoadComments(), state => state.done);
 
 // playVideoAndLoadComments().then(() => console.log('done'));

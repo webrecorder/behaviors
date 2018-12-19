@@ -9,6 +9,7 @@ import {
 import { clickInContext, clickInContextWithDelay } from '../utils/clicks';
 import { sendAutoFetchWorkerURLs } from '../utils/general';
 import {addOutlink} from '../utils/outlinkCollector';
+import runBehavior from '../shared/behaviorRunner';
 
 const selectors = {
   iframeLoader: 'iframe.ssIframeLoader',
@@ -130,8 +131,4 @@ function init() {
   return handleSlideDeck();
 }
 
-window.$WRIterator$ = init();
-window.$WRIteratorHandler$ = async function() {
-  const next = await $WRIterator$.next();
-  return next.done;
-};
+runBehavior(window,  init(), state => state.done);

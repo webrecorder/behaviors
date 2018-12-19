@@ -1,7 +1,8 @@
 import { delay } from '../utils/delays';
 import { scrollIntoViewWithDelay } from '../utils/scrolls';
 import { selectElemFromAndClick } from '../utils/clicks';
-import { addBehaviorStyle } from '../utils/dom';
+import { addBehaviorStyle, maybePolyfillXPG } from '../utils/dom';
+import runBehavior from '../shared/behaviorRunner';
 
 addBehaviorStyle('.wr-debug-visited {border: 6px solid #3232F1;}');
 
@@ -49,8 +50,7 @@ async function* embedTrackIterator(xpathGenerator) {
   }
 }
 
-window.$WRIterator$ = embedTrackIterator(xpg);
-window.$WRIteratorHandler$ = async function() {
-  const results = await $WRIterator$.next();
-  return { done: results.done, wait: results.value };
-};
+runBehavior(window, embedTrackIterator(maybePolyfillXPG(xpg)), state => ({
+  done: state.done,
+  wait: state.value
+}));
