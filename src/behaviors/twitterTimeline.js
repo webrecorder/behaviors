@@ -71,18 +71,17 @@ class Tweet {
     this._baseURI = baseURI;
   }
 
-  hasVideo() {
+  /**
+   * @return {?HTMLVideoElement}
+   */
+  tweetVideo() {
     const videoContainer = this.tweet.querySelector(
       'div.AdaptiveMedia-videoContainer'
     );
     if (videoContainer != null) {
-      const video = videoContainer.querySelector('video');
-      if (video) {
-        video.play();
-      }
-      return true;
+      return videoContainer.querySelector('video');
     }
-    return false;
+    return null;
   }
 
   tweetId() {
@@ -230,8 +229,14 @@ async function* timelineIterator(xpathQuerySelector, baseURI) {
       }
       await scrollIntoViewWithDelay(aTweet.tweet, 500);
       collectOutlinksFrom(aTweet.tweet);
-      if (aTweet.hasVideo()) {
-        yield true;
+      const tweetVideo = aTweet.tweetVideo();
+      if (tweetVideo != null) {
+        try {
+          await tweetVideo.play();
+          yield true;
+        } catch (e) {
+          yield false;
+        }
       }
       if (aTweet.hasRepliedOrInThread()) {
         yield* aTweet.viewRepliesOrThread();

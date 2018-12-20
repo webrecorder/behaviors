@@ -138,20 +138,6 @@ async function* vistThreadedTweet(fullTweetOverlay) {
   } while (snapShot.snapshotLength > 0);
 }
 
-function hasVideo(tweet) {
-  const videoContainer = tweet.querySelector(
-    'div.AdaptiveMedia-videoContainer'
-  );
-  if (videoContainer != null) {
-    const video = videoContainer.querySelector('video');
-    if (video) {
-      video.play();
-    }
-    return true;
-  }
-  return false;
-}
-
 /**
  * @param {HTMLLIElement | Element} tweetStreamLI
  * @param {string} originalBaseURI
@@ -175,9 +161,19 @@ async function* handleTweet(tweetStreamLI, originalBaseURI) {
   if (debug) {
     addClass(streamTweetDiv, 'wr-debug-visited');
   }
-
-  if (hasVideo(tweetStreamLI)) {
-    yield true;
+  const videoContainer = tweetStreamLI.querySelector(
+    'div.AdaptiveMedia-videoContainer'
+  );
+  if (videoContainer != null) {
+    const video = videoContainer.querySelector('video');
+    if (video) {
+      try {
+        await video.play();
+        yield true;
+      } catch (e) {
+        yield false;
+      }
+    }
   }
   const footer = qs(selectors.tweetFooterSelector, tweetContent);
   const replyAction = qs(selectors.replyActionSelector, footer);

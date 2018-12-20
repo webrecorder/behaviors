@@ -242,7 +242,7 @@ export async function selectFromAndClickUntilNullWithDelay(
   let exit = false;
   let safety;
   if (opts.safety) {
-    safety = setTimeoutP(() => {
+    safety = setTimeout(() => {
       exit = true;
     }, opts.safety);
   }
