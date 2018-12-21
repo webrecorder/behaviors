@@ -131,4 +131,4 @@ function init() {
   return handleSlideDeck();
 }
 
-runBehavior(window,  init(), state => state.done);
+runBehavior(window,  init());

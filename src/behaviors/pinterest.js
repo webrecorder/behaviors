@@ -1,10 +1,7 @@
-import { addBehaviorStyle, maybePolyfillXPG, maybeRemoveElemById } from '../utils/dom';
+import { addBehaviorStyle, maybePolyfillXPG } from '../utils/dom';
 import { scrollIntoViewWithDelay } from '../utils/scrolls';
-import {
-  reactInstanceFromDOMElem,
-  reactInstancesFromElements
-} from '../utils/reactUtils';
-import {collectOutlinksFrom} from '../utils/outlinkCollector';
+import { reactInstanceFromDOMElem, reactInstancesFromElements } from '../utils/reactUtils';
+import { collectOutlinksFrom } from '../utils/outlinkCollector';
 import runBehavior from '../shared/behaviorRunner';
 
 addBehaviorStyle('.wr-debug-visited {border: 6px solid #3232F1;}');
@@ -66,9 +63,5 @@ async function* iteratePins(xpathGenerator) {
   } while (currentPostRows.length > 0);
 }
 
-function postStep (state) {
-  return state.done;
-}
-
-runBehavior(window,  iteratePins(maybePolyfillXPG(xpg)), postStep);
+runBehavior(window,  iteratePins(maybePolyfillXPG(xpg)));
 

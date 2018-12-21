@@ -1,4 +1,5 @@
 import { autobind } from '../utils/general';
+import { isDone } from './postStepFNs';
 
 /**
  * @desc A thin wrapper around the execution of a behaviors actions
@@ -16,7 +17,7 @@ export class BehaviorRunner {
   /**
    * @param {AsyncIterator<*>} behaviorStepIterator - An async iterator that
    * yields the state of the behavior.
-   * @param {function(results: {value: Any, done: boolean}): Object} [postStepFN] - An optional
+   * @param {function(results: {value: Any, done: boolean}): any} [postStepFN] - An optional
    * function that is supplied the state of the behavior after performing an action.
    * It is required that this function returns the state unmodified or a transformation
    * of the state that is either an object that contains the original value of the done property
@@ -34,9 +35,9 @@ export class BehaviorRunner {
     this.upCheckInterval = null;
 
     /**
-     * @type {function(Object): Object}
+     * @type {function(Object): any}
      */
-    this.postStepFN = postStepFN;
+    this.postStepFN = postStepFN != null ? postStepFN : isDone;
 
     /**
      * @type {?Promise<any>}
@@ -140,7 +141,7 @@ export class BehaviorRunner {
 /**
  * @param {Window} window - The window object
  * @param {AsyncIterator<*>} behaviorStepIterator
- * @param {function(results: Object): Object} [postStepFN]
+ * @param {function(results: Object): any} [postStepFN]
  * @return {Proxy<BehaviorRunner>}
  */
 export default function runBehavior(window, behaviorStepIterator, postStepFN) {

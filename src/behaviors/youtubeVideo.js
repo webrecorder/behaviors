@@ -112,6 +112,6 @@ async function* playVideoAndLoadComments() {
 }
 
 
-runBehavior(window, playVideoAndLoadComments(), state => state.done);
+runBehavior(window, playVideoAndLoadComments());
 
 // playVideoAndLoadComments().then(() => console.log('done'));
