@@ -1,10 +1,8 @@
 import { addBehaviorStyle, maybePolyfillXPG } from '../utils/dom';
 import { scrollIntoViewWithDelay } from '../utils/scrolls';
-import {
-  reactInstanceFromDOMElem,
-  reactInstancesFromElements
-} from '../utils/reactUtils';
-import {collectOutlinksFrom} from '../utils/outlinkCollector';
+import { reactInstanceFromDOMElem, reactInstancesFromElements } from '../utils/reactUtils';
+import { collectOutlinksFrom } from '../utils/outlinkCollector';
+import runBehavior from '../shared/behaviorRunner';
 
 addBehaviorStyle('.wr-debug-visited {border: 6px solid #3232F1;}');
 
@@ -65,8 +63,5 @@ async function* iteratePins(xpathGenerator) {
   } while (currentPostRows.length > 0);
 }
 
-window.$WRIterator$ = iteratePins(maybePolyfillXPG(xpg));
-window.$WRIteratorHandler$ = async function() {
-  const next = await $WRIterator$.next();
-  return next.done;
-};
+runBehavior(window,  iteratePins(maybePolyfillXPG(xpg)));
+

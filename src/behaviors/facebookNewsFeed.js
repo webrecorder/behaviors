@@ -6,6 +6,7 @@ import {
 import { delay } from '../utils/delays';
 import { scrollToElemOffsetWithDelay, canScrollMore } from '../utils/scrolls';
 import {collectOutlinksFrom} from '../utils/outlinkCollector';
+import runBehavior from '../shared/behaviorRunner';
 
 /**
  * @desc This xpath query is based on the fact that the first item in a FB news feed
@@ -68,11 +69,14 @@ async function* makeIterator(xpathG) {
 }
 
 let removedAnnoying = maybeRemoveElemById(removeAnnoyingElemId);
-window.$WRNFIterator$ = makeIterator(maybePolyfillXPG(xpg));
-window.$WRIteratorHandler$ = async function() {
+const actionIter = makeIterator(maybePolyfillXPG(x));
+
+function postStep (state) {
   if (!removedAnnoying) {
     removedAnnoying = maybeRemoveElemById(removeAnnoyingElemId);
   }
-  const next = await $WRNFIterator$.next();
-  return next.done;
-};
+  return state.done;
+}
+
+runBehavior(window,  actionIter, postStep);
+

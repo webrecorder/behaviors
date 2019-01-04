@@ -67,10 +67,16 @@ export function addOutLinks(toAdd) {
 }
 
 export function collectOutlinksFromDoc() {
+  if (window.$WBNOOUTLINKS) {
+    return
+  }
   addOutLinks(document.querySelectorAll(outlinkSelector));
 }
 
 export function collectOutlinksFrom(queryFrom) {
+  if (window.$WBNOOUTLINKS) {
+    return
+  }
   addOutLinks(queryFrom.querySelectorAll(outlinkSelector));
 }
 
@@ -78,6 +84,9 @@ export function collectOutlinksFrom(queryFrom) {
  * @param {HTMLAnchorElement|HTMLAreaElement|string} elemOrString
  */
 export function addOutlink(elemOrString) {
+  if (window.$WBNOOUTLINKS) {
+    return
+  }
   const href = (elemOrString.href || elemOrString).trim();
   if (href && !outlinks.has(href) && !shouldIgnoreLink(href)) {
     outlinks.add(href);

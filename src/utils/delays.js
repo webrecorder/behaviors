@@ -1,5 +1,53 @@
 import { qs, selectorExists } from './dom';
 
+
+export function resolveWhenUnPaused () {
+  return new Promise(resolve => {
+    let intervalId = setInterval(() => {
+      if (!window.$WBBehaviorPaused) {
+        clearInterval(intervalId);
+        resolve();
+      }
+    }, 2000);
+  });
+}
+
+/** TODO
+ * 
+ *
+ *
+*/
+
+export function setIntervalP(callback, timeout) {
+  return setInterval(function() {
+    if (!window.$WBBehaviorPaused) {
+      callback();
+    }
+  }, timeout);
+}
+
+
+
+/** TODO
+ * 
+ *
+ *
+*/
+
+export function setTimeoutP(callback, timeout) {
+  function execIfNotPaused() {
+    if (!window.$WBBehaviorPaused) {
+      callback();
+    } else {
+      setTimeout(execIfNotPaused, 500);
+    }
+  }
+
+  return setTimeout(execIfNotPaused, timeout);
+}
+  
+
+
 /**
  * @param {number} [delayTime = 3000]
  * @returns {Promise<void>}
@@ -74,7 +122,7 @@ export async function waitForAndSelectElement(fromNode, selector) {
 export function domCompletePromise() {
   if (document.readyState !== 'complete') {
     return new Promise(r => {
-      let i = setInterval(() => {
+      let i = setIntervalP(() => {
         if (document.readyState === 'complete') {
           clearInterval(i);
           r();

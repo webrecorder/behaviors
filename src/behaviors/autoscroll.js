@@ -1,6 +1,7 @@
-import { domCompletePromise } from '../utils/delays';
+import { domCompletePromise, setIntervalP } from '../utils/delays';
 import { findAllMediaAndPlay } from '../utils/general';
 import {collectOutlinksFrom} from '../utils/outlinkCollector';
+
 
 /*!return!*/ domCompletePromise().then(() => {
   let scrollingTO = 2000;
@@ -11,7 +12,7 @@ import {collectOutlinksFrom} from '../utils/outlinkCollector';
   );
   let scrollCount = 0;
   return new Promise((resolve, reject) => {
-    let scrollerInterval = setInterval(() => {
+    let scrollerInterval = setIntervalP(() => {
       let scrollPos = window.scrollY + window.innerHeight;
       if (scrollCount < 50) {
         maxScroll = Math.max(

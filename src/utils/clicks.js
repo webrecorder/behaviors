@@ -1,4 +1,4 @@
-import { delay, waitForPredicate } from './delays';
+import { delay, waitForPredicate, setTimeoutP } from './delays';
 import { scrollIntoView } from './scrolls';
 
 /**

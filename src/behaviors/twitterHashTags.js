@@ -4,6 +4,7 @@ import {
   hasClass,
   id,
   markElemAsVisited,
+  maybePolyfillXPG,
   qs,
   removeClass,
   xpathSnapShot
@@ -19,6 +20,7 @@ import {
   selectors,
   threadedTweetXpath
 } from '../shared/twitter';
+import runBehavior from '../shared/behaviorRunner';
 
 addBehaviorStyle(
   '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
@@ -124,27 +126,16 @@ async function* vistThreadedTweet(fullTweetOverlay) {
     snapShot = xpathSnapShot(threadedTweetXpath, fullTweetOverlay);
     if (snapShot.snapshotLength === 0) {
       if (
-        selectElemFromAndClick(fullTweetOverlay, selectors.threadedConvMoreReplies)
+        selectElemFromAndClick(
+          fullTweetOverlay,
+          selectors.threadedConvMoreReplies
+        )
       ) {
         await delay();
       }
       snapShot = xpathSnapShot(threadedTweetXpath, fullTweetOverlay);
     }
   } while (snapShot.snapshotLength > 0);
-}
-
-function hasVideo(tweet) {
-  const videoContainer = tweet.querySelector(
-    'div.AdaptiveMedia-videoContainer'
-  );
-  if (videoContainer != null) {
-    const video = videoContainer.querySelector('video');
-    if (video) {
-      video.play();
-    }
-    return true;
-  }
-  return false;
 }
 
 /**
@@ -170,9 +161,19 @@ async function* handleTweet(tweetStreamLI, originalBaseURI) {
   if (debug) {
     addClass(streamTweetDiv, 'wr-debug-visited');
   }
-
-  if (hasVideo(tweetStreamLI)) {
-    yield true;
+  const videoContainer = tweetStreamLI.querySelector(
+    'div.AdaptiveMedia-videoContainer'
+  );
+  if (videoContainer != null) {
+    const video = videoContainer.querySelector('video');
+    if (video) {
+      try {
+        await video.play();
+        yield true;
+      } catch (e) {
+        yield false;
+      }
+    }
   }
   const footer = qs(selectors.tweetFooterSelector, tweetContent);
   const replyAction = qs(selectors.replyActionSelector, footer);
@@ -228,14 +229,12 @@ async function* hashTagIterator(originalBaseURI) {
     tweetLI = tweetLI.nextElementSibling;
   }
 }
-/**
- * @type {AsyncIterator<boolean>}
- */
-window.$WRTweetIterator$ = hashTagIterator(document.baseURI);
-window.$WRIteratorHandler$ = async function() {
-  const next = await $WRTweetIterator$.next();
-  return {done: next.done, wait: !!next.value};
-};
+
+runBehavior(window, hashTagIterator(document.baseURI), state => ({
+  done: state.done,
+  wait: !!state.value
+}));
+
 //
 // async function run() {
 //   for await (const tweet of window.$WRTweetIterator$) {

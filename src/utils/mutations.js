@@ -1,3 +1,4 @@
+
 /**
  * @desc Observe dom mutation using a MutationObserver as a stream (AsyncIterator)
  */

@@ -1,5 +1,8 @@
 import { getViaPath } from '../utils/general';
-import { waitForAdditionalElemChildren, waitForAndSelectElement } from '../utils/delays';
+import {
+  waitForAdditionalElemChildren,
+  waitForAndSelectElement
+} from '../utils/delays';
 import {
   findChildWithKey,
   getReactRootContainer,
@@ -8,13 +11,18 @@ import {
   reactInstancesFromElements
 } from '../utils/reactUtils';
 import { scrollIntoViewWithDelay } from '../utils/scrolls';
-import { clickWithDelay, selectElemFromAndClickWithDelay, selectFromAndClickUntilNullWithDelay } from '../utils/clicks';
+import {
+  clickWithDelay,
+  selectElemFromAndClickWithDelay,
+  selectFromAndClickUntilNullWithDelay
+} from '../utils/clicks';
 import { addBehaviorStyle, maybePolyfillXPG } from '../utils/dom';
 import { collectOutlinksFrom } from '../utils/outlinkCollector';
+import runBehavior from '../shared/behaviorRunner';
 
 addBehaviorStyle('.wr-debug-visited {border: 6px solid #3232F1;}');
 
-const multiImageClickOpts = {safety: 30 * 1000, delayTime: 1000};
+const multiImageClickOpts = { safety: 30 * 1000, delayTime: 1000 };
 
 const selectors = {
   multipleImages: 'span.coreSpriteSidecarIconLarge',
@@ -325,7 +333,6 @@ async function handleCommentsOnly(post, xpg) {
   await closePost(xpg);
 }
 
-
 async function handlePost(post, xpg) {
   collectOutlinksFrom(post);
   // scroll it into view and check what type of post it is
@@ -340,7 +347,7 @@ async function handlePost(post, xpg) {
 }
 
 /**
- * @desc Returns an async iterator that yields each post in the supplied post row.
+ * @desc Returns an async stepIterator that yields each post in the supplied post row.
  * Each the post is clicked and all comments are loaded plus:
  * If the post contains multiple images then all images in the post are visited
  * If the post contains a video then the video is played (uses a HTML video tag)
@@ -370,7 +377,7 @@ async function* consumeRowReact(postRow, xpg) {
   }
 }
 
-async function *postIteratorReact(extractReactStuff, xpg) {
+async function* postIteratorReact(extractReactStuff, xpg) {
   let currentPostRows = extractReactStuff.getRenderedPostRows();
   // consume rows until all posts have been loaded
   do {
@@ -390,7 +397,8 @@ async function *postIteratorReact(extractReactStuff, xpg) {
 async function* instagramFallback(xpg) {
   const scrolDiv = document.querySelector(selectors.postTopMostContainer);
   let reactGarbageDiv = scrolDiv.firstElementChild;
-  if (reactGarbageDiv == null) throw new Error('Could not first div under article');
+  if (reactGarbageDiv == null)
+    throw new Error('Could not first div under article');
   const postRowContainer = reactGarbageDiv.firstElementChild;
   let posts;
   let post;
@@ -419,16 +427,14 @@ async function* instagramFallback(xpg) {
 }
 
 const reactSetup = setupForReactStrat();
+let actionIter;
 if (reactSetup != null) {
-  window.$WRTLIterator$ = postIteratorReact(reactSetup, maybePolyfillXPG(xpg));
+  actionIter = postIteratorReact(reactSetup, maybePolyfillXPG(xpg));
 } else {
-  window.$WRTLIterator$ = instagramFallback(maybePolyfillXPG(xpg));
+  actionIter = instagramFallback(maybePolyfillXPG(xpg));
 }
 
-window.$WRIteratorHandler$ = async function() {
-  const next = await $WRTLIterator$.next();
-  return next.done;
-};
+runBehavior(window, actionIter);
 
 // async function t() {
 //   for await (let next of window.$WRTLIterator$) {

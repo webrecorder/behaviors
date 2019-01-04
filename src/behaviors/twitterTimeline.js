@@ -9,6 +9,7 @@ import { canScrollMore, scrollIntoViewWithDelay } from '../utils/scrolls';
 import { clickAndWaitFor, selectElemFromAndClick } from '../utils/clicks';
 import { collectOutlinksFrom } from '../utils/outlinkCollector';
 import { overlayTweetXpath, tweetXpath } from '../shared/twitter';
+import runBehavior from '../shared/behaviorRunner';
 
 addBehaviorStyle(
   '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
@@ -33,7 +34,6 @@ const noReplySpanSelector = 'span.ProfileTweet-actionCount--isZero';
 const replyBtnSelector = 'button[data-modal="ProfileTweet-reply"]';
 const closeFullTweetSelector = 'div.PermalinkProfile-dismiss > span';
 const threadSelector = 'a.js-nav.show-thread-link';
-
 
 class Tweet {
   /**
@@ -71,18 +71,17 @@ class Tweet {
     this._baseURI = baseURI;
   }
 
-  hasVideo() {
+  /**
+   * @return {?HTMLVideoElement}
+   */
+  tweetVideo() {
     const videoContainer = this.tweet.querySelector(
       'div.AdaptiveMedia-videoContainer'
     );
     if (videoContainer != null) {
-      const video = videoContainer.querySelector('video');
-      if (video) {
-        video.play();
-      }
-      return true;
+      return videoContainer.querySelector('video');
     }
-    return false;
+    return null;
   }
 
   tweetId() {
@@ -230,8 +229,14 @@ async function* timelineIterator(xpathQuerySelector, baseURI) {
       }
       await scrollIntoViewWithDelay(aTweet.tweet, 500);
       collectOutlinksFrom(aTweet.tweet);
-      if (aTweet.hasVideo()) {
-        yield true;
+      const tweetVideo = aTweet.tweetVideo();
+      if (tweetVideo != null) {
+        try {
+          await tweetVideo.play();
+          yield true;
+        } catch (e) {
+          yield false;
+        }
       }
       if (aTweet.hasRepliedOrInThread()) {
         yield* aTweet.viewRepliesOrThread();
@@ -247,14 +252,11 @@ async function* timelineIterator(xpathQuerySelector, baseURI) {
   } while (tweets.length > 0 && canScrollMore());
 }
 
-/**
- * @type {AsyncIterator<boolean>}
- */
-window.$WRTweetIterator$ = timelineIterator(
-  maybePolyfillXPG(xpg),
-  document.baseURI
+runBehavior(
+  window,
+  timelineIterator(maybePolyfillXPG(xpg), document.baseURI),
+  state => ({
+    done: state.done,
+    wait: !!state.value
+  })
 );
-window.$WRIteratorHandler$ = async function() {
-  const next = await $WRTweetIterator$.next();
-  return { done: next.done, wait: !!next.value };
-};
