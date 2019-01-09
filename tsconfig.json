@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "sourceMap": false,
+    "checkJs": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": false,
+    "strict": false,
+    "noEmit": true
+  },
+  "include": [
+    "lib/**/*.js",
+    "behaviors/**/*.js"
+  ],
+  "exclude": [
+    "internal/**/*"
+  ]
+}

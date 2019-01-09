@@ -1,24 +1,27 @@
 import * as path from 'path';
+import resolve from 'rollup-plugin-node-resolve';
+import cleanup from 'rollup-plugin-cleanup';
+const { wrappers } = require('./internal/buildInfo');
+const { buildDir, distDir } = require('./internal/paths');
 
-const { behaviorDir, wrappers } = require('./src/buildInfo');
+const behavior = 'deathImitatesLanguageBehavior.js';
+const behaviorPath = path.join(buildDir, behavior);
 
-const behavior = 'twitterHashTags';
-
-console.log(behaviorDir);
-console.log(path.join(behaviorDir, `${behavior}.js`));
+console.log(buildDir);
+console.log(behaviorPath);
 
 export default {
-  input: path.join(behaviorDir, `${behavior}.js`),
+  input: behaviorPath,
   output: {
-    file: path.join('dist', `${behavior}.js`),
+    file: path.join(distDir, behavior),
     sourcemap: false,
     format: 'es',
     exports: 'none'
   },
   watch: { chokidar: true },
   plugins: [
-    {
-      ...wrappers.setup
-    }
+    resolve(),
+    cleanup(),
+    wrappers.setup
   ]
 };

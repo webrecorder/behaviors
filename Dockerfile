@@ -1,13 +1,13 @@
-FROM node:10
+FROM node:11.9.0
 
 ENV DOCKER 1
 
-WORKDIR /build
+WORKDIR /app
 
-ADD . /build
+ADD . ./
 
 RUN yarn install
 
 VOLUME /dist
 
-CMD ["yarn", "run", "build-docker"]
+CMD ["yarn", "run", "build-behaviors"]

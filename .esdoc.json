@@ -1,0 +1,23 @@
+{
+  "source": "./lib",
+  "destination": "./docs",
+  "plugins": [
+    {
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "lint": { "enable": true },
+        "coverage": { "enable": true },
+        "accessor": {
+          "access": ["public", "protected", "private"],
+          "autoPrivate": true
+        },
+        "undocumentIdentifier": { "enable": true },
+        "unexportedIdentifier": { "enable": false },
+        "typeInference": { "enable": true }
+      }
+    },
+    { "name": "esdoc-ecmascript-proposal-plugin", "option": { "all": true } },
+    { "name": "esdoc-external-webapi-plugin", "option": { "enable": true } },
+    { "name": "./internal/wrBehaviorsPlugin.js" }
+  ]
+}

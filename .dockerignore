@@ -60,3 +60,4 @@ typings/
 .vuepress/dist
 .serverless
 dist
+build

@@ -1,0 +1,6 @@
+behaviors: ./behaviors
+lib: ./lib
+build: ./build
+dist: ./dist
+tsconfig: ./tsconfig.json
+metadata: ./dist/behaviorMetadata.js
