@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/behaviors/twitterTimeline.js | wr-behaviors</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#shared">shared</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/shared/behaviorRunner.js~BehaviorRunner.html">BehaviorRunner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-initRunnableBehavior">initRunnableBehavior</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getProfileInfo">getProfileInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-doneOrWait">doneOrWait</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isDone">isDone</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getNoneNukedConsole">getNoneNukedConsole</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isStreamLiDataItemTypeTweet">isStreamLiDataItemTypeTweet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-selectors">selectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-selectors">selectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-videoPostSelectors">videoPostSelectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-xpathQ">xpathQ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dataAttrs">dataAttrs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-elemIds">elemIds</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-overlayTweetXpath">overlayTweetXpath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-selectors">selectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-threadedTweetXpath">threadedTweetXpath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-tweetXpath">tweetXpath</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/mutations.js~MutationStream.html">MutationStream</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-locationContains">locationContains</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-locationEquals">locationEquals</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForHistoryManipToChangeLocation">waitForHistoryManipToChangeLocation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-click">click</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clickAndWaitFor">clickAndWaitFor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clickInContext">clickInContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clickInContextWithDelay">clickInContextWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clickWithDelay">clickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollAllIntoViewAndClick">scrollAllIntoViewAndClick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollAllIntoViewAndClickWithDelay">scrollAllIntoViewAndClickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoViewAndClick">scrollIntoViewAndClick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoViewAndClickWithDelay">scrollIntoViewAndClickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectClickAndWaitFor">selectClickAndWaitFor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectElemAndClick">selectElemAndClick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectElemAndClickWithDelay">selectElemAndClickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectElemFromAndClick">selectElemFromAndClick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectElemFromAndClickWithDelay">selectElemFromAndClickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickNTimes">selectFromAndClickNTimes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickNTimesWithDelay">selectFromAndClickNTimesWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickUntilNullWithDelay">selectFromAndClickUntilNullWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-delay">delay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-domCompletePromise">domCompletePromise</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-resolveWhenUnPaused">resolveWhenUnPaused</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setIntervalP">setIntervalP</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setTimeoutP">setTimeoutP</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForAdditionalElemChildren">waitForAdditionalElemChildren</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForAndSelectElement">waitForAndSelectElement</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForPredicate">waitForPredicate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForPredicateAtMax">waitForPredicateAtMax</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addBehaviorStyle">addBehaviorStyle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addClass">addClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-attr">attr</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-attrEq">attrEq</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-canAcessIf">canAcessIf</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-chainQs">chainQs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-elemHasNonZeroTopOffset">elemHasNonZeroTopOffset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-elemHasZeroBoundingRect">elemHasZeroBoundingRect</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findTag">findTag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getElemSibling">getElemSibling</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getElemSiblingAndRemoveElem">getElemSiblingAndRemoveElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-hasClass">hasClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-id">id</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-idExists">idExists</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-markElemAsVisited">markElemAsVisited</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-maybePolyfillXPG">maybePolyfillXPG</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-maybeRemoveElem">maybeRemoveElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-maybeRemoveElemById">maybeRemoveElemById</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nthChildElemOf">nthChildElemOf</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-qs">qs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-qsa">qsa</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-removeClass">removeClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectorExists">selectorExists</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-xpathSnapShot">xpathSnapShot</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-xpathSnapShotArray">xpathSnapShotArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-autoFetchFromDoc">autoFetchFromDoc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-autobind">autobind</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-compose">compose</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-composeAsync">composeAsync</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-composeAsyncIterators">composeAsyncIterators</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-extractProps">extractProps</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findAllMediaAndPlay">findAllMediaAndPlay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getViaPath">getViaPath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-globalWithPropsExist">globalWithPropsExist</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-noop">noop</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-objectHasProps">objectHasProps</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-safeFetch">safeFetch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendAutoFetchWorkerURLs">sendAutoFetchWorkerURLs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-noExceptPlayMediaElement">noExceptPlayMediaElement</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectAndPlay">selectAndPlay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectIdAndPlay">selectIdAndPlay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addOutLinks">addOutLinks</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addOutlink">addOutlink</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-collectOutlinksFrom">collectOutlinksFrom</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-collectOutlinksFromDoc">collectOutlinksFromDoc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findChildWithKey">findChildWithKey</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getInternalRootOnElem">getInternalRootOnElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getReactRootContainer">getReactRootContainer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getReactRootHostElem">getReactRootHostElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reactInstanceFromDOMElem">reactInstanceFromDOMElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reactInstancesFromElements">reactInstancesFromElements</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-canScrollMore">canScrollMore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollDownByElemHeight">scrollDownByElemHeight</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollDownByElemHeightWithDelay">scrollDownByElemHeightWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoView">scrollIntoView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoViewAndWaitFor">scrollIntoViewAndWaitFor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoViewWithDelay">scrollIntoViewWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollToElemOffset">scrollToElemOffset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollToElemOffsetWithDelay">scrollToElemOffsetWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-reactProps">reactProps</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/behaviors/twitterTimeline.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { delay } from &apos;../utils/delays&apos;;
+import {
+  addBehaviorStyle,
+  markElemAsVisited,
+  maybePolyfillXPG,
+  xpathSnapShot
+} from &apos;../utils/dom&apos;;
+import { canScrollMore, scrollIntoViewWithDelay } from &apos;../utils/scrolls&apos;;
+import { clickAndWaitFor, selectElemFromAndClick } from &apos;../utils/clicks&apos;;
+import { collectOutlinksFrom } from &apos;../utils/outlinkCollector&apos;;
+import { overlayTweetXpath, tweetXpath } from &apos;../shared/twitter&apos;;
+import initRunnableBehavior from &apos;../shared/behaviorRunner&apos;;
+
+addBehaviorStyle(
+  &apos;.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}&apos;
+);
+
+/**
+ * An abstraction around interacting with HTML of a tweet in a timeline.
+ *
+ *  Selector, element breakdown:
+ *    div.tweet.js-stream-tweet... (_container)
+ *     |- div.content (aTweet, _tweet)
+ *         |- div.stream-item-footer (_footer)
+ *             |- div.ProfileTweet-action--reply (_tRplyAct)
+ *                 |- button[data-modal=&quot;ProfileTweet-reply&quot;] (_rplyButton)
+ *                     |- span.ProfileTweet-actionCount--isZero (IFF no replied)
+ *    |- div.self-thread-tweet-cta
+ *        |- a.js-nav.show-thread-link
+ */
+const tweetFooterSelector = &apos;div.stream-item-footer&apos;;
+const replyActionSelector = &apos;div.ProfileTweet-action--reply&apos;;
+const noReplySpanSelector = &apos;span.ProfileTweet-actionCount--isZero&apos;;
+const replyBtnSelector = &apos;button[data-modal=&quot;ProfileTweet-reply&quot;]&apos;;
+const closeFullTweetSelector = &apos;div.PermalinkProfile-dismiss &gt; span&apos;;
+const threadSelector = &apos;a.js-nav.show-thread-link&apos;;
+
+class Tweet {
+  /**
+   *
+   * @param {HTMLElement} aTweet - The content div for a tweet in a timeline
+   * @param {string} baseURI - The document.baseURI of the timeline page being viewed
+   */
+  constructor(aTweet, baseURI) {
+    markElemAsVisited(aTweet);
+    this.tweet = aTweet;
+    this.container = aTweet.parentElement;
+    this.dataset = this.container.dataset;
+    this.footer = this.tweet.querySelector(tweetFooterSelector);
+    this.tRplyAct = this.footer.querySelector(replyActionSelector);
+    this.rplyButton = this.tRplyAct.querySelector(replyBtnSelector);
+
+    this.fullTweetOverlay = null;
+
+    /**
+     * @desc If the currently visited tweet has replies then the span with
+     * class `ProfileTweet-actionCount--isZero` must not exist
+     * @type {boolean}
+     * @private
+     */
+    this._hasReplys =
+      this.rplyButton.querySelector(noReplySpanSelector) == null;
+    /**
+     * @desc If the currently visited tweet is apart of a thread,
+     * then an a tag will be present with classes `js-nav.show-thread-link`
+     * @type {boolean}
+     * @private
+     */
+    this._apartThread = this.tweet.querySelector(threadSelector) != null;
+
+    this._baseURI = baseURI;
+  }
+
+  /**
+   * @return {?HTMLVideoElement}
+   */
+  tweetVideo() {
+    const videoContainer = this.tweet.querySelector(
+      &apos;div.AdaptiveMedia-videoContainer&apos;
+    );
+    if (videoContainer != null) {
+      return videoContainer.querySelector(&apos;video&apos;);
+    }
+    return null;
+  }
+
+  tweetId() {
+    return this.dataset.tweetId;
+  }
+
+  permalinkPath() {
+    return this.dataset.permalinkPath;
+  }
+
+  hasReplys() {
+    return this._hasReplys;
+  }
+
+  apartOfThread() {
+    return this._apartThread;
+  }
+
+  hasRepliedOrInThread() {
+    return this.hasReplys() || this.apartOfThread();
+  }
+
+  /**
+   * @desc Clicks (views) the currently visited tweet
+   * @return {AsyncIterableIterator&lt;boolean&gt;}
+   */
+  async *viewRepliesOrThread() {
+    await this.openFullTweet();
+    yield* this.visitThreadReplyTweets();
+    await this.closeFullTweetOverlay();
+  }
+
+  /**
+   * @return {AsyncIterableIterator&lt;boolean&gt;}
+   */
+  async *viewRegularTweet() {
+    await this.openFullTweet();
+    yield false;
+    await this.closeFullTweetOverlay();
+  }
+
+  /**
+   * @desc Clicks (views) the currently visited tweet
+   * @return {Promise&lt;boolean&gt;}
+   */
+  openFullTweet() {
+    const permalinkPath = this.permalinkPath();
+    return clickAndWaitFor(this.container, () =&gt; {
+      const done = document.baseURI.endsWith(permalinkPath);
+      if (done) {
+        this.fullTweetOverlay = document.getElementById(&apos;permalink-overlay&apos;);
+        if (debug) {
+          this.fullTweetOverlay.classList.add(&apos;wr-debug-visited-overlay&apos;);
+        }
+      }
+      return done;
+    });
+  }
+
+  /**
+   * @return {AsyncIterableIterator&lt;boolean&gt;}
+   */
+  async *visitThreadReplyTweets() {
+    collectOutlinksFrom(this.fullTweetOverlay);
+    let snapShot = xpathSnapShot(overlayTweetXpath, this.fullTweetOverlay);
+    let aTweet;
+    let i, len;
+    if (snapShot.snapshotLength === 0) return;
+    do {
+      len = snapShot.snapshotLength;
+      i = 0;
+      while (i &lt; len) {
+        aTweet = snapShot.snapshotItem(i);
+        markElemAsVisited(aTweet);
+        if (debug) {
+          aTweet.classList.add(&apos;wr-debug-visited-thread-reply&apos;);
+        }
+        await scrollIntoViewWithDelay(aTweet);
+        yield false;
+        i += 1;
+      }
+      snapShot = xpathSnapShot(overlayTweetXpath, this.fullTweetOverlay);
+      if (snapShot.snapshotLength === 0) {
+        if (
+          selectElemFromAndClick(
+            this.fullTweetOverlay,
+            &apos;button.ThreadedConversation-showMoreThreadsButton&apos;
+          )
+        ) {
+          await delay();
+        }
+        snapShot = xpathSnapShot(overlayTweetXpath, this.fullTweetOverlay);
+      }
+    } while (snapShot.snapshotLength &gt; 0);
+  }
+
+  /**
+   * @desc Closes the overlay representing viewing a tweet
+   * @return {Promise&lt;boolean&gt;}
+   */
+  closeFullTweetOverlay() {
+    const overlay = document.querySelector(closeFullTweetSelector);
+    if (!overlay) return Promise.resolve(false);
+    if (debug) overlay.classList.add(&apos;wr-debug-click&apos;);
+    return clickAndWaitFor(overlay, () =&gt; {
+      const done = document.baseURI === this._baseURI;
+      if (done &amp;&amp; debug) {
+        overlay.classList.remove(&apos;wr-debug-click&apos;);
+      }
+      return done;
+    });
+  }
+}
+
+/**
+ * @desc For a more detailed explanation about the relationship between the xpath
+ * query used and the marking of each tweet as visited by this algorithm see the
+ * description for {@link tweetXpath}.
+ *
+ * (S1) Build initial set of to be visited tweets
+ * (S2) For each tweet visible at current scroll position:
+ *      - mark as visited
+ *      - scroll into view
+ *      - yield tweet
+ *      - if should view full tweet (has replies or apart of thread)
+ *        - yield all sub tweets
+ * (S3) Once all tweets at current scroll position have been visited:
+ *      - wait for Twitter to load more tweets (if any more are to be had)
+ *      - if twitter added more tweets add them to the to be visited set
+ * (S4) If we have more tweets to visit and can scroll more:
+ *      - GOTO S2
+ *
+ * @param {function(string,): Array&lt;HTMLElement&gt;} xpathQuerySelector
+ * @param {string} baseURI - The timelines documents baseURI
+ * @return {AsyncIterator&lt;boolean&gt;}
+ */
+async function* timelineIterator(xpathQuerySelector, baseURI) {
+  let tweets = xpathQuerySelector(tweetXpath);
+  let aTweet;
+  do {
+    while (tweets.length &gt; 0) {
+      aTweet = new Tweet(tweets.shift(), baseURI);
+      if (debug) {
+        aTweet.tweet.classList.add(&apos;wr-debug-visited&apos;);
+      }
+      await scrollIntoViewWithDelay(aTweet.tweet, 500);
+      collectOutlinksFrom(aTweet.tweet);
+      const tweetVideo = aTweet.tweetVideo();
+      if (tweetVideo != null) {
+        try {
+          await tweetVideo.play();
+          yield true;
+        } catch (e) {
+          yield false;
+        }
+      }
+      if (aTweet.hasRepliedOrInThread()) {
+        yield* aTweet.viewRepliesOrThread();
+      } else {
+        yield* aTweet.viewRegularTweet();
+      }
+    }
+    tweets = xpathQuerySelector(tweetXpath);
+    if (tweets.length === 0) {
+      await delay();
+      tweets = xpathQuerySelector(tweetXpath);
+    }
+  } while (tweets.length &gt; 0 &amp;&amp; canScrollMore());
+}
+
+initRunnableBehavior(
+  window,
+  timelineIterator(maybePolyfillXPG(xpg), document.baseURI),
+  state =&gt; ({
+    done: state.done,
+    wait: !!state.value
+  })
+);
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

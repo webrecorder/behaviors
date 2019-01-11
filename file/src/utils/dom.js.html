@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/utils/dom.js | wr-behaviors</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#shared">shared</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/shared/behaviorRunner.js~BehaviorRunner.html">BehaviorRunner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-initRunnableBehavior">initRunnableBehavior</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getProfileInfo">getProfileInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-doneOrWait">doneOrWait</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isDone">isDone</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getNoneNukedConsole">getNoneNukedConsole</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isStreamLiDataItemTypeTweet">isStreamLiDataItemTypeTweet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-selectors">selectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-selectors">selectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-videoPostSelectors">videoPostSelectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-xpathQ">xpathQ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dataAttrs">dataAttrs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-elemIds">elemIds</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-overlayTweetXpath">overlayTweetXpath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-selectors">selectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-threadedTweetXpath">threadedTweetXpath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-tweetXpath">tweetXpath</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/mutations.js~MutationStream.html">MutationStream</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-locationContains">locationContains</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-locationEquals">locationEquals</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForHistoryManipToChangeLocation">waitForHistoryManipToChangeLocation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-click">click</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clickAndWaitFor">clickAndWaitFor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clickInContext">clickInContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clickInContextWithDelay">clickInContextWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clickWithDelay">clickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollAllIntoViewAndClick">scrollAllIntoViewAndClick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollAllIntoViewAndClickWithDelay">scrollAllIntoViewAndClickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoViewAndClick">scrollIntoViewAndClick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoViewAndClickWithDelay">scrollIntoViewAndClickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectClickAndWaitFor">selectClickAndWaitFor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectElemAndClick">selectElemAndClick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectElemAndClickWithDelay">selectElemAndClickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectElemFromAndClick">selectElemFromAndClick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectElemFromAndClickWithDelay">selectElemFromAndClickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickNTimes">selectFromAndClickNTimes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickNTimesWithDelay">selectFromAndClickNTimesWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickUntilNullWithDelay">selectFromAndClickUntilNullWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-delay">delay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-domCompletePromise">domCompletePromise</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-resolveWhenUnPaused">resolveWhenUnPaused</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setIntervalP">setIntervalP</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setTimeoutP">setTimeoutP</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForAdditionalElemChildren">waitForAdditionalElemChildren</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForAndSelectElement">waitForAndSelectElement</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForPredicate">waitForPredicate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForPredicateAtMax">waitForPredicateAtMax</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addBehaviorStyle">addBehaviorStyle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addClass">addClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-attr">attr</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-attrEq">attrEq</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-canAcessIf">canAcessIf</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-chainQs">chainQs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-elemHasNonZeroTopOffset">elemHasNonZeroTopOffset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-elemHasZeroBoundingRect">elemHasZeroBoundingRect</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findTag">findTag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getElemSibling">getElemSibling</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getElemSiblingAndRemoveElem">getElemSiblingAndRemoveElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-hasClass">hasClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-id">id</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-idExists">idExists</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-markElemAsVisited">markElemAsVisited</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-maybePolyfillXPG">maybePolyfillXPG</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-maybeRemoveElem">maybeRemoveElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-maybeRemoveElemById">maybeRemoveElemById</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nthChildElemOf">nthChildElemOf</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-qs">qs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-qsa">qsa</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-removeClass">removeClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectorExists">selectorExists</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-xpathSnapShot">xpathSnapShot</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-xpathSnapShotArray">xpathSnapShotArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-autoFetchFromDoc">autoFetchFromDoc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-autobind">autobind</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-compose">compose</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-composeAsync">composeAsync</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-composeAsyncIterators">composeAsyncIterators</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-extractProps">extractProps</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findAllMediaAndPlay">findAllMediaAndPlay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getViaPath">getViaPath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-globalWithPropsExist">globalWithPropsExist</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-noop">noop</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-objectHasProps">objectHasProps</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-safeFetch">safeFetch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendAutoFetchWorkerURLs">sendAutoFetchWorkerURLs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-noExceptPlayMediaElement">noExceptPlayMediaElement</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectAndPlay">selectAndPlay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectIdAndPlay">selectIdAndPlay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addOutLinks">addOutLinks</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addOutlink">addOutlink</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-collectOutlinksFrom">collectOutlinksFrom</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-collectOutlinksFromDoc">collectOutlinksFromDoc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findChildWithKey">findChildWithKey</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getInternalRootOnElem">getInternalRootOnElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getReactRootContainer">getReactRootContainer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getReactRootHostElem">getReactRootHostElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reactInstanceFromDOMElem">reactInstanceFromDOMElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reactInstancesFromElements">reactInstancesFromElements</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-canScrollMore">canScrollMore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollDownByElemHeight">scrollDownByElemHeight</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollDownByElemHeightWithDelay">scrollDownByElemHeightWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoView">scrollIntoView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoViewAndWaitFor">scrollIntoViewAndWaitFor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoViewWithDelay">scrollIntoViewWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollToElemOffset">scrollToElemOffset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollToElemOffsetWithDelay">scrollToElemOffsetWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-reactProps">reactProps</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/utils/dom.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * @desc Returns the results of evaluating the supplied
+ * xpath query using an optional context `contextElement`, defaults
+ * to document, as XPathResult.ORDERED_NODE_SNAPSHOT_TYPE
+ * @param {string} xpathQuery - The xpath query to be evaluated
+ * @param {Element|Document} [contextElement] - Optional
+ * element to be used as the context of the evaluation
+ * @return {XPathResult} - The results of the xpath query evaluation
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/evaluate
+ */
+export function xpathSnapShot(xpathQuery, contextElement) {
+  if (contextElement == null) {
+    contextElement = document;
+  }
+  return document.evaluate(
+    xpathQuery,
+    contextElement,
+    null,
+    XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+    null
+  );
+}
+
+/**
+ * @desc Provides the same functionality of the chrome console utility `$x`
+ * but likely less performant
+ * @param {string} xpathQuery - The xpath query to be evaluated
+ * @param {Element|Document} [contextElement] - Optional
+ * element to be used as the context of the evaluation
+ * @return {Array&lt;HTMLElement&gt;} - The results of the xpath query evaluation
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/evaluate
+ * @see https://developers.google.com/web/tools/chrome-devtools/console/utilities
+ */
+export function xpathSnapShotArray(xpathQuery, contextElement) {
+  const snapShot = xpathSnapShot(xpathQuery, contextElement);
+  const elements = [];
+  let i = 0;
+  let len = snapShot.snapshotLength;
+  while (i &lt; len) {
+    elements.push(snapShot.snapshotItem(i));
+    i += 1;
+  }
+  return elements;
+}
+
+/**
+ * @desc Ensures that if the value of the chrome console utility $x
+ * is not the actual utility (jquery is on the page) the returned
+ * function behaves exactly like it.
+ * @param {function} cliXPG
+ * @return {function: Array&lt;HTMLElement&gt;}
+ */
+export function maybePolyfillXPG(cliXPG) {
+  if (
+    typeof cliXPG !== &apos;function&apos; ||
+    cliXPG.toString().indexOf(&apos;[Command Line API]&apos;) === -1
+  ) {
+    return xpathSnapShotArray;
+  }
+  return cliXPG;
+}
+
+/**
+ * @desc Utility function for `(document||element).querySelector(selector)`
+ * @param {string} selector - the selector to be use
+ * @param {Element|Node|HTMLElement|Document} [context] - element to use rather than document for the querySelector call
+ * @returns {Element|Node|HTMLElement|HTMLIFrameElement}
+ */
+export function qs(selector, context) {
+  if (context != null) return context.querySelector(selector);
+  return document.querySelector(selector);
+}
+
+/**
+ * @desc Utility function for `document.querySelectorAll(selector)`
+ * @param {string} selector - the selector to be use
+ * @param {Element|Node|HTMLElement|Document} [context] - element to use rather than document for the querySelector call
+ * @returns {NodeList&lt;Element|Node|HTMLElement&gt;}
+ */
+export function qsa(selector, context) {
+  if (context != null) return context.querySelectorAll(selector);
+  return document.querySelectorAll(selector);
+}
+
+/**
+ * @desc Utility function for `document.getElementById(id)`
+ * @param {string} eid - The id of the element to get
+ * @param {?Document} [context] - Optional document element to use rather than
+ * the current JS context&apos;s
+ * @returns {?HTMLElement}
+ */
+export function id(eid, context) {
+  if (context != null) return context.getElementById(eid);
+  return document.getElementById(eid);
+}
+
+/**
+ * @desc Removes the element selected by the supplied querySelector, if it exits,
+ * returning true to indicate the element was removed and false otherwise
+ * @param {string} selector - the selector to be use
+ * @param {Element|Node|HTMLElement} [context] - element to use rather than document for the querySelector call
+ * @returns {boolean}
+ */
+export function maybeRemoveElem(selector, context) {
+  const elem = qs(selector, context);
+  if (elem) {
+    elem.remove();
+    return true;
+  }
+  return false;
+}
+
+/**
+ * @desc Removes the element with the supplied id, if it exits, returning
+ * true to indicate the element was removed and false otherwise
+ * @param {string} eid - The id of the element to remove
+ * @param {?Document} [context] - Optional document element to use rather than
+ * the current JS context&apos;s
+ * @returns {boolean}
+ */
+export function maybeRemoveElemById(eid, context) {
+  const elem = id(eid, context);
+  if (elem) {
+    elem.remove();
+    return true;
+  }
+  return false;
+}
+
+/**
+ * @desc Returns true if the supplied elements `offsetTop === 0`
+ * @param {Element|HTMLElement|Node} elem - The element to check its
+ * offsetTop
+ * @returns {boolean}
+ */
+export function elemHasNonZeroTopOffset(elem) {
+  return elem.offsetTop !== 0;
+}
+
+/**
+ * @desc Marks the supplied element as visited by adding the marker
+ * to its classList.
+ * @param {HTMLElement|Element|Node} elem - The element to mark
+ * as visited
+ * @param {string} [marker = &apos;wrvistited&apos;] - Optional marker to use
+ * defaults to `wrvistited`
+ */
+export function markElemAsVisited(elem, marker = &apos;wrvistited&apos;) {
+  if (elem != null) {
+    elem.classList.add(marker);
+  }
+}
+
+/**
+ * @desc Creates a style tag if one was not created before and adds
+ * the supplied `styleDef` to it. If a style tag was created before
+ * this function is a no-op
+ * @param {string} styleDef - The CSS rules to add
+ */
+export function addBehaviorStyle(styleDef) {
+  if (document.getElementById(&apos;$wrStyle$&apos;) == null) {
+    const style = document.createElement(&apos;style&apos;);
+    style.id = &apos;$wrStyle$&apos;;
+    style.textContent = styleDef;
+    document.head.appendChild(style);
+  }
+}
+
+/**
+ * @desc Determines if the supplied iframe is accessible from this
+ * origin. Test is that access the window object of the iframes contentWindow
+ * does not throw an exception and the contentDocument is not falsy.
+ * @param {HTMLIFrameElement} iframe - The iframe to determine accessibility
+ * @return {boolean} - True if the iframe is accessible and false otherwise
+ */
+export function canAcessIf(iframe) {
+  if (iframe == null) return false;
+  try {
+    iframe.contentWindow.window;
+  } catch (e) {
+    return false;
+  }
+  return iframe.contentDocument != null;
+}
+
+/**
+ * @desc Determines if the element the supplied selector selects exists
+ * @param {string} selector - The querySelector to use for testing if
+ * the element it selects exists
+ * @param {Document|Element} [cntx] - Optional element to use rather
+ * than the current JS context&apos;s document object
+ * @return {boolean} - True if the element exists, false otherwise
+ */
+export function selectorExists(selector, cntx) {
+  return qs(selector, cntx) != null;
+}
+
+/**
+ * @desc Determines if the element the supplied id identifies exists
+ * @param {string} eid - The id of the element
+ * @param {Document} [cntx] - Optional document object to use rather
+ * than the current JS context&apos;s document object
+ * @return {boolean} - True if the element exists, false otherwise
+ */
+export function idExists(eid, cntx) {
+  return id(eid, cntx) != null;
+}
+
+/**
+ * @desc Attempts to find a tag using the supplied function that accepts
+ * an xpath query and an optional starting element and returns
+ * the element the supplied predicate function returns a truthy value for
+ * @param {function(xpathQuery: string, startElem: ?Node): Node[]} xpg - xpath execution function
+ * @param {string} tag - The tag to be found
+ * @param {function(elem: Node): boolean} predicate - Element selecting predicate function
+ * @param {Document|Node} [cntx] - Optional starting element, defaults to `document`
+ * @return {?Element|?HTMLIFrameElement|?Node} - The desired element if it was found
+ */
+export function findTag(xpg, tag, predicate, cntx) {
+  const tags = xpg(`//${tag}`, cntx || document);
+  const len = tags.length;
+  let i = 0;
+  for (; i &lt; len; ++i) {
+    if (predicate(tags[i])) return tags[i];
+  }
+  return null;
+}
+
+/**
+ * @desc Retrieves the value of an elements attribute if it exists
+ * @param {Element} elem - The element to retrieve an attribute from
+ * @param {string} attr - The name of the attribute to be retrieved
+ * @return {?string|?Object} - The value of the retrieved attribute if it exists
+ */
+export function attr(elem, attr) {
+  if (elem) return elem.getAttribute(attr);
+  return null;
+}
+
+/**
+ * @desc Tests to determine if the value of elements attribute equals
+ * the supplied value using loose equality
+ * @param {Element} elem - The element to retrieve an attribute from
+ * @param {string} attr - The name of the attribute to be retrieved
+ * @param {*} shouldEq - The value the attributes value should equal
+ * @return {boolean} - T/F indicating if the attribute equals. Note
+ * false can indicate the attribute does not equal expected or
+ * the element was null/undefined
+ */
+export function attrEq(elem, attr, shouldEq) {
+  if (elem) return elem.getAttribute(attr) == shouldEq;
+  return false;
+}
+
+/**
+ * @desc Returns the Nth child of the supplied element (indexing assumes start is 1)
+ * @param {Document|Element} elem - The element to retrieve the nth child of
+ * @param {number} nth - The number of the nth child
+ * @return {?Element} - The nth child if it exists
+ */
+export function nthChildElemOf(elem, nth) {
+  if (elem &amp;&amp; elem.children &amp;&amp; elem.children.length &gt;= nth) {
+    return elem.children[nth - 1];
+  }
+  return null;
+}
+
+/**
+ * @desc Consecutively calls querySelector(selector) on the element returned by the previous invocation
+ * @param {Element|Node|Document} startingSelectFrom - The first element to perform querySelector(startingSelector) on
+ * @param {string} startingSelector - The first selector
+ * @param {...string} selectors - Additional selections
+ * @return {?Element} - Final selected element if it exists
+ */
+export function chainQs(startingSelectFrom, startingSelector, ...selectors) {
+  let selected = qs(startingSelector, startingSelectFrom);
+  if (selected != null) {
+    let len = selectors.length;
+    let i = 0;
+    for (; i &lt; len; ++i) {
+      selected = qs(selectors[i], selected);
+      if (selected == null) return null;
+    }
+  }
+  return selected;
+}
+
+/**
+ * @desc Adds a CSS classname to the supplied element
+ * @param {?Element|?Node} elem - The element to add the classname to
+ * @param {string} clazz - The classname to be added
+ */
+export function addClass(elem, clazz) {
+  if (elem) {
+    elem.classList.add(clazz);
+  }
+}
+
+/**
+ * @desc Removes a CSS classname to the supplied element
+ * @param {?Element|?Node} elem - The element to remove the classname to
+ * @param {string} clazz - The classname to be removed
+ */
+export function removeClass(elem, clazz) {
+  if (elem) {
+    elem.classList.remove(clazz);
+  }
+}
+
+/**
+ * @desc Tests to see if the supplied element has a css class
+ * @param {?Element} elem - The element to be tested if it has the class
+ * @param {string} clazz - The classname
+ * @return {boolean} - T/F indicating if the element has the class
+ */
+export function hasClass(elem, clazz) {
+  if (elem) return elem.classList.contains(clazz);
+  return false;
+}
+
+/**
+ * @desc Returns the supplied elements next element sibling
+ * @param {Element|Node} elem - The element to receive its sibling
+ * @return {?Element} - The elements sibling if it exists
+ */
+export function getElemSibling(elem) {
+  return elem.nextElementSibling;
+}
+
+/**
+ * @desc Returns the supplied elements next element sibling and removes the
+ * supplied element
+ * @param {Element|Node} elem - The element to receive its sibling
+ * @return {?Element} - The elements sibling if it exists
+ */
+export function getElemSiblingAndRemoveElem(elem) {
+  const sibling = elem.nextElementSibling;
+  elem.remove();
+  return sibling;
+}
+
+/**
+ * @desc Determines if the supplied elements bounding client rect&apos;s
+ * x,y,width,height,top,left properties all equal zero
+ * @param {Element} elem - The element to be tested
+ * @return {boolean} - T/F indicating if all zero or not
+ */
+export function elemHasZeroBoundingRect(elem) {
+  if (elem == null) return false;
+  const rect = elem.getBoundingClientRect();
+  return (
+    rect.x === 0 &amp;&amp;
+    rect.y === 0 &amp;&amp;
+    rect.width === 0 &amp;&amp;
+    rect.height === 0 &amp;&amp;
+    rect.top === 0 &amp;&amp;
+    rect.left === 0
+  );
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

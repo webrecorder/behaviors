@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/utils/clicks.js | wr-behaviors</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#shared">shared</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/shared/behaviorRunner.js~BehaviorRunner.html">BehaviorRunner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-initRunnableBehavior">initRunnableBehavior</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getProfileInfo">getProfileInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-doneOrWait">doneOrWait</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isDone">isDone</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getNoneNukedConsole">getNoneNukedConsole</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isStreamLiDataItemTypeTweet">isStreamLiDataItemTypeTweet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-selectors">selectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-selectors">selectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-videoPostSelectors">videoPostSelectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-xpathQ">xpathQ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dataAttrs">dataAttrs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-elemIds">elemIds</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-overlayTweetXpath">overlayTweetXpath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-selectors">selectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-threadedTweetXpath">threadedTweetXpath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-tweetXpath">tweetXpath</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/mutations.js~MutationStream.html">MutationStream</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-locationContains">locationContains</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-locationEquals">locationEquals</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForHistoryManipToChangeLocation">waitForHistoryManipToChangeLocation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-click">click</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clickAndWaitFor">clickAndWaitFor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clickInContext">clickInContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clickInContextWithDelay">clickInContextWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clickWithDelay">clickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollAllIntoViewAndClick">scrollAllIntoViewAndClick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollAllIntoViewAndClickWithDelay">scrollAllIntoViewAndClickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoViewAndClick">scrollIntoViewAndClick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoViewAndClickWithDelay">scrollIntoViewAndClickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectClickAndWaitFor">selectClickAndWaitFor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectElemAndClick">selectElemAndClick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectElemAndClickWithDelay">selectElemAndClickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectElemFromAndClick">selectElemFromAndClick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectElemFromAndClickWithDelay">selectElemFromAndClickWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickNTimes">selectFromAndClickNTimes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickNTimesWithDelay">selectFromAndClickNTimesWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickUntilNullWithDelay">selectFromAndClickUntilNullWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-delay">delay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-domCompletePromise">domCompletePromise</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-resolveWhenUnPaused">resolveWhenUnPaused</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setIntervalP">setIntervalP</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setTimeoutP">setTimeoutP</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForAdditionalElemChildren">waitForAdditionalElemChildren</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForAndSelectElement">waitForAndSelectElement</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForPredicate">waitForPredicate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForPredicateAtMax">waitForPredicateAtMax</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addBehaviorStyle">addBehaviorStyle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addClass">addClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-attr">attr</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-attrEq">attrEq</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-canAcessIf">canAcessIf</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-chainQs">chainQs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-elemHasNonZeroTopOffset">elemHasNonZeroTopOffset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-elemHasZeroBoundingRect">elemHasZeroBoundingRect</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findTag">findTag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getElemSibling">getElemSibling</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getElemSiblingAndRemoveElem">getElemSiblingAndRemoveElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-hasClass">hasClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-id">id</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-idExists">idExists</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-markElemAsVisited">markElemAsVisited</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-maybePolyfillXPG">maybePolyfillXPG</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-maybeRemoveElem">maybeRemoveElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-maybeRemoveElemById">maybeRemoveElemById</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nthChildElemOf">nthChildElemOf</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-qs">qs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-qsa">qsa</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-removeClass">removeClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectorExists">selectorExists</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-xpathSnapShot">xpathSnapShot</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-xpathSnapShotArray">xpathSnapShotArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-autoFetchFromDoc">autoFetchFromDoc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-autobind">autobind</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-compose">compose</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-composeAsync">composeAsync</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-composeAsyncIterators">composeAsyncIterators</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-extractProps">extractProps</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findAllMediaAndPlay">findAllMediaAndPlay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getViaPath">getViaPath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-globalWithPropsExist">globalWithPropsExist</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-noop">noop</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-objectHasProps">objectHasProps</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-safeFetch">safeFetch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendAutoFetchWorkerURLs">sendAutoFetchWorkerURLs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-noExceptPlayMediaElement">noExceptPlayMediaElement</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectAndPlay">selectAndPlay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectIdAndPlay">selectIdAndPlay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addOutLinks">addOutLinks</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addOutlink">addOutlink</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-collectOutlinksFrom">collectOutlinksFrom</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-collectOutlinksFromDoc">collectOutlinksFromDoc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findChildWithKey">findChildWithKey</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getInternalRootOnElem">getInternalRootOnElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getReactRootContainer">getReactRootContainer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getReactRootHostElem">getReactRootHostElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reactInstanceFromDOMElem">reactInstanceFromDOMElem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reactInstancesFromElements">reactInstancesFromElements</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-canScrollMore">canScrollMore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollDownByElemHeight">scrollDownByElemHeight</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollDownByElemHeightWithDelay">scrollDownByElemHeightWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoView">scrollIntoView</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoViewAndWaitFor">scrollIntoViewAndWaitFor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollIntoViewWithDelay">scrollIntoViewWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollToElemOffset">scrollToElemOffset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-scrollToElemOffsetWithDelay">scrollToElemOffsetWithDelay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-reactProps">reactProps</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/utils/clicks.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { delay, waitForPredicate } from &apos;./delays&apos;;
+import { scrollIntoView } from &apos;./scrolls&apos;;
+import { qs } from &apos;./dom&apos;;
+
+/**
+ * @desc Calls the click function on the supplied element if non-null/defined.
+ * Returns true or false to indicate if the click happened
+ * @param {HTMLElement|Element} elem - The element to be clicked
+ * @return {boolean} - T/F to indicate that click happened.
+ */
+export function click(elem) {
+  let clicked = false;
+  if (elem != null) {
+    elem.dispatchEvent(
+      new window.MouseEvent(&apos;mouseover&apos;, {
+        view: window,
+        bubbles: true,
+        cancelable: true
+      })
+    );
+    elem.click();
+    clicked = true;
+  }
+  return clicked;
+}
+
+/**
+ * @desc Calls the click function on the supplied element if non-null/defined
+ * that exists in the JS context of the supplied window (cntx).
+ * Returns true or false to indicate if the click happened
+ * @param {HTMLElement|Element} elem - The element to be clicked
+ * @param {Window} cntx - The context window
+ * @return {boolean} - T/F to indicate that click happened.
+ */
+export function clickInContext(elem, cntx) {
+  let clicked = false;
+  if (elem != null) {
+    elem.dispatchEvent(
+      new cntx.MouseEvent(&apos;mouseover&apos;, {
+        view: cntx,
+        bubbles: true,
+        cancelable: true
+      })
+    );
+    elem.click();
+    clicked = true;
+  }
+  return clicked;
+}
+
+/**
+ * @desc Calls the click method of the supplied element and waits the
+ * specified delayTime after clicking IFF the supplied element was
+ * non-null/undefined.
+ * @param {HTMLElement|Element} elem - The element to be clicked
+ * @param {number} [delayTime = 1000] - How long is the delay after click
+ * @returns {Promise&lt;boolean&gt;} - A Promise that resolves to T/F
+ * indicating if the click happened
+ */
+export async function clickWithDelay(elem, delayTime = 1000) {
+  let clicked = click(elem);
+  if (clicked) {
+    await delay(delayTime);
+  }
+  return clicked;
+}
+
+/**
+ * @desc Calls the click method of the supplied element that exists in
+ * the JS context of the supplied window object (cntx) and waits the
+ * specified delayTime after clicking IFF the supplied element was
+ * non-null/undefined.
+ * @param {HTMLElement|Element} elem - The element to be clicked
+ * @param {Window} cntx - The context window
+ * @param {number} [delayTime = 1000] - How long is the delay after click
+ * @returns {Promise&lt;boolean&gt;} - A Promise that resolves to T/F
+ * indicating if the click happened
+ */
+export async function clickInContextWithDelay(elem, cntx, delayTime = 1000) {
+  let clicked = clickInContext(elem, cntx);
+  if (clicked) {
+    await delay(delayTime);
+  }
+  return clicked;
+}
+
+/**
+ * @desc Scrolls the supplied element into view and clicks it if the
+ * element is non-null/undefined
+ * @param {HTMLElement|Element} elem - The element to be scrolled into view
+ * and clicked.
+ * @return {boolean} - T/F to indicate that the click happened
+ */
+export function scrollIntoViewAndClick(elem) {
+  scrollIntoView(elem);
+  return click(elem);
+}
+
+/**
+ * @desc Scrolls the supplied element into view and clicks it if the
+ * element is non-null/undefined and waits for the specified delay time
+ * @param {HTMLElement|Element} elem - The element to be
+ * @param {number} [delayTime = 1000] - How long is the delay
+ * @returns {Promise&lt;boolean&gt;} - A Promise that resolves to T/F indicating
+ * that the click happened
+ */
+export function scrollIntoViewAndClickWithDelay(elem, delayTime = 1000) {
+  scrollIntoView(elem);
+  return clickWithDelay(elem, delayTime);
+}
+
+/**
+ * @desc Scrolls into view and clicks all the elements
+ * present in the supplied array.
+ * @param {Array&lt;HTMLElement&gt;} elems - The array of elements
+ * to be scrolled into view and clicked
+ * @return {void}
+ */
+export function scrollAllIntoViewAndClick(elems) {
+  let i = 0;
+  let length = elems.length;
+  for (; i &lt; length; ++i) {
+    scrollIntoView(elems[i]);
+    click(elems[i]);
+  }
+}
+
+/**
+ * @desc Scrolls into view and clicks all the elements
+ * present in the supplied array waiting for the supplied
+ * delay time after each click of an element in the array.
+ * @param {Array&lt;HTMLElement|Element|Node&gt;} elems - The array of elements
+ * to be scrolled into view and clicked
+ * @param {number} [delayTime = 1000] - How long is the delay after click
+ * @returns {Promise&lt;void&gt;}
+ */
+export async function scrollAllIntoViewAndClickWithDelay(
+  elems,
+  delayTime = 1000
+) {
+  let i = 0;
+  let length = elems.length;
+  for (; i &lt; length; ++i) {
+    scrollIntoView(elems[i]);
+    await clickWithDelay(elems[i], delayTime);
+  }
+}
+
+/**
+ * @desc Clicks the element from executing document.querySelector using
+ * the supplied selector
+ * @param {string} selector - the css selector to use
+ * @returns {boolean} - T/F to indicate that the click happened
+ */
+export function selectElemAndClick(selector) {
+  return click(document.querySelector(selector));
+}
+
+/**
+ * @desc Clicks the element from executing document.querySelector using
+ * the supplied selector and waiting the specified delay time after clicking
+ * @param {string} selector - the css selector to use
+ * @param {number} [delayTime = 1000] - How long is the delay
+ * @returns {Promise&lt;boolean&gt;} - A Promise that resolves to T/F indicating
+ * that the click happened
+ */
+export function selectElemAndClickWithDelay(selector, delayTime = 1000) {
+  return clickWithDelay(document.querySelector(selector), delayTime);
+}
+
+/**
+ * @desc Clicks the element from executing querySelector using
+ * the supplied selector using the supplied element
+ * @param {Element|Node|HTMLElement} selectFrom - element to use for the querySelector call
+ * @param {string} selector - the css selector to use
+ * @returns {boolean} - T/F to indicate that the click happened
+ */
+export function selectElemFromAndClick(selectFrom, selector) {
+  return click(selectFrom.querySelector(selector));
+}
+
+/**
+ * @desc Clicks the element from executing querySelector using
+ * the supplied selector from the supplied element and waiting the specified delay time after clicking
+ * @param {Element|Node|HTMLElement} selectFrom - element to use for the querySelector call
+ * @param {string} selector - the css selector to use
+ * @param {number} [delayTime = 1000] - How long is the delay
+ * @returns {Promise&lt;boolean&gt;} - A Promise that resolves to T/F indicating
+ * that the click happened
+ */
+export function selectElemFromAndClickWithDelay(
+  selectFrom,
+  selector,
+  delayTime = 1000
+) {
+  return clickWithDelay(selectFrom.querySelector(selector), delayTime);
+}
+
+/**
+ * @desc Clicks the supplied element and then waits for the supplied predicate function to return true
+ * @param {Element|Node|HTMLElement} elem - the element to be clicked
+ * @param {function(): boolean} predicate - function returning true or false indicating the wait condition is satisfied
+ * @returns {Promise&lt;boolean&gt;} - A Promise that resolves to T/F indicating that the click happened
+ */
+export async function clickAndWaitFor(elem, predicate) {
+  const clicked = click(elem);
+  if (clicked) {
+    await waitForPredicate(predicate);
+  }
+  return clicked;
+}
+
+/**
+ * @desc Clicks the element returned by calling querySelector using the selector
+ * on document or the supplied element (selectFrom) and then waits for the supplied
+ * predicate function to return true
+ * @param {string} selector - the css selector to use
+ * @param {function(): boolean} predicate - function returning true or false indicating the wait condition is satisfied
+ * @param {HTMLElement|Document} [selectFrom] - optional element to use for the querySelector(selector) call
+ * @returns {Promise&lt;boolean&gt;} - A Promise that resolves to T/F indicating that the click happened
+ */
+export function selectClickAndWaitFor(selector, predicate, selectFrom) {
+  return clickAndWaitFor(qs(selector, selectFrom), predicate);
+}
+
+/**
+ * @desc Clicks the element returned from result of calling querySelector using the supplied
+ * selector on the supplied element N number of times. Note that the evaluation of the querySelector
+ * is done all N times.
+ * @param {HTMLElement|Element} selectFrom - element to use for the querySelector(selector) call
+ * @param {string} selector - the css selector to use
+ * @param {number} n - How many times to click the element returned by
+ * performing selectFrom.querySelector(selector)
+ */
+export function selectFromAndClickNTimes(selectFrom, selector, n) {
+  let i = 0;
+  let clickMe;
+  for (; i &lt; n; ++i) {
+    clickMe = selectFrom.querySelector(selector);
+    if (clickMe) {
+      click(clickMe);
+    }
+  }
+}
+
+/**
+ * @desc Clicks the element returned from result of calling querySelector using the supplied
+ * selector on the supplied element N number of times and waits for delay time afters each click.
+ * Note that the evaluation of the querySelector is done all N times.
+ * @param {HTMLElement|Element} selectFrom - The element to use to call querySelector(selector) on
+ * @param {string} selector - the css selector to use
+ * @param {number} n - How many times to click the element returned by
+ * performing selectFrom.querySelector(selector)
+ * @param {number} [delayTime = 1000] - How long is the delay
+ */
+export async function selectFromAndClickNTimesWithDelay(
+  selectFrom,
+  selector,
+  n,
+  delayTime = 1000
+) {
+  let i = 0;
+  let clickMe;
+  for (; i &lt; n; ++i) {
+    clickMe = selectFrom.querySelector(selector);
+    if (clickMe) {
+      await clickWithDelay(clickMe, delayTime);
+    }
+  }
+}
+
+/**
+ * @desc Clicks the element returned from result of calling querySelector using the supplied
+ * selector on the supplied element until the results of the evaluting the selector returns null/undefined,
+ * waiting for delay time afters each click.
+ * @param {HTMLElement|Element} selectFrom - The element to use to call querySelector(selector) on
+ * @param {string} selector - the css selector to use
+ * performing selectFrom.querySelector(selector)
+ * @param {{delayTime: number, safety: ?number}} [options] - options about delayTime and safety time
+ */
+export async function selectFromAndClickUntilNullWithDelay(
+  selectFrom,
+  selector,
+  options
+) {
+  const opts = Object.assign({ delayTime: 1000 }, options);
+  const delayTime = opts.delayTime;
+  let exit = false;
+  let safety;
+  if (opts.safety) {
+    safety = setTimeout(() =&gt; {
+      exit = true;
+    }, opts.safety);
+  }
+  let clickMe = selectFrom.querySelector(selector);
+  while (clickMe != null) {
+    if (exit) break;
+    await clickWithDelay(clickMe, delayTime);
+    clickMe = selectFrom.querySelector(selector);
+  }
+  if (opts.safety) {
+    clearTimeout(safety);
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
