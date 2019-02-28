@@ -151,7 +151,7 @@ class Checking {
         return Checking.checkMetadataBad(
           Utils.joinStrings(
             'The behavior exported metadata contains a name property that is not a string',
-            `It is an ${typeof value.name} with value of ${inspect(value.name)}`
+            `It is an ${typeof value.name} with value of ${Utils.inspect(value.name)}`
           ),
           value
         );
@@ -495,8 +495,10 @@ class Checking {
         )
       );
     }
-    if (match.regex) {
+    if (Utils.isObject(match.regex) && match.regex.sub) {
       return Checking.checkRegexBaseSub(match.regex);
+    } else if (Utils.isStringOrRegex(match.regex)) {
+      return Checking.createNoErrorResultsObj();
     }
     return Checking.createErrorResultsObj(
       Utils.joinStrings(

@@ -1,4 +1,4 @@
-FROM node:11.9.0
+FROM node:11.10.1
 
 ENV DOCKER 1
 

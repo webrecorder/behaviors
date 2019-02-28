@@ -1,4 +1,4 @@
-FROM node:11.10.0
+FROM node:11.10.1
 
 EXPOSE 3030
 

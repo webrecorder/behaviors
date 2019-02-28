@@ -146,15 +146,14 @@ async function buildingWhat(opts, operation) {
  */
 function updateBehaviorMetadata(behavior, behaviorMetadata) {
   if (behavior.isDefaultBehavior) {
-    behaviorMetadata.defaultBehavior = Object.assign(
-      {
-        name: behavior.buildFileName
-      },
-      behavior.metadata
-    );
+    behaviorMetadata.defaultBehavior = Object.assign({}, behavior.metadata, {
+      name: behavior.buildFileName
+    });
   } else {
     behaviorMetadata.behaviors.push(
-      Object.assign({ name: behavior.buildFileName }, behavior.metadata)
+      Object.assign({}, behavior.metadata, {
+        name: behavior.buildFileName
+      })
     );
   }
 }
