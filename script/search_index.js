@@ -1,1286 +1,1652 @@
 window.esdocSearchIndex = [
   [
-    "wr-behaviors/src/shared/behaviorrunner.js~behaviorrunner",
-    "class/src/shared/behaviorRunner.js~BehaviorRunner.html",
-    "<span>BehaviorRunner</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/behaviorRunner.js</span>",
+    "wr-behaviors/lib/behaviorrunner.js~behaviorrunner",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html",
+    "<span>BehaviorRunner</span> <span class=\"search-result-import-path\">wr-behaviors/lib/behaviorRunner.js</span>",
     "class"
   ],
   [
-    "wr-behaviors/src/utils/mutations.js~mutationstream",
-    "class/src/utils/mutations.js~MutationStream.html",
-    "<span>MutationStream</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/mutations.js</span>",
+    "wr-behaviors/lib/delays.js~delayamount1second",
+    "variable/index.html#static-variable-DelayAmount1Second",
+    "<span>DelayAmount1Second</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "variable"
+  ],
+  [
+    "wr-behaviors/lib/delays.js~delayamount2seconds",
+    "variable/index.html#static-variable-DelayAmount2Seconds",
+    "<span>DelayAmount2Seconds</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "variable"
+  ],
+  [
+    "wr-behaviors/lib/delays.js~delayamount3seconds",
+    "variable/index.html#static-variable-DelayAmount3Seconds",
+    "<span>DelayAmount3Seconds</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "variable"
+  ],
+  [
+    "wr-behaviors/lib/delays.js~delayamount4seconds",
+    "variable/index.html#static-variable-DelayAmount4Seconds",
+    "<span>DelayAmount4Seconds</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "variable"
+  ],
+  [
+    "wr-behaviors/lib/delays.js~delayamount5seconds",
+    "variable/index.html#static-variable-DelayAmount5Seconds",
+    "<span>DelayAmount5Seconds</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "variable"
+  ],
+  [
+    "wr-behaviors/lib/events.js~htmlelementeventmap",
+    "variable/index.html#static-variable-HTMLElementEventMap",
+    "<span>HTMLElementEventMap</span> <span class=\"search-result-import-path\">wr-behaviors/lib/events.js</span>",
+    "variable"
+  ],
+  [
+    "wr-behaviors/lib/mutations.js~mutationstream",
+    "class/lib/mutations.js~MutationStream.html",
+    "<span>MutationStream</span> <span class=\"search-result-import-path\">wr-behaviors/lib/mutations.js</span>",
     "class"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~addbehaviorstyle",
+    "wr-behaviors/lib/dom.js~addbehaviorstyle",
     "function/index.html#static-function-addBehaviorStyle",
-    "<span>addBehaviorStyle</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>addBehaviorStyle</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~addclass",
+    "wr-behaviors/lib/dom.js~addclass",
     "function/index.html#static-function-addClass",
-    "<span>addClass</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>addClass</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/outlinkcollector.js~addoutlinks",
+    "wr-behaviors/lib/outlinkcollector.js~addoutlinks",
     "function/index.html#static-function-addOutLinks",
-    "<span>addOutLinks</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/outlinkCollector.js</span>",
+    "<span>addOutLinks</span> <span class=\"search-result-import-path\">wr-behaviors/lib/outlinkCollector.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/outlinkcollector.js~addoutlink",
+    "wr-behaviors/lib/outlinkcollector.js~addoutlink",
     "function/index.html#static-function-addOutlink",
-    "<span>addOutlink</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/outlinkCollector.js</span>",
+    "<span>addOutlink</span> <span class=\"search-result-import-path\">wr-behaviors/lib/outlinkCollector.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~attr",
+    "wr-behaviors/lib/dom.js~anyselectorexists",
+    "function/index.html#static-function-anySelectorExists",
+    "<span>anySelectorExists</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~attr",
     "function/index.html#static-function-attr",
-    "<span>attr</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>attr</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~attreq",
+    "wr-behaviors/lib/dom.js~attreq",
     "function/index.html#static-function-attrEq",
-    "<span>attrEq</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>attrEq</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/general.js~autofetchfromdoc",
+    "wr-behaviors/lib/general.js~autofetchfromdoc",
     "function/index.html#static-function-autoFetchFromDoc",
-    "<span>autoFetchFromDoc</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/general.js</span>",
+    "<span>autoFetchFromDoc</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/general.js~autobind",
+    "wr-behaviors/lib/general.js~autobind",
     "function/index.html#static-function-autobind",
-    "<span>autobind</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/general.js</span>",
+    "<span>autobind</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~canacessif",
+    "wr-behaviors/lib/poststepfns.js~buildcustompoststepfn",
+    "function/index.html#static-function-buildCustomPostStepFn",
+    "<span>buildCustomPostStepFn</span> <span class=\"search-result-import-path\">wr-behaviors/lib/postStepFNs.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/strings.js~camelcase",
+    "function/index.html#static-function-camelCase",
+    "<span>camelCase</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/strings.js~camelcasetodashdelim",
+    "function/index.html#static-function-camelCaseToDashDelim",
+    "<span>camelCaseToDashDelim</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/strings.js~camelcasetounderscoredelim",
+    "function/index.html#static-function-camelCaseToUnderscoreDelim",
+    "<span>camelCaseToUnderscoreDelim</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~canacessif",
     "function/index.html#static-function-canAcessIf",
-    "<span>canAcessIf</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>canAcessIf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/scrolls.js~canscrollmore",
+    "wr-behaviors/lib/scrolls.js~canscrollmore",
     "function/index.html#static-function-canScrollMore",
-    "<span>canScrollMore</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/scrolls.js</span>",
+    "<span>canScrollMore</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~chainqs",
+    "wr-behaviors/lib/strings.js~capitalize",
+    "function/index.html#static-function-capitalize",
+    "<span>capitalize</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~chainfistchildelemof",
+    "function/index.html#static-function-chainFistChildElemOf",
+    "<span>chainFistChildElemOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~chainlastchildelemof",
+    "function/index.html#static-function-chainLastChildElemOf",
+    "<span>chainLastChildElemOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~chainnthchildelemof",
+    "function/index.html#static-function-chainNthChildElemOf",
+    "<span>chainNthChildElemOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~chainqs",
     "function/index.html#static-function-chainQs",
-    "<span>chainQs</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>chainQs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~click",
+    "wr-behaviors/lib/clicks.js~click",
     "function/index.html#static-function-click",
-    "<span>click</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>click</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~clickandwaitfor",
+    "wr-behaviors/lib/clicks.js~clickandwaitfor",
     "function/index.html#static-function-clickAndWaitFor",
-    "<span>clickAndWaitFor</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>clickAndWaitFor</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~clickincontext",
+    "wr-behaviors/lib/clicks.js~clickincontext",
     "function/index.html#static-function-clickInContext",
-    "<span>clickInContext</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>clickInContext</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~clickincontextwithdelay",
+    "wr-behaviors/lib/clicks.js~clickincontextwithdelay",
     "function/index.html#static-function-clickInContextWithDelay",
-    "<span>clickInContextWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>clickInContextWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~clickwithdelay",
+    "wr-behaviors/lib/clicks.js~clickwithdelay2",
+    "function/index.html#static-function-clickWithDelay2",
+    "<span>clickWithDelay2</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/clicks.js~clickwithdelay",
     "function/index.html#static-function-clickWithDelay",
-    "<span>clickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>clickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/outlinkcollector.js~collectoutlinksfrom",
+    "wr-behaviors/lib/strings.js~collapsewhitespace",
+    "function/index.html#static-function-collapseWhitespace",
+    "<span>collapseWhitespace</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/outlinkcollector.js~collectoutlinksfrom",
     "function/index.html#static-function-collectOutlinksFrom",
-    "<span>collectOutlinksFrom</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/outlinkCollector.js</span>",
+    "<span>collectOutlinksFrom</span> <span class=\"search-result-import-path\">wr-behaviors/lib/outlinkCollector.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/outlinkcollector.js~collectoutlinksfromdoc",
+    "wr-behaviors/lib/outlinkcollector.js~collectoutlinksfromdoc",
     "function/index.html#static-function-collectOutlinksFromDoc",
-    "<span>collectOutlinksFromDoc</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/outlinkCollector.js</span>",
+    "<span>collectOutlinksFromDoc</span> <span class=\"search-result-import-path\">wr-behaviors/lib/outlinkCollector.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/general.js~compose",
+    "wr-behaviors/lib/general.js~compose",
     "function/index.html#static-function-compose",
-    "<span>compose</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/general.js</span>",
+    "<span>compose</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/general.js~composeasync",
+    "wr-behaviors/lib/general.js~composeasync",
     "function/index.html#static-function-composeAsync",
-    "<span>composeAsync</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/general.js</span>",
+    "<span>composeAsync</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/general.js~composeasynciterators",
+    "wr-behaviors/lib/general.js~composeasynciterators",
     "function/index.html#static-function-composeAsyncIterators",
-    "<span>composeAsyncIterators</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/general.js</span>",
+    "<span>composeAsyncIterators</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/shared/twitter.js~dataattrs",
-    "variable/index.html#static-variable-dataAttrs",
-    "<span>dataAttrs</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/twitter.js</span>",
-    "variable"
+    "wr-behaviors/lib/general.js~composeiterators",
+    "function/index.html#static-function-composeIterators",
+    "<span>composeIterators</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "function"
   ],
   [
-    "wr-behaviors/src/utils/delays.js~delay",
+    "wr-behaviors/lib/events.js~createmouseevent",
+    "function/index.html#static-function-createMouseEvent",
+    "<span>createMouseEvent</span> <span class=\"search-result-import-path\">wr-behaviors/lib/events.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/delays.js~delay",
     "function/index.html#static-function-delay",
-    "<span>delay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/delays.js</span>",
+    "<span>delay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/delays.js~domcompletepromise",
+    "wr-behaviors/lib/dom.js~documentscrollposition",
+    "function/index.html#static-function-documentScrollPosition",
+    "<span>documentScrollPosition</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/delays.js~domcompletepromise",
     "function/index.html#static-function-domCompletePromise",
-    "<span>domCompletePromise</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/delays.js</span>",
+    "<span>domCompletePromise</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/shared/poststepfns.js~doneorwait",
+    "wr-behaviors/lib/poststepfns.js~doneorwait",
     "function/index.html#static-function-doneOrWait",
-    "<span>doneOrWait</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/postStepFNs.js</span>",
+    "<span>doneOrWait</span> <span class=\"search-result-import-path\">wr-behaviors/lib/postStepFNs.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~elemhasnonzerotopoffset",
-    "function/index.html#static-function-elemHasNonZeroTopOffset",
-    "<span>elemHasNonZeroTopOffset</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "wr-behaviors/lib/dom.js~elemhassibling",
+    "function/index.html#static-function-elemHasSibling",
+    "<span>elemHasSibling</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~elemhaszeroboundingrect",
+    "wr-behaviors/lib/dom.js~elemhaszeroboundingrect",
     "function/index.html#static-function-elemHasZeroBoundingRect",
-    "<span>elemHasZeroBoundingRect</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>elemHasZeroBoundingRect</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/shared/twitter.js~elemids",
-    "variable/index.html#static-variable-elemIds",
-    "<span>elemIds</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/twitter.js</span>",
-    "variable"
+    "wr-behaviors/lib/dom.js~eleminnertext",
+    "function/index.html#static-function-elemInnerText",
+    "<span>elemInnerText</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
   ],
   [
-    "wr-behaviors/src/utils/general.js~extractprops",
+    "wr-behaviors/lib/dom.js~eleminnertexteqs",
+    "function/index.html#static-function-elemInnerTextEqs",
+    "<span>elemInnerTextEqs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~elemoffsettopzero",
+    "function/index.html#static-function-elemOffsetTopZero",
+    "<span>elemOffsetTopZero</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~elemtextcontent",
+    "function/index.html#static-function-elemTextContent",
+    "<span>elemTextContent</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~elementtextcontains",
+    "function/index.html#static-function-elementTextContains",
+    "<span>elementTextContains</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~elementtextendswith",
+    "function/index.html#static-function-elementTextEndsWith",
+    "<span>elementTextEndsWith</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~elementtexteqs",
+    "function/index.html#static-function-elementTextEqs",
+    "<span>elementTextEqs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~elementtextstartswith",
+    "function/index.html#static-function-elementTextStartsWith",
+    "<span>elementTextStartsWith</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~elementtextstartswithandendswith",
+    "function/index.html#static-function-elementTextStartsWithAndEndsWith",
+    "<span>elementTextStartsWithAndEndsWith</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~elementsnameequals",
+    "function/index.html#static-function-elementsNameEquals",
+    "<span>elementsNameEquals</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/general.js~extractprops",
     "function/index.html#static-function-extractProps",
-    "<span>extractProps</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/general.js</span>",
+    "<span>extractProps</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/general.js~findallmediaandplay",
-    "function/index.html#static-function-findAllMediaAndPlay",
-    "<span>findAllMediaAndPlay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/general.js</span>",
+    "wr-behaviors/lib/dom.js~filteredqs",
+    "function/index.html#static-function-filteredQs",
+    "<span>filteredQs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/reactutils.js~findchildwithkey",
+    "wr-behaviors/lib/media.js~findallmediaelementsandplay",
+    "function/index.html#static-function-findAllMediaElementsAndPlay",
+    "<span>findAllMediaElementsAndPlay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/media.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/reactutils.js~findchildwithkey",
     "function/index.html#static-function-findChildWithKey",
-    "<span>findChildWithKey</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/reactUtils.js</span>",
+    "<span>findChildWithKey</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~findtag",
+    "wr-behaviors/lib/dom.js~findtag",
     "function/index.html#static-function-findTag",
-    "<span>findTag</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>findTag</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~getelemsibling",
+    "wr-behaviors/lib/events.js~fireeventon",
+    "function/index.html#static-function-fireEventOn",
+    "<span>fireEventOn</span> <span class=\"search-result-import-path\">wr-behaviors/lib/events.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/events.js~firemouseeventsonelement",
+    "function/index.html#static-function-fireMouseEventsOnElement",
+    "<span>fireMouseEventsOnElement</span> <span class=\"search-result-import-path\">wr-behaviors/lib/events.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~firstchildelementof",
+    "function/index.html#static-function-firstChildElementOf",
+    "<span>firstChildElementOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~getelemsibling",
     "function/index.html#static-function-getElemSibling",
-    "<span>getElemSibling</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>getElemSibling</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~getelemsiblingandremoveelem",
+    "wr-behaviors/lib/dom.js~getelemsiblingandremoveelem",
     "function/index.html#static-function-getElemSiblingAndRemoveElem",
-    "<span>getElemSiblingAndRemoveElem</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>getElemSiblingAndRemoveElem</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/reactutils.js~getinternalrootonelem",
+    "wr-behaviors/lib/dom.js~getelementclientpagecenter",
+    "function/index.html#static-function-getElementClientPageCenter",
+    "<span>getElementClientPageCenter</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~getelementclientpageposition",
+    "function/index.html#static-function-getElementClientPagePosition",
+    "<span>getElementClientPagePosition</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~getelementpositionwidthheight",
+    "function/index.html#static-function-getElementPositionWidthHeight",
+    "<span>getElementPositionWidthHeight</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/reactutils.js~getinternalrootonelem",
     "function/index.html#static-function-getInternalRootOnElem",
-    "<span>getInternalRootOnElem</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/reactUtils.js</span>",
+    "<span>getInternalRootOnElem</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/shared/twitter.js~getnonenukedconsole",
-    "function/index.html#static-function-getNoneNukedConsole",
-    "<span>getNoneNukedConsole</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/twitter.js</span>",
+    "wr-behaviors/lib/dom.js~getnthparentelement",
+    "function/index.html#static-function-getNthParentElement",
+    "<span>getNthParentElement</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/shared/instagram.js~getprofileinfo",
-    "function/index.html#static-function-getProfileInfo",
-    "<span>getProfileInfo</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/instagram.js</span>",
-    "function"
-  ],
-  [
-    "wr-behaviors/src/utils/reactutils.js~getreactrootcontainer",
+    "wr-behaviors/lib/reactutils.js~getreactrootcontainer",
     "function/index.html#static-function-getReactRootContainer",
-    "<span>getReactRootContainer</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/reactUtils.js</span>",
+    "<span>getReactRootContainer</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/reactutils.js~getreactroothostelem",
+    "wr-behaviors/lib/reactutils.js~getreactroothostelem",
     "function/index.html#static-function-getReactRootHostElem",
-    "<span>getReactRootHostElem</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/reactUtils.js</span>",
+    "<span>getReactRootHostElem</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/general.js~getviapath",
+    "wr-behaviors/lib/general.js~getviapath",
     "function/index.html#static-function-getViaPath",
-    "<span>getViaPath</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/general.js</span>",
+    "<span>getViaPath</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/general.js~globalwithpropsexist",
+    "wr-behaviors/lib/general.js~globalwithpropsexist",
     "function/index.html#static-function-globalWithPropsExist",
-    "<span>globalWithPropsExist</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/general.js</span>",
+    "<span>globalWithPropsExist</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~hasclass",
+    "wr-behaviors/lib/dom.js~hasclass",
     "function/index.html#static-function-hasClass",
-    "<span>hasClass</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>hasClass</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~id",
+    "wr-behaviors/lib/dom.js~id",
     "function/index.html#static-function-id",
-    "<span>id</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>id</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~idexists",
+    "wr-behaviors/lib/dom.js~idexists",
     "function/index.html#static-function-idExists",
-    "<span>idExists</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>idExists</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/shared/behaviorrunner.js~initrunnablebehavior",
+    "wr-behaviors/lib/behaviorrunner.js~initrunnablebehavior",
     "function/index.html#static-function-initRunnableBehavior",
-    "<span>initRunnableBehavior</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/behaviorRunner.js</span>",
+    "<span>initRunnableBehavior</span> <span class=\"search-result-import-path\">wr-behaviors/lib/behaviorRunner.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/shared/poststepfns.js~isdone",
-    "function/index.html#static-function-isDone",
-    "<span>isDone</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/postStepFNs.js</span>",
+    "wr-behaviors/lib/strings.js~isalpha",
+    "function/index.html#static-function-isAlpha",
+    "<span>isAlpha</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/shared/twitter.js~isstreamlidataitemtypetweet",
-    "function/index.html#static-function-isStreamLiDataItemTypeTweet",
-    "<span>isStreamLiDataItemTypeTweet</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/twitter.js</span>",
+    "wr-behaviors/lib/strings.js~isalphanumeric",
+    "function/index.html#static-function-isAlphaNumeric",
+    "<span>isAlphaNumeric</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/browser.js~locationcontains",
+    "wr-behaviors/lib/dom.js~isclasslesselem",
+    "function/index.html#static-function-isClasslessElem",
+    "<span>isClasslessElem</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~iselemnotvisible",
+    "function/index.html#static-function-isElemNotVisible",
+    "<span>isElemNotVisible</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/strings.js~isemptystring",
+    "function/index.html#static-function-isEmptyString",
+    "<span>isEmptyString</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/strings.js~islower",
+    "function/index.html#static-function-isLower",
+    "<span>isLower</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/strings.js~isnumeric",
+    "function/index.html#static-function-isNumeric",
+    "<span>isNumeric</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/strings.js~isupper",
+    "function/index.html#static-function-isUpper",
+    "<span>isUpper</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~lastchildelementof",
+    "function/index.html#static-function-lastChildElementOf",
+    "<span>lastChildElementOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/browser.js~locationcontains",
     "function/index.html#static-function-locationContains",
-    "<span>locationContains</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/browser.js</span>",
+    "<span>locationContains</span> <span class=\"search-result-import-path\">wr-behaviors/lib/browser.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/browser.js~locationequals",
+    "wr-behaviors/lib/browser.js~locationequals",
     "function/index.html#static-function-locationEquals",
-    "<span>locationEquals</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/browser.js</span>",
+    "<span>locationEquals</span> <span class=\"search-result-import-path\">wr-behaviors/lib/browser.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~markelemasvisited",
+    "wr-behaviors/lib/dom.js~markelemasvisited",
     "function/index.html#static-function-markElemAsVisited",
-    "<span>markElemAsVisited</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>markElemAsVisited</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~maybepolyfillxpg",
+    "wr-behaviors/lib/dom.js~maybepolyfillxpg",
     "function/index.html#static-function-maybePolyfillXPG",
-    "<span>maybePolyfillXPG</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>maybePolyfillXPG</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~mayberemoveelem",
+    "wr-behaviors/lib/dom.js~mayberemoveelem",
     "function/index.html#static-function-maybeRemoveElem",
-    "<span>maybeRemoveElem</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>maybeRemoveElem</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~mayberemoveelembyid",
+    "wr-behaviors/lib/dom.js~mayberemoveelembyid",
     "function/index.html#static-function-maybeRemoveElemById",
-    "<span>maybeRemoveElemById</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>maybeRemoveElemById</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/media.js~noexceptplaymediaelement",
+    "wr-behaviors/lib/media.js~noexceptplaymediaelement",
     "function/index.html#static-function-noExceptPlayMediaElement",
-    "<span>noExceptPlayMediaElement</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/media.js</span>",
+    "<span>noExceptPlayMediaElement</span> <span class=\"search-result-import-path\">wr-behaviors/lib/media.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/general.js~noop",
+    "wr-behaviors/lib/dom.js~nodesnameequals",
+    "function/index.html#static-function-nodesNameEquals",
+    "<span>nodesNameEquals</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/general.js~noop",
     "function/index.html#static-function-noop",
-    "<span>noop</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/general.js</span>",
+    "<span>noop</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~nthchildelemof",
+    "wr-behaviors/lib/dom.js~nthchildelemof",
     "function/index.html#static-function-nthChildElemOf",
-    "<span>nthChildElemOf</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>nthChildElemOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/general.js~objecthasprops",
+    "wr-behaviors/lib/dom.js~numelemchildren",
+    "function/index.html#static-function-numElemChildren",
+    "<span>numElemChildren</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/general.js~objecthasprops",
     "function/index.html#static-function-objectHasProps",
-    "<span>objectHasProps</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/general.js</span>",
+    "<span>objectHasProps</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/shared/twitter.js~overlaytweetxpath",
-    "variable/index.html#static-variable-overlayTweetXpath",
-    "<span>overlayTweetXpath</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/twitter.js</span>",
-    "variable"
+    "wr-behaviors/lib/general.js~promiseresolvereject",
+    "function/index.html#static-function-promiseResolveReject",
+    "<span>promiseResolveReject</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~qs",
+    "wr-behaviors/lib/dom.js~qs",
     "function/index.html#static-function-qs",
-    "<span>qs</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>qs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~qsa",
+    "wr-behaviors/lib/dom.js~qsoneof",
+    "function/index.html#static-function-qsOneOf",
+    "<span>qsOneOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~qsa",
     "function/index.html#static-function-qsa",
-    "<span>qsa</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>qsa</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/reactutils.js~reactinstancefromdomelem",
+    "wr-behaviors/lib/dom.js~qsaoneof",
+    "function/index.html#static-function-qsaOneOf",
+    "<span>qsaOneOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/reactutils.js~reactinstancefromdomelem",
     "function/index.html#static-function-reactInstanceFromDOMElem",
-    "<span>reactInstanceFromDOMElem</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/reactUtils.js</span>",
+    "<span>reactInstanceFromDOMElem</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/reactutils.js~reactinstancesfromelements",
+    "wr-behaviors/lib/reactutils.js~reactinstancesfromelements",
     "function/index.html#static-function-reactInstancesFromElements",
-    "<span>reactInstancesFromElements</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/reactUtils.js</span>",
+    "<span>reactInstancesFromElements</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/reactutils.js~reactprops",
+    "wr-behaviors/lib/reactutils.js~reactprops",
     "variable/index.html#static-variable-reactProps",
-    "<span>reactProps</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/reactUtils.js</span>",
+    "<span>reactProps</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
     "variable"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~removeclass",
+    "wr-behaviors/lib/dom.js~removeclass",
     "function/index.html#static-function-removeClass",
-    "<span>removeClass</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>removeClass</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/delays.js~resolvewhenunpaused",
-    "function/index.html#static-function-resolveWhenUnPaused",
-    "<span>resolveWhenUnPaused</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/delays.js</span>",
+    "wr-behaviors/lib/delays.js~resolvewhenbehaviorunpaused",
+    "function/index.html#static-function-resolveWhenBehaviorUnPaused",
+    "<span>resolveWhenBehaviorUnPaused</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/general.js~safefetch",
+    "wr-behaviors/lib/general.js~safefetch",
     "function/index.html#static-function-safeFetch",
-    "<span>safeFetch</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/general.js</span>",
+    "<span>safeFetch</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~scrollallintoviewandclick",
+    "wr-behaviors/lib/clicks.js~scrollallintoviewandclick",
     "function/index.html#static-function-scrollAllIntoViewAndClick",
-    "<span>scrollAllIntoViewAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>scrollAllIntoViewAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~scrollallintoviewandclickwithdelay",
+    "wr-behaviors/lib/clicks.js~scrollallintoviewandclickwithdelay",
     "function/index.html#static-function-scrollAllIntoViewAndClickWithDelay",
-    "<span>scrollAllIntoViewAndClickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>scrollAllIntoViewAndClickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/scrolls.js~scrolldownbyelemheight",
+    "wr-behaviors/lib/scrolls.js~scrolldownbyelemheight",
     "function/index.html#static-function-scrollDownByElemHeight",
-    "<span>scrollDownByElemHeight</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/scrolls.js</span>",
+    "<span>scrollDownByElemHeight</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/scrolls.js~scrolldownbyelemheightwithdelay",
+    "wr-behaviors/lib/scrolls.js~scrolldownbyelemheightwithdelay",
     "function/index.html#static-function-scrollDownByElemHeightWithDelay",
-    "<span>scrollDownByElemHeightWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/scrolls.js</span>",
+    "<span>scrollDownByElemHeightWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/scrolls.js~scrollintoview",
+    "wr-behaviors/lib/scrolls.js~scrollintoview",
     "function/index.html#static-function-scrollIntoView",
-    "<span>scrollIntoView</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/scrolls.js</span>",
+    "<span>scrollIntoView</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~scrollintoviewandclick",
+    "wr-behaviors/lib/clicks.js~scrollintoviewandclick2",
+    "function/index.html#static-function-scrollIntoViewAndClick2",
+    "<span>scrollIntoViewAndClick2</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/clicks.js~scrollintoviewandclick",
     "function/index.html#static-function-scrollIntoViewAndClick",
-    "<span>scrollIntoViewAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>scrollIntoViewAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~scrollintoviewandclickwithdelay",
+    "wr-behaviors/lib/clicks.js~scrollintoviewandclickwithdelay2",
+    "function/index.html#static-function-scrollIntoViewAndClickWithDelay2",
+    "<span>scrollIntoViewAndClickWithDelay2</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/clicks.js~scrollintoviewandclickwithdelay",
     "function/index.html#static-function-scrollIntoViewAndClickWithDelay",
-    "<span>scrollIntoViewAndClickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>scrollIntoViewAndClickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/scrolls.js~scrollintoviewandwaitfor",
+    "wr-behaviors/lib/scrolls.js~scrollintoviewandwaitfor",
     "function/index.html#static-function-scrollIntoViewAndWaitFor",
-    "<span>scrollIntoViewAndWaitFor</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/scrolls.js</span>",
+    "<span>scrollIntoViewAndWaitFor</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/scrolls.js~scrollintoviewwithdelay",
+    "wr-behaviors/lib/scrolls.js~scrollintoviewwithdelay",
     "function/index.html#static-function-scrollIntoViewWithDelay",
-    "<span>scrollIntoViewWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/scrolls.js</span>",
+    "<span>scrollIntoViewWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/scrolls.js~scrolltoelemoffset",
+    "wr-behaviors/lib/scrolls.js~scrolltoelemoffset",
     "function/index.html#static-function-scrollToElemOffset",
-    "<span>scrollToElemOffset</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/scrolls.js</span>",
+    "<span>scrollToElemOffset</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/scrolls.js~scrolltoelemoffsetwithdelay",
+    "wr-behaviors/lib/scrolls.js~scrolltoelemoffsetwithdelay",
     "function/index.html#static-function-scrollToElemOffsetWithDelay",
-    "<span>scrollToElemOffsetWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/scrolls.js</span>",
+    "<span>scrollToElemOffsetWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/media.js~selectandplay",
+    "wr-behaviors/lib/scrolls.js~scrollwindowby",
+    "function/index.html#static-function-scrollWindowBy",
+    "<span>scrollWindowBy</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/scrolls.js~scrollwindowbywithdelay",
+    "function/index.html#static-function-scrollWindowByWithDelay",
+    "<span>scrollWindowByWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/scrolls.js~scrollwindowdownby",
+    "function/index.html#static-function-scrollWindowDownBy",
+    "<span>scrollWindowDownBy</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/scrolls.js~scrollwindowdownbywithdelay",
+    "function/index.html#static-function-scrollWindowDownByWithDelay",
+    "<span>scrollWindowDownByWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/delays.js~secondstodelayamount",
+    "function/index.html#static-function-secondsToDelayAmount",
+    "<span>secondsToDelayAmount</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/media.js~selectandplay",
     "function/index.html#static-function-selectAndPlay",
-    "<span>selectAndPlay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/media.js</span>",
+    "<span>selectAndPlay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/media.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~selectclickandwaitfor",
+    "wr-behaviors/lib/clicks.js~selectclickandwaitfor",
     "function/index.html#static-function-selectClickAndWaitFor",
-    "<span>selectClickAndWaitFor</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>selectClickAndWaitFor</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~selectelemandclick",
+    "wr-behaviors/lib/clicks.js~selectelemandclick",
     "function/index.html#static-function-selectElemAndClick",
-    "<span>selectElemAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>selectElemAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~selectelemandclickwithdelay",
+    "wr-behaviors/lib/clicks.js~selectelemandclickwithdelay",
     "function/index.html#static-function-selectElemAndClickWithDelay",
-    "<span>selectElemAndClickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>selectElemAndClickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~selectelemfromandclick",
+    "wr-behaviors/lib/clicks.js~selectelemfromandclick",
     "function/index.html#static-function-selectElemFromAndClick",
-    "<span>selectElemFromAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>selectElemFromAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~selectelemfromandclickwithdelay",
+    "wr-behaviors/lib/clicks.js~selectelemfromandclickwithdelay",
     "function/index.html#static-function-selectElemFromAndClickWithDelay",
-    "<span>selectElemFromAndClickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>selectElemFromAndClickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~selectfromandclickntimes",
+    "wr-behaviors/lib/clicks.js~selectfromandclickntimes",
     "function/index.html#static-function-selectFromAndClickNTimes",
-    "<span>selectFromAndClickNTimes</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>selectFromAndClickNTimes</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~selectfromandclickntimeswithdelay",
+    "wr-behaviors/lib/clicks.js~selectfromandclickntimeswithdelay",
     "function/index.html#static-function-selectFromAndClickNTimesWithDelay",
-    "<span>selectFromAndClickNTimesWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>selectFromAndClickNTimesWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/clicks.js~selectfromandclickuntilnullwithdelay",
+    "wr-behaviors/lib/clicks.js~selectfromandclickuntilnullwithdelay",
     "function/index.html#static-function-selectFromAndClickUntilNullWithDelay",
-    "<span>selectFromAndClickUntilNullWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/clicks.js</span>",
+    "<span>selectFromAndClickUntilNullWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/media.js~selectidandplay",
+    "wr-behaviors/lib/media.js~selectidandplay",
     "function/index.html#static-function-selectIdAndPlay",
-    "<span>selectIdAndPlay</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/media.js</span>",
+    "<span>selectIdAndPlay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/media.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~selectorexists",
+    "wr-behaviors/lib/dom.js~selectednextelementsibling",
+    "function/index.html#static-function-selectedNextElementSibling",
+    "<span>selectedNextElementSibling</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~selectorexists",
     "function/index.html#static-function-selectorExists",
-    "<span>selectorExists</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>selectorExists</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/shared/facebook.js~selectors",
-    "variable/index.html#static-variable-selectors",
-    "<span>selectors</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/facebook.js</span>",
-    "variable"
-  ],
-  [
-    "wr-behaviors/src/shared/instagram.js~selectors",
-    "variable/index.html#static-variable-selectors",
-    "<span>selectors</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/instagram.js</span>",
-    "variable"
-  ],
-  [
-    "wr-behaviors/src/shared/twitter.js~selectors",
-    "variable/index.html#static-variable-selectors",
-    "<span>selectors</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/twitter.js</span>",
-    "variable"
-  ],
-  [
-    "wr-behaviors/src/utils/general.js~sendautofetchworkerurls",
+    "wr-behaviors/lib/general.js~sendautofetchworkerurls",
     "function/index.html#static-function-sendAutoFetchWorkerURLs",
-    "<span>sendAutoFetchWorkerURLs</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/general.js</span>",
+    "<span>sendAutoFetchWorkerURLs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/delays.js~setintervalp",
+    "wr-behaviors/lib/delays.js~setintervalp",
     "function/index.html#static-function-setIntervalP",
-    "<span>setIntervalP</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/delays.js</span>",
+    "<span>setIntervalP</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/delays.js~settimeoutp",
+    "wr-behaviors/lib/delays.js~settimeoutp",
     "function/index.html#static-function-setTimeoutP",
-    "<span>setTimeoutP</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/delays.js</span>",
+    "<span>setTimeoutP</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/shared/twitter.js~threadedtweetxpath",
-    "variable/index.html#static-variable-threadedTweetXpath",
-    "<span>threadedTweetXpath</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/twitter.js</span>",
-    "variable"
+    "wr-behaviors/lib/dom.js~spliteleminnertext",
+    "function/index.html#static-function-splitElemInnerText",
+    "<span>splitElemInnerText</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
   ],
   [
-    "wr-behaviors/src/shared/twitter.js~tweetxpath",
-    "variable/index.html#static-variable-tweetXpath",
-    "<span>tweetXpath</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/twitter.js</span>",
-    "variable"
+    "wr-behaviors/lib/dom.js~splitelemtextcontents",
+    "function/index.html#static-function-splitElemTextContents",
+    "<span>splitElemTextContents</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
   ],
   [
-    "wr-behaviors/src/shared/instagram.js~videopostselectors",
-    "variable/index.html#static-variable-videoPostSelectors",
-    "<span>videoPostSelectors</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/instagram.js</span>",
-    "variable"
+    "wr-behaviors/lib/strings.js~stringbetween",
+    "function/index.html#static-function-stringBetween",
+    "<span>stringBetween</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
   ],
   [
-    "wr-behaviors/src/utils/delays.js~waitforadditionalelemchildren",
+    "wr-behaviors/lib/strings.js~titlecase",
+    "function/index.html#static-function-titleCase",
+    "<span>titleCase</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/strings.js~toboolean",
+    "function/index.html#static-function-toBoolean",
+    "<span>toBoolean</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/strings.js~tofloat",
+    "function/index.html#static-function-toFloat",
+    "<span>toFloat</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/strings.js~toint",
+    "function/index.html#static-function-toInt",
+    "<span>toInt</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/traversals.js~traversechildrenof",
+    "function/index.html#static-function-traverseChildrenOf",
+    "<span>traverseChildrenOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/traversals.js~traversechildrenofloaderparent",
+    "function/index.html#static-function-traverseChildrenOfLoaderParent",
+    "<span>traverseChildrenOfLoaderParent</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/delays.js~waitforadditionalelemchildren",
     "function/index.html#static-function-waitForAdditionalElemChildren",
-    "<span>waitForAdditionalElemChildren</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/delays.js</span>",
+    "<span>waitForAdditionalElemChildren</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/delays.js~waitforandselectelement",
+    "wr-behaviors/lib/delays.js~waitforandselectelement",
     "function/index.html#static-function-waitForAndSelectElement",
-    "<span>waitForAndSelectElement</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/delays.js</span>",
+    "<span>waitForAndSelectElement</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/browser.js~waitforhistorymaniptochangelocation",
+    "wr-behaviors/lib/events.js~waitforeventtargettofireevent",
+    "function/index.html#static-function-waitForEventTargetToFireEvent",
+    "<span>waitForEventTargetToFireEvent</span> <span class=\"search-result-import-path\">wr-behaviors/lib/events.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/browser.js~waitforhistorymaniptochangelocation",
     "function/index.html#static-function-waitForHistoryManipToChangeLocation",
-    "<span>waitForHistoryManipToChangeLocation</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/browser.js</span>",
+    "<span>waitForHistoryManipToChangeLocation</span> <span class=\"search-result-import-path\">wr-behaviors/lib/browser.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/delays.js~waitforpredicate",
+    "wr-behaviors/lib/delays.js~waitforpredicate",
     "function/index.html#static-function-waitForPredicate",
-    "<span>waitForPredicate</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/delays.js</span>",
+    "<span>waitForPredicate</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/delays.js~waitforpredicateatmax",
+    "wr-behaviors/lib/delays.js~waitforpredicateatmax",
     "function/index.html#static-function-waitForPredicateAtMax",
-    "<span>waitForPredicateAtMax</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/delays.js</span>",
+    "<span>waitForPredicateAtMax</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/shared/instagram.js~xpathq",
-    "variable/index.html#static-variable-xpathQ",
-    "<span>xpathQ</span> <span class=\"search-result-import-path\">wr-behaviors/src/shared/instagram.js</span>",
-    "variable"
+    "wr-behaviors/lib/dom.js~xpathoneof",
+    "function/index.html#static-function-xpathOneOf",
+    "<span>xpathOneOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~xpathsnapshot",
+    "wr-behaviors/lib/dom.js~xpathsnapshot",
     "function/index.html#static-function-xpathSnapShot",
-    "<span>xpathSnapShot</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>xpathSnapShot</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/src/utils/dom.js~xpathsnapshotarray",
+    "wr-behaviors/lib/dom.js~xpathsnapshotarray",
     "function/index.html#static-function-xpathSnapShotArray",
-    "<span>xpathSnapShotArray</span> <span class=\"search-result-import-path\">wr-behaviors/src/utils/dom.js</span>",
+    "<span>xpathSnapShotArray</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "src/.external-ecmascript.js~array",
+    "lib/.external-ecmascript.js~array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
-    "src/.external-ecmascript.js~Array",
+    "lib/.external-ecmascript.js~Array",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~arraybuffer",
+    "lib/.external-ecmascript.js~arraybuffer",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
-    "src/.external-ecmascript.js~ArrayBuffer",
+    "lib/.external-ecmascript.js~ArrayBuffer",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~boolean",
+    "lib/.external-ecmascript.js~boolean",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
-    "src/.external-ecmascript.js~Boolean",
+    "lib/.external-ecmascript.js~Boolean",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~dataview",
+    "lib/.external-ecmascript.js~dataview",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
-    "src/.external-ecmascript.js~DataView",
+    "lib/.external-ecmascript.js~DataView",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~date",
+    "lib/.external-ecmascript.js~date",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
-    "src/.external-ecmascript.js~Date",
+    "lib/.external-ecmascript.js~Date",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~error",
+    "lib/.external-ecmascript.js~error",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
-    "src/.external-ecmascript.js~Error",
+    "lib/.external-ecmascript.js~Error",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~evalerror",
+    "lib/.external-ecmascript.js~evalerror",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
-    "src/.external-ecmascript.js~EvalError",
+    "lib/.external-ecmascript.js~EvalError",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~float32array",
+    "lib/.external-ecmascript.js~float32array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
-    "src/.external-ecmascript.js~Float32Array",
+    "lib/.external-ecmascript.js~Float32Array",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~float64array",
+    "lib/.external-ecmascript.js~float64array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
-    "src/.external-ecmascript.js~Float64Array",
+    "lib/.external-ecmascript.js~Float64Array",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~function",
+    "lib/.external-ecmascript.js~function",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
-    "src/.external-ecmascript.js~Function",
+    "lib/.external-ecmascript.js~Function",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~generator",
+    "lib/.external-ecmascript.js~generator",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
-    "src/.external-ecmascript.js~Generator",
+    "lib/.external-ecmascript.js~Generator",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~generatorfunction",
+    "lib/.external-ecmascript.js~generatorfunction",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
-    "src/.external-ecmascript.js~GeneratorFunction",
+    "lib/.external-ecmascript.js~GeneratorFunction",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~infinity",
+    "lib/.external-ecmascript.js~infinity",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
-    "src/.external-ecmascript.js~Infinity",
+    "lib/.external-ecmascript.js~Infinity",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~int16array",
+    "lib/.external-ecmascript.js~int16array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
-    "src/.external-ecmascript.js~Int16Array",
+    "lib/.external-ecmascript.js~Int16Array",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~int32array",
+    "lib/.external-ecmascript.js~int32array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
-    "src/.external-ecmascript.js~Int32Array",
+    "lib/.external-ecmascript.js~Int32Array",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~int8array",
+    "lib/.external-ecmascript.js~int8array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
-    "src/.external-ecmascript.js~Int8Array",
+    "lib/.external-ecmascript.js~Int8Array",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~internalerror",
+    "lib/.external-ecmascript.js~internalerror",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
-    "src/.external-ecmascript.js~InternalError",
+    "lib/.external-ecmascript.js~InternalError",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~json",
+    "lib/.external-ecmascript.js~json",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
-    "src/.external-ecmascript.js~JSON",
+    "lib/.external-ecmascript.js~JSON",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~map",
+    "lib/.external-ecmascript.js~map",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
-    "src/.external-ecmascript.js~Map",
+    "lib/.external-ecmascript.js~Map",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~nan",
+    "lib/.external-ecmascript.js~nan",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
-    "src/.external-ecmascript.js~NaN",
+    "lib/.external-ecmascript.js~NaN",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~number",
+    "lib/.external-ecmascript.js~number",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
-    "src/.external-ecmascript.js~Number",
+    "lib/.external-ecmascript.js~Number",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~object",
+    "lib/.external-ecmascript.js~object",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
-    "src/.external-ecmascript.js~Object",
+    "lib/.external-ecmascript.js~Object",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~promise",
+    "lib/.external-ecmascript.js~promise",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
-    "src/.external-ecmascript.js~Promise",
+    "lib/.external-ecmascript.js~Promise",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~proxy",
+    "lib/.external-ecmascript.js~proxy",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
-    "src/.external-ecmascript.js~Proxy",
+    "lib/.external-ecmascript.js~Proxy",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~rangeerror",
+    "lib/.external-ecmascript.js~rangeerror",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
-    "src/.external-ecmascript.js~RangeError",
+    "lib/.external-ecmascript.js~RangeError",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~referenceerror",
+    "lib/.external-ecmascript.js~referenceerror",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
-    "src/.external-ecmascript.js~ReferenceError",
+    "lib/.external-ecmascript.js~ReferenceError",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~reflect",
+    "lib/.external-ecmascript.js~reflect",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
-    "src/.external-ecmascript.js~Reflect",
+    "lib/.external-ecmascript.js~Reflect",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~regexp",
+    "lib/.external-ecmascript.js~regexp",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
-    "src/.external-ecmascript.js~RegExp",
+    "lib/.external-ecmascript.js~RegExp",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~set",
+    "lib/.external-ecmascript.js~set",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
-    "src/.external-ecmascript.js~Set",
+    "lib/.external-ecmascript.js~Set",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~string",
+    "lib/.external-ecmascript.js~string",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
-    "src/.external-ecmascript.js~String",
+    "lib/.external-ecmascript.js~String",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~symbol",
+    "lib/.external-ecmascript.js~symbol",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
-    "src/.external-ecmascript.js~Symbol",
+    "lib/.external-ecmascript.js~Symbol",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~syntaxerror",
+    "lib/.external-ecmascript.js~syntaxerror",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
-    "src/.external-ecmascript.js~SyntaxError",
+    "lib/.external-ecmascript.js~SyntaxError",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~typeerror",
+    "lib/.external-ecmascript.js~typeerror",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
-    "src/.external-ecmascript.js~TypeError",
+    "lib/.external-ecmascript.js~TypeError",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~urierror",
+    "lib/.external-ecmascript.js~urierror",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
-    "src/.external-ecmascript.js~URIError",
+    "lib/.external-ecmascript.js~URIError",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~uint16array",
+    "lib/.external-ecmascript.js~uint16array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
-    "src/.external-ecmascript.js~Uint16Array",
+    "lib/.external-ecmascript.js~Uint16Array",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~uint32array",
+    "lib/.external-ecmascript.js~uint32array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
-    "src/.external-ecmascript.js~Uint32Array",
+    "lib/.external-ecmascript.js~Uint32Array",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~uint8array",
+    "lib/.external-ecmascript.js~uint8array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
-    "src/.external-ecmascript.js~Uint8Array",
+    "lib/.external-ecmascript.js~Uint8Array",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~uint8clampedarray",
+    "lib/.external-ecmascript.js~uint8clampedarray",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
-    "src/.external-ecmascript.js~Uint8ClampedArray",
+    "lib/.external-ecmascript.js~Uint8ClampedArray",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~weakmap",
+    "lib/.external-ecmascript.js~weakmap",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
-    "src/.external-ecmascript.js~WeakMap",
+    "lib/.external-ecmascript.js~WeakMap",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~weakset",
+    "lib/.external-ecmascript.js~weakset",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
-    "src/.external-ecmascript.js~WeakSet",
+    "lib/.external-ecmascript.js~WeakSet",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~boolean",
+    "lib/.external-ecmascript.js~boolean",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
-    "src/.external-ecmascript.js~boolean",
+    "lib/.external-ecmascript.js~boolean",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~function",
+    "lib/.external-ecmascript.js~function",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
-    "src/.external-ecmascript.js~function",
+    "lib/.external-ecmascript.js~function",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~null",
+    "lib/.external-ecmascript.js~null",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
-    "src/.external-ecmascript.js~null",
+    "lib/.external-ecmascript.js~null",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~number",
+    "lib/.external-ecmascript.js~number",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
-    "src/.external-ecmascript.js~number",
+    "lib/.external-ecmascript.js~number",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~object",
+    "lib/.external-ecmascript.js~object",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
-    "src/.external-ecmascript.js~object",
+    "lib/.external-ecmascript.js~object",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~string",
+    "lib/.external-ecmascript.js~string",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
-    "src/.external-ecmascript.js~string",
+    "lib/.external-ecmascript.js~string",
     "external"
   ],
   [
-    "src/.external-ecmascript.js~undefined",
+    "lib/.external-ecmascript.js~undefined",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
-    "src/.external-ecmascript.js~undefined",
+    "lib/.external-ecmascript.js~undefined",
     "external"
   ],
   [
-    "src/.external-webapi.js~audiocontext",
+    "lib/.external-webapi.js~audiocontext",
     "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
-    "src/.external-webapi.js~AudioContext",
+    "lib/.external-webapi.js~AudioContext",
     "external"
   ],
   [
-    "src/.external-webapi.js~canvasrenderingcontext2d",
+    "lib/.external-webapi.js~canvasrenderingcontext2d",
     "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
-    "src/.external-webapi.js~CanvasRenderingContext2D",
+    "lib/.external-webapi.js~CanvasRenderingContext2D",
     "external"
   ],
   [
-    "src/.external-webapi.js~documentfragment",
+    "lib/.external-webapi.js~documentfragment",
     "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
-    "src/.external-webapi.js~DocumentFragment",
+    "lib/.external-webapi.js~DocumentFragment",
     "external"
   ],
   [
-    "src/.external-webapi.js~element",
+    "lib/.external-webapi.js~element",
     "https://developer.mozilla.org/en-US/docs/Web/API/Element",
-    "src/.external-webapi.js~Element",
+    "lib/.external-webapi.js~Element",
     "external"
   ],
   [
-    "src/.external-webapi.js~event",
+    "lib/.external-webapi.js~event",
     "https://developer.mozilla.org/en-US/docs/Web/API/Event",
-    "src/.external-webapi.js~Event",
+    "lib/.external-webapi.js~Event",
     "external"
   ],
   [
-    "src/.external-webapi.js~node",
+    "lib/.external-webapi.js~node",
     "https://developer.mozilla.org/en-US/docs/Web/API/Node",
-    "src/.external-webapi.js~Node",
+    "lib/.external-webapi.js~Node",
     "external"
   ],
   [
-    "src/.external-webapi.js~nodelist",
+    "lib/.external-webapi.js~nodelist",
     "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
-    "src/.external-webapi.js~NodeList",
+    "lib/.external-webapi.js~NodeList",
     "external"
   ],
   [
-    "src/.external-webapi.js~xmlhttprequest",
+    "lib/.external-webapi.js~xmlhttprequest",
     "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
-    "src/.external-webapi.js~XMLHttpRequest",
+    "lib/.external-webapi.js~XMLHttpRequest",
     "external"
   ],
   [
-    "src/behavior-wrapper-plugin.js",
-    "file/src/behavior-wrapper-plugin.js.html",
-    "src/behavior-wrapper-plugin.js",
+    "lib/.externs.js~asynciterator",
+    "https://github.com/tc39/proposal-async-iteration",
+    "lib/.externs.js~AsyncIterator",
+    "external"
+  ],
+  [
+    "lib/.externs.js~document",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Document",
+    "lib/.externs.js~Document",
+    "external"
+  ],
+  [
+    "lib/.externs.js~htmlanchorelement",
+    "https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement",
+    "lib/.externs.js~HTMLAnchorElement",
+    "external"
+  ],
+  [
+    "lib/.externs.js~htmlareaelement",
+    "https://developer.mozilla.org/en-US/docs/Web/API/HTMLAreaElement",
+    "lib/.externs.js~HTMLAreaElement",
+    "external"
+  ],
+  [
+    "lib/.externs.js~htmlelement",
+    "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement",
+    "lib/.externs.js~HTMLElement",
+    "external"
+  ],
+  [
+    "lib/.externs.js~htmliframeelement",
+    "https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement",
+    "lib/.externs.js~HTMLIFrameElement",
+    "external"
+  ],
+  [
+    "lib/.externs.js~htmlmediaelement",
+    "https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement",
+    "lib/.externs.js~HTMLMediaElement",
+    "external"
+  ],
+  [
+    "lib/.externs.js~iterator",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator",
+    "lib/.externs.js~Iterator",
+    "external"
+  ],
+  [
+    "lib/.externs.js~symbol",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "lib/.externs.js~Symbol",
+    "external"
+  ],
+  [
+    "lib/.externs.js~window",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Window",
+    "lib/.externs.js~Window",
+    "external"
+  ],
+  [
+    "lib/.externs.js~symbol",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "lib/.externs.js~symbol",
+    "external"
+  ],
+  [
+    "lib/behaviorrunner.js",
+    "file/lib/behaviorRunner.js.html",
+    "lib/behaviorRunner.js",
     "file"
   ],
   [
-    "src/behaviors/autoscroll.js",
-    "file/src/behaviors/autoscroll.js.html",
-    "src/behaviors/autoscroll.js",
-    "file"
-  ],
-  [
-    "src/behaviors/collectoutlinks.js",
-    "file/src/behaviors/collectOutlinks.js.html",
-    "src/behaviors/collectOutlinks.js",
-    "file"
-  ],
-  [
-    "src/behaviors/facebooknewsfeed.js",
-    "file/src/behaviors/facebookNewsFeed.js.html",
-    "src/behaviors/facebookNewsFeed.js",
-    "file"
-  ],
-  [
-    "src/behaviors/facebookuserfeed.js",
-    "file/src/behaviors/facebookUserFeed.js.html",
-    "src/behaviors/facebookUserFeed.js",
-    "file"
-  ],
-  [
-    "src/behaviors/instagramuser.js",
-    "file/src/behaviors/instagramUser.js.html",
-    "src/behaviors/instagramUser.js",
-    "file"
-  ],
-  [
-    "src/behaviors/pinterest.js",
-    "file/src/behaviors/pinterest.js.html",
-    "src/behaviors/pinterest.js",
-    "file"
-  ],
-  [
-    "src/behaviors/slideshare.js",
-    "file/src/behaviors/slideShare.js.html",
-    "src/behaviors/slideShare.js",
-    "file"
-  ],
-  [
-    "src/behaviors/soundcloudembed.js",
-    "file/src/behaviors/soundCloudEmbed.js.html",
-    "src/behaviors/soundCloudEmbed.js",
-    "file"
-  ],
-  [
-    "src/behaviors/soundcloudartist.js",
-    "file/src/behaviors/soundcloudArtist.js.html",
-    "src/behaviors/soundcloudArtist.js",
-    "file"
-  ],
-  [
-    "src/behaviors/twitterhashtags.js",
-    "file/src/behaviors/twitterHashTags.js.html",
-    "src/behaviors/twitterHashTags.js",
-    "file"
-  ],
-  [
-    "src/behaviors/twittertimeline.js",
-    "file/src/behaviors/twitterTimeline.js.html",
-    "src/behaviors/twitterTimeline.js",
-    "file"
-  ],
-  [
-    "src/behaviors/youtubevideo.js",
-    "file/src/behaviors/youtubeVideo.js.html",
-    "src/behaviors/youtubeVideo.js",
-    "file"
-  ],
-  [
-    "src/buildinfo.js",
-    "file/src/buildInfo.js.html",
-    "src/buildInfo.js",
-    "file"
-  ],
-  [
-    "src/shared/behaviorrunner.js",
-    "file/src/shared/behaviorRunner.js.html",
-    "src/shared/behaviorRunner.js",
-    "file"
-  ],
-  [
-    "src/shared/behaviorrunner.js~behaviorrunner#[symbol.asynciterator]",
-    "class/src/shared/behaviorRunner.js~BehaviorRunner.html#instance-method-[Symbol.asyncIterator]",
-    "src/shared/behaviorRunner.js~BehaviorRunner#[Symbol.asyncIterator]",
+    "lib/behaviorrunner.js~behaviorrunner#[symbol.asynciterator]",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-method-[Symbol.asyncIterator]",
+    "lib/behaviorRunner.js~BehaviorRunner#[Symbol.asyncIterator]",
     "method"
   ],
   [
-    "src/shared/behaviorrunner.js~behaviorrunner#_waitp",
-    "class/src/shared/behaviorRunner.js~BehaviorRunner.html#instance-member-_waitP",
-    "src/shared/behaviorRunner.js~BehaviorRunner#_waitP",
+    "lib/behaviorrunner.js~behaviorrunner#_waitp",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-member-_waitP",
+    "lib/behaviorRunner.js~BehaviorRunner#_waitP",
     "member"
   ],
   [
-    "src/shared/behaviorrunner.js~behaviorrunner#constructor",
-    "class/src/shared/behaviorRunner.js~BehaviorRunner.html#instance-constructor-constructor",
-    "src/shared/behaviorRunner.js~BehaviorRunner#constructor",
+    "lib/behaviorrunner.js~behaviorrunner#autorun",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-method-autoRun",
+    "lib/behaviorRunner.js~BehaviorRunner#autoRun",
     "method"
   ],
   [
-    "src/shared/behaviorrunner.js~behaviorrunner#performstep",
-    "class/src/shared/behaviorRunner.js~BehaviorRunner.html#instance-method-performStep",
-    "src/shared/behaviorRunner.js~BehaviorRunner#performStep",
+    "lib/behaviorrunner.js~behaviorrunner#autorunpausable",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-method-autoRunPausable",
+    "lib/behaviorRunner.js~BehaviorRunner#autoRunPausable",
     "method"
   ],
   [
-    "src/shared/behaviorrunner.js~behaviorrunner#poststepfn",
-    "class/src/shared/behaviorRunner.js~BehaviorRunner.html#instance-member-postStepFN",
-    "src/shared/behaviorRunner.js~BehaviorRunner#postStepFN",
+    "lib/behaviorrunner.js~behaviorrunner#constructor",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-constructor-constructor",
+    "lib/behaviorRunner.js~BehaviorRunner#constructor",
+    "method"
+  ],
+  [
+    "lib/behaviorrunner.js~behaviorrunner#ispaused",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-get-isPaused",
+    "lib/behaviorRunner.js~BehaviorRunner#isPaused",
     "member"
   ],
   [
-    "src/shared/behaviorrunner.js~behaviorrunner#step",
-    "class/src/shared/behaviorRunner.js~BehaviorRunner.html#instance-method-step",
-    "src/shared/behaviorRunner.js~BehaviorRunner#step",
+    "lib/behaviorrunner.js~behaviorrunner#pause",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-method-pause",
+    "lib/behaviorRunner.js~BehaviorRunner#pause",
     "method"
   ],
   [
-    "src/shared/behaviorrunner.js~behaviorrunner#stepiterator",
-    "class/src/shared/behaviorRunner.js~BehaviorRunner.html#instance-member-stepIterator",
-    "src/shared/behaviorRunner.js~BehaviorRunner#stepIterator",
+    "lib/behaviorrunner.js~behaviorrunner#performstep",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-method-performStep",
+    "lib/behaviorRunner.js~BehaviorRunner#performStep",
+    "method"
+  ],
+  [
+    "lib/behaviorrunner.js~behaviorrunner#poststepfn",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-member-postStepFN",
+    "lib/behaviorRunner.js~BehaviorRunner#postStepFN",
     "member"
   ],
   [
-    "src/shared/behaviorrunner.js~behaviorrunner#swapbehavioriterator",
-    "class/src/shared/behaviorRunner.js~BehaviorRunner.html#instance-method-swapBehaviorIterator",
-    "src/shared/behaviorRunner.js~BehaviorRunner#swapBehaviorIterator",
+    "lib/behaviorrunner.js~behaviorrunner#step",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-method-step",
+    "lib/behaviorRunner.js~BehaviorRunner#step",
     "method"
   ],
   [
-    "src/shared/behaviorrunner.js~behaviorrunner#swappoststepfn",
-    "class/src/shared/behaviorRunner.js~BehaviorRunner.html#instance-method-swapPostStepFn",
-    "src/shared/behaviorRunner.js~BehaviorRunner#swapPostStepFn",
-    "method"
-  ],
-  [
-    "src/shared/behaviorrunner.js~behaviorrunner#upcheckinterval",
-    "class/src/shared/behaviorRunner.js~BehaviorRunner.html#instance-member-upCheckInterval",
-    "src/shared/behaviorRunner.js~BehaviorRunner#upCheckInterval",
+    "lib/behaviorrunner.js~behaviorrunner#stepiterator",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-member-stepIterator",
+    "lib/behaviorRunner.js~BehaviorRunner#stepIterator",
     "member"
   ],
   [
-    "src/shared/behaviorrunner.js~behaviorrunner#waittobeunpaused",
-    "class/src/shared/behaviorRunner.js~BehaviorRunner.html#instance-method-waitToBeUnpaused",
-    "src/shared/behaviorRunner.js~BehaviorRunner#waitToBeUnpaused",
+    "lib/behaviorrunner.js~behaviorrunner#swapbehavioriterator",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-method-swapBehaviorIterator",
+    "lib/behaviorRunner.js~BehaviorRunner#swapBehaviorIterator",
     "method"
   ],
   [
-    "src/shared/facebook.js",
-    "file/src/shared/facebook.js.html",
-    "src/shared/facebook.js",
-    "file"
-  ],
-  [
-    "src/shared/instagram.js",
-    "file/src/shared/instagram.js.html",
-    "src/shared/instagram.js",
-    "file"
-  ],
-  [
-    "src/shared/poststepfns.js",
-    "file/src/shared/postStepFNs.js.html",
-    "src/shared/postStepFNs.js",
-    "file"
-  ],
-  [
-    "src/shared/twitter.js",
-    "file/src/shared/twitter.js.html",
-    "src/shared/twitter.js",
-    "file"
-  ],
-  [
-    "src/utils/browser.js",
-    "file/src/utils/browser.js.html",
-    "src/utils/browser.js",
-    "file"
-  ],
-  [
-    "src/utils/clicks.js",
-    "file/src/utils/clicks.js.html",
-    "src/utils/clicks.js",
-    "file"
-  ],
-  [
-    "src/utils/delays.js",
-    "file/src/utils/delays.js.html",
-    "src/utils/delays.js",
-    "file"
-  ],
-  [
-    "src/utils/dom.js",
-    "file/src/utils/dom.js.html",
-    "src/utils/dom.js",
-    "file"
-  ],
-  [
-    "src/utils/general.js",
-    "file/src/utils/general.js.html",
-    "src/utils/general.js",
-    "file"
-  ],
-  [
-    "src/utils/media.js",
-    "file/src/utils/media.js.html",
-    "src/utils/media.js",
-    "file"
-  ],
-  [
-    "src/utils/mutations.js",
-    "file/src/utils/mutations.js.html",
-    "src/utils/mutations.js",
-    "file"
-  ],
-  [
-    "src/utils/mutations.js~mutationstream#[symbol.asynciterator]",
-    "class/src/utils/mutations.js~MutationStream.html#instance-method-[Symbol.asyncIterator]",
-    "src/utils/mutations.js~MutationStream#[Symbol.asyncIterator]",
+    "lib/behaviorrunner.js~behaviorrunner#swappoststepfn",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-method-swapPostStepFn",
+    "lib/behaviorRunner.js~BehaviorRunner#swapPostStepFn",
     "method"
   ],
   [
-    "src/utils/mutations.js~mutationstream#_getnext",
-    "class/src/utils/mutations.js~MutationStream.html#instance-method-_getNext",
-    "src/utils/mutations.js~MutationStream#_getNext",
+    "lib/behaviorrunner.js~behaviorrunner#unpause",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-method-unpause",
+    "lib/behaviorRunner.js~BehaviorRunner#unpause",
     "method"
   ],
   [
-    "src/utils/mutations.js~mutationstream#_loopstream",
-    "class/src/utils/mutations.js~MutationStream.html#instance-member-_loopStream",
-    "src/utils/mutations.js~MutationStream#_loopStream",
+    "lib/behaviorrunner.js~behaviorrunner#upcheckinterval",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-member-upCheckInterval",
+    "lib/behaviorRunner.js~BehaviorRunner#upCheckInterval",
     "member"
   ],
   [
-    "src/utils/mutations.js~mutationstream#_resolve",
-    "class/src/utils/mutations.js~MutationStream.html#instance-member-_resolve",
-    "src/utils/mutations.js~MutationStream#_resolve",
-    "member"
-  ],
-  [
-    "src/utils/mutations.js~mutationstream#constructor",
-    "class/src/utils/mutations.js~MutationStream.html#instance-constructor-constructor",
-    "src/utils/mutations.js~MutationStream#constructor",
+    "lib/behaviorrunner.js~behaviorrunner#waittobeunpaused",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-method-waitToBeUnpaused",
+    "lib/behaviorRunner.js~BehaviorRunner#waitToBeUnpaused",
     "method"
   ],
   [
-    "src/utils/mutations.js~mutationstream#disconnect",
-    "class/src/utils/mutations.js~MutationStream.html#instance-method-disconnect",
-    "src/utils/mutations.js~MutationStream#disconnect",
-    "method"
-  ],
-  [
-    "src/utils/mutations.js~mutationstream#mo",
-    "class/src/utils/mutations.js~MutationStream.html#instance-member-mo",
-    "src/utils/mutations.js~MutationStream#mo",
-    "member"
-  ],
-  [
-    "src/utils/mutations.js~mutationstream#observe",
-    "class/src/utils/mutations.js~MutationStream.html#instance-method-observe",
-    "src/utils/mutations.js~MutationStream#observe",
-    "method"
-  ],
-  [
-    "src/utils/mutations.js~mutationstream#observestream",
-    "class/src/utils/mutations.js~MutationStream.html#instance-method-observeStream",
-    "src/utils/mutations.js~MutationStream#observeStream",
-    "method"
-  ],
-  [
-    "src/utils/mutations.js~mutationstream#predicatestreamitr",
-    "class/src/utils/mutations.js~MutationStream.html#instance-method-predicateStreamItr",
-    "src/utils/mutations.js~MutationStream#predicateStreamItr",
-    "method"
-  ],
-  [
-    "src/utils/mutations.js~mutationstream#predicatedstream",
-    "class/src/utils/mutations.js~MutationStream.html#instance-method-predicatedStream",
-    "src/utils/mutations.js~MutationStream#predicatedStream",
-    "method"
-  ],
-  [
-    "src/utils/mutations.js~mutationstream#streamitr",
-    "class/src/utils/mutations.js~MutationStream.html#instance-method-streamItr",
-    "src/utils/mutations.js~MutationStream#streamItr",
-    "method"
-  ],
-  [
-    "src/utils/outlinkcollector.js",
-    "file/src/utils/outlinkCollector.js.html",
-    "src/utils/outlinkCollector.js",
+    "lib/browser.js",
+    "file/lib/browser.js.html",
+    "lib/browser.js",
     "file"
   ],
   [
-    "src/utils/reactutils.js",
-    "file/src/utils/reactUtils.js.html",
-    "src/utils/reactUtils.js",
+    "lib/clicks.js",
+    "file/lib/clicks.js.html",
+    "lib/clicks.js",
     "file"
   ],
   [
-    "src/utils/scrolls.js",
-    "file/src/utils/scrolls.js.html",
-    "src/utils/scrolls.js",
+    "lib/delays.js",
+    "file/lib/delays.js.html",
+    "lib/delays.js",
+    "file"
+  ],
+  [
+    "lib/dom.js",
+    "file/lib/dom.js.html",
+    "lib/dom.js",
+    "file"
+  ],
+  [
+    "lib/dom.js~someelement",
+    "typedef/index.html#static-typedef-SomeElement",
+    "lib/dom.js~SomeElement",
+    "typedef"
+  ],
+  [
+    "lib/events.js",
+    "file/lib/events.js.html",
+    "lib/events.js",
+    "file"
+  ],
+  [
+    "lib/general.js",
+    "file/lib/general.js.html",
+    "lib/general.js",
+    "file"
+  ],
+  [
+    "lib/index.js",
+    "file/lib/index.js.html",
+    "lib/index.js",
+    "file"
+  ],
+  [
+    "lib/media.js",
+    "file/lib/media.js.html",
+    "lib/media.js",
+    "file"
+  ],
+  [
+    "lib/mutations.js",
+    "file/lib/mutations.js.html",
+    "lib/mutations.js",
+    "file"
+  ],
+  [
+    "lib/mutations.js~mutationstream#[symbol.asynciterator]",
+    "class/lib/mutations.js~MutationStream.html#instance-method-[Symbol.asyncIterator]",
+    "lib/mutations.js~MutationStream#[Symbol.asyncIterator]",
+    "method"
+  ],
+  [
+    "lib/mutations.js~mutationstream#_getnext",
+    "class/lib/mutations.js~MutationStream.html#instance-method-_getNext",
+    "lib/mutations.js~MutationStream#_getNext",
+    "method"
+  ],
+  [
+    "lib/mutations.js~mutationstream#_loopstream",
+    "class/lib/mutations.js~MutationStream.html#instance-member-_loopStream",
+    "lib/mutations.js~MutationStream#_loopStream",
+    "member"
+  ],
+  [
+    "lib/mutations.js~mutationstream#_resolve",
+    "class/lib/mutations.js~MutationStream.html#instance-member-_resolve",
+    "lib/mutations.js~MutationStream#_resolve",
+    "member"
+  ],
+  [
+    "lib/mutations.js~mutationstream#constructor",
+    "class/lib/mutations.js~MutationStream.html#instance-constructor-constructor",
+    "lib/mutations.js~MutationStream#constructor",
+    "method"
+  ],
+  [
+    "lib/mutations.js~mutationstream#disconnect",
+    "class/lib/mutations.js~MutationStream.html#instance-method-disconnect",
+    "lib/mutations.js~MutationStream#disconnect",
+    "method"
+  ],
+  [
+    "lib/mutations.js~mutationstream#mo",
+    "class/lib/mutations.js~MutationStream.html#instance-member-mo",
+    "lib/mutations.js~MutationStream#mo",
+    "member"
+  ],
+  [
+    "lib/mutations.js~mutationstream#observe",
+    "class/lib/mutations.js~MutationStream.html#instance-method-observe",
+    "lib/mutations.js~MutationStream#observe",
+    "method"
+  ],
+  [
+    "lib/mutations.js~mutationstream#observestream",
+    "class/lib/mutations.js~MutationStream.html#instance-method-observeStream",
+    "lib/mutations.js~MutationStream#observeStream",
+    "method"
+  ],
+  [
+    "lib/mutations.js~mutationstream#predicatestreamitr",
+    "class/lib/mutations.js~MutationStream.html#instance-method-predicateStreamItr",
+    "lib/mutations.js~MutationStream#predicateStreamItr",
+    "method"
+  ],
+  [
+    "lib/mutations.js~mutationstream#predicatedstream",
+    "class/lib/mutations.js~MutationStream.html#instance-method-predicatedStream",
+    "lib/mutations.js~MutationStream#predicatedStream",
+    "method"
+  ],
+  [
+    "lib/mutations.js~mutationstream#streamitr",
+    "class/lib/mutations.js~MutationStream.html#instance-method-streamItr",
+    "lib/mutations.js~MutationStream#streamItr",
+    "method"
+  ],
+  [
+    "lib/outlinkcollector.js",
+    "file/lib/outlinkCollector.js.html",
+    "lib/outlinkCollector.js",
+    "file"
+  ],
+  [
+    "lib/poststepfns.js",
+    "file/lib/postStepFNs.js.html",
+    "lib/postStepFNs.js",
+    "file"
+  ],
+  [
+    "lib/reactutils.js",
+    "file/lib/reactUtils.js.html",
+    "lib/reactUtils.js",
+    "file"
+  ],
+  [
+    "lib/scrolls.js",
+    "file/lib/scrolls.js.html",
+    "lib/scrolls.js",
+    "file"
+  ],
+  [
+    "lib/strings.js",
+    "file/lib/strings.js.html",
+    "lib/strings.js",
+    "file"
+  ],
+  [
+    "lib/traversals.js",
+    "file/lib/traversals.js.html",
+    "lib/traversals.js",
     "file"
   ]
 ]

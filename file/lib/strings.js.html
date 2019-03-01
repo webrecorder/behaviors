@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | wr-behaviors</title>
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/strings.js | wr-behaviors</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -198,26 +198,213 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="wr-behaviors">wr-behaviors</h1><p>Webrecorders behavior standard library</p>
-<p>Files:</p>
-<ul>
-<li>behaviorRunner.js: A thin wrapper around the execution of a behaviors actions in order to support behavior pausing</li>
-<li>browser.js: functions for handling history manipulation etc</li>
-<li>clicks.js: functions for clicking elements</li>
-<li>delays: functions for applying delays or waiting for condition</li>
-<li>dom: functions for interacting with the dom</li>
-<li>events: functions for handling events and event targets</li>
-<li>general: general utility functions</li>
-<li>media: functions for handling media elements</li>
-<li>mutations: watch for mutations as stream</li>
-<li>outlinkCollector: functions for collecting outlinks</li>
-<li>postStepFNs.js: utility functions for performing a non behavior action after a behavior&apos;s action</li>
-<li>reactUtils.js: functions for working with react based applications</li>
-<li>scrolls.js: functions for scrolling the window</li>
-<li>strings.js: functions for manipulating strings</li>
-<li>traversals.js: functions for traversing the dom</li>
-</ul>
-</div>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/strings.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const __camelCaseRe = /(-|_|\s)+(.)?/g;
+const __camelCaseReplacer = (match, sep, c) =&gt; (c ? c.toUpperCase() : &apos;&apos;);
+
+export function camelCase(str) {
+  return str.replace(__camelCaseRe, __camelCaseReplacer);
+}
+
+/**
+ *
+ * @param {string} str
+ * @return {string}
+ */
+export function capitalize(str) {
+  return str.substr(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+}
+
+const __ccToDashDelimRe1 = /[_\s]+/g;
+const __ccToDashDelimRe2 = /([A-Z])/g;
+const __ccToDashDelimRe3 = /-+/g;
+
+/**
+ *
+ * @param {?string} str
+ * @return {?string}
+ */
+export function camelCaseToDashDelim(str) {
+  if (str) {
+    return str
+      .trim()
+      .replace(__ccToDashDelimRe1, &apos;-&apos;)
+      .replace(__ccToDashDelimRe2, &apos;-$1&apos;)
+      .replace(__ccToDashDelimRe3, &apos;-&apos;)
+      .toLowerCase();
+  }
+  return str;
+}
+
+
+const __ccToUnderDelimRe1 = /([a-z\d])([A-Z]+)/g;
+const __ccToUnderDelimRe2 = /([A-Z\d]+)([A-Z][a-z])/g;
+const __ccToUnderDelimRe3 = /[-\s]+/g;
+
+/**
+ *
+ * @param {?string} str
+ * @return {?string}
+ */
+export function camelCaseToUnderscoreDelim(str) {
+  if (str) {
+    str
+      .trim()
+      .replace(__ccToUnderDelimRe1, &apos;$1_$2&apos;)
+      .replace(__ccToUnderDelimRe2, &apos;$1_$2&apos;)
+      .replace(__ccToUnderDelimRe3, &apos;_&apos;)
+      .toLowerCase();
+  }
+  return str;
+}
+
+const __titleCaseRe = /(^[a-z]| [a-z]|-[a-z]|_[a-z])/g;
+const __titleCaseReplacer = value =&gt; value.toUpperCase();
+
+/**
+ *
+ * @param {?string} str
+ * @return {?string}
+ */
+export function titleCase(str) {
+  if (str) {
+    return str.replace(__titleCaseRe, __titleCaseReplacer);
+  }
+  return str;
+}
+
+const __collapseWhitespaceRe1 = /[\s\xa0]+/g;
+const __collapseWhitespaceRe2 = /^\s+|\s+$/g;
+
+/**
+ *
+ * @param {?string} str
+ * @return {?string}
+ */
+export function collapseWhitespace(str) {
+  return str
+    .replace(__collapseWhitespaceRe1, &apos; &apos;)
+    .replace(__collapseWhitespaceRe2, &apos;&apos;);
+}
+
+export function stringBetween(str, left, right) {
+  const startPos = str.indexOf(left);
+  const endPos = str.indexOf(right, startPos + left.length);
+  if (endPos === -1 &amp;&amp; right != null) {
+    return &apos;&apos;;
+  } else if (endPos === -1 &amp;&amp; right == null) {
+    return str.substring(startPos + left.length);
+  }
+  return str.slice(startPos + left.length, endPos);
+}
+
+const __isAlphaRe = /[^a-z\xDF-\xFF]|^$/;
+
+/**
+ *
+ * @param {?string} str
+ * @return {boolean}
+ */
+export function isAlpha(str) {
+  if (str) {
+    return !__isAlphaRe.test(str.toLowerCase());
+  }
+  return false;
+}
+
+const __isAlphaNumericRe = /[^0-9a-z\xDF-\xFF]/;
+
+/**
+ *
+ * @param {?string} str
+ * @return {boolean}
+ */
+export function isAlphaNumeric(str) {
+  if (str) {
+    return !__isAlphaNumericRe.test(str.toLowerCase());
+  }
+  return false;
+}
+
+const __isEmptyRe = /^[\s\xa0]*$/;
+
+/**
+ *
+ * @param {?string} str
+ * @return {boolean}
+ */
+export function isEmptyString(str) {
+  return str == null ? true : __isEmptyRe.test(str);
+}
+
+/**
+ *
+ * @param {string} str
+ * @return {boolean}
+ */
+export function isLower(str) {
+  return isAlpha(str) &amp;&amp; str.toLowerCase() === str;
+}
+
+const __isNumericRe = /[^0-9]/;
+
+/**
+ *
+ * @param {?string} str
+ * @return {boolean}
+ */
+export function isNumeric(str) {
+  return str != null ? !__isNumericRe.test(str) : false;
+}
+
+/**
+ *
+ * @param {?string} str
+ * @return {boolean}
+ */
+export function isUpper(str) {
+  return isAlpha(str) &amp;&amp; str.toUpperCase() === str;
+}
+
+/**
+ *
+ * @param {string|boolean|number} str
+ * @return {boolean}
+ */
+export function toBoolean(str) {
+  if (typeof str === &apos;string&apos;) {
+    const s = str.toLowerCase();
+    return s === &apos;true&apos; || s === &apos;yes&apos; || s === &apos;on&apos; || s === &apos;1&apos;;
+  }
+  return str === true || str === 1;
+}
+
+/**
+ *
+ * @param {string} str
+ * @param {number} [precision]
+ * @return {number}
+ */
+export function toFloat(str, precision) {
+  const num = parseFloat(str);
+  if (precision) {
+    return parseFloat(num.toFixed(precision));
+  }
+  return num;
+}
+
+const __toIntRe = /^\s*-?0x/i;
+
+/**
+ *
+ * @param {string} str
+ * @return {number}
+ */
+export function toInt(str) {
+  return __toIntRe.test(str) ? parseInt(str, 16) : parseInt(str, 10);
+}
+</code></pre>
+
 </div>
 
 <footer class="footer">

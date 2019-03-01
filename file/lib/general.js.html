@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | wr-behaviors</title>
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/general.js | wr-behaviors</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -198,26 +198,339 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="wr-behaviors">wr-behaviors</h1><p>Webrecorders behavior standard library</p>
-<p>Files:</p>
-<ul>
-<li>behaviorRunner.js: A thin wrapper around the execution of a behaviors actions in order to support behavior pausing</li>
-<li>browser.js: functions for handling history manipulation etc</li>
-<li>clicks.js: functions for clicking elements</li>
-<li>delays: functions for applying delays or waiting for condition</li>
-<li>dom: functions for interacting with the dom</li>
-<li>events: functions for handling events and event targets</li>
-<li>general: general utility functions</li>
-<li>media: functions for handling media elements</li>
-<li>mutations: watch for mutations as stream</li>
-<li>outlinkCollector: functions for collecting outlinks</li>
-<li>postStepFNs.js: utility functions for performing a non behavior action after a behavior&apos;s action</li>
-<li>reactUtils.js: functions for working with react based applications</li>
-<li>scrolls.js: functions for scrolling the window</li>
-<li>strings.js: functions for manipulating strings</li>
-<li>traversals.js: functions for traversing the dom</li>
-</ul>
-</div>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/general.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * @desc Retrieves the property of an object, or item in array at index, based
+ * on the supplied path.
+ * @example
+ *   const obj = { a: { b: { c: [1, 2, 3] } } }
+ *   const two = getViaPath(obj, &apos;a&apos;, &apos;b&apos;, &apos;c&apos;, 1); // two == 2
+ * @param {*} obj - An object
+ * @param {*} pathItems
+ * @return {*}
+ */
+export function getViaPath(obj, ...pathItems) {
+  if (obj == null || pathItems.length === 0) return null;
+  let cur = obj[pathItems.shift()];
+  if (cur == null) return null;
+  while (pathItems.length) {
+    cur = cur[pathItems.shift()];
+    if (cur == null) return null;
+  }
+  return cur;
+}
+
+let didPauseAutoFetching = false;
+
+export function autoFetchFromDoc() {
+  if (window.$WBAutoFetchWorker$) {
+    window.$WBAutoFetchWorker$.extractFromLocalDoc();
+  }
+}
+
+export function sendAutoFetchWorkerURLs(urls) {
+  if (window.$WBAutoFetchWorker$) {
+    window.$WBAutoFetchWorker$.justFetch(urls);
+  }
+}
+
+/**
+ * @desc This function is a no op
+ */
+export function noop() {}
+
+/**
+ * @param {string} url
+ * @param {Window} [win]
+ * @return {Promise&lt;Response&gt;}
+ */
+export function safeFetch(url, win) {
+  if (win != null) return win.fetch(url).catch(noop);
+  return fetch(url).catch(noop);
+}
+
+/**
+ * @desc Automatically binds the non-inherited functions of the supplied
+ * class to itself.
+ * @param clazz
+ */
+export function autobind(clazz) {
+  const clazzProps = Object.getOwnPropertyNames(clazz.constructor.prototype);
+  let i = clazzProps.length;
+  let prop;
+  let propValue;
+  while (i--) {
+    prop = clazzProps[i];
+    propValue = clazz[prop];
+    if (prop !== &apos;constructor&apos; &amp;&amp; typeof propValue === &apos;function&apos;) {
+      clazz[prop] = propValue.bind(clazz);
+    }
+  }
+}
+
+/**
+ * @desc Returns T/F if the supplied object has all of the supplied properties.
+ * The existence check is `obj[prop] != null`
+ * @param {Object} obj - The object to be tested
+ * @param {...string} props - The property names
+ * @return {boolean}
+ */
+export function objectHasProps(obj, ...props) {
+  if (obj == null) return false;
+  let i = props.length;
+  while (i--) {
+    if (obj[props[i]] == null) return false;
+  }
+  return true;
+}
+
+/**
+ * @desc Returns T/F if an global property (on window) exists and has
+ * all properties. The existence check is `obj[prop] != null`
+ * @param {string} global - The name of the global
+ * @param {...string} props - The property names
+ * @return {boolean}
+ */
+export function globalWithPropsExist(global, ...props) {
+  const obj = window[global];
+  if (obj == null) return false;
+  let i = props.length;
+  while (i--) {
+    if (obj[props[i]] == null) return false;
+  }
+  return true;
+}
+
+/**
+ * @desc Returns a new object with the properties of the object
+ * on the new object
+ * @param {?Object} object - The object to extract properties from
+ * @param {...string} props - The property names to be extracted
+ * @return {?Object} - The new object if the original object was not null
+ */
+export function extractProps(object, ...props) {
+  if (object == null) return null;
+  const extracted = {};
+  let i = props.length;
+  while (i--) {
+    extracted[props[i]] = object[props[i]];
+  }
+  return extracted;
+}
+
+/**
+ * @desc Composes multiple functions from right to left into a single function.
+ * The rightmost function can take multiple arguments with the remaining
+ * functions taking only a single argument, the return value of the previous
+ * invocation.
+ * @param {...function(...args: *): *} funcs - The functions to compose.
+ * @return {function(...args: *): *} - A function obtained by composing the functions
+ * from right to left. For example, compose(f, g, h) is identical to doing
+ * (...args) =&gt; f(g(h(...args))).
+ */
+export function compose(...funcs) {
+  if (funcs.length === 0) {
+    return arg =&gt; arg;
+  }
+
+  if (funcs.length === 1) {
+    return funcs[0];
+  }
+
+  return funcs.reduce((a, b) =&gt; (...args) =&gt; a(b(...args)));
+}
+
+/**
+ * @desc Composes multiple async or Promise returning functions from right to
+ * left into a single function. The rightmost function can take multiple arguments
+ * with the remaining functions taking only a single argument, the return value
+ * of the previous invocation.
+ * @param {...function(...args:*): Promise&lt;*&gt;} funcs - The functions to compose.
+ * @return {function(...args:*): Promise&lt;*&gt;} - A function obtained by composing the functions
+ * from right to left. For example, composeAsync(f, g, h) is identical to doing
+ * (...args) =&gt; h(...args).then(result =&gt; g(result).then(result =&gt; f(result)).
+ */
+export function composeAsync(...funcs) {
+  if (funcs.length === 0) {
+    return async function() {
+      return arguments[0];
+    };
+  }
+
+  if (funcs.length === 1) {
+    return funcs[0];
+  }
+
+  return funcs.reduce((a, b) =&gt; (...args) =&gt; b(...args).then(a));
+}
+
+/**
+ * @desc Composes multiple Iterator returning functions from right to
+ * left into a single function. The rightmost function can take multiple arguments
+ * with the remaining functions taking only a single argument, the iterator returned
+ * by the previous invocation. The composition of iterators can thought of
+ * as chaining multiple iterators together, that is to say feeding the yielded results
+ * of each iterator from right to left. This can be useful for chaining cascading
+ * ordered actions.
+ * @example
+ *   function* iter1(iter) {
+ *     console.log(&apos;start iter1&apos;);
+ *     for (const value of iter) {
+ *       yield `iter1 got &quot;${value}&quot; from the previous iter`;
+ *     }
+ *     yield &apos;end iter1&apos;;
+ *   }
+ *
+ *   function* iter2(iter) {
+ *     console.log(&apos;start iter2&apos;);
+ *     for (const value of iter) {
+ *       yield `iter2 got &quot;${value}&quot; from the previous iter`;
+ *     }
+ *     yield &apos;end iter2&apos;;
+ *   }
+ *
+ *   function* iter3(...args) {
+ *     console.log(&apos;start iter3&apos;);
+ *     let i = args.length;
+ *     while (i--) {
+ *       yield args[i];
+ *     }
+ *    yield &apos;end iter3&apos;;
+ *  }
+ *
+ *  const finalIter = composeIterators(iter1, iter2, iter3)(1, 2, 3, 4, 5);
+ *
+ *  for (const it of finalIter) {
+ *    console.log(it);
+ * }
+ *
+ *  // The output is as follows
+ *  // logs &quot;start iter&quot; from iter1
+ *  // logs &quot;start iter2&quot; from iter2
+ *  // logs &quot;start iter3&quot; from iter3
+ *  // logs &apos;iter1 got &quot;iter2 got &quot;5&quot; from the previous iter&quot; from the previous iter&apos; from the for of finalIter
+ *  // logs &apos;iter1 got &quot;iter2 got &quot;4&quot; from the previous iter&quot; from the previous iter&apos; from the for of finalIter
+ *  // logs &apos;iter1 got &quot;iter2 got &quot;3&quot; from the previous iter&quot; from the previous iter&apos; from the for of finalIter
+ *  // logs &apos;iter1 got &quot;iter2 got &quot;2&quot; from the previous iter&quot; from the previous iter&apos; from the for of finalIter
+ *  // logs &apos;iter1 got &quot;iter2 got &quot;1&quot; from the previous iter&quot; from the previous iter&apos; from the for of finalIter
+ *  // logs &apos;iter1 got &quot;iter2 got &quot;end iter3&quot; from the previous iter&quot; from the previous iter&apos; from the for of finalIter
+ *  // logs &apos;iter1 got &quot;end iter2&quot; from the previous iter&apos; from the for of finalIter
+ *  // logs &apos;end iter1&apos; from the for of finalIter
+ *
+ * @param {...function(...args:*): Iterator&lt;*&gt;} funcs - The Iterator returning functions to be composed (chained)
+ * @return {function(...args:*): Iterator&lt;*&gt;} - A function obtained by composing the functions
+ * from right to left. See the documentations example for details
+ */
+export function composeIterators(...funcs) {
+  if (funcs.length === 0) {
+    return function*() {
+      yield arguments[0];
+    };
+  }
+
+  if (funcs.length === 1) {
+    return funcs[0];
+  }
+
+  return funcs.reduce(
+    (a, b) =&gt;
+      function*(...args) {
+        yield* a(b(...args));
+      }
+  );
+}
+
+/**
+ * @desc Composes multiple AsyncIterator returning functions from right to
+ * left into a single function. The rightmost function can take multiple arguments
+ * with the remaining functions taking only a single argument, the iterator returned
+ * by the previous invocation. The composition of AsyncIterator can thought of
+ * as chaining multiple AsyncIterator together, that is to say feeding the yielded results
+ * of each iterator from right to left. This can be useful for chaining cascading asynchronous
+ * ordered actions.
+ * @example
+ *   async function* iter1(iter) {
+ *     console.log(&apos;start iter1&apos;);
+ *     for await (const value of iter) {
+ *       yield `iter1 got &quot;${value}&quot; from the previous iter`;
+ *     }
+ *     yield &apos;end iter1&apos;;
+ *   }
+ *
+ *   async function* iter2(iter) {
+ *     console.log(&apos;start iter2&apos;);
+ *     for await (const value of iter) {
+ *       yield `iter2 got &quot;${value}&quot; from the previous iter`;
+ *     }
+ *     yield &apos;end iter2&apos;;
+ *   }
+ *
+ *   async function* iter3(...args) {
+ *     console.log(&apos;start iter3&apos;);
+ *     let i = args.length;
+ *     while (i--) {
+ *       yield args[i];
+ *     }
+ *    yield &apos;end iter3&apos;;
+ *  }
+ *
+ *  const finalAIter = composeAsyncIterators(iter1, iter2, iter3)(1, 2, 3, 4, 5);
+ *
+ *  (async () =&gt; {
+ *    for await (const it of finalAIter) {
+ *      console.log(it);
+ *    }
+ *  })();
+ *
+ *  // The output is as follows
+ *  // logs &quot;start iter&quot; from iter1
+ *  // logs &quot;start iter2&quot; from iter2
+ *  // logs &quot;start iter3&quot; from iter3
+ *  // logs &apos;iter1 got &quot;iter2 got &quot;5&quot; from the previous iter&quot; from the previous iter&apos; from the for await of finalAiter
+ *  // logs &apos;iter1 got &quot;iter2 got &quot;4&quot; from the previous iter&quot; from the previous iter&apos; from the for await of finalAiter
+ *  // logs &apos;iter1 got &quot;iter2 got &quot;3&quot; from the previous iter&quot; from the previous iter&apos; from the for await of finalAiter
+ *  // logs &apos;iter1 got &quot;iter2 got &quot;2&quot; from the previous iter&quot; from the previous iter&apos; from the for await of finalAiter
+ *  // logs &apos;iter1 got &quot;iter2 got &quot;1&quot; from the previous iter&quot; from the previous iter&apos; from the for await of finalAiter
+ *  // logs &apos;iter1 got &quot;iter2 got &quot;end iter3&quot; from the previous iter&quot; from the previous iter&apos; from the for await of finalAiter
+ *  // logs &apos;iter1 got &quot;end iter2&quot; from the previous iter&apos; from the for await of finalAiter
+ *  // logs &apos;end iter1&apos; from the for await of finalAiter
+ *
+ * @param {...function(...args:*): AsyncIterator&lt;*&gt;} funcs - The AsyncIterator returning functions to be composed (chained)
+ * @return {function(...args:*): AsyncIterator&lt;*&gt;} - A function obtained by composing the functions
+ * from right to left. See the documentations example for details
+ */
+export function composeAsyncIterators(...funcs) {
+  if (funcs.length === 0) {
+    return async function*() {
+      yield arguments[0];
+    };
+  }
+
+  if (funcs.length === 1) {
+    return funcs[0];
+  }
+
+  return funcs.reduce(
+    (a, b) =&gt;
+      async function*(...args) {
+        yield* a(b(...args));
+      }
+  );
+}
+
+/**
+ * @return {{resolve: function, reject: function, promise: Promise&lt;*&gt;}}
+ */
+export function promiseResolveReject() {
+  const promResolveReject = { promise: null, resolve: null, reject: null };
+  promResolveReject.prom = new Promise((resolve, reject) =&gt; {
+    promResolveReject.resolve = resolve;
+    promResolveReject.reject = reject;
+  });
+  return promResolveReject;
+}
+</code></pre>
+
 </div>
 
 <footer class="footer">

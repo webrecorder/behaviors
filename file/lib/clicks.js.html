@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | wr-behaviors</title>
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/clicks.js | wr-behaviors</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -198,26 +198,372 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="wr-behaviors">wr-behaviors</h1><p>Webrecorders behavior standard library</p>
-<p>Files:</p>
-<ul>
-<li>behaviorRunner.js: A thin wrapper around the execution of a behaviors actions in order to support behavior pausing</li>
-<li>browser.js: functions for handling history manipulation etc</li>
-<li>clicks.js: functions for clicking elements</li>
-<li>delays: functions for applying delays or waiting for condition</li>
-<li>dom: functions for interacting with the dom</li>
-<li>events: functions for handling events and event targets</li>
-<li>general: general utility functions</li>
-<li>media: functions for handling media elements</li>
-<li>mutations: watch for mutations as stream</li>
-<li>outlinkCollector: functions for collecting outlinks</li>
-<li>postStepFNs.js: utility functions for performing a non behavior action after a behavior&apos;s action</li>
-<li>reactUtils.js: functions for working with react based applications</li>
-<li>scrolls.js: functions for scrolling the window</li>
-<li>strings.js: functions for manipulating strings</li>
-<li>traversals.js: functions for traversing the dom</li>
-</ul>
-</div>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/clicks.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { delay, waitForPredicate } from &apos;./delays&apos;;
+import { scrollIntoView } from &apos;./scrolls&apos;;
+import { qs } from &apos;./dom&apos;;
+import { createMouseEvent, fireMouseEventsOnElement } from &apos;./events&apos;;
+
+let __currentClickCount = 0;
+const __clickPreEvents = [&apos;mousemove&apos;, &apos;mouseover&apos;, &apos;mousedown&apos;, &apos;mouseup&apos;];
+
+/**
+ * @desc Calls the click function on the supplied element if non-null/defined.
+ * Returns true or false to indicate if the click happened
+ * @param {HTMLElement} elem - The element to be clicked
+ * @return {boolean} - T/F to indicate that click happened.
+ */
+export function click(elem) {
+  let clicked = false;
+  if (elem != null) {
+    fireMouseEventsOnElement({
+      elem,
+      eventNames: __clickPreEvents,
+      clickCount: __currentClickCount
+    });
+    __currentClickCount += 1;
+    elem.click();
+    elem.dispatchEvent(
+      createMouseEvent({
+        type: &apos;mouseleave&apos;,
+        elem,
+        clickCount: __currentClickCount
+      })
+    );
+    clicked = true;
+  }
+  return clicked;
+}
+
+/**
+ * @desc Calls the click function on the supplied element if non-null/defined
+ * that exists in the JS context of the supplied window (cntx).
+ * Returns true or false to indicate if the click happened
+ * @param {HTMLElement} elem - The element to be clicked
+ * @param {Window} cntx - The context window
+ * @return {boolean} - T/F to indicate that click happened.
+ */
+export function clickInContext(elem, cntx) {
+  let clicked = false;
+  if (elem != null) {
+    fireMouseEventsOnElement({
+      elem,
+      eventNames: __clickPreEvents,
+      view: cntx
+    });
+    elem.click();
+    elem.dispatchEvent(
+      createMouseEvent({ type: &apos;mouseleave&apos;, view: cntx, elem })
+    );
+    clicked = true;
+  }
+  return clicked;
+}
+
+/**
+ * @desc Calls the click method of the supplied element and waits the
+ * specified delayTime after clicking IFF the supplied element was
+ * non-null/undefined.
+ * @param {*} elem - The element to be clicked
+ * @param {number} [delayTime = 1000] - How long is the delay after click
+ * @return {Promise&lt;boolean&gt;} - A Promise that resolves to T/F
+ * indicating if the click happened
+ */
+export async function clickWithDelay(elem, delayTime) {
+  let clicked = click(elem);
+  if (clicked) {
+    await delay(delayTime || 1000);
+  }
+  return clicked;
+}
+
+/**
+ * @desc Calls the click method of the supplied element and waits the
+ * specified delayTime after clicking IFF the supplied element was
+ * non-null/undefined.
+ * @param {*} elem - The element to be clicked
+ * @param {{delayTime: number, cntx: ?Window}} [options] - Options controlling
+ * how long the delay is (delay time) and or a supplied window object of an iframe
+ * we are clicking an element within (cntx)
+ * @return {Promise&lt;boolean&gt;} - A Promise that resolves to T/F
+ * indicating if the click happened
+ */
+export async function clickWithDelay2(elem, options) {
+  const opts = Object.assign({ delayTime: 1000 }, options);
+  const clicked = opts.cntx ? clickInContext(elem, opts.cntx) : click(elem);
+  if (clicked) {
+    await delay(opts.delayTime);
+  }
+  return clicked;
+}
+
+/**
+ * @desc Calls the click method of the supplied element that exists in
+ * the JS context of the supplied window object (cntx) and waits the
+ * specified delayTime after clicking IFF the supplied element was
+ * non-null/undefined.
+ * @param {HTMLElement|Element} elem - The element to be clicked
+ * @param {Window} cntx - The context window
+ * @param {number} [delayTime = 1000] - How long is the delay after click
+ * @return {Promise&lt;boolean&gt;} - A Promise that resolves to T/F
+ * indicating if the click happened
+ */
+export async function clickInContextWithDelay(elem, cntx, delayTime) {
+  let clicked = clickInContext(elem, cntx);
+  if (clicked) {
+    await delay(delayTime || 1000);
+  }
+  return clicked;
+}
+
+/**
+ * @desc Scrolls the supplied element into view and clicks it if the
+ * element is non-null/undefined
+ * @param {HTMLElement|Element} elem - The element to be scrolled into view
+ * and clicked.
+ * @return {boolean} - T/F to indicate that the click happened
+ */
+export function scrollIntoViewAndClick(elem) {
+  scrollIntoView(elem);
+  return click(elem);
+}
+
+/**
+ * @desc Scrolls the supplied element into view and clicks it if the
+ * element is non-null/undefined
+ * @param {HTMLElement|Element} elem - The element to be scrolled into view
+ * and clicked.
+ * @param {Window} cntx - Optional window object associated with the iframe
+ * the element lives in
+ * @return {boolean} - T/F to indicate that the click happened
+ */
+export function scrollIntoViewAndClick2(elem, cntx) {
+  scrollIntoView(elem);
+  return cntx != null ? clickInContext(elem, cntx) : click(elem);
+}
+
+/**
+ * @desc Scrolls the supplied element into view and clicks it if the
+ * element is non-null/undefined and waits for the specified delay time
+ * @param {HTMLElement|Element} elem - The element to be
+ * @param {number} [delayTime = 1000] - How long is the delay
+ * @return {Promise&lt;boolean&gt;} - A Promise that resolves to T/F indicating
+ * that the click happened
+ */
+export function scrollIntoViewAndClickWithDelay(elem, delayTime) {
+  scrollIntoView(elem);
+  return clickWithDelay(elem, delayTime || 1000);
+}
+
+/**
+ * @desc Scrolls the supplied element into view and clicks it if the
+ * element is non-null/undefined and waits for the specified delay time
+ * @param {HTMLElement|Element} elem - The element to be
+ * @param {{delayTime: number, cntx: Window}} [options] - Options controlling
+ * how long the delay is (delay time) and or a supplied window object of an iframe
+ * we are clicking an element within (cntx)
+ * @return {Promise&lt;boolean&gt;} - A Promise that resolves to T/F indicating
+ * that the click happened
+ */
+export function scrollIntoViewAndClickWithDelay2(elem, options) {
+  const opts = Object.assign({ delayTime: 1000 }, options);
+  scrollIntoView(elem);
+  return opts.cntx != null
+    ? clickInContextWithDelay(elem, opts.cntx, opts.delayTime)
+    : clickWithDelay(elem, opts.delayTime);
+}
+
+/**
+ * @desc Scrolls into view and clicks all the elements
+ * present in the supplied array.
+ * @param {Array&lt;HTMLElement&gt;} elems - The array of elements
+ * to be scrolled into view and clicked
+ * @return {void}
+ */
+export function scrollAllIntoViewAndClick(elems) {
+  let i = 0;
+  let length = elems.length;
+  for (; i &lt; length; ++i) {
+    scrollIntoView(elems[i]);
+    click(elems[i]);
+  }
+}
+
+/**
+ * @desc Scrolls into view and clicks all the elements
+ * present in the supplied array waiting for the supplied
+ * delay time after each click of an element in the array.
+ * @param {Array&lt;HTMLElement|Element|Node&gt;} elems - The array of elements
+ * to be scrolled into view and clicked
+ * @param {number} [delayTime = 1000] - How long is the delay after click
+ * @return {Promise&lt;void&gt;}
+ */
+export async function scrollAllIntoViewAndClickWithDelay(elems, delayTime) {
+  const delayAmount = delayTime || 1000;
+  const length = elems.length;
+  for (var i = 0; i &lt; length; ++i) {
+    scrollIntoView(elems[i]);
+    await clickWithDelay(elems[i], delayAmount);
+  }
+}
+
+/**
+ * @desc Clicks the element from executing document.querySelector using
+ * the supplied selector
+ * @param {string} selector - the css selector to use
+ * @return {boolean} - T/F to indicate that the click happened
+ */
+export function selectElemAndClick(selector) {
+  return click(document.querySelector(selector));
+}
+
+/**
+ * @desc Clicks the element from executing document.querySelector using
+ * the supplied selector and waiting the specified delay time after clicking
+ * @param {string} selector - the css selector to use
+ * @param {number} [delayTime = 1000] - How long is the delay
+ * @return {Promise&lt;boolean&gt;} - A Promise that resolves to T/F indicating
+ * that the click happened
+ */
+export function selectElemAndClickWithDelay(selector, delayTime) {
+  return clickWithDelay(document.querySelector(selector), delayTime || 1000);
+}
+
+/**
+ * @desc Clicks the element from executing querySelector using
+ * the supplied selector using the supplied element
+ * @param {Element|Node|HTMLElement} selectFrom - element to use for the querySelector call
+ * @param {string} selector - the css selector to use
+ * @return {boolean} - T/F to indicate that the click happened
+ */
+export function selectElemFromAndClick(selectFrom, selector) {
+  return click(selectFrom.querySelector(selector));
+}
+
+/**
+ * @desc Clicks the element from executing querySelector using
+ * the supplied selector from the supplied element and waiting the specified delay time after clicking
+ * @param {Element|Node|HTMLElement} selectFrom - element to use for the querySelector call
+ * @param {string} selector - the css selector to use
+ * @param {number} [delayTime = 1000] - How long is the delay
+ * @return {Promise&lt;boolean&gt;} - A Promise that resolves to T/F indicating
+ * that the click happened
+ */
+export function selectElemFromAndClickWithDelay(
+  selectFrom,
+  selector,
+  delayTime
+) {
+  return clickWithDelay(qs(selector, selectFrom), delayTime || 1000);
+}
+
+/**
+ * @desc Clicks the supplied element and then waits for the supplied predicate function to return true
+ * @param {Element|Node|HTMLElement} elem - the element to be clicked
+ * @param {function(): boolean} predicate - function returning true or false indicating the wait condition is satisfied
+ * @return {Promise&lt;boolean&gt;} - A Promise that resolves to T/F indicating that the click happened
+ */
+export async function clickAndWaitFor(elem, predicate) {
+  const clicked = click(elem);
+  if (clicked) {
+    await waitForPredicate(predicate);
+  }
+  return clicked;
+}
+
+/**
+ * @desc Clicks the element returned by calling querySelector using the selector
+ * on document or the supplied element (selectFrom) and then waits for the supplied
+ * predicate function to return true
+ * @param {string} selector - the css selector to use
+ * @param {function(): boolean} predicate - function returning true or false indicating the wait condition is satisfied
+ * @param {HTMLElement|Document} [selectFrom] - optional element to use for the querySelector(selector) call
+ * @return {Promise&lt;boolean&gt;} - A Promise that resolves to T/F indicating that the click happened
+ */
+export function selectClickAndWaitFor(selector, predicate, selectFrom) {
+  return clickAndWaitFor(qs(selector, selectFrom), predicate);
+}
+
+/**
+ * @desc Clicks the element returned from result of calling querySelector using the supplied
+ * selector on the supplied element N number of times. Note that the evaluation of the querySelector
+ * is done all N times.
+ * @param {Element} selectFrom - element to use for the querySelector(selector) call
+ * @param {string} selector - the css selector to use
+ * @param {number} n - How many times to click the element returned by
+ * performing selectFrom.querySelector(selector)
+ */
+export function selectFromAndClickNTimes(selectFrom, selector, n) {
+  let clickMe;
+  for (var i = 0; i &lt; n; ++i) {
+    clickMe = selectFrom.querySelector(selector);
+    if (clickMe) {
+      click(clickMe);
+    }
+  }
+}
+
+/**
+ * @desc Clicks the element returned from result of calling querySelector using the supplied
+ * selector on the supplied element N number of times and waits for delay time afters each click.
+ * Note that the evaluation of the querySelector is done all N times.
+ * @param {Element} selectFrom - The element to use to call querySelector(selector) on
+ * @param {string} selector - the css selector to use
+ * @param {number} n - How many times to click the element returned by
+ * performing selectFrom.querySelector(selector)
+ * @param {number} [delayTime = 1000] - How long is the delay
+ */
+export async function selectFromAndClickNTimesWithDelay(
+  selectFrom,
+  selector,
+  n,
+  delayTime
+) {
+  const delayAmount = delayTime || 1000;
+  let clickMe;
+  for (var i = 0; i &lt; n; ++i) {
+    clickMe = selectFrom.querySelector(selector);
+    if (clickMe) {
+      await clickWithDelay(clickMe, delayAmount);
+    }
+  }
+}
+
+/**
+ * @desc Clicks the element returned from result of calling querySelector using the supplied
+ * selector on the supplied element until the results of the evaluting the selector returns null/undefined,
+ * waiting for delay time afters each click.
+ * @param {Element} selectFrom - The element to use to call querySelector(selector) on
+ * @param {string} selector - the css selector to use
+ * performing selectFrom.querySelector(selector)
+ * @param {{delayTime: number, safety: ?number}} [options] - options about delayTime and safety time
+ */
+export async function selectFromAndClickUntilNullWithDelay(
+  selectFrom,
+  selector,
+  options
+) {
+  const opts = Object.assign({ delayTime: 1000 }, options);
+  const delayTime = opts.delayTime;
+  let exit = false;
+  let safety;
+  if (opts.safety) {
+    safety = setTimeout(() =&gt; {
+      exit = true;
+    }, opts.safety);
+  }
+  let clickMe = selectFrom.querySelector(selector);
+  while (clickMe != null) {
+    if (exit) break;
+    await clickWithDelay(clickMe, delayTime);
+    clickMe = selectFrom.querySelector(selector);
+  }
+  if (opts.safety) {
+    clearTimeout(safety);
+  }
+}
+</code></pre>
+
 </div>
 
 <footer class="footer">

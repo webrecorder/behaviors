@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | wr-behaviors</title>
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/index.js | wr-behaviors</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -198,26 +198,195 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="wr-behaviors">wr-behaviors</h1><p>Webrecorders behavior standard library</p>
-<p>Files:</p>
-<ul>
-<li>behaviorRunner.js: A thin wrapper around the execution of a behaviors actions in order to support behavior pausing</li>
-<li>browser.js: functions for handling history manipulation etc</li>
-<li>clicks.js: functions for clicking elements</li>
-<li>delays: functions for applying delays or waiting for condition</li>
-<li>dom: functions for interacting with the dom</li>
-<li>events: functions for handling events and event targets</li>
-<li>general: general utility functions</li>
-<li>media: functions for handling media elements</li>
-<li>mutations: watch for mutations as stream</li>
-<li>outlinkCollector: functions for collecting outlinks</li>
-<li>postStepFNs.js: utility functions for performing a non behavior action after a behavior&apos;s action</li>
-<li>reactUtils.js: functions for working with react based applications</li>
-<li>scrolls.js: functions for scrolling the window</li>
-<li>strings.js: functions for manipulating strings</li>
-<li>traversals.js: functions for traversing the dom</li>
-</ul>
-</div>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">export { BehaviorRunner, initRunnableBehavior } from &apos;./behaviorRunner&apos;;
+export {
+  locationContains,
+  locationEquals,
+  waitForHistoryManipToChangeLocation
+} from &apos;./browser&apos;;
+export {
+  click,
+  clickAndWaitFor,
+  clickInContext,
+  clickInContextWithDelay,
+  clickWithDelay,
+  clickWithDelay2,
+  scrollAllIntoViewAndClick,
+  scrollAllIntoViewAndClickWithDelay,
+  scrollIntoViewAndClick,
+  scrollIntoViewAndClick2,
+  scrollIntoViewAndClickWithDelay,
+  scrollIntoViewAndClickWithDelay2,
+  selectClickAndWaitFor,
+  selectElemAndClick,
+  selectElemAndClickWithDelay,
+  selectElemFromAndClick,
+  selectElemFromAndClickWithDelay,
+  selectFromAndClickNTimes,
+  selectFromAndClickNTimesWithDelay,
+  selectFromAndClickUntilNullWithDelay
+} from &apos;./clicks&apos;;
+export {
+  delay,
+  DelayAmount1Second,
+  DelayAmount2Seconds,
+  DelayAmount3Seconds,
+  DelayAmount4Seconds,
+  DelayAmount5Seconds,
+  domCompletePromise,
+  resolveWhenBehaviorUnPaused,
+  secondsToDelayAmount,
+  setIntervalP,
+  setTimeoutP,
+  waitForAdditionalElemChildren,
+  waitForAndSelectElement,
+  waitForPredicate,
+  waitForPredicateAtMax
+} from &apos;./delays&apos;;
+export {
+  addBehaviorStyle,
+  addClass,
+  anySelectorExists,
+  attr,
+  attrEq,
+  canAcessIf,
+  chainFistChildElemOf,
+  chainLastChildElemOf,
+  chainNthChildElemOf,
+  chainQs,
+  documentScrollPosition,
+  elementsNameEquals,
+  elementTextContains,
+  elementTextEndsWith,
+  elementTextEqs,
+  elementTextStartsWith,
+  elementTextStartsWithAndEndsWith,
+  elemHasSibling,
+  elemHasZeroBoundingRect,
+  elemInnerText,
+  elemInnerTextEqs,
+  elemOffsetTopZero,
+  elemTextContent,
+  filteredQs,
+  findTag,
+  firstChildElementOf,
+  getElementClientPageCenter,
+  getElementClientPagePosition,
+  getElementPositionWidthHeight,
+  getElemSibling,
+  getElemSiblingAndRemoveElem,
+  getNthParentElement,
+  hasClass,
+  id,
+  idExists,
+  isClasslessElem,
+  isElemNotVisible,
+  lastChildElementOf,
+  markElemAsVisited,
+  maybePolyfillXPG,
+  maybeRemoveElem,
+  maybeRemoveElemById,
+  nodesNameEquals,
+  nthChildElemOf,
+  numElemChildren,
+  qs,
+  qsa,
+  qsaOneOf,
+  qsOneOf,
+  removeClass,
+  selectedNextElementSibling,
+  selectorExists,
+  splitElemInnerText,
+  splitElemTextContents,
+  xpathOneOf,
+  xpathSnapShot,
+  xpathSnapShotArray
+} from &apos;./dom&apos;;
+export {
+  createMouseEvent,
+  fireEventOn,
+  fireMouseEventsOnElement,
+  HTMLElementEventMap,
+  waitForEventTargetToFireEvent
+} from &apos;./events&apos;;
+export {
+  autobind,
+  autoFetchFromDoc,
+  compose,
+  composeAsync,
+  composeAsyncIterators,
+  composeIterators,
+  extractProps,
+  getViaPath,
+  globalWithPropsExist,
+  noop,
+  objectHasProps,
+  promiseResolveReject,
+  safeFetch,
+  sendAutoFetchWorkerURLs
+} from &apos;./general&apos;;
+export {
+  findAllMediaElementsAndPlay,
+  noExceptPlayMediaElement,
+  selectAndPlay,
+  selectIdAndPlay
+} from &apos;./media&apos;;
+export { MutationStream } from &apos;./mutations&apos;;
+export {
+  addOutlink,
+  addOutLinks,
+  collectOutlinksFrom,
+  collectOutlinksFromDoc
+} from &apos;./outlinkCollector&apos;;
+export { buildCustomPostStepFn, doneOrWait } from &apos;./postStepFNs&apos;;
+export {
+  findChildWithKey,
+  getInternalRootOnElem,
+  getReactRootContainer,
+  getReactRootHostElem,
+  reactInstanceFromDOMElem,
+  reactInstancesFromElements,
+  reactProps
+} from &apos;./reactUtils&apos;;
+export {
+  canScrollMore,
+  scrollDownByElemHeight,
+  scrollDownByElemHeightWithDelay,
+  scrollIntoView,
+  scrollIntoViewAndWaitFor,
+  scrollIntoViewWithDelay,
+  scrollToElemOffset,
+  scrollToElemOffsetWithDelay,
+  scrollWindowBy,
+  scrollWindowByWithDelay,
+  scrollWindowDownBy,
+  scrollWindowDownByWithDelay
+} from &apos;./scrolls&apos;;
+export {
+  camelCase,
+  camelCaseToDashDelim,
+  camelCaseToUnderscoreDelim,
+  capitalize,
+  collapseWhitespace,
+  isAlpha,
+  isAlphaNumeric,
+  isEmptyString,
+  isLower,
+  isNumeric,
+  isUpper,
+  stringBetween,
+  titleCase,
+  toBoolean,
+  toFloat,
+  toInt
+} from &apos;./strings&apos;;
+export {
+  traverseChildrenOf,
+  traverseChildrenOfLoaderParent
+} from &apos;./traversals&apos;;
+</code></pre>
+
 </div>
 
 <footer class="footer">

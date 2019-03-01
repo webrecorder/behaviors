@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | wr-behaviors</title>
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/dom.js | wr-behaviors</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -198,26 +198,868 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="wr-behaviors">wr-behaviors</h1><p>Webrecorders behavior standard library</p>
-<p>Files:</p>
-<ul>
-<li>behaviorRunner.js: A thin wrapper around the execution of a behaviors actions in order to support behavior pausing</li>
-<li>browser.js: functions for handling history manipulation etc</li>
-<li>clicks.js: functions for clicking elements</li>
-<li>delays: functions for applying delays or waiting for condition</li>
-<li>dom: functions for interacting with the dom</li>
-<li>events: functions for handling events and event targets</li>
-<li>general: general utility functions</li>
-<li>media: functions for handling media elements</li>
-<li>mutations: watch for mutations as stream</li>
-<li>outlinkCollector: functions for collecting outlinks</li>
-<li>postStepFNs.js: utility functions for performing a non behavior action after a behavior&apos;s action</li>
-<li>reactUtils.js: functions for working with react based applications</li>
-<li>scrolls.js: functions for scrolling the window</li>
-<li>strings.js: functions for manipulating strings</li>
-<li>traversals.js: functions for traversing the dom</li>
-</ul>
-</div>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/dom.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { camelCase } from &apos;./strings&apos;;
+
+/**
+ * @desc Returns the results of evaluating the supplied
+ * xpath query using an optional context `contextElement`, defaults
+ * to document, as XPathResult.ORDERED_NODE_SNAPSHOT_TYPE
+ * @param {string} xpathQuery - The xpath query to be evaluated
+ * @param {Element|Document} [contextElement] - Optional
+ * element to be used as the context of the evaluation
+ * @return {XPathResult} - The results of the xpath query evaluation
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/evaluate
+ */
+export function xpathSnapShot(xpathQuery, contextElement) {
+  if (contextElement == null) {
+    contextElement = document;
+  }
+  return document.evaluate(
+    xpathQuery,
+    contextElement,
+    null,
+    XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+    null
+  );
+}
+
+/**
+ * @desc Provides the same functionality of the chrome console utility `$x`
+ * but likely less performant
+ * @param {string} xpathQuery - The xpath query to be evaluated
+ * @param {Element|Document} [contextElement] - Optional
+ * element to be used as the context of the evaluation
+ * @return {Array&lt;HTMLElement&gt;} - The results of the xpath query evaluation
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/evaluate
+ * @see https://developers.google.com/web/tools/chrome-devtools/console/utilities
+ */
+export function xpathSnapShotArray(xpathQuery, contextElement) {
+  const snapShot = xpathSnapShot(xpathQuery, contextElement);
+  const elements = [];
+  let i = 0;
+  let len = snapShot.snapshotLength;
+  while (i &lt; len) {
+    elements.push(snapShot.snapshotItem(i));
+    i += 1;
+  }
+  return elements;
+}
+
+/**
+ * @desc Ensures that if the value of the chrome console utility $x
+ * is not the actual utility (jquery is on the page) the returned
+ * function behaves exactly like it.
+ * @param {function} cliXPG
+ * @return {function: Array&lt;HTMLElement&gt;}
+ */
+export function maybePolyfillXPG(cliXPG) {
+  if (
+    typeof cliXPG !== &apos;function&apos; ||
+    cliXPG.toString().indexOf(&apos;[Command Line API]&apos;) === -1
+  ) {
+    return xpathSnapShotArray;
+  }
+  return cliXPG;
+}
+
+/**
+ * @desc Utility function for `(document||element).querySelector(selector)`
+ * @param {string} selector - the selector to be use
+ * @param {Element|Node|HTMLElement|Document} [context] - element to use rather than document for the querySelector call
+ * @return {Element|Node|HTMLElement|HTMLIFrameElement}
+ */
+export function qs(selector, context) {
+  if (context != null) return context.querySelector(selector);
+  return document.querySelector(selector);
+}
+
+/**
+ * @desc Utility function for `(document||element).querySelector(selector)`
+ * @param {string} selector - the selector to be use
+ * @param {function(elem: SomeElement): boolean} filterFn
+ * @param {Element|Node} [context]
+ * @return {Element|Node|HTMLElement|HTMLIFrameElement}
+ */
+export function filteredQs(selector, filterFn, context) {
+  const elem = qs(selector, context);
+  if (elem == null) return null;
+  if (elem &amp;&amp; filterFn(elem)) return elem;
+  return null;
+}
+
+/**
+ * @desc Utility function for `document.querySelectorAll(selector)`
+ * @param {string} selector - the selector to be use
+ * @param {Element|Node|HTMLElement|Document} [context] - element to use rather than document for the querySelector call
+ * @return {NodeList&lt;Element|Node|HTMLElement&gt;}
+ */
+export function qsa(selector, context) {
+  if (context != null) return context.querySelectorAll(selector);
+  return document.querySelectorAll(selector);
+}
+
+/**
+ * @desc Utility function for `document.getElementById(id)`
+ * @param {string} eid - The id of the element to get
+ * @param {?Document} [context] - Optional document element to use rather than
+ * the current JS context&apos;s
+ * @return {?HTMLElement}
+ */
+export function id(eid, context) {
+  if (context != null) return context.getElementById(eid);
+  return document.getElementById(eid);
+}
+
+/**
+ * @desc Removes the element selected by the supplied querySelector, if it exits,
+ * returning true to indicate the element was removed and false otherwise
+ * @param {string} selector - the selector to be use
+ * @param {Element|Node|HTMLElement} [context] - element to use rather than document for the querySelector call
+ * @return {boolean}
+ */
+export function maybeRemoveElem(selector, context) {
+  const elem = qs(selector, context);
+  if (elem) {
+    elem.remove();
+    return true;
+  }
+  return false;
+}
+
+/**
+ * @desc Removes the element with the supplied id, if it exits, returning
+ * true to indicate the element was removed and false otherwise
+ * @param {string} eid - The id of the element to remove
+ * @param {?Document} [context] - Optional document element to use rather than
+ * the current JS context&apos;s
+ * @return {boolean}
+ */
+export function maybeRemoveElemById(eid, context) {
+  const elem = id(eid, context);
+  if (elem) {
+    elem.remove();
+    return true;
+  }
+  return false;
+}
+
+/**
+ * @desc Returns true if the supplied elements `offsetTop === 0`
+ * @param {Element|HTMLElement|Node} elem - The element to check its
+ * offsetTop
+ * @return {boolean}
+ */
+export function elemOffsetTopZero(elem) {
+  return elem.offsetTop === 0;
+}
+
+/**
+ * @desc Marks the supplied element as visited by adding the marker
+ * to its classList.
+ * @param {HTMLElement|Element|Node} elem - The element to mark
+ * as visited
+ * @param {string} [marker = &apos;wrvistited&apos;] - Optional marker to use
+ * defaults to `wrvistited`
+ */
+export function markElemAsVisited(elem, marker = &apos;wrvistited&apos;) {
+  if (elem != null) {
+    elem.classList.add(marker);
+  }
+}
+
+/**
+ * @desc Creates a style tag if one was not created before and adds
+ * the supplied `styleDef` to it. If a style tag was created before
+ * this function is a no-op
+ * @param {string} styleDef - The CSS rules to add
+ * @return {Object} - An object containing the selectors as key value pairs
+ * where the keys are the selectors in camelcase and the value is the raw selector
+ */
+export function addBehaviorStyle(styleDef) {
+  let style = document.getElementById(&apos;$wrStyle$&apos;);
+  if (style == null) {
+    style = document.createElement(&apos;style&apos;);
+    style.id = &apos;$wrStyle$&apos;;
+    style.textContent = styleDef;
+    document.head.appendChild(style);
+  }
+  const rules = style.sheet.rules;
+  let ruleIdx = rules.length;
+  let selector;
+  const classes = {};
+  while (ruleIdx--) {
+    selector = rules[ruleIdx].selectorText.replace(&apos;.&apos;, &apos;&apos;);
+    classes[camelCase(selector)] = selector;
+  }
+  return classes;
+}
+
+/**
+ * @desc Determines if the supplied iframe is accessible from this
+ * origin. Test is that access the window object of the iframes contentWindow
+ * does not throw an exception and the contentDocument is not falsy.
+ * @param {HTMLIFrameElement} iframe - The iframe to determine accessibility
+ * @return {boolean} - True if the iframe is accessible and false otherwise
+ */
+export function canAcessIf(iframe) {
+  if (iframe == null) return false;
+  try {
+    iframe.contentWindow.window;
+  } catch (e) {
+    return false;
+  }
+  return iframe.contentDocument != null;
+}
+
+/**
+ * @desc Determines if the element the supplied selector selects exists
+ * @param {string} selector - The querySelector to use for testing if
+ * the element it selects exists
+ * @param {Document|Element} [cntx] - Optional element to use rather
+ * than the current JS context&apos;s document object
+ * @return {boolean} - True if the element exists, false otherwise
+ */
+export function selectorExists(selector, cntx) {
+  return qs(selector, cntx) != null;
+}
+
+/**
+ * @desc Determines if the element the supplied id identifies exists
+ * @param {string} eid - The id of the element
+ * @param {Document} [cntx] - Optional document object to use rather
+ * than the current JS context&apos;s document object
+ * @return {boolean} - True if the element exists, false otherwise
+ */
+export function idExists(eid, cntx) {
+  return id(eid, cntx) != null;
+}
+
+/**
+ * @desc Attempts to find a tag using the supplied function that accepts
+ * an xpath query and an optional starting element and returns
+ * the element the supplied predicate function returns a truthy value for
+ * @param {function(xpathQuery: string, startElem: ?Node): Node[]} xpg - xpath execution function
+ * @param {string} tag - The tag to be found
+ * @param {function(elem: Node): boolean} predicate - Element selecting predicate function
+ * @param {Document|Node} [cntx] - Optional starting element, defaults to `document`
+ * @return {?Element|?HTMLIFrameElement|?Node} - The desired element if it was found
+ */
+export function findTag(xpg, tag, predicate, cntx) {
+  const tags = xpg(`//${tag}`, cntx || document);
+  const len = tags.length;
+  for (var i = 0; i &lt; len; ++i) {
+    if (predicate(tags[i])) return tags[i];
+  }
+  return null;
+}
+
+/**
+ * @desc Retrieves the value of an elements attribute if it exists
+ * @param {Element} elem - The element to retrieve an attribute from
+ * @param {string} attr - The name of the attribute to be retrieved
+ * @return {?string|?Object} - The value of the retrieved attribute if it exists
+ */
+export function attr(elem, attr) {
+  if (elem) return elem.getAttribute(attr);
+  return null;
+}
+
+/**
+ * @desc Tests to determine if the value of elements attribute equals
+ * the supplied value using loose equality
+ * @param {Element} elem - The element to retrieve an attribute from
+ * @param {string} attr - The name of the attribute to be retrieved
+ * @param {*} shouldEq - The value the attributes value should equal
+ * @return {boolean} - T/F indicating if the attribute equals. Note
+ * false can indicate the attribute does not equal expected or
+ * the element was null/undefined
+ */
+export function attrEq(elem, attr, shouldEq) {
+  if (elem) return elem.getAttribute(attr) == shouldEq;
+  return false;
+}
+
+/**
+ * @desc Returns the Nth child of the supplied element (indexing assumes start is 1)
+ * @param {Element|Document} elem - The element to retrieve the nth child of
+ * @param {number} nth - The number of the nth child
+ * @return {?Element} - The nth child if it exists
+ */
+export function nthChildElemOf(elem, nth) {
+  if (elem &amp;&amp; elem.children &amp;&amp; elem.children.length &gt;= nth) {
+    return elem.children[nth - 1];
+  }
+  return null;
+}
+
+/**
+ *
+ * @param {Element} startingElem
+ * @param {...number} nths
+ * @return {?Element}
+ */
+export function chainNthChildElemOf(startingElem, ...nths) {
+  let child = startingElem;
+  if (
+    startingElem != null &amp;&amp;
+    startingElem.children != null &amp;&amp;
+    startingElem.children.length
+  ) {
+    const length = nths.length;
+    for (var i = 0; i &lt; length; ++i) {
+      child = nthChildElemOf(child, nths[i]);
+      if (child == null) break;
+    }
+  }
+  return child;
+}
+
+/**
+ *
+ * @param {Element} elem
+ * @returns {?Element}
+ */
+export function firstChildElementOf(elem) {
+  if (elem != null &amp;&amp; elem.firstElementChild) {
+    return elem.firstElementChild;
+  }
+  return null;
+}
+
+/**
+ *
+ * @param {Element} elem
+ * @param {number} times
+ * @returns {?Element}
+ */
+export function chainFistChildElemOf(elem, times) {
+  let child = elem;
+  if (elem != null) {
+    for (var i = 0; i &lt; times; ++i) {
+      child = firstChildElementOf(child);
+      if (child == null) break;
+    }
+  }
+  return child;
+}
+
+/**
+ *
+ * @param {Element} elem
+ * @returns {?Element}
+ */
+export function lastChildElementOf(elem) {
+  if (elem != null &amp;&amp; elem.children &amp;&amp; elem.children.length) {
+    return elem.children[elem.children.length - 1];
+  }
+  return null;
+}
+
+/**
+ *
+ * @param {Element} elem
+ * @param {number} times
+ * @returns {?Element}
+ */
+export function chainLastChildElemOf(elem, times) {
+  let child = elem;
+  if (elem != null &amp;&amp; elem.children &amp;&amp; elem.children.length) {
+    for (var i = 0; i &lt; times; ++i) {
+      child = lastChildElementOf(child);
+      if (child == null) break;
+    }
+  }
+  return child;
+}
+
+/**
+ *
+ * @param {Element} elem
+ * @return {number}
+ */
+export function numElemChildren(elem) {
+  if (elem != null) {
+    return elem.childElementCount;
+  }
+  return -1;
+}
+
+/**
+ * @desc Consecutively calls querySelector(selector) on the element returned by the previous invocation
+ * @param {Element|Node|Document} startingSelectFrom - The first element to perform querySelector(startingSelector) on
+ * @param {string} startingSelector - The first selector
+ * @param {...string} selectors - Additional selections
+ * @return {?Element} - Final selected element if it exists
+ */
+export function chainQs(startingSelectFrom, startingSelector, ...selectors) {
+  let selected = qs(startingSelector, startingSelectFrom);
+  if (selected != null) {
+    const len = selectors.length;
+    for (var i = 0; i &lt; len; ++i) {
+      selected = qs(selectors[i], selected);
+      if (selected == null) return null;
+    }
+  }
+  return selected;
+}
+
+/**
+ * @desc Adds a CSS classname to the supplied element
+ * @param {?Element} elem - The element to add the classname to
+ * @param {string} clazz - The classname to be added
+ */
+export function addClass(elem, clazz) {
+  if (elem) {
+    elem.classList.add(clazz);
+  }
+}
+
+/**
+ * @desc Removes a CSS classname to the supplied element
+ * @param {?Element} elem - The element to remove the classname to
+ * @param {string} clazz - The classname to be removed
+ */
+export function removeClass(elem, clazz) {
+  if (elem) {
+    elem.classList.remove(clazz);
+  }
+}
+
+/**
+ * @desc Tests to see if the supplied element has a css class
+ * @param {?Element} elem - The element to be tested if it has the class
+ * @param {string} clazz - The classname
+ * @return {boolean} - T/F indicating if the element has the class
+ */
+export function hasClass(elem, clazz) {
+  if (elem) return elem.classList.contains(clazz);
+  return false;
+}
+
+/**
+ *
+ * @param {Element} elem
+ * @return {boolean}
+ */
+export function isClasslessElem(elem) {
+  return elem.classList.length === 0;
+}
+
+/**
+ * @desc Returns the supplied elements next element sibling
+ * @param {Element|Node} elem - The element to receive its sibling
+ * @return {?Element} - The elements sibling if it exists
+ */
+export function getElemSibling(elem) {
+  return elem.nextElementSibling;
+}
+
+/**
+ *
+ * @param {Element|Node} elem
+ * @return {boolean}
+ */
+export function elemHasSibling(elem) {
+  return getElemSibling(elem) != null;
+}
+
+/**
+ * @desc Returns the supplied elements next element sibling and removes the
+ * supplied element
+ * @param {Element|Node} elem - The element to receive its sibling
+ * @return {?Element} - The elements sibling if it exists
+ */
+export function getElemSiblingAndRemoveElem(elem) {
+  const sibling = getElemSibling(elem);
+  elem.remove();
+  return sibling;
+}
+
+/**
+ * @desc Determines if the supplied elements bounding client rect&apos;s
+ * x,y,width,height,top,left properties all equal zero.
+ * Note this function returns true if the element is null/undefined;
+ * @param {Element} elem - The element to be tested
+ * @return {boolean} - T/F indicating if all zero or not.
+ */
+export function elemHasZeroBoundingRect(elem) {
+  if (elem == null) return true;
+  const rect = elem.getBoundingClientRect();
+  return (
+    rect.x === 0 &amp;&amp;
+    rect.y === 0 &amp;&amp;
+    rect.width === 0 &amp;&amp;
+    rect.height === 0 &amp;&amp;
+    rect.top === 0 &amp;&amp;
+    rect.left === 0
+  );
+}
+
+export function isElemNotVisible(elem) {
+  if (elem == null) return true;
+  return elem.hidden || elemHasZeroBoundingRect(elem);
+}
+
+/**
+ * @desc Returns the Nth parent element of the supplied element (indexing assumes start is 1)
+ * @param {Node} elem - The element to retrieve the nth parent element of
+ * @param {number} nth - The number of the nth parent
+ * @return {?HTMLElement} - The nth parent element if it exists
+ */
+export function getNthParentElement(elem, nth) {
+  if (elem != null &amp;&amp; elem.parentElement != null &amp;&amp; nth &gt;= 1) {
+    let counter = nth - 1;
+    let parent = elem.parentElement;
+    while (counter &gt; 0 &amp;&amp; parent != null) {
+      parent = parent.parentElement;
+      counter--;
+    }
+    return parent;
+  }
+  return null;
+}
+
+/**
+ *
+ * @param {Node} elem
+ * @param needle
+ * @returns {boolean}
+ */
+export function elementTextContains(elem, needle) {
+  if (elem != null &amp;&amp; elem.textContent != null)
+    return elem.textContent.includes(needle);
+  return false;
+}
+
+/**
+ *
+ * @param {Node} elem
+ * @param {string} shouldEqual
+ * @returns {boolean}
+ */
+export function elementTextEqs(elem, shouldEqual) {
+  if (elem != null) return elem.textContent === shouldEqual;
+  return false;
+}
+
+/**
+ *
+ * @param {Node} elem
+ * @param {string} start
+ * @param {string} end
+ * @returns {boolean}
+ */
+export function elementTextStartsWithAndEndsWith(elem, start, end) {
+  if (elem != null &amp;&amp; elem.textContent != null) {
+    return elem.textContent.startsWith(start) &amp;&amp; elem.textContent.endsWith(end);
+  }
+  return false;
+}
+
+/**
+ *
+ * @param {Node} elem
+ * @param {string} start
+ * @returns {boolean}
+ */
+export function elementTextStartsWith(elem, start) {
+  if (elem != null &amp;&amp; elem.textContent != null) {
+    return elem.textContent.startsWith(start);
+  }
+  return false;
+}
+
+/**
+ *
+ * @param {Node} elem
+ * @param {string} end
+ * @returns {boolean}
+ */
+export function elementTextEndsWith(elem, end) {
+  if (elem != null &amp;&amp; elem.textContent != null) {
+    return elem.textContent.endsWith(end);
+  }
+  return false;
+}
+
+/**
+ *
+ * @param {HTMLElement} elem
+ * @param {string} splitter
+ * @returns {?Array&lt;string&gt;}
+ */
+export function splitElemInnerText(elem, splitter) {
+  if (elem != null &amp;&amp; elem.innerText != null) {
+    return elem.innerText.split(splitter);
+  }
+  return null;
+}
+
+/**
+ *
+ * @param {Node} elem
+ * @param {string} splitter
+ * @returns {?Array&lt;string&gt;}
+ */
+export function splitElemTextContents(elem, splitter) {
+  if (elem != null &amp;&amp; elem.textContent != null) {
+    return elem.textContent.split(splitter);
+  }
+  return null;
+}
+
+/**
+ *
+ * @param {HTMLElement} elem
+ * @returns {?string}
+ */
+export function elemInnerText(elem) {
+  if (elem != null &amp;&amp; elem.innerText != null) return elem.innerText;
+  return null;
+}
+
+/**
+ *
+ * @param elem
+ * @param {string} shouldEqual
+ * @param {boolean} [trim = false]
+ * @return {boolean}
+ */
+export function elemInnerTextEqs(elem, shouldEqual, trim = false) {
+  if (elem == null || elem.innerText == null) return false;
+  const innerText = trim ? elem.innerText.trim() : elem.innerText;
+  return innerText === shouldEqual;
+}
+
+/**
+ *
+ * @param elem
+ * @param {...string} shouldEquals
+ * @return {boolean}
+ */
+function elemInnerTextEqsOneOf(elem, ...shouldEquals) {
+  if (elem != null &amp;&amp; elem.innerText != null) return false;
+  const innertText = elem.innerText;
+  let i = shouldEquals.length;
+  while (i--) {
+    if (innertText === shouldEquals[i]) return true;
+  }
+  return false;
+}
+
+/**
+ *
+ * @param {Node} elem
+ * @returns {?string}
+ */
+export function elemTextContent(elem) {
+  if (elem != null &amp;&amp; elem.textContent != null) return elem.textContent;
+  return null;
+}
+
+/**
+ * @param {?Document} doc
+ * @return {{scrollTop: number, scrollLeft: number}}
+ */
+export function documentScrollPosition(doc) {
+  const documentElem = doc != null ? doc : document;
+  return {
+    scrollTop:
+      documentElem.body.scrollTop || documentElem.documentElement.scrollTop,
+    scrollLeft:
+      documentElem.body.scrollLeft || documentElem.documentElement.scrollLeft
+  };
+}
+
+/**
+ * @desc Helper function to get the actual x and y position,
+ * page x and y position (scroll) and the height, width of a given element
+ * @param {Element} element
+ * @param {Document} [doc]
+ * @return {?{y: number, pageY: number, x: number, pageX: number, w: number, h: number}}
+ */
+export function getElementPositionWidthHeight(element, doc) {
+  if (element == null) return null;
+  const rect = element.getBoundingClientRect();
+  const scrollPos = documentScrollPosition(doc);
+  return {
+    y: rect.top,
+    pageY: rect.top + scrollPos.scrollTop,
+    x: rect.left,
+    pageX: rect.left + scrollPos.scrollLeft,
+    w: rect.width,
+    h: rect.height
+  };
+}
+
+/**
+ * @desc Get the position of the passed DOM element
+ * @param {Element} element
+ * @param {Object} options
+ * @return {{clientY: number, clientX: number, pageY: number, pageX: number}}
+ */
+export function getElementClientPagePosition(element, options) {
+  const opts = Object.assign({ x: 1, y: 1, floor: false }, options);
+  const cords = getElementPositionWidthHeight(element, opts.doc);
+  return {
+    clientX: opts.floor
+      ? Math.floor(cords.x + (cords.w / 100) * opts.x)
+      : cords.x + (cords.w / 100) * opts.x,
+    clientY: opts.floor
+      ? Math.floor(cords.y + (cords.h / 100) * opts.y)
+      : cords.y + (cords.h / 100) * opts.y,
+    pageX: opts.floor
+      ? Math.floor(cords.pageX + (cords.w / 100) * opts.x)
+      : cords.pageX + (cords.w / 100) * opts.x,
+    pageY: opts.floor
+      ? Math.floor(cords.pageY + (cords.h / 100) * opts.y)
+      : cords.pageY + (cords.h / 100) * opts.y
+  };
+}
+
+/**
+ * @desc Get the center of the passed DOM element
+ * @param {Element} element
+ * @param {{floor: boolean}} [options]
+ * @return {?{clientY: number, clientX: number, pageY: number, pageX: number}}
+ */
+export function getElementClientPageCenter(element, options) {
+  if (element == null) return null;
+  const opts = Object.assign({ floor: false }, options);
+  const cords = getElementPositionWidthHeight(element, opts.doc);
+  return {
+    clientX: opts.floor
+      ? Math.floor(cords.x + cords.w / 2)
+      : cords.x + cords.w / 2,
+    clientY: opts.floor
+      ? Math.floor(cords.y + cords.h / 2)
+      : cords.y + cords.h / 2,
+    pageX: opts.floor
+      ? Math.floor(cords.pageX + cords.w / 2)
+      : cords.pageX + cords.w / 2,
+    pageY: opts.floor
+      ? Math.floor(cords.pageY + cords.h / 2)
+      : cords.pageY + cords.h / 2
+  };
+}
+
+/**
+ * @desc Determines if the element the supplied selector selects exists.
+ *
+ * If one of the supplied selectors matches an existing element the idx property
+ * of the returned object is set to the index of the selector in the array and
+ * the success property is set to true.
+ *
+ * Otherwise idx = -1 and success = false.
+ * @param {Array&lt;string&gt;} selectors - The query selectors to use for testing if
+ * the elements it selects exist
+ * @param {SomeElement} [cntx] - Optional element to use rather
+ * than the current JS context&apos;s document object
+ * @return {{idx: number, success: boolean}} - The results of the selectors
+ * existence check
+ */
+export function anySelectorExists(selectors, cntx) {
+  const numSelectors = selectors.length;
+  for (var i = 0; i &lt; numSelectors; ++i) {
+    if (selectorExists(selectors[i], cntx)) {
+      return { idx: i, success: true };
+    }
+  }
+  return { idx: -1, success: false };
+}
+
+/**
+ * @desc Returns T/F indicating if the elements name (localName) is equal to the supplied name
+ * @param {Element} elem - The element to check if its name equals the supplied name
+ * @param {string} name - The name of the desired element
+ * @return {boolean}
+ */
+export function elementsNameEquals(elem, name) {
+  if (!elem) return false;
+  return elem.localName === name;
+}
+
+/**
+ * @desc Returns T/F indicating if the nodes name (nodeName) is equal to the supplied name
+ * @param {Node} node - The node to check if its name equals the supplied name
+ * @param {string} name - The name of the desired Node
+ * @return {boolean}
+ */
+export function nodesNameEquals(node, name) {
+  if (!node) return false;
+  return node.nodeName === name;
+}
+
+/**
+ * @desc Returns the results of evaluating one of the supplied xpath queries if
+ * one of the queries yields results otherwise null/undefined
+ * @param {{queries: Array&lt;string&gt;, xpg: *, context: *}} options
+ * @return {?Array&lt;*&gt;}
+ */
+export function xpathOneOf({ queries, xpg, context }) {
+  let results = null;
+  for (var i = 0; i &lt; queries.length; i++) {
+    results = xpg(queries[i], context);
+    if (results) return results;
+  }
+  return results;
+}
+
+/**
+ * @desc Returns the results of querySelector using one of the supplied selectors
+ * one if one of the selectors yields results otherwise null/undefined
+ * @param {{selectors: Array&lt;string&gt;, context: *}} options
+ * @return {?Element}
+ */
+export function qsOneOf({ selectors, context }) {
+  if (selectors == null) return null;
+  let results = null;
+  for (var i = 0; i &lt; selectors.length; i++) {
+    results = qs(selectors[i], context);
+    if (results) return results;
+  }
+  return results;
+}
+
+/**
+ * @desc Returns the results of querySelectorAll using one of the supplied
+ * selectors if one of the selectors yields results otherwise null/undefined
+ * @param {{selectors: Array&lt;string&gt;, context: *}} options
+ * @return {NodeList&lt;SomeElement&gt;}
+ */
+export function qsaOneOf({ selectors, context }) {
+  if (selectors == null) return null;
+  let results = null;
+  for (var i = 0; i &lt; selectors.length; i++) {
+    results = qsa(selectors[i], context);
+    if (results) return results;
+  }
+  return results;
+}
+
+/**
+ * @desc Returns the next element sibling of the supplied selector IFF
+ * the selector returns a results and the next element sibling exists
+ * otherwise null/undefined
+ * @param {string} selector - The selector for the element who&apos;s next sibling is
+ * to be returned
+ @param {Element|Node|HTMLElement|Document} [context] - element to use rather than document for the querySelector call
+ * @return {?Element}
+ */
+export function selectedNextElementSibling(selector, context) {
+  const maybeSelected = qs(selector, context);
+  if (maybeSelected &amp;&amp; maybeSelected.nextElementSibling) {
+    return maybeSelected.nextElementSibling;
+  }
+  return null;
+}
+
+/**
+ * @typedef {Element | Node | HTMLElement | Document} SomeElement
+ **/
+</code></pre>
+
 </div>
 
 <footer class="footer">

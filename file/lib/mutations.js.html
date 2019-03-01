@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | wr-behaviors</title>
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/mutations.js | wr-behaviors</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -198,26 +198,164 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="wr-behaviors">wr-behaviors</h1><p>Webrecorders behavior standard library</p>
-<p>Files:</p>
-<ul>
-<li>behaviorRunner.js: A thin wrapper around the execution of a behaviors actions in order to support behavior pausing</li>
-<li>browser.js: functions for handling history manipulation etc</li>
-<li>clicks.js: functions for clicking elements</li>
-<li>delays: functions for applying delays or waiting for condition</li>
-<li>dom: functions for interacting with the dom</li>
-<li>events: functions for handling events and event targets</li>
-<li>general: general utility functions</li>
-<li>media: functions for handling media elements</li>
-<li>mutations: watch for mutations as stream</li>
-<li>outlinkCollector: functions for collecting outlinks</li>
-<li>postStepFNs.js: utility functions for performing a non behavior action after a behavior&apos;s action</li>
-<li>reactUtils.js: functions for working with react based applications</li>
-<li>scrolls.js: functions for scrolling the window</li>
-<li>strings.js: functions for manipulating strings</li>
-<li>traversals.js: functions for traversing the dom</li>
-</ul>
-</div>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/mutations.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * @desc Observe dom mutation using a MutationObserver as a stream (AsyncIterator)
+ */
+export class MutationStream {
+  constructor() {
+    /**
+     * @type {MutationObserver}
+     */
+    this.mo = new MutationObserver((ml, ob) =&gt; {
+      if (this._resolve) {
+        this._resolve(ml);
+      }
+    });
+
+    /**
+     * @type {?function(arg:*)}
+     * @private
+     */
+    this._resolve = null;
+
+    /**
+     * @type {boolean}
+     * @private
+     */
+    this._loopStream = false;
+  }
+
+  /**
+   * @desc Start observing an element for mutations
+   * @param {Node} elem - The element to be observed for mutations
+   * @param {Object} config - Configuration object accepted by mutation observers
+   */
+  observe(elem, config) {
+    this.mo.observe(elem, config);
+    this._loopStream = true;
+  }
+
+  /**
+   * @desc Start observing an element for mutations and receive an async iterator
+   * yielding the observed mutations
+   * @param {Node} elem - The element to be observed for mutations
+   * @param {Object} config - Configuration object accepted by mutation observers
+   * @return {AsyncIterator&lt;MutationRecord[]&gt;}
+   */
+  observeStream(elem, config) {
+    this.observe(elem, config);
+    return this.streamItr();
+  }
+
+  /**
+   * @desc Creates a conditional mutation stream. If the startPredicate
+   * does not return true then the the observer discontents ending the stream.
+   * Otherwise the stream continues to emit mutations until the observer is
+   * disconnected or the stopPredicate returns true. The stopPredicate is polled
+   * at 1.5 second intervals when the observer is waiting for the next mutation.
+   * @param {Node} elem - The element to be observed for mutations
+   * @param {Object} config - Configuration object accepted by mutation observers
+   * @param {function(): boolean} startPredicate - Predicate function right before
+   * mutations are yielded to determine if the stream should end immediately or not
+   * @param {function(): boolean} stopPredicate - Predicate function polled
+   * while waiting for mutations to occur that returns false to indicate
+   * the stream should end.
+   * @return {AsyncIterator&lt;MutationRecord[]&gt;}
+   */
+  predicatedStream(elem, config, startPredicate, stopPredicate) {
+    this.observe(elem, config);
+    return this.predicateStreamItr(startPredicate, stopPredicate);
+  }
+
+  /**
+   * @desc Disconnects the mutation observer and ends the stream
+   */
+  disconnect() {
+    this.mo.disconnect();
+    this._loopStream = false;
+    if (this._resolve) {
+      this._resolve(null);
+    }
+    this._resolve = null;
+  }
+
+  /**
+   * @desc Returns a promise that resolves with the next observed mutation
+   * @return {Promise&lt;?MutationRecord[]&gt;}
+   * @private
+   */
+  _getNext() {
+    return new Promise(resolve =&gt; {
+      this._resolve = resolve;
+    });
+  }
+
+  /**
+   * @desc Returns an stream (async iterator) that yields
+   * the observed mutations. Must have called {@link observe} before
+   * calling this method, otherwise no mutations will be yielded
+   * @return {AsyncIterator&lt;MutationRecord[]&gt;}
+   */
+  async *streamItr() {
+    let next;
+    while (this._loopStream) {
+      next = await this._getNext();
+      if (next == null) {
+        break;
+      }
+      yield next;
+    }
+    this.disconnect();
+  }
+
+  /**
+   * @desc Returns an mutation stream that ends if the startPredicate returns false
+   * otherwise keeps the stream alive until disconnect or the stopPredicate, polled
+   * at 1.5 second intervals when waiting for next mutation, returns false.
+   * Automatically disconnects at the end.
+   * @param {function(): boolean} startPredicate - Predicate function right before
+   * mutations are yielded to determine if the stream should end immediately or not
+   * @param {function(): boolean} stopPredicate - Predicate function polled
+   * while waiting for mutations to occur that returns false to indicate
+   * the stream should end.
+   * @return {AsyncIterator&lt;?MutationRecord[]&gt;}
+   */
+  async *predicateStreamItr(startPredicate, stopPredicate) {
+    if (!startPredicate()) {
+      return this.disconnect();
+    }
+    while (this._loopStream) {
+      let checkTo;
+      let next = await Promise.race([
+        this._getNext(),
+        new Promise(resolve =&gt; {
+          checkTo = setInterval(() =&gt; {
+            if (stopPredicate()) {
+              clearInterval(checkTo);
+              return resolve(null);
+            }
+          }, 1500);
+        })
+      ]);
+      if (checkTo) clearInterval(checkTo);
+      if (next == null) {
+        break;
+      }
+      yield next;
+    }
+    this.disconnect();
+  }
+
+  /**
+   * @return {AsyncIterator&lt;?MutationRecord[]&gt;}
+   */
+  [Symbol.asyncIterator]() {
+    return this.streamItr();
+  }
+}
+</code></pre>
+
 </div>
 
 <footer class="footer">
