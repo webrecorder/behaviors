@@ -1,9 +1,20 @@
-import * as std from '../../lib';
+import * as lib from '../../lib';
 import { selectors, videoPostSelectors, xpathQ } from './shared';
 
-std.addBehaviorStyle('.wr-debug-visited {border: 6px solid #3232F1;}');
+const behaviorStyle = lib.addBehaviorStyle(`
+  .wr-debug-visited {border: 6px solid #3232F1;}
+  .wr-debug-visited-overlay {border: 6px solid pink;}
+`);
 
 const multiImageClickOpts = { safety: 30 * 1000, delayTime: 1000 };
+
+const postTypes = {
+  video: Symbol('$$instagram-video-post$$'),
+  multiImage: Symbol('$$instagram-multi-image-post$$'),
+  commentsOnly: Symbol('$$instagram-comments-only-post$$')
+};
+
+let runnerSuppliedXPG;
 
 /**
  * @param {Element | Node | HTMLElement} post
@@ -28,226 +39,185 @@ function isMultiImagePost(post) {
 }
 
 /**
- * @desc Opens the selected post. The post element is a div that contains
- * a direct child that is an anchor tag. The anchor tag is the clickable
- * element not the div. Once the post has been determined to be opened,
- * returns the relevant elements of the open post.
- * @param {Element | Node} post
- * @return {Promise<{portal: Element, displayDiv: Element}>}
+ * @desc Determines the type of the post
+ * @param {*} post
+ * @return {symbol}
  */
-async function openPost(post) {
-  // click the first child of the post div (a tag)
-  let maybeA = post.childNodes[0];
-  if (!(maybeA instanceof HTMLAnchorElement)) {
-    maybeA = std.qs('a', maybeA);
-  }
-  if (!maybeA) {
-    throw new Error('booo');
-  }
-  await std.clickWithDelay(maybeA);
-  // wait for the post portal to open and get a reference to that dom element
-  const portal = await std.waitForAndSelectElement(
-    document,
-    selectors.postPopupArticle
-  );
-  // get a reference to the post div in the portal
-  const displayDiv = portal.querySelector(selectors.multiImageDisplayDiv);
-  return { portal, displayDiv };
+function determinePostType(post) {
+  if (isMultiImagePost(post)) return postTypes.multiImage;
+  if (isVideoPost(post)) return postTypes.video;
+  return postTypes.commentsOnly;
 }
 
-/**
- * @desc Closes the post
- * @param xpg
- * @return {Promise<void>}
- */
-async function closePost(xpg) {
-  let close = xpg(xpathQ.postPopupClose.v2)[0];
-  if (!close) {
-    close = xpg(xpathQ.postPopupClose.v1)[0];
-  }
-  if (close) {
-    await std.clickWithDelay(close);
-  }
+function loggedIn(xpg) {
+  return (
+    xpg(xpathQ.notLoggedIn.login).length === 0 &&
+    xpg(xpathQ.notLoggedIn.signUp).length === 0
+  );
 }
 
 /**
  * @desc Executes the xpath query that selects the load more comments button
+ * for both variations and returns that element if it exists.
  * @param xpg
- * @return {Array<Element>}
+ * @return {?Element}
  */
 function getMoreComments(xpg) {
   // first check for load more otherwise return the results of querying
   // for show all comments
   const moreComments = xpg(xpathQ.loadMoreComments);
-  if (moreComments.length === 0) return xpg(xpathQ.showAllComments);
-  return moreComments;
-}
-
-/**
- * @desc The load more comments button, depending on the number of comments,
- * will contain two variations of text (see {@link xpathQ} for those two
- * variations). Calls {@link getMoreComments} and clicks the button returned
- * as the result of the xpath query until it returns an zero length array.
- * @param xpg
- * @return {Promise<void>}
- */
-async function loadAllComments(xpg) {
-  let moreComments = getMoreComments(xpg);
-  while (moreComments.length) {
-    await std.clickWithDelay(moreComments[0], 1500);
-    moreComments = getMoreComments(xpg);
+  if (moreComments.length === 0) {
+    return xpg(xpathQ.showAllComments)[0];
   }
-}
-
-/**
- * @desc Handles the multi-image posts
- * @param {Element | Node | HTMLElement} post
- * @param xpg
- */
-async function handleMultiImagePost(post, xpg) {
-  // open the post and get references to the DOM structure of the open post
-  const { portal } = await openPost(post);
-  // display each image by clicking the right chevron (next image)
-  await std.selectFromAndClickUntilNullWithDelay(
-    portal,
-    selectors.rightChevron,
-    multiImageClickOpts
-  );
-  // load all comments and close the post
-  await loadAllComments(xpg);
-  await closePost(xpg);
-}
-
-/**
- * @desc Handles posts that contain videos
- * @param {Element | Node | HTMLElement} post
- * @param xpg
- */
-async function handleVideoPost(post, xpg) {
-  // open the post and get references to the DOM structure of the open post
-  const { displayDiv } = await openPost(post);
-  // select and play the video. The video is a mp4 that is already loaded
-  // need to only play it for the length of time we are visiting the post
-  // just in case
-  await std.selectElemFromAndClickWithDelay(displayDiv, selectors.closeVideo);
-  // load all comments and close the post
-  await loadAllComments(xpg);
-  await closePost(xpg);
-}
-
-/**
- * @desc Handles posts that are not multi-image or videos
- * @param {Element | Node | HTMLElement} post
- * @param xpg
- */
-async function handleCommentsOnly(post, xpg) {
-  // open the post and get references to the DOM structure of the open post
-  await openPost(post);
-  // load all comments and close the post
-  await loadAllComments(xpg);
-  await closePost(xpg);
-}
-
-async function handlePost(post, xpg) {
-  std.collectOutlinksFrom(post);
-  // scroll it into view and check what type of post it is
-  await std.scrollIntoViewWithDelay(post);
-  if (isMultiImagePost(post)) {
-    await handleMultiImagePost(post, xpg);
-  } else if (isVideoPost(post)) {
-    await handleVideoPost(post, xpg);
-  } else {
-    await handleCommentsOnly(post, xpg);
-  }
+  return moreComments[0];
 }
 
 async function* viewStories() {
   // get the original full URI of the browser
   const originalLoc = window.location.href;
   // click the first story
-  const firstStoryClicked = std.selectElemAndClick(selectors.openStories);
+  const firstStoryClicked = lib.selectElemAndClick(selectors.openStories);
   if (!firstStoryClicked) return; // no storied if
   // history manipulation will change the browser URI so
   // we must wait for that to happen
-  await std.waitForHistoryManipToChangeLocation(originalLoc);
+  await lib.waitForHistoryManipToChangeLocation(originalLoc);
   let wasClicked;
   let videoButton;
   // stories are sorta on autoplay but we should speed things up
-  let toBeClicked = std.qs(selectors.nextStory);
+  let toBeClicked = lib.qs(selectors.nextStory);
   // we will continue to speed up autoplay untill the next story
   // button does not exist or we are done (window.location.href === originalLoc)
-  while (!std.locationEquals(originalLoc) && toBeClicked != null) {
-    wasClicked = await std.clickWithDelay(toBeClicked);
+  while (!lib.locationEquals(originalLoc) && toBeClicked != null) {
+    wasClicked = await lib.clickWithDelay(toBeClicked);
     // if the next story part button was not clicked
     // or autoplay is finished we are done
-    if (!wasClicked || std.locationEquals(originalLoc)) break;
-    videoButton = std.qs(selectors.storyVideo);
+    if (!wasClicked || lib.locationEquals(originalLoc)) break;
+    videoButton = lib.qs(selectors.storyVideo);
     if (videoButton) {
       // this part of a story is video content
-      let maybeVideo = std.qs('video');
+      let maybeVideo = lib.qs('video');
       // click the button if not already playing
       if (maybeVideo && maybeVideo.paused) {
-        await std.clickWithDelay(videoButton);
+        await lib.clickWithDelay(videoButton);
       }
       // safety check due to autoplay
-      if (std.locationEquals(originalLoc)) break;
+      if (lib.locationEquals(originalLoc)) break;
       // force play the video if not already playing
       if (maybeVideo && maybeVideo.paused) {
-        await std.noExceptPlayMediaElement(maybeVideo);
+        await lib.noExceptPlayMediaElement(maybeVideo);
       }
       // safety check due to autoplay
-      if (std.locationEquals(originalLoc)) break;
+      if (lib.locationEquals(originalLoc)) break;
     }
     yield;
-    toBeClicked = std.qs(selectors.nextStory);
+    toBeClicked = lib.qs(selectors.nextStory);
   }
 }
 
+async function* handlePost(post, xpg) {
+  // open the post (displayed in a separate part of the dom)
+  // click the first child of the post div (a tag)
+  let maybeA = lib.firstChildElementOf(post);
+  if (!(maybeA instanceof HTMLAnchorElement)) {
+    maybeA = lib.qs('a', maybeA);
+  }
+  if (!maybeA) {
+    throw new Error('booo');
+  }
+  await lib.clickWithDelay(maybeA);
+  // wait for the post dialog to open and get a reference to that dom element
+  const popupDialog = await lib.waitForAndSelectElement(
+    document,
+    selectors.divDialog
+  );
+  // get the next inner div.dialog because its next sibling is the close button
+  // until instagram decides to change things
+  const innerDivDialog = lib.qs(selectors.divDialog, popupDialog);
+  if (debug) {
+    lib.addClass(popupDialog, behaviorStyle.wrDebugVisitedOverlay);
+  }
+  // maybe our friendo the close button
+  const maybeCloseButton = lib.getElemSibling(innerDivDialog);
+  const closeButton = lib.elementsNameEquals(maybeCloseButton, 'button')
+    ? maybeCloseButton
+    : null;
+  // get a reference to the posts contents (div.dialog > article)
+  const content = lib.qs(selectors.divDialogArticle, innerDivDialog);
+  // the next image button exists in the popup post even if the post is not
+  // multi-image, so lets get a reference to it
+  const displayDiv = lib.qs(selectors.multiImageDisplayDiv, content);
+  switch (determinePostType(post)) {
+    case postTypes.multiImage: {
+      // display each image by clicking the right chevron (next image)
+      await lib.selectFromAndClickUntilNullWithDelay(
+        content,
+        selectors.rightChevron,
+        multiImageClickOpts
+      );
+      break;
+    }
+    case postTypes.video:
+      // select and play the video. The video is a mp4 that is already loaded
+      // need to only play it for the length of time we are visiting the post
+      // just in case
+      await lib.selectElemFromAndClickWithDelay(
+        displayDiv,
+        selectors.closeVideo
+      );
+      break;
+    // default: just loading comments
+  }
+  // The load more comments button, depending on the number of comments,
+  // will contain two variations of text (see xpathQ for those two variations).
+  // getMoreComments handles getting that button for the two variations
+  let moreCommentsButton = getMoreComments(xpg);
+  while (moreCommentsButton) {
+    await lib.clickWithDelay(moreCommentsButton, 1000);
+    moreCommentsButton = getMoreComments(xpg);
+    yield;
+  }
+  if (closeButton != null) {
+    await lib.clickWithDelay(closeButton);
+  } else {
+    await lib.clickWithDelay(
+      lib.xpathOneOf({
+        xpg,
+        queries: xpathQ.postPopupClose
+      })
+    );
+  }
+}
+
+/**
+ * @desc
+ * @param {Element} row
+ * @param {*} xpg
+ * @return {AsyncIterableIterator<*>}
+ */
+async function* handleRow(row, xpg) {
+  if (debug) {
+    lib.addClass(row, behaviorStyle.wrDebugVisited);
+  }
+  await lib.scrollIntoViewWithDelay(row);
+  yield* lib.traverseChildrenOf(row, handlePost, xpg);
+}
+
 export default async function* instagramUserBehavior(xpg) {
-  // maybe view all stories
-  yield* viewStories();
-  const scrolDiv = std.qs(selectors.postTopMostContainer);
-  const reactGarbageDiv = scrolDiv.firstElementChild;
-  if (reactGarbageDiv == null) {
+  // view all stories when logged in
+  if (loggedIn(xpg)) {
+    yield* viewStories();
+  }
+  runnerSuppliedXPG = xpg;
+  const postRowContainer = lib.chainFistChildElemOf(
+    lib.qs(selectors.postTopMostContainer),
+    2
+  );
+  if (postRowContainer == null) {
     // we got nothing at this point, HALP!!!
     return;
   }
-  // this div is the parent element of the sliding window
-  // of posts
-  const postRowContainer = reactGarbageDiv.firstElementChild;
-  let posts;
-  let i = 0;
-  let numPosts;
-  // a row has three posts
-  let row = postRowContainer.firstElementChild;
-  // if we go too fast with viewing the currently loaded
-  // posts we will encounter a loading phase so we
-  // need to know how many are currently loaded
-  let numLoadedRows = postRowContainer.children.length;
-  while (row != null) {
-    if (debug) {
-      row.classList.add('wr-debug-visited');
-    }
-    await std.scrollIntoViewWithDelay(row);
-    yield;
-    posts = row.childNodes;
-    numPosts = posts.length;
-    // for each post in the row
-    for (i = 0; i < numPosts; ++i) {
-      // handle the post
-      await handlePost(posts[i], xpg);
-      yield;
-    }
-    numLoadedRows = postRowContainer.children.length;
-    // if we are in a loading phase the current row
-    // has no element sibling so we are going to wait
-    // for it to be loaded, checking for #children updates
-    // 7 times
-    if (row.nextElementSibling == null) {
-      await std.waitForAdditionalElemChildren(postRowContainer, numLoadedRows);
-    }
-    row = row.nextElementSibling;
-  }
+  // for each post row view the posts it contains
+  yield* lib.traverseChildrenOfLoaderParent(postRowContainer, handleRow, xpg);
 }
 
 export const metaData = {

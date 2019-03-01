@@ -7,12 +7,12 @@ export const selectors = {
   multipleImages: 'span.coreSpriteSidecarIconLarge',
   postTopMostContainer: 'article',
   rightChevron: 'button > div.coreSpriteRightChevron',
-  postPopupArticle: `${new Array(3)
-    .fill(0)
-    .map(() => 'div[role="dialog"]')
-    .join(' > ')} > article`,
+  postPopupArticle:
+    'div[role="dialog"] > div[role="dialog"] > div[role="dialog"] > article',
   multiImageDisplayDiv: 'div > div[role="button"]',
-  closeVideo: 'a[role="button"]'
+  closeVideo: 'a[role="button"]',
+  divDialog: 'div[role="dialog"]',
+  divDialogArticle: 'div[role="dialog"] > article'
 };
 
 export const videoPostSelectors = [
@@ -22,12 +22,16 @@ export const videoPostSelectors = [
 ];
 
 export const xpathQ = {
-  postPopupClose: {
-    v1: '//body/div/div/button[contains(text(), "Close")]',
-    v2: '/html/body/div[2]/button[1]'
-  },
+  postPopupClose: [
+    '//body/div/div/button[contains(text(), "Close")]',
+    '/html/body/div[2]/button[1]'
+  ],
   loadMoreComments: '//li/button[contains(text(), "Load more comments")]',
-  showAllComments: '//li/button[contains(text(), "View all")]'
+  showAllComments: '//li/button[contains(text(), "View all")]',
+  notLoggedIn: {
+    signUp: '//a[contains(text(), "Sign Up")]',
+    login: '//button[contains(text(), "Log In")]'
+  }
 };
 
 /**
