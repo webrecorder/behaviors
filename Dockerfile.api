@@ -1,0 +1,14 @@
+FROM node:11.11.0
+
+EXPOSE 3030
+
+CMD ["node", "--harmony-await-optimization", "run.js"]
+
+ENV INDOCKER="1" WR_BEHAVIOR_DIR="/behaviorDir" WR_BEHAVIOR_METADATA_PATH="/behaviorDir/behaviorMetadata.js" WR_BEHAVIOR_HOST="0.0.0.0"
+
+WORKDIR /app
+COPY ./api ./
+
+RUN yarn install
+VOLUME /behaviorDir
+
