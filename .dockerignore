@@ -62,3 +62,13 @@ typings/
 dist
 build
 scripts
+behaviorDir
+docs
+.esdoc.json
+.eslintrc.json
+.gitignore
+.prettierrc
+docker-compose.yml
+rollup.*.config.js
+Dockerfile
+README.md

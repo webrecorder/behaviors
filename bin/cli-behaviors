@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+'use strict';
+const program = require('commander');
+const pkg = require('../package');
+const { defaultBehaviorConfigPath } = require('../internal/paths');
+const behaviorCLI = require('../internal/behaviorCLI');
+
+program
+  .version(pkg.version)
+  .option('-v, --validate [fileOrDir]')
+  .option(
+    '-c, --config [configPath]',
+    'Path to the behavior config file',
+    defaultBehaviorConfigPath
+  )
+  .option(
+    '-b, --build [fileOrDir]',
+    'Build a behaviors or all behaviors contained within a directory',
+  )
+  .option(
+    '-w, --watch [behaviorFileOrDir]',
+    'Watch the files, and their imports, in the build directory for re-bundling on changes (placed in dist directory)'
+  )
+  .option(
+    '--metadata [dumpDir]',
+    'Generate behavior metadata, optionally supplying a path to directory where metadata is to be placed. Defaults to current working directory'
+  )
+  .parse(process.argv);
+
+behaviorCLI(program).catch(error => {
+  console.error(error);
+  process.exit(1);
+});
+
+/**
+ * @typedef {Object} Config
+ * @property {boolean|string} what
+ * @property {string} behaviorDir
+ * @property {string} libDir
+ * @property {string} buildDir
+ * @property {string} distDir
+ * @property {string} tsConfigFilePath
+ * @property {string} [metadata]
+ */

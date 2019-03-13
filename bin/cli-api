@@ -1,6 +1,7 @@
+#!/usr/bin/env node
 'use strict';
-const config = require('./conf');
-const initServer = require('./server');
+const config = require('../api/conf');
+const initServer = require('../api/server');
 
 initServer(config).catch(error => {
   console.error(

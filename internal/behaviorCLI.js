@@ -1,11 +1,6 @@
-if (process.env.DOCKER && module.paths.indexOf('/build/node_modules') === -1) {
-  module.paths.unshift('/build/node_modules');
-}
 const Path = require('path');
 const fs = require('fs-extra');
 const jsYaml = require('js-yaml');
-const program = require('commander');
-const pkg = require('../package');
 const Build = require('./build');
 const {
   distDir,
@@ -14,24 +9,6 @@ const {
   tsConfigFilePath,
   libDir
 } = require('./paths');
-
-program
-  .version(pkg.version)
-  .option('-v, --validate [fileOrDir]')
-  .option('-c, --config [configPath]', 'Path to the behavior config file')
-  .option(
-    '-b, --build [fileOrDir]',
-    'Build a behaviors or all behaviors contained within a directory'
-  )
-  .option(
-    '-w, --watch [distFileOrDir]',
-    'Watch the files, and their imports, in the dist directory for re-bundling on changes'
-  )
-  .option(
-    '--metadata [dumpDir]',
-    'Generate behavior metadata, optionally supplying a path to directory where metadata is to be placed. Defaults to current working directory'
-  )
-  .parse(process.argv);
 
 const isYamlRe = /\.ya?ml$/i;
 
@@ -109,18 +86,18 @@ async function loadConfig(configPath, buildingWhat) {
  *
  * @return {Promise<Config>}
  */
-async function getConfigIfExistsOrDefault(buildingWhat) {
+async function getConfigIfExistsOrDefault(program) {
   let configExistsForPath = await fs.pathExists(program.config);
   if (configExistsForPath) {
-    return loadConfig(program.config, buildingWhat);
+    return loadConfig(program.config, program.build);
   }
   const configPathCWD = Path.join(process.cwd(), 'behavior-config.yml');
   configExistsForPath = await fs.pathExists(configPathCWD);
   if (configExistsForPath) {
-    return loadConfig(program.config, buildingWhat);
+    return loadConfig(configPathCWD, program.build);
   }
   return {
-    what: buildingWhat,
+    what: program.build,
     behaviorDir,
     libDir,
     buildDir,
@@ -130,7 +107,7 @@ async function getConfigIfExistsOrDefault(buildingWhat) {
   };
 }
 
-async function run() {
+module.exports = async function behaviorCLI(program) {
   if (
     [program.validate, program.build, program.metadata, program.watch].every(
       value => !value
@@ -139,22 +116,19 @@ async function run() {
     program.outputHelp();
     return;
   }
+  const config = await getConfigIfExistsOrDefault(program);
   if (program.build) {
-    const config = await getConfigIfExistsOrDefault(program.build);
     await Build.createRunnableBehaviors(config);
     if (program.watch) {
       return Build.watch(config);
     }
   } else if (program.metadata) {
-    const config = await getConfigIfExistsOrDefault(program.metadata);
     return Build.generateMetdataFile(config);
   } else if (program.watch) {
-    const config = await getConfigIfExistsOrDefault(program.watch);
     return Build.watch(config);
   }
-}
+};
 
-run(program).catch(error => console.error(error));
 
 /**
  * @typedef {Object} Config

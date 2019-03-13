@@ -1,24 +1,16 @@
 version: '3'
 services:
   api:
-    image: "webrecorder/behaviors-api:latest"
+    image: "webrecorder/behaviors:latest"
     ports:
       - "3030:3030"
-    volumes:
-      - "./behaviors:/behaviorDir"
-    environment:
-      - INDOCKER=true
-      - WR_BEHAVIOR_HOST=0.0.0.0
-    depends_on:
-      - behaviors
+    command: "node ./api/run.js"
     build:
-      dockerfile: ./Dockerfile.api
+      dockerfile: Dockerfile
       context: .
 
   behaviors:
     image: "webrecorder/behaviors:latest"
-    volumes:
-      - "./behaviorDir:/app/dist"
     build:
-      dockerfile: ./Dockerfile.behaviors
+      dockerfile: ./Dockerfile
       context: .

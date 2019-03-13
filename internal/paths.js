@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 /**
  * @type {string}
  */
-const rootDir = path.join(__dirname, `..${path.sep}`);
+const rootDir = path.join(__dirname, '..');
 
 /**
  * @type {string}
@@ -35,6 +35,21 @@ const distDir = path.join(rootDir, 'dist');
  * @type {string}
  */
 const tsConfigFilePath = path.join(rootDir, 'tsconfig.json');
+
+/**
+ * @type {string}
+ */
+const defaultBehaviorMetadataPath = path.join(distDir, 'behaviorMetadata.js');
+
+/**
+ * @type {string}
+ */
+const behaviorCLIPath = path.join(rootDir, 'bin', 'cli-behaviors');
+
+/**
+ * @type {string}
+ */
+const defaultBehaviorConfigPath = path.join(rootDir, 'behavior-config.yml');
 
 /**
  *
@@ -70,9 +85,6 @@ function directoryIndexExists(dirPath) {
     .catch(() => false);
 }
 
-/**
- * @type {{tsConfigFilePath: string, distDir: string, finalLibDirImportPath: string, directoryIndexExists: (function(string): Promise<boolean | never>), buildDir: string, libDir: string, behaviorDir: string, rootDir: string, makeFinalBehaviorImportPath: (function(string): string), directoryIndexPath: (function(string): string)}}
- */
 module.exports = {
   buildDir,
   behaviorDir,
@@ -81,6 +93,9 @@ module.exports = {
   rootDir,
   tsConfigFilePath,
   distDir,
+  defaultBehaviorMetadataPath,
+  behaviorCLIPath,
+  defaultBehaviorConfigPath,
   directoryIndexExists,
   directoryIndexPath,
   makeFinalBehaviorImportPath

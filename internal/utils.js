@@ -8,14 +8,13 @@ const isBehaviorResults = {
   maybeBehaviorSentinelOnly: Symbol('source-maybe-behavior-sentinel-only')
 };
 
-
 class Utils {
   /**
    * Determines if the supplied source file is for a behavior or not
    * @param {SourceFile} sourceFile
    * @return {symbol} - The results of the is behavior check
    */
-   static isBehavior(sourceFile) {
+  static isBehavior(sourceFile) {
     const moduleSymbol = sourceFile.getSymbol();
     if (moduleSymbol == null) return isBehaviorResults.notABehavior;
     const metaDataSymbol = moduleSymbol.getExportByName('metaData');
@@ -37,7 +36,7 @@ class Utils {
    * @param {Array<number>} startTime
    * @return {string}
    */
-   static timeDiff(startTime) {
+  static timeDiff(startTime) {
     return prettyTime(process.hrtime(startTime), 'ms');
   }
 
@@ -45,7 +44,7 @@ class Utils {
    * @param {*} object
    * @return {boolean}
    */
-   static isObject(object) {
+  static isObject(object) {
     return typeof object === 'object';
   }
 
@@ -53,7 +52,7 @@ class Utils {
    * @param {string|RegExp} object
    * @return {string}
    */
-   static regexSource(object) {
+  static regexSource(object) {
     return object instanceof RegExp ? object.source : object;
   }
 
@@ -61,7 +60,7 @@ class Utils {
    * @param {*} obj
    * @return {boolean}
    */
-   static isString(obj) {
+  static isString(obj) {
     return typeof obj === 'string' || obj instanceof String;
   }
 
@@ -69,7 +68,7 @@ class Utils {
    * @param {*} obj
    * @return {boolean}
    */
-   static isRegex(obj) {
+  static isRegex(obj) {
     return obj instanceof RegExp;
   }
 
@@ -77,7 +76,7 @@ class Utils {
    * @param {*} obj
    * @return {boolean}
    */
-   static isStringOrRegex(obj) {
+  static isStringOrRegex(obj) {
     return Utils.isString(obj) || Utils.isRegex(obj);
   }
 
@@ -85,7 +84,7 @@ class Utils {
    * @param {?Object} obj
    * @return {boolean}
    */
-   static isBoolean(obj) {
+  static isBoolean(obj) {
     return typeof obj === 'boolean' || obj instanceof Boolean;
   }
 
@@ -94,12 +93,12 @@ class Utils {
    * @param {string} filePath
    * @return {string}
    */
-   static ensureJsFileExt(filePath) {
+  static ensureJsFileExt(filePath) {
     if (!filePath.endsWith('.js')) return `${filePath}.js`;
     return filePath;
   }
 
-   static upperFirst(str, idx) {
+  static upperFirst(str, idx) {
     if (idx != null) {
       return idx !== 0
         ? str.substring(0, 1).toUpperCase() + str.substring(1)
@@ -114,7 +113,7 @@ class Utils {
    * @param {Object} [opts]
    * @return {string}
    */
-   static inspect(obj, opts) {
+  static inspect(obj, opts) {
     return util.inspect(
       obj,
       Object.assign({ depth: null, compact: false }, opts)
@@ -126,7 +125,7 @@ class Utils {
    * @param {...string} msgs
    * @return {string}
    */
-   static joinStrings(...msgs) {
+  static joinStrings(...msgs) {
     if (msgs.length === 1) {
       return msgs[0];
     }
@@ -138,7 +137,7 @@ class Utils {
    * @param {Array<*>} array
    * @param {string} [joiner]
    */
-   static stringifyArray(array, joiner) {
+  static stringifyArray(array, joiner) {
     return array.join(joiner != null ? joiner : '\n');
   }
 
@@ -147,7 +146,7 @@ class Utils {
    * @param {number} num
    * @return {string}
    */
-   static numberOrdinalSuffix(num) {
+  static numberOrdinalSuffix(num) {
     let j = num % 10;
     let k = num % 100;
     if (j === 1 && k !== 11) {
@@ -158,6 +157,23 @@ class Utils {
       return `${num}rd`;
     }
     return `${num}th`;
+  }
+
+  static envFlagToBool(envKey) {
+    if (envKey == null) return false;
+    switch (envKey) {
+      case 'n':
+      case 'no':
+      case '0':
+      case 'false':
+        return false;
+      case 'y':
+      case 'yes':
+      case '1':
+      case 'true':
+        return true;
+    }
+    return false;
   }
 }
 

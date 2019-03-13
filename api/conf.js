@@ -1,6 +1,8 @@
 'use strict';
 const program = require('commander');
 const qs = require('qs');
+const internalPaths = require('../internal/paths');
+const Utils = require('../internal/utils');
 
 /**
  * @desc The default api server port
@@ -16,14 +18,14 @@ const DefaultHost = '127.0.0.1';
 
 /**
  * @desc Returns the default port the api server will listen on.
- * If the env variable WR_BEHAVIOR_PORT is set returns it's value
+ * If the env variable BEHAVIOR_API_PORT is set returns it's value
  * otherwise returns 3030
  * @return {number}
  */
 function getDefaultPort() {
-  if (process.env.WR_BEHAVIOR_PORT != null) {
+  if (process.env.BEHAVIOR_API_PORT != null) {
     try {
-      return parseInt(process.env.WR_BEHAVIOR_PORT);
+      return parseInt(process.env.BEHAVIOR_API_PORT);
     } catch (e) {
       return DefaultPort;
     }
@@ -38,8 +40,8 @@ function getDefaultPort() {
  * @return {string}
  */
 function getDefaultHost() {
-  if (process.env.WR_BEHAVIOR_HOST != null) {
-    return process.env.WR_BEHAVIOR_HOST;
+  if (process.env.BEHAVIOR_API_HOST != null) {
+    return process.env.BEHAVIOR_API_HOST;
   }
   return DefaultHost;
 }
@@ -48,20 +50,21 @@ function getDefaultBehaviorDir() {
   if (process.env.WR_BEHAVIOR_DIR != null) {
     return process.env.WR_BEHAVIOR_DIR;
   }
-  if (process.env.INDOCKER != null) {
-    return '/behaviorDir';
-  }
-  return require('../internal/paths').distDir;
+  return internalPaths.distDir;
 }
 
 function getDefaultMetadataPath() {
   if (process.env.WR_BEHAVIOR_METADATA_PATH != null) {
     return process.env.WR_BEHAVIOR_METADATA_PATH;
   }
-  if (process.env.INDOCKER != null) {
-    return '/behaviorDir/behaviorMetadata.js';
+  return internalPaths.defaultBehaviorMetadataPath;
+}
+
+function getDefaultBuildBehaviorsFlag() {
+  if (process.env.BUILD_BEHAVIORS) {
+    return Utils.envFlagToBool(process.env.BUILD_BEHAVIORS);
   }
-  return null;
+  return false;
 }
 
 program
@@ -86,9 +89,14 @@ program
     'The path to the behavior metadata',
     getDefaultMetadataPath()
   )
+  .option(
+    '--build-behaviors',
+    'Should the api server build the behaviors for starting up',
+    getDefaultBuildBehaviorsFlag()
+  )
   .parse(process.argv);
 
-const enableLogging = true;
+const enableLogging = Utils.envFlagToBool(process.env.BEHAVIOR_API_LOGGING);
 
 const qsOpts = {
   charset: 'iso-8859-1',
@@ -105,7 +113,8 @@ const config = {
   port: program.port,
   behaviorInfo: {
     behaviorDir: program.behaviorDir,
-    mdataPath: program.behaviorMetadata
+    mdataPath: program.behaviorMetadata,
+    build: program.buildBehaviors
   },
   fastifyOpts: {
     trustProxy: true,

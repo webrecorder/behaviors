@@ -1,3 +1,4 @@
+'use strict';
 module.exports = {
   reloadBehaviors: 'reload-behaviors',
   reloadBehaviorsResults: 'reload-behaviors-results',

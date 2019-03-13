@@ -1,8 +1,9 @@
 {
   "name": "wr-behaviors",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "main": "./lib/index.js",
+  "bin": "./bin/cli.js",
+  "license": "Apache-2.0",
   "dependencies": {
     "@babel/generator": "^7.3.4",
     "@babel/highlight": "^7.0.0",
@@ -23,7 +24,6 @@
     "fs-extra": "^7.0.1",
     "js-yaml": "^3.12.2",
     "plur": "^3.0.1",
-    "pluralize": "^7.0.0",
     "prettier": "^1.16.4",
     "pretty-time": "^1.1.0",
     "qs": "^6.6.0",
@@ -36,7 +36,7 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "build-behaviors": "node --harmony-await-optimization ./internal/behaviorCLI.js -c ./behavior-config.yml -b",
+    "build-behaviors": "node ./bin/cli-behaviors -b",
     "build-prod": "rollup -c rollup.prod.config.js",
     "build-dev": "rollup -c rollup.dev.config.js",
     "build-deving-warch": "rollup --watch -c rollup.deving.config.js",
@@ -66,7 +66,7 @@
     "node": ">=11"
   },
   "resolutions": {
-    "*/**/acorn": "^6.1.0",
+    "*/**/acorn": "^6.1.1",
     "*/**/graceful-fs": "^4.1.15",
     "*/**/universalify": "^0.1.2",
     "*/**/tslib": "^1.9.3",
