@@ -10,44 +10,42 @@ const { prettierOpts } = require('./defaultOpts');
 const { makeInputOutputConfig } = require('./buildInfo');
 const Utils = require('./utils');
 
-const makePretty = code => prettier.format(code, prettierOpts);
 
-const ensureNoBehaviorPJsExt = behaviorP => {
+function ensureNoBehaviorPJsExt(behaviorP) {
   if (behaviorP.endsWith('.js')) {
     return behaviorP.substring(0, behaviorP.indexOf('.js'));
   }
   return behaviorP;
-};
+}
 
-/**
- *
- * @param {{ dImport: string, behaviorP: string, libP: string }} initNames
- * @return {string}
- */
-const behaviorJsNoPoststep = ({ dImport, behaviorP, libP }) => {
-  const code = `import ${dImport} from '${ensureNoBehaviorPJsExt(behaviorP)}';
-import { maybePolyfillXPG, initRunnableBehavior } from '${libP}';
+function initRunnableBehavior({ dImport, postStep, behaviorP, libP }) {
+  let behaviorImport;
+  if (postStep) {
+    behaviorImport = `import ${dImport}, {${postStep}} from '${ensureNoBehaviorPJsExt(
+      behaviorP
+    )}';`;
+  } else {
+    behaviorImport = `import ${dImport} from '${ensureNoBehaviorPJsExt(behaviorP)}';`;
+  }
+  const initImport = `${behaviorImport}
+import { maybePolyfillXPG, initRunnableBehavior } from '${libP}';`;
 
-initRunnableBehavior(window, ${dImport}(maybePolyfillXPG(xpg)));
+  let init;
+  if (postStep) {
+    init = `initRunnableBehavior(window, ${dImport}(cliAPI), ${postStep});`;
+  } else {
+    init = `initRunnableBehavior(window, ${dImport}(cliAPI));`;
+  }
+
+  const code = `${initImport}
+
+cliAPI.$x = maybePolyfillXPG(cliAPI.$x);
+
+${init}
 `;
-  return makePretty(code);
-};
 
-/**
- *
- * @param {{ dImport: string, postStep: string, behaviorP: string, libP: string }} initNames
- * @return {string}
- */
-const behaviorJsPoststep = ({ dImport, postStep, behaviorP, libP }) => {
-  const code = `import ${dImport}, {${postStep}} from '${ensureNoBehaviorPJsExt(
-    behaviorP
-  )}';
-import { maybePolyfillXPG, initRunnableBehavior } from '${libP}';
-  
-initRunnableBehavior(window, ${dImport}(maybePolyfillXPG(xpg)), ${postStep});
-`;
-  return makePretty(code);
-};
+  return prettier.format(code, prettierOpts);
+}
 
 /**
  * @param {Config} opts
@@ -218,10 +216,7 @@ class Build {
       } else {
         metadataFilePath = Path.join(opts.metadata, 'behaviorMetadata.js');
       }
-      const safeString = Utils.inspect(behaviorMetadata, {
-        depth: null,
-        compact: false
-      });
+      const safeString = Utils.inspect(behaviorMetadata);
       await fs.writeFile(metadataFilePath, `module.exports = ${safeString};`);
       ColorPrinter.info(
         `Metadata created in ${Utils.timeDiff(
@@ -265,14 +260,14 @@ class Build {
     if (behavior.checkStateGood) {
       let code;
       if (behavior.hasPostStep) {
-        code = behaviorJsPoststep({
+        code = initRunnableBehavior({
           dImport: behavior.importName,
           libP: opts.libDir,
           behaviorP: behavior.importPathRelativeToBuildDir,
           postStep: 'postStep'
         });
       } else {
-        code = behaviorJsNoPoststep({
+        code = initRunnableBehavior({
           dImport: behavior.importName,
           libP: opts.libDir,
           behaviorP: behavior.importPathRelativeToBuildDir

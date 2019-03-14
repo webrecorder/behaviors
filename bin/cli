@@ -7,4 +7,5 @@ program
   .version(pkg.version)
   .command('api', 'Start the behavior api sever')
   .command('behaviors', 'Build and or validate behaviors, or generate their metadata')
+  .command('stdlib', `Commands specific to working with the behavior's std library`)
   .parse(process.argv);

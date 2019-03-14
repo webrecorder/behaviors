@@ -8,6 +8,12 @@ const isBehaviorResults = {
   maybeBehaviorSentinelOnly: Symbol('source-maybe-behavior-sentinel-only')
 };
 
+const defaultInspectOpts = {
+  depth: null,
+  compact: false,
+  breakLength: Infinity
+};
+
 class Utils {
   /**
    * Determines if the supplied source file is for a behavior or not
@@ -116,7 +122,9 @@ class Utils {
   static inspect(obj, opts) {
     return util.inspect(
       obj,
-      Object.assign({ depth: null, compact: false }, opts)
+      opts != null
+        ? Object.assign(defaultInspectOpts, opts)
+        : defaultInspectOpts
     );
   }
 

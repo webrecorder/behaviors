@@ -119,16 +119,13 @@ module.exports = async function behaviorCLI(program) {
   const config = await getConfigIfExistsOrDefault(program);
   if (program.build) {
     await Build.createRunnableBehaviors(config);
-    if (program.watch) {
-      return Build.watch(config);
-    }
+    if (program.watch) return Build.watch(config);
   } else if (program.metadata) {
     return Build.generateMetdataFile(config);
   } else if (program.watch) {
     return Build.watch(config);
   }
 };
-
 
 /**
  * @typedef {Object} Config

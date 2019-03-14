@@ -1,18 +1,20 @@
-import * as std from '../../lib';
+import * as lib from '../../lib';
 import { annoyingElements, buttonSelectors, xpathQueries } from './shared';
 
-std.addBehaviorStyle('.wr-debug-visited {border: 6px solid #3232F1;}');
+const behaviorStyle = lib.addBehaviorStyle(
+  '.wr-debug-visited {border: 6px solid #3232F1;}'
+);
 
 const delayTime = 1500;
 const loadDelayTime = 3000;
 
-let removedAnnoying = std.maybeRemoveElemById(annoyingElements.pageletGrowthId);
+let removedAnnoying = lib.maybeRemoveElemById(annoyingElements.pageletGrowthId);
 
 async function clickLoadMoreReplies(tlItem) {
-  const replies = std.qs(buttonSelectors.moreReplies, tlItem);
+  const replies = lib.qs(buttonSelectors.moreReplies, tlItem);
   if (replies) {
     if (debug) replies.classList.add('wr-debug-visited');
-    await std.scrollIntoViewAndClickWithDelay(replies, delayTime);
+    await lib.scrollIntoViewAndClickWithDelay(replies, delayTime);
     return true;
   }
   return false;
@@ -24,25 +26,25 @@ async function clickLoadMoreReplies(tlItem) {
  * @return {AsyncIterator<*>}
  */
 async function* clickRepliesToReplies(tlItem) {
-  let rToR = std.qsa(buttonSelectors.repliesToRepliesA, tlItem);
+  let rToR = lib.qsa(buttonSelectors.repliesToRepliesA, tlItem);
   let i = 0;
   let length = rToR.length;
   let rtr;
   while (i < length) {
     rtr = rToR[i];
-    if (debug) rtr.classList.add('wr-debug-visited');
-    await std.scrollIntoViewAndClickWithDelay(rtr, delayTime);
+    if (debug) lib.addClass(rtr, behaviorStyle.wrDebugVisited);
+    await lib.scrollIntoViewAndClickWithDelay(rtr, delayTime);
     yield;
     i += 1;
   }
-  rToR = std.qsa(buttonSelectors.repliesToRepliesA, tlItem);
+  rToR = lib.qsa(buttonSelectors.repliesToRepliesA, tlItem);
   if (rToR.length) {
     i = 0;
     length = rToR.length;
     while (i < length) {
       rtr = rToR[i];
-      if (debug) rtr.classList.add('wr-debug-visited');
-      await std.scrollIntoViewAndClickWithDelay(rtr, delayTime);
+      if (debug) lib.addClass(rtr, behaviorStyle.wrDebugVisited);
+      await lib.scrollIntoViewAndClickWithDelay(rtr, delayTime);
       yield;
       i += 1;
     }
@@ -62,11 +64,11 @@ async function* clickRepliesToReplies(tlItem) {
  *      - if FB has added more feed items add them to the to be visited set
  *  - S4: If we have more feed items to visit and can scroll more:
  *      - GOTO S2
- * @param xpathGenerator
+ * @param cliAPI
  * @return {AsyncIterator<*>}
  */
-export default async function* initFBUserFeedBehaviorIterator(xpathGenerator) {
-  let timelineItems = xpathGenerator(xpathQueries.userTimelineItem);
+export default async function* initFBUserFeedBehaviorIterator(cliAPI) {
+  let timelineItems = cliAPI.$x(xpathQueries.userTimelineItem);
   let tlItem;
   let replies;
   let i;
@@ -76,26 +78,26 @@ export default async function* initFBUserFeedBehaviorIterator(xpathGenerator) {
     for (i = 0; i < length; i++) {
       tlItem = timelineItems[i];
       if (debug) tlItem.classList.add('wr-debug-visited');
-      await std.scrollIntoViewWithDelay(tlItem, delayTime);
-      std.markElemAsVisited(tlItem);
-      std.collectOutlinksFrom(tlItem);
+      await lib.scrollIntoViewWithDelay(tlItem, delayTime);
+      lib.markElemAsVisited(tlItem);
+      lib.collectOutlinksFrom(tlItem);
       yield;
       replies = await clickLoadMoreReplies(tlItem);
       if (replies) {
         yield* clickRepliesToReplies(tlItem);
       }
     }
-    timelineItems = xpathGenerator(xpathQueries.userTimelineItem);
+    timelineItems = cliAPI.$x(xpathQueries.userTimelineItem);
     if (timelineItems.length === 0) {
-      await std.scrollDownByElemHeightWithDelay(tlItem, loadDelayTime);
-      timelineItems = xpathGenerator(xpathQueries.userTimelineItem);
+      await lib.scrollDownByElemHeightWithDelay(tlItem, loadDelayTime);
+      timelineItems = cliAPI.$x(xpathQueries.userTimelineItem);
     }
-  } while (timelineItems.length > 0 && std.canScrollMore());
+  } while (timelineItems.length > 0 && lib.canScrollMore());
 }
 
-export const postStep = std.buildCustomPostStepFn(() => {
+export const postStep = lib.buildCustomPostStepFn(() => {
   if (!removedAnnoying) {
-    removedAnnoying = std.maybeRemoveElemById(annoyingElements.pageletGrowthId);
+    removedAnnoying = lib.maybeRemoveElemById(annoyingElements.pageletGrowthId);
   }
 });
 

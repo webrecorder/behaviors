@@ -30,7 +30,7 @@ function getGridContainer() {
   return container;
 }
 
-export default async function* iteratePins(xpathGenerator) {
+export default async function* iteratePins(cliAPI) {
   const seenPins = new Set();
   const pinContainerR = std.reactInstanceFromDOMElem(getGridContainer());
   const keySelector = key => {

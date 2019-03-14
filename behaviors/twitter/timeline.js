@@ -185,12 +185,12 @@ class Tweet {
  * (S4) If we have more tweets to visit and can scroll more:
  *      - GOTO S2
  *
- * @param {function(string,): Array<HTMLElement>} xpathQuerySelector
+ * @param {Object} cliApi
  * @return {AsyncIterator<boolean>}
  */
-export default async function* timelineIterator(xpathQuerySelector) {
+export default async function* timelineIterator(cliApi) {
   const baseURI = document.baseURI;
-  let tweets = xpathQuerySelector(tweetXpath);
+  let tweets = cliApi.$x(tweetXpath);
   let aTweet;
   do {
     while (tweets.length > 0) {
@@ -215,10 +215,10 @@ export default async function* timelineIterator(xpathQuerySelector) {
         yield* aTweet.viewRegularTweet();
       }
     }
-    tweets = xpathQuerySelector(tweetXpath);
+    tweets = cliApi.$x(tweetXpath);
     if (tweets.length === 0) {
       await lib.delay();
-      tweets = xpathQuerySelector(tweetXpath);
+      tweets = cliApi.$x(tweetXpath);
     }
   } while (tweets.length > 0 && lib.canScrollMore());
 }

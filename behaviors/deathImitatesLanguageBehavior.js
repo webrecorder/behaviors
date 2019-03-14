@@ -6,7 +6,7 @@ const styleClasses = lib.addBehaviorStyle(
 
 const moreInfoButtonSelector = 'button.btn.btn-more-info';
 
-export default async function* deathImitatesLanguageBehavior(xpathQG) {
+export default async function* deathImitatesLanguageBehavior(cliAPI) {
   const rootContainer = document.body.firstElementChild;
   let child = rootContainer.firstElementChild;
   while (child) {

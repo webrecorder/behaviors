@@ -3,6 +3,7 @@ const program = require('commander');
 const qs = require('qs');
 const internalPaths = require('../internal/paths');
 const Utils = require('../internal/utils');
+const pkg = require('../package');
 
 /**
  * @desc The default api server port
@@ -68,7 +69,7 @@ function getDefaultBuildBehaviorsFlag() {
 }
 
 program
-  .version('1.0.0')
+  .version(pkg.version)
   .option(
     '-p, --port [port]',
     'The port the api server is to bind to',

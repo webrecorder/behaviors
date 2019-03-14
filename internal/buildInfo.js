@@ -1,5 +1,3 @@
-if (process.env.DOCKER && module.paths.indexOf('/build/node_modules') === -1)
-  module.paths.unshift('/build/node_modules');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const cleanup = require('rollup-plugin-cleanup');
 const path = require('path');
@@ -16,17 +14,17 @@ const debugMode = true;
 
 const SHOW_DEBUG = process.env.SHOW_DEBUG != null || debugMode;
 
-const outro = `})($x, ${SHOW_DEBUG});`;
+const outro = `})({ $x } , ${SHOW_DEBUG});`;
 
 const wrappers = {
   setup: {
-    intro: '(function runner(xpg, debug) { ',
+    intro: '(function runner(cliAPI, debug) { ',
     renderChunk: makePretty,
     outro,
     name: 'wr-behavior-wrapper-setup'
   },
   runAwaitable: {
-    intro: '(function runner(xpg, debug) { ',
+    intro: '(function runner(cliAPI, debug) { ',
     renderChunk(code) {
       return makePretty(code.replace('/*!return!*/', 'return'));
     },

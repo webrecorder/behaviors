@@ -1,7 +1,7 @@
-import * as std from '../../lib';
+import * as lib from '../../lib';
 import { annoyingElements, xpathQueries } from './shared';
 
-const behaviorClasses = std.addBehaviorStyle(
+const behaviorClasses = lib.addBehaviorStyle(
   '.wr-debug-visited {border: 6px solid #3232F1;}'
 );
 
@@ -20,11 +20,11 @@ const scrollDelay = 1500;
  *      - if FB has added more feed items add them to the to be visited set
  *  - S4: If we have more feed items to visit and can scroll more:
  *      - GOTO S2
- * @param {function (query: string, start?: HTMLElement): Array<HTMLElement>} xpathG
+ * @param {Object} cliAPI
  * @return {AsyncIterator<*>}
  */
-export default async function* initFBNewsFeedBehaviorIterator(xpathG) {
-  const getFeedItems = query => xpathG(query);
+export default async function* initFBNewsFeedBehaviorIterator(cliAPI) {
+  const getFeedItems = query => cliAPI.$x(query);
   let feedItems = getFeedItems(xpathQueries.feedItem);
   let feedItem;
   let i;
@@ -34,26 +34,26 @@ export default async function* initFBNewsFeedBehaviorIterator(xpathG) {
     for (i = 0; i < length; i++) {
       feedItem = feedItems[i];
       if (debug) {
-        std.addClass(feedItem, behaviorClasses.wrDebugVisited);
+        lib.addClass(feedItem, behaviorClasses.wrDebugVisited);
       }
-      await std.scrollToElemOffsetWithDelay(feedItem, scrollDelay);
-      std.markElemAsVisited(feedItem);
-      std.collectOutlinksFrom(feedItem);
+      await lib.scrollToElemOffsetWithDelay(feedItem, scrollDelay);
+      lib.markElemAsVisited(feedItem);
+      lib.collectOutlinksFrom(feedItem);
       yield;
     }
     feedItems = getFeedItems(xpathQueries.feedItem);
     if (feedItems.length === 0) {
-      await std.delay();
+      await lib.delay();
       feedItems = getFeedItems(xpathQueries.feedItem);
     }
-  } while (feedItems.length > 0 && std.canScrollMore());
+  } while (feedItems.length > 0 && lib.canScrollMore());
 }
 
-let removedAnnoying = std.maybeRemoveElemById(annoyingElements.pageletGrowthId);
+let removedAnnoying = lib.maybeRemoveElemById(annoyingElements.pageletGrowthId);
 
-export const postStep = std.buildCustomPostStepFn(() => {
+export const postStep = lib.buildCustomPostStepFn(() => {
   if (!removedAnnoying) {
-    removedAnnoying = std.maybeRemoveElemById(annoyingElements.pageletGrowthId);
+    removedAnnoying = lib.maybeRemoveElemById(annoyingElements.pageletGrowthId);
   }
 });
 

@@ -1,13 +1,9 @@
-import {
-  collectOutlinksFrom,
-  delay,
-  markElemAsVisited,
-  scrollIntoViewWithDelay,
-  selectElemFromAndClick,
-  selectElemFromAndClickWithDelay
-} from '../../lib';
-
+import * as lib from '../../lib'
 import { selectors, xpQueries } from './shared';
+
+const styleClasses = lib.addBehaviorStyle(
+  '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
+);
 
 function needToLoadMoreTracks(elem) {
   return elem.querySelector(selectors.loadMoreTracks) != null;
@@ -23,15 +19,15 @@ async function* playMultipleTracks(elem) {
   let playable;
   for (var i = 0; i < len; ++i) {
     playable = tracks[i];
-    markElemAsVisited(playable);
-    if (debug) playable.classList.add('wr-debug-visited');
-    await scrollIntoViewWithDelay(playable);
-    yield selectElemFromAndClick(playable, selectors.playMultiTrackTrack);
+    lib.markElemAsVisited(playable);
+    if (debug) lib.addClass(playable, styleClasses.wrDebugVisited);
+    await lib.scrollIntoViewWithDelay(playable);
+    yield lib.selectElemFromAndClick(playable, selectors.playMultiTrackTrack);
   }
 }
 
-export default async function* visitSoundItems(xpathGenerator) {
-  let snapShot = xpathGenerator(xpQueries.soundItem);
+export default async function* visitSoundItems(cliAPI) {
+  let snapShot = cliAPI.$x(xpQueries.soundItem);
   let soundItem;
   let i, len;
   if (snapShot.length === 0) return;
@@ -39,24 +35,24 @@ export default async function* visitSoundItems(xpathGenerator) {
     len = snapShot.length;
     for (i = 0; i < len; ++i) {
       soundItem = snapShot[i];
-      markElemAsVisited(soundItem);
-      collectOutlinksFrom(soundItem);
-      if (debug) soundItem.classList.add('wr-debug-visited');
-      await scrollIntoViewWithDelay(soundItem);
+      lib.markElemAsVisited(soundItem);
+      lib.collectOutlinksFrom(soundItem);
+      if (debug) lib.addClass(soundItem, styleClasses.wrDebugVisited);
+      await lib.scrollIntoViewWithDelay(soundItem);
       if (needToLoadMoreTracks(soundItem)) {
-        await selectElemFromAndClickWithDelay(
+        await lib.selectElemFromAndClickWithDelay(
           soundItem,
           selectors.loadMoreTracks
         );
         yield* playMultipleTracks(soundItem);
       } else {
-        yield selectElemFromAndClick(soundItem, selectors.playSingleTrack);
+        yield lib.selectElemFromAndClick(soundItem, selectors.playSingleTrack);
       }
     }
-    snapShot = xpathGenerator(xpQueries.soundItem);
+    snapShot = cliAPI.$x(xpQueries.soundItem);
     if (snapShot.length === 0) {
-      await delay();
-      snapShot = xpathGenerator(xpQueries.soundItem);
+      await lib.delay();
+      snapShot = cliAPI.$x(xpQueries.soundItem);
     }
   } while (snapShot.length > 0);
 }

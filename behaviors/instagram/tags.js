@@ -13,56 +13,6 @@ const behaviorStyle = lib.addBehaviorStyle(`
   .wr-debug-visited-overlay {border: 6px solid pink;}
 `);
 
-function loggedIn(xpg) {
-  return (
-    xpg(xpathQ.notLoggedIn.login).length === 0 &&
-    xpg(xpathQ.notLoggedIn.signUp).length === 0
-  );
-}
-
-
-async function* viewStories() {
-  // get the original full URI of the browser
-  const originalLoc = window.location.href;
-  // click the first story
-  const firstStoryClicked = lib.selectElemAndClick(selectors.openStories);
-  if (!firstStoryClicked) return; // no storied if
-  // history manipulation will change the browser URI so
-  // we must wait for that to happen
-  await lib.waitForHistoryManipToChangeLocation(originalLoc);
-  let wasClicked;
-  let videoButton;
-  // stories are sorta on autoplay but we should speed things up
-  let toBeClicked = lib.qs(selectors.nextStory);
-  // we will continue to speed up autoplay untill the next story
-  // button does not exist or we are done (window.location.href === originalLoc)
-  while (!lib.locationEquals(originalLoc) && toBeClicked != null) {
-    wasClicked = await lib.clickWithDelay(toBeClicked);
-    // if the next story part button was not clicked
-    // or autoplay is finished we are done
-    if (!wasClicked || lib.locationEquals(originalLoc)) break;
-    videoButton = lib.qs(selectors.storyVideo);
-    if (videoButton) {
-      // this part of a story is video content
-      let maybeVideo = lib.qs('video');
-      // click the button if not already playing
-      if (maybeVideo && maybeVideo.paused) {
-        await lib.clickWithDelay(videoButton);
-      }
-      // safety check due to autoplay
-      if (lib.locationEquals(originalLoc)) break;
-      // force play the video if not already playing
-      if (maybeVideo && maybeVideo.paused) {
-        await lib.noExceptPlayMediaElement(maybeVideo);
-      }
-      // safety check due to autoplay
-      if (lib.locationEquals(originalLoc)) break;
-    }
-    yield;
-    toBeClicked = lib.qs(selectors.nextStory);
-  }
-}
-
 async function* handlePost(post, xpg) {
   // open the post (displayed in a separate part of the dom)
   // click the first child of the post div (a tag)
@@ -152,34 +102,32 @@ async function* handleRow(row, xpg) {
   yield* lib.traverseChildrenOf(row, handlePost, xpg);
 }
 
-export default async function* instagramUserBehavior(cliAPI) {
-  // view all stories when logged in
-  if (loggedIn(cliAPI.$x)) {
-    yield* viewStories();
+export default async function* instagramTagsBehavior(cliAPI) {
+  // tags are split into two separate structures: recent and all
+  const postRowContainer = lib.qs(selectors.postTopMostContainer);
+  // the number of posts in the recent posts structure is finite, no infinite load
+  const recentTags = lib.firstChildElementOf(postRowContainer);
+  if (recentTags) {
+    yield* lib.traverseChildrenOf(recentTags, handleRow, cliAPI.$x);
   }
-  const postRowContainer = lib.chainFistChildElemOf(
-    lib.qs(selectors.postTopMostContainer),
-    2
-  );
-  if (postRowContainer == null) {
-    // we got nothing at this point, HALP!!!
-    return;
+  // the number of posts in the all posts structure is infinite, infinite loader
+  const allTags = lib.lastChildElementOf(postRowContainer);
+  if (allTags) {
+    yield* lib.traverseChildrenOfLoaderParent(
+      postRowContainer,
+      handleRow,
+      cliAPI.$x
+    );
   }
-  // for each post row view the posts it contains
-  yield* lib.traverseChildrenOfLoaderParent(
-    postRowContainer,
-    handleRow,
-    cliAPI.$x
-  );
 }
+//
+// export const metaData = {
+//   name: 'instagramTagsBehavior',
+//   match: {
+//     regex: /^https:\/\/(www\.)?instagram\.com\/explore\/tags\/[^/]+(\/)?$/
+//   },
+//   description:
+//     "Views all the content on the instagram posts that are 'tagged': if the tagged post has image(s)/video(s) they are viewed. By default all comments are retrieved"
+// };
 
-export const metaData = {
-  name: 'instagramUserBehavior',
-  match: {
-    regex: /^https:\/\/(www\.)?instagram\.com\/[^/]+(\/)?$/
-  },
-  description:
-    "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved"
-};
-
-export const isBehavior = true;
+// export const isBehavior = true;

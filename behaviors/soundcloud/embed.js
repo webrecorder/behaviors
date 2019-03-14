@@ -1,9 +1,9 @@
-import {
-  delay,
-  scrollIntoViewWithDelay,
-  selectElemFromAndClick
-} from '../../lib/index';
+import * as lib from '../../lib';
 import { selectors, xpQueries } from './shared';
+
+const styleClasses = lib.addBehaviorStyle(
+  '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
+);
 
 function isMultiTrackEmbed(xpathGenerator) {
   return xpathGenerator(xpQueries.soundListItem).length > 0;
@@ -18,23 +18,25 @@ async function* playMultiTracks(xpathGenerator) {
     len = snapShot.length;
     for (i = 0; i < len; ++i) {
       soundItem = snapShot[i];
-      soundItem.classList.add('wrvistited');
-      await scrollIntoViewWithDelay(soundItem);
-      yield selectElemFromAndClick(soundItem, selectors.soundItem);
+      if (debug) {
+        lib.addClass(soundItem, styleClasses.wrDebugVisited);
+      }
+      await lib.scrollIntoViewWithDelay(soundItem);
+      yield lib.selectElemFromAndClick(soundItem, selectors.soundItem);
     }
     snapShot = xpathGenerator(xpQueries.soundListItem);
     if (snapShot.length === 0) {
-      await delay();
+      await lib.delay();
       snapShot = xpathGenerator(xpQueries.soundListItem);
     }
   } while (snapShot.length > 0);
 }
 
-export default async function* soundCloudEmbedBehavior(xpathGenerator) {
-  if (isMultiTrackEmbed(xpathGenerator)) {
-    yield* playMultiTracks(xpathGenerator);
+export default async function* soundCloudEmbedBehavior(cliAPI) {
+  if (isMultiTrackEmbed(cliAPI.$x)) {
+    yield* playMultiTracks(cliAPI.$x);
   } else {
-    yield selectElemFromAndClick(document, selectors.singleTrackEmbedPlay);
+    yield lib.selectElemFromAndClick(document, selectors.singleTrackEmbedPlay);
   }
 }
 

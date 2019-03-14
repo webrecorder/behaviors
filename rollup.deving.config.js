@@ -1,6 +1,7 @@
 import * as path from 'path';
 import resolve from 'rollup-plugin-node-resolve';
 import cleanup from 'rollup-plugin-cleanup';
+
 const { wrappers } = require('./internal/buildInfo');
 const { buildDir, distDir } = require('./internal/paths');
 

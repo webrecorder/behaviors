@@ -2,15 +2,10 @@ version: '3'
 services:
   api:
     image: "webrecorder/behaviors:latest"
+    container_name: "wr-behaviors-api"
     ports:
       - "3030:3030"
-    command: "node ./api/run.js"
+    network_mode: "host"
     build:
       dockerfile: Dockerfile
-      context: .
-
-  behaviors:
-    image: "webrecorder/behaviors:latest"
-    build:
-      dockerfile: ./Dockerfile
       context: .

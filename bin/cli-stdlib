@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+'use strict';
+const program = require('commander');
+const pkg = require('../package');
+const StdLibUtils = require('../internal/behaviorStdLibUtils');
+
+program
+  .version(pkg.version)
+  .option(
+    '--gen-index',
+    `Generate the behavior's standard library's index file`,
+  )
+  .option(
+    '--debug-script',
+    `Generate a script that exposes the entirety of the behavior's standard library on window`,
+  )
+  .parse(process.argv);
+
+if (program.genIndex) {
+  StdLibUtils.generateLibIndex().catch(error => {
+    console.error(error);
+  });
+} else if (program.debugScript) {
+  StdLibUtils.exposeLibOnWinScript().catch(error => {
+    console.error(error);
+  });
+} else {
+  program.outputHelp();
+}

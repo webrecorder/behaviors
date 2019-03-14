@@ -1,7 +1,18 @@
-# wr-behaviors
+wr-behaviors
+=======================
 
-wr-behaviors provides a cli to help you with get starting using this project.
+### Installation
+To use this project you must first install its dependencies
 
+```bash
+$ yarn install
+# or "npm install"
+```
+
+If you wish to use this project via Docker, see the **Docker** portion of the **Usage** section.
+
+### Usage
+wr-behaviors provides a cli to help you use this project.
 
 The commands available to you are displayed below 
 
@@ -65,7 +76,7 @@ Options:
   -p, --port [port]                    The port the api server is to bind to (default: 3030)
   -h, --host [host]                    The host address the server is listen on (default: "127.0.0.1")
   -b, --behaviorDir [behaviorDir]      The path to the directory containing the build behaviors (default: "<path to wr-behaviors>/dist")
-  -m, --behaviorMetadata [medataPath]  The path to the behavior metadata (default: "<cwd>/dist/behaviorMetadata.js")
+  -m, --behaviorMetadata [medataPath]  The path to the behavior metadata (default: "<path to wr-behaviors>/dist/behaviorMetadata.js")
   --build-behaviors                    Should the api server build the behaviors for starting up
   -h, --help                           output usage information
 ```
@@ -78,8 +89,11 @@ Some configuration of the api server can be done via the environment variables l
 - `BUILD_BEHAVIORS`: should the api server build the behaviors before starting
 
 ### Docker
-To build the wr-behaviors docker image (`webrecorder/behaviors:latest`) execute `docker-compose build behaviors`.
+To build the wr-behaviors docker image (`webrecorder/behaviors:latest`) execute `docker-compose build`.
 
 The image created is suitable for building behaviors and running the behavior api server.
+
+The default configuration of the image is to run the api server, however you can substitute the default command
+with any of the cli commands listed previously.
 
 For more information please consult the provided `Dockerfile` and `docker-compose.yml` files.

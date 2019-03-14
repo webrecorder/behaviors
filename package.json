@@ -36,13 +36,15 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "build-behaviors": "node ./bin/cli-behaviors -b",
-    "build-prod": "rollup -c rollup.prod.config.js",
     "build-dev": "rollup -c rollup.dev.config.js",
-    "build-deving-warch": "rollup --watch -c rollup.deving.config.js",
     "build-deving": "rollup -c rollup.deving.config.js",
-    "build-watch": "rollup --watch -c rollup.dev.config.js",
+    "build-deving-warch": "rollup --watch -c rollup.deving.config.js",
     "build-docs": "esdoc",
+    "build-prod": "rollup -c rollup.prod.config.js",
+    "build-watch": "rollup --watch -c rollup.dev.config.js",
+    "generate-runnable-behaviors": "node ./bin/cli-behaviors -b",
+    "generate-stdlib-debug": "node ./bin/cli-stdlib --debug-script",
+    "generate-stdlib-index": "node ./bin/cli-stdlib --gen-index",
     "publish-docs": "gh-pages -d docs"
   },
   "devDependencies": {

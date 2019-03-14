@@ -34,6 +34,65 @@ export const xpathQ = {
   }
 };
 
+export const multiImageClickOpts = { safety: 30 * 1000, delayTime: 1000 };
+
+export const postTypes = {
+  video: Symbol('$$instagram-video-post$$'),
+  multiImage: Symbol('$$instagram-multi-image-post$$'),
+  commentsOnly: Symbol('$$instagram-comments-only-post$$')
+};
+
+
+/**
+ * @param {Element | Node | HTMLElement} post
+ * @return {boolean}
+ */
+export function isVideoPost(post) {
+  for (var i = 0; i < videoPostSelectors.length; ++i) {
+    if (post.querySelector(videoPostSelectors[i]) != null) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * @param {Element | Node | HTMLElement} post
+ */
+export function isMultiImagePost(post) {
+  return post.querySelector(selectors.multipleImages) != null;
+}
+
+
+/**
+ * @desc Determines the type of the post
+ * @param {*} post
+ * @return {symbol}
+ */
+export function determinePostType(post) {
+  if (isMultiImagePost(post)) return postTypes.multiImage;
+  if (isVideoPost(post)) return postTypes.video;
+  return postTypes.commentsOnly;
+}
+
+
+/**
+ * @desc Executes the xpath query that selects the load more comments button
+ * for both variations and returns that element if it exists.
+ * @param xpg
+ * @return {?Element}
+ */
+export function getMoreComments(xpg) {
+  // first check for load more otherwise return the results of querying
+  // for show all comments
+  const moreComments = xpg(xpathQ.loadMoreComments);
+  if (moreComments.length === 0) {
+    return xpg(xpathQ.showAllComments)[0];
+  }
+  return moreComments[0];
+}
+
+
 /**
  *
  * @return {?Object}
