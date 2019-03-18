@@ -62,7 +62,7 @@ async function* handlePost(post, xpg) {
       // just in case
       await lib.selectElemFromAndClickWithDelay(
         displayDiv,
-        selectors.closeVideo
+        selectors.playVideo
       );
       break;
     // default: just loading comments

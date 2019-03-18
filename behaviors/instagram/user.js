@@ -67,7 +67,7 @@ async function* handlePost(post, xpg) {
   // open the post (displayed in a separate part of the dom)
   // click the first child of the post div (a tag)
   let maybeA = lib.firstChildElementOf(post);
-  if (!lib.objectInstanceOf(maybeA, HTMLAnchorElement)) {
+  if (!lib.objectInstanceOf(maybeA, window.HTMLAnchorElement)) {
     maybeA = lib.qs('a', maybeA);
   }
   if (!maybeA) {
@@ -112,11 +112,12 @@ async function* handlePost(post, xpg) {
       // just in case
       await lib.selectElemFromAndClickWithDelay(
         displayDiv,
-        selectors.closeVideo
+        selectors.playVideo
       );
       break;
     // default: just loading comments
   }
+  yield;
   // The load more comments button, depending on the number of comments,
   // will contain two variations of text (see xpathQ for those two variations).
   // getMoreComments handles getting that button for the two variations

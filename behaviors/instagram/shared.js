@@ -1,30 +1,38 @@
-import { getViaPath, globalWithPropsExist } from '../../lib';
+import { getViaPath, globalWithPropsExist, anySelectorExists } from '../../lib';
 
 export const selectors = {
   openStories: 'div[aria-label="Open Stories"]',
-  nextStory: 'div.coreSpriteRightChevron',
+  nextStory: 'div[class*="RightChevron" i]',
   storyVideo: 'button.videoSpritePlayButton',
   multipleImages: 'span.coreSpriteSidecarIconLarge',
   postTopMostContainer: 'article',
-  rightChevron: 'button > div.coreSpriteRightChevron',
+  rightChevron: 'button > div[class*="RightChevron" i]',
   postPopupArticle:
     'div[role="dialog"] > div[role="dialog"] > div[role="dialog"] > article',
   multiImageDisplayDiv: 'div > div[role="button"]',
-  closeVideo: 'a[role="button"]',
+  playVideo: 'a[role="button"]',
   divDialog: 'div[role="dialog"]',
   divDialogArticle: 'div[role="dialog"] > article'
 };
 
+export const multiImagePostSelectors = [
+  'span[aria-label*="Carousel" i]',
+  'span[class*="SpriteCarousel" i]',
+  'span.coreSpriteSidecarIconLarge'
+];
+
 export const videoPostSelectors = [
+  'span[aria-label*="Video" i]',
+  'span[class*="SpriteVideo" i]',
   'span.coreSpriteVideoIconLarge',
-  'span[aria-label$="Video"]',
+  'span[aria-label$="Video" i]',
   'span[class*="glyphsSpriteVideo_large"]'
 ];
 
 export const xpathQ = {
   postPopupClose: [
     '//body/div/div/button[contains(text(), "Close")]',
-    '/html/body/div[2]/button[1]'
+    '/html/body/div[2]/button[1][contains(text(), "Close")]'
   ],
   loadMoreComments: '//li/button[contains(text(), "Load more comments")]',
   showAllComments: '//li/button[contains(text(), "View all")]',
@@ -48,19 +56,16 @@ export const postTypes = {
  * @return {boolean}
  */
 export function isVideoPost(post) {
-  for (var i = 0; i < videoPostSelectors.length; ++i) {
-    if (post.querySelector(videoPostSelectors[i]) != null) {
-      return true;
-    }
-  }
-  return false;
+  const results = anySelectorExists(videoPostSelectors, post);
+  return results.success;
 }
 
 /**
  * @param {Element | Node | HTMLElement} post
  */
 export function isMultiImagePost(post) {
-  return post.querySelector(selectors.multipleImages) != null;
+  const results = anySelectorExists(multiImagePostSelectors, post);
+  return results.success;
 }
 
 
