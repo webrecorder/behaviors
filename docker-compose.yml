@@ -5,7 +5,6 @@ services:
     container_name: "wr-behaviors-api"
     ports:
       - "3030:3030"
-    network_mode: "host"
     build:
       dockerfile: Dockerfile
       context: .
