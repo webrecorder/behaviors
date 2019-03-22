@@ -10,7 +10,7 @@ const noWrapperFiles = new Set(['collectOutlinks.js', 'autoscroll.js']);
 
 const makePretty = code => prettier.format(code, prettierOpts);
 
-const debugMode = true;
+const debugMode = false;
 
 const SHOW_DEBUG = process.env.SHOW_DEBUG != null || debugMode;
 
