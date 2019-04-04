@@ -113,7 +113,4 @@ class Collect {
  * @property {?string} [metadata]
  */
 
-/**
- * @type {Collect}
- */
 module.exports = Collect;

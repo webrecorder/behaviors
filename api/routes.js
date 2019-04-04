@@ -2,6 +2,7 @@
 const fs = require('fs-extra');
 
 /**
+ * Setups the behavior API routes
  * @param {fastify.FastifyInstance} server
  * @param options
  * @return {Promise<*>}

@@ -123,7 +123,7 @@ class Utils {
     return util.inspect(
       obj,
       opts != null
-        ? Object.assign(defaultInspectOpts, opts)
+        ? Object.assign({}, defaultInspectOpts, opts)
         : defaultInspectOpts
     );
   }
@@ -187,7 +187,4 @@ class Utils {
 
 Utils.isBehaviorResults = isBehaviorResults;
 
-/**
- * @type {Utils}
- */
 module.exports = Utils;

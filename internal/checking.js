@@ -5,7 +5,6 @@ const Utils = require('./utils');
 class Checking {
 
   /**
-   *
    * @param {?string} name
    * @param {symbol} exportType
    * @return {{exportType: symbol, name: string, state: symbol}}
@@ -566,7 +565,4 @@ class Checking {
   }
 }
 
-/**
- * @type {Checking}
- */
 module.exports = Checking;

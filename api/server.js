@@ -16,7 +16,7 @@ module.exports = async function initServer(config) {
   console.log();
   const server = fastify(config.fastifyOpts);
   server.decorate('conf', config);
-  server.register(require('./gracefulShutdown'));
+  server.register(require('fastify-graceful-shutdown'));
   server.register(require('./routes'));
   server.register(require('./behaviorLookup'));
   const listeningOn = await server.listen(config.port, config.host);

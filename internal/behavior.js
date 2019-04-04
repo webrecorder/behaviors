@@ -110,14 +110,26 @@ class Behavior {
     }
   }
 
+  /**
+   * Returns T/F indicating if the behavior has valid metadata
+   * @return {boolean}
+   */
   get hasValidMetadata() {
     return this._checkedMetadata.checkState === CheckState.good;
   }
 
+  /**
+   * Returns T/F indicating if the behavior supplies its own post step function
+   * @return {boolean}
+   */
   get hasPostStep() {
     return this._hasPostStep;
   }
 
+  /**
+   * Returns the name behavior used when the behavior is imported in the build file
+   * @return {string}
+   */
   get importName() {
     if (this._checkedMetadata.name) return this._checkedMetadata.name;
     if (this._defaultExport.name) return this._defaultExport.name;
@@ -125,7 +137,7 @@ class Behavior {
   }
 
   /**
-   *
+   * Returns T/F indicating if the behavior is ok
    * @return {boolean}
    */
   get checkStateGood() {
@@ -156,6 +168,10 @@ class Behavior {
     return this._file.getBaseName();
   }
 
+  /**
+   * Returns the file name for the behaviors build file
+   * @return {string}
+   */
   get buildFileName() {
     if (this._buildFileName) {
       return this._buildFileName;
@@ -211,10 +227,18 @@ class Behavior {
     return Path.relative(this._opts.buildDir, this.path);
   }
 
+  /**
+   * Returns the path to the behavior in the build directory
+   * @return {string}
+   */
   get filePathInBuildDir() {
     return Path.join(this._opts.buildDir, this.buildFileName);
   }
 
+  /**
+   * Returns T/F indication if the behavior is the default behavior
+   * @return {boolean}
+   */
   get isDefaultBehavior() {
     return !!(
       this._checkedMetadata.value &&
@@ -222,10 +246,18 @@ class Behavior {
     );
   }
 
+  /**
+   * Returns the behaviors metadata validation error message
+   * @return {?string}
+   */
   get getMetadataValidationErrorMsg() {
     return this._checkedMetadata.errorMsg;
   }
 
+  /**
+   * Returns the behaviors metadata
+   * @return {?Object}
+   */
   get metadata() {
     return this._checkedMetadata.value;
   }
@@ -250,7 +282,4 @@ class Behavior {
   }
 }
 
-/**
- * @type {Behavior}
- */
 module.exports = Behavior;
