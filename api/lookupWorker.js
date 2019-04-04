@@ -1,10 +1,39 @@
 'use strict';
-const worker_threads = require('worker_threads');
+const { parentPort, workerData, MessagePort } = require('worker_threads');
 const path = require('path');
 const msgTypes = require('./msgTypes');
 
-let lookupWorker;
+/**
+ * @type {MessagePort}
+ */
+let serverCom;
 
+/**
+ * @type {Object}
+ */
+let behaviorMetadata;
+
+/**
+ * @type {string}
+ */
+const mdataPath = workerData.behaviorInfo.mdataPath;
+
+/**
+ * @type {string}
+ */
+const behaviorDir = workerData.behaviorInfo.behaviorDir;
+
+/**
+ * @type {number}
+ */
+const workerId = workerData.workerId;
+
+/**
+ * Returns T/F indicating if the supplied URL matches a behaviors match object
+ * @param {string} url - The URL to match to a behavior
+ * @param {Object} match - A behaviors match object
+ * @return {boolean}
+ */
 function behaviorMatches(url, match) {
   if (match.regex) {
     if (match.regex.base) {
@@ -22,137 +51,147 @@ function behaviorMatches(url, match) {
   return false;
 }
 
+/**
+ * Removes the supplied item from the require cache
+ * @param {string} item - The item to be removed from the require cache
+ */
 function removeItemFromRequireCache(item) {
   delete require.cache[require.resolve(item)];
 }
 
-class LookupWorker {
-  constructor(serverCom) {
-    /**
-     * @type {worker_threads.MessagePort}
-     */
-    this.serverCom = serverCom;
+/**
+ * Sends a reply back to the parent process
+ * @param {string} id - The id for the message this message is a response to
+ * @param {string} type - The type of response message
+ * @param {Object} results - The results of the action performed
+ */
+function reply(id, type, results) {
+  serverCom.postMessage({ type, id, results, workerId });
+}
 
-    /**
-     * @type {string}
-     */
-    this.mdataPath = worker_threads.workerData.mdataPath;
+/**
+ * Loads the behavior metadata
+ */
+function loadBehaviorMdata() {
+  behaviorMetadata = require(mdataPath);
+}
 
-    /**
-     * @type {string}
-     */
-    this.behaviorDir = worker_threads.workerData.behaviorDir;
-
-    /**
-     * @type {?Array<Object>}
-     */
-    this.behaviors = null;
-
-    /**
-     * @type {?Object}
-     */
-    this.defaultBehavior = null;
-
-    this.onMsg = this.onMsg.bind(this);
-    this.serverCom.on('message', this.onMsg);
-    this._loadBehaviorMdata();
-  }
-
-  onMsg(msg) {
-    switch (msg.type) {
-      case msgTypes.reloadBehaviors:
-        return this.reloadBehaviors(msg);
-      case msgTypes.lookupBehavior:
-        return this.lookupBehavior(msg);
-      case msgTypes.lookupBehaviorInfo:
-        return this.lookupBehaviorInfo(msg);
-      case msgTypes.shutdown:
-        if (this.serverCom) {
-          this.serverCom.close();
-        }
-        break;
-    }
-  }
-
-  findBehavior(msg) {
-    let behaviorIdx = this.behaviors.length;
-    while (behaviorIdx--) {
-      if (behaviorMatches(msg.url, this.behaviors[behaviorIdx].match)) {
-        return this.behaviors[behaviorIdx];
+/**
+ * Handles messages sent to the LookupWorker from the parent process
+ * @param {Object} msg - The message sent to the worker
+ * from the parent process
+ * @return {Promise<void>|void}
+ */
+function onMsg(msg) {
+  switch (msg.type) {
+    case msgTypes.reloadBehaviors:
+      return reloadBehaviors(msg);
+    case msgTypes.lookupBehavior:
+      return lookupBehavior(msg);
+    case msgTypes.lookupBehaviorInfo:
+      return lookupBehaviorInfo(msg);
+    case msgTypes.shutdown:
+      if (serverCom) {
+        serverCom.close();
       }
-    }
-    return this.defaultBehavior;
-  }
-
-  async lookupBehavior(msg) {
-    const results = {
-      behavior: null,
-      wasError: false,
-      errorMsg: null
-    };
-    try {
-      const foundBehavior = this.findBehavior(msg);
-      results.behavior = path.join(this.behaviorDir, foundBehavior.name);
-    } catch (error) {
-      results.wasError = true;
-      results.errorMsg = error.message;
-    }
-    this.serverCom.postMessage({
-      type: msgTypes.behaviorLookupResults,
-      id: msg.id,
-      results
-    });
-  }
-
-  async lookupBehaviorInfo(msg) {
-    const results = {
-      behavior: null,
-      wasError: false,
-      errorMsg: null
-    };
-    try {
-      const foundBehavior = this.findBehavior(msg);
-      results.behavior = {
-        name: foundBehavior.name,
-        description: foundBehavior.description,
-        defaultBehavior: foundBehavior.defaultBehavior || false
-      };
-    } catch (error) {
-      results.wasError = true;
-      results.errorMsg = error.message;
-    }
-    this.serverCom.postMessage({
-      type: msgTypes.behaviorLookupResults,
-      id: msg.id,
-      results
-    });
-  }
-
-  reloadBehaviors(msg) {
-    removeItemFromRequireCache(this.mdataPath);
-    this._loadBehaviorMdata();
-    const results = {
-      reloadResults: {
-        defaultBehavior: this.defaultBehavior.name,
-        numBehaviors: this.behaviors.length
-      },
-      wasError: false,
-      errorMsg: null
-    };
-    this.serverCom.postMessage({
-      type: msgTypes.reloadBehaviorsResults,
-      id: msg.id,
-      results
-    });
-  }
-
-  _loadBehaviorMdata() {
-    const mdata = require(this.mdataPath);
-    this.behaviors = mdata.behaviors;
-    this.defaultBehavior = mdata.defaultBehavior;
+      break;
   }
 }
 
-worker_threads.parentPort.once('message', msg => {
-  lookupWorker = new LookupWorker(msg.serverCom);
+/**
+ * Attempts to find a matching behavior returning the matching behavior
+ * if a match was made otherwise the default behavior
+ * @param {Object} msg - The message sent to the LookupWorker from the
+ * parent process
+ * @return {Object}
+ */
+function findBehavior(msg) {
+  const url = msg.url;
+  const behaviors = behaviorMetadata.behaviors;
+  let behaviorIdx = behaviors.length;
+  while (behaviorIdx--) {
+    if (behaviorMatches(url, behaviors[behaviorIdx].match)) {
+      return behaviors[behaviorIdx];
+    }
+  }
+  return behaviorMetadata.defaultBehavior;
+}
+
+/**
+ * Performs the behavior lookup action
+ * @param {Object} msg - The message sent to the LookupWorker from the
+ * parent process
+ * @return {Promise<void>}
+ */
+async function lookupBehavior(msg) {
+  const results = {
+    behavior: null,
+    wasError: false,
+    errorMsg: null
+  };
+  try {
+    const foundBehavior = findBehavior(msg);
+    results.behavior = path.join(behaviorDir, foundBehavior.name);
+  } catch (error) {
+    results.wasError = true;
+    results.errorMsg = error.message;
+  }
+  reply(msg.id, msgTypes.behaviorLookupResults, results);
+}
+
+/**
+ * Performs the behavior info lookup action
+ * @param {Object} msg - The message sent to the LookupWorker from the
+ * parent process
+ * @return {Promise<void>}
+ */
+async function lookupBehaviorInfo(msg) {
+  const results = {
+    behavior: null,
+    wasError: false,
+    errorMsg: null
+  };
+  try {
+    const foundBehavior = findBehavior(msg);
+    results.behavior = {
+      name: foundBehavior.name,
+      description: foundBehavior.description,
+      defaultBehavior: foundBehavior.defaultBehavior || false
+    };
+  } catch (error) {
+    results.wasError = true;
+    results.errorMsg = error.message;
+  }
+  reply(msg.id, msgTypes.behaviorLookupResults, results);
+}
+
+/**
+ * Reloads the behaviors
+ * @param {Object} msg - The message sent to the LookupWorker from the
+ * parent process
+ */
+function reloadBehaviors(msg) {
+  removeItemFromRequireCache(mdataPath);
+  loadBehaviorMdata();
+  const results = {
+    reloadResults: {
+      defaultBehavior: behaviorMetadata.defaultBehavior.name,
+      numBehaviors: behaviorMetadata.behaviors.length
+    },
+    wasError: false,
+    errorMsg: null
+  };
+  reply(msg.id, msgTypes.reloadBehaviorsResults, results);
+}
+
+parentPort.once('message', msg => {
+  if (!(msg.serverCom instanceof MessagePort)) {
+    throw new Error('The serverCom was not an instance of MessagePort!')
+  }
+  loadBehaviorMdata();
+  /**
+   * @type {MessagePort}
+   */
+  serverCom = msg.serverCom;
+  serverCom.on('message', onMsg);
 });

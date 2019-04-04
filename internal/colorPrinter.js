@@ -44,7 +44,4 @@ class ColorPrinter {
  */
 ColorPrinter.chalk = chalk;
 
-/**
- * @type {ColorPrinter}
- */
 module.exports = ColorPrinter;

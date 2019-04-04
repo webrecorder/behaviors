@@ -13,8 +13,9 @@ const {
 const isYamlRe = /\.ya?ml$/i;
 
 /**
- * @param {string} configPath
- * @param {boolean|string} buildingWhat
+ * Loads the behavior config
+ * @param {string} configPath - The path to the behavior config file
+ * @param {boolean|string} buildingWhat - What are we building
  * @return {Promise<Config>}
  */
 async function loadConfig(configPath, buildingWhat) {
@@ -83,7 +84,7 @@ async function loadConfig(configPath, buildingWhat) {
 }
 
 /**
- *
+ * Loads the behavior config if the file exists otherwise returns the default config
  * @return {Promise<Config>}
  */
 async function getConfigIfExistsOrDefault(program) {
@@ -107,14 +108,19 @@ async function getConfigIfExistsOrDefault(program) {
   };
 }
 
-module.exports = async function behaviorCLI(program) {
+/**
+ * The implementation of the behavior CLI
+ * @param {Object} program
+ * @return {Promise<void>}
+ */
+async function behaviorCLI(program) {
   if (
     [program.validate, program.build, program.metadata, program.watch].every(
       value => !value
     )
   ) {
     program.outputHelp();
-    return;
+    return Promise.resolve();
   }
   const config = await getConfigIfExistsOrDefault(program);
   if (program.build) {
@@ -125,7 +131,10 @@ module.exports = async function behaviorCLI(program) {
   } else if (program.watch) {
     return Build.watch(config);
   }
-};
+  return Promise.resolve();
+}
+
+module.exports = behaviorCLI;
 
 /**
  * @typedef {Object} Config

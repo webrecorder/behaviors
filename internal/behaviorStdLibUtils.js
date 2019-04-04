@@ -150,7 +150,4 @@ ${specifiers.join(',\n')}
   }
 }
 
-/**
- * @type {StdLibUtils}
- */
 module.exports = StdLibUtils;

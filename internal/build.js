@@ -10,7 +10,12 @@ const { prettierOpts } = require('./defaultOpts');
 const { makeInputOutputConfig } = require('./buildInfo');
 const Utils = require('./utils');
 
-
+/**
+ * Removes the .js extension from the supplied behavior path
+ * if the path ends with it
+ * @param {string} behaviorP - A path to a behavior
+ * @return {string}
+ */
 function ensureNoBehaviorPJsExt(behaviorP) {
   if (behaviorP.endsWith('.js')) {
     return behaviorP.substring(0, behaviorP.indexOf('.js'));
@@ -25,7 +30,9 @@ function initRunnableBehavior({ dImport, postStep, behaviorP, libP }) {
       behaviorP
     )}';`;
   } else {
-    behaviorImport = `import ${dImport} from '${ensureNoBehaviorPJsExt(behaviorP)}';`;
+    behaviorImport = `import ${dImport} from '${ensureNoBehaviorPJsExt(
+      behaviorP
+    )}';`;
   }
   const initImport = `${behaviorImport}
 import { maybePolyfillXPG, initRunnableBehavior } from '${libP}';`;
@@ -48,9 +55,10 @@ ${init}
 }
 
 /**
- * @param {Config} opts
- * @param {string} operation
- * @return {Promise<string|boolean>}
+ * Attempts to resolve what we are building to an absolute path
+ * @param {Config} opts - The behavior config
+ * @param {string} operation - The operation being performed
+ * @return {Promise<string>}
  */
 async function resolveWhatPath(opts, operation) {
   let exists;
@@ -117,9 +125,9 @@ async function resolveWhatPath(opts, operation) {
 }
 
 /**
- *
- * @param {Config} opts
- * @param {string} operation
+ * Determines if we are building a single behavior or an directory of behaviors
+ * @param {Config} opts - The behavior config
+ * @param {string} operation - The operation being performed
  * @return {Promise<{isDir: boolean, path: string}>}
  */
 async function buildingWhat(opts, operation) {
@@ -138,9 +146,9 @@ async function buildingWhat(opts, operation) {
 }
 
 /**
- *
- * @param {Behavior} behavior
- * @param {{defaultBehavior: Object, behaviors: Array<Object>}} behaviorMetadata
+ * Updates the supplied behavior metadata object
+ * @param {Behavior} behavior - A behavior
+ * @param {{defaultBehavior: Object, behaviors: Array<Object>}} behaviorMetadata - The behavior metadata object
  */
 function updateBehaviorMetadata(behavior, behaviorMetadata) {
   if (behavior.isDefaultBehavior) {
@@ -158,8 +166,9 @@ function updateBehaviorMetadata(behavior, behaviorMetadata) {
 
 class Build {
   /**
-   *
-   * @param {Config} opts
+   * Creates runnable behavior(s) for either a directory containing behaviors
+   * or a single behavior
+   * @param {Config} opts - The behavior config
    * @return {Promise<void>}
    */
   static async createRunnableBehaviors(opts) {
@@ -246,9 +255,9 @@ class Build {
   }
 
   /**
-   *
-   * @param {Behavior} behavior
-   * @param {Object} opts
+   * Creates a runnable behavior for the supplied behavior
+   * @param {Behavior} behavior - The behavior to create a runnable file for
+   * @param {Config} opts - The behavior config
    * @return {Promise<undefined>}
    */
   static async createRunnableBehavior(behavior, opts) {
@@ -315,6 +324,11 @@ class Build {
     );
   }
 
+  /**
+   * Watches the behaviors for changes and rebuilds them on a change
+   * @param {Config} config - The behavior config
+   * @return {Promise<void>}
+   */
   static async watch(config) {
     let watcher;
     const resolvedWhat = await buildingWhat(
@@ -396,66 +410,69 @@ class Build {
     });
   }
 
-  static async generateMetdataFile(config) {
-    const totalTime = process.hrtime();
+  /**
+   * Generates the behavior metadata file for all behaviors
+   * @param {Config} opts - The behavior config
+   * @return {Promise<void>}
+   */
+  static async generateMetdataFile(opts) {
     const project = new Project({ tsConfigFilePath: opts.tsConfigFilePath });
     const resolvedWhat = await buildingWhat(opts, 'Generating metadata file');
-    if (resolvedWhat.isDir) {
-      ColorPrinter.info(
-        `Creating runnable behaviors for all behaviors found in the directory located at ${
-          resolvedWhat.path
-        }`
-      );
-      ColorPrinter.blankLine();
-      const finalOpts = Object.assign(
-        {
-          project: project,
-          dir: resolvedWhat.path
-        },
-        opts
-      );
-      const behaviors = Collect.behaviorsFromDir(finalOpts);
-      const numBehaviors = behaviors.length;
-      const behaviorMetadata = {
-        defaultBehavior: {},
-        behaviors: []
-      };
-      let i = behaviors.length;
-      ColorPrinter.blankLine();
-      ColorPrinter.info(
-        `Creating the metadata file for ${numBehaviors} ${plur(
-          'behavior',
-          numBehaviors
-        )}`
-      );
-      ColorPrinter.blankLine();
-      while (i--) {
-        updateBehaviorMetadata(behaviors[i], behaviorMetadata);
-      }
-      const buildMetadataStartTime = process.hrtime();
-      let metadataFilePath;
-      if (opts.metadata.endsWith('.js')) {
-        metadataFilePath = opts.metadata;
-      } else {
-        metadataFilePath = Path.join(opts.metadata, 'behaviorMetadata.js');
-      }
-      const safeString = Utils.inspect(behaviorMetadata, {
-        depth: null,
-        compact: false
-      });
-      await fs.writeFile(metadataFilePath, `module.exports = ${safeString};`);
-      ColorPrinter.info(
-        `Metadata created in ${Utils.timeDiff(
-          buildMetadataStartTime
-        )} and can be found at ${metadataFilePath}`
-      );
+
+    if (!resolvedWhat.isDir) {
+      ColorPrinter.error('Can only create the metadata file for all behaviors');
       return;
     }
-    ColorPrinter.error('Can only create the metadata file for all behaviors');
+
+    ColorPrinter.info(
+      `Creating runnable behaviors for all behaviors found in the directory located at ${
+        resolvedWhat.path
+      }`
+    );
+    ColorPrinter.blankLine();
+    const finalOpts = Object.assign(
+      {
+        project: project,
+        dir: resolvedWhat.path
+      },
+      opts
+    );
+    const behaviors = Collect.behaviorsFromDir(finalOpts);
+    const numBehaviors = behaviors.length;
+    const behaviorMetadata = {
+      defaultBehavior: {},
+      behaviors: []
+    };
+    let i = behaviors.length;
+    ColorPrinter.blankLine();
+    ColorPrinter.info(
+      `Creating the metadata file for ${numBehaviors} ${plur(
+        'behavior',
+        numBehaviors
+      )}`
+    );
+    ColorPrinter.blankLine();
+    while (i--) {
+      updateBehaviorMetadata(behaviors[i], behaviorMetadata);
+    }
+    const buildMetadataStartTime = process.hrtime();
+    let metadataFilePath;
+    if (opts.metadata.endsWith('.js')) {
+      metadataFilePath = opts.metadata;
+    } else {
+      metadataFilePath = Path.join(opts.metadata, 'behaviorMetadata.js');
+    }
+    const safeString = Utils.inspect(behaviorMetadata, {
+      depth: null,
+      compact: false
+    });
+    await fs.writeFile(metadataFilePath, `module.exports = ${safeString};`);
+    ColorPrinter.info(
+      `Metadata created in ${Utils.timeDiff(
+        buildMetadataStartTime
+      )} and can be found at ${metadataFilePath}`
+    );
   }
 }
 
-/**
- * @type {Build}
- */
 module.exports = Build;
