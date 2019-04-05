@@ -90,4 +90,3 @@ export async function* newTwitterUserTimelineBehavior(xpathGenerator) {
 }
 
 // export const isBehavior = true;
-

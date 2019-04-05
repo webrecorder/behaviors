@@ -1,7 +1,6 @@
 const Util = require('util');
 
 class Helper {
-
   /**
    * @param {*} object
    * @return {boolean}

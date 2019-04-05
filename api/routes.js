@@ -40,7 +40,7 @@ module.exports = async function(server, options) {
           properties: {
             name: { type: 'string' },
             defaultBehavior: { type: 'boolean' },
-            description: { type: 'string' },
+            description: { type: 'string' }
           }
         }
       }

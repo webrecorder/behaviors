@@ -105,12 +105,11 @@ export const timelineUpdatesSelectors = {
   replyAction: 'div[aria-label~="Reply"]'
 };
 
-
 export const timelineUpdatesMisc = {
   showThisThreadText: 'Show this thread',
   numRepliesRegex: /[0-9]+\sReply/
 };
 
 export const timelineUpdatesXpaths = {
-  showThisThread: '//div[text()="Show this thread"]',
+  showThisThread: '//div[text()="Show this thread"]'
 };

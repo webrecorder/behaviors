@@ -10,15 +10,16 @@ const Utils = require('../internal/utils');
  */
 module.exports = async function initServer(config) {
   await prepareBehaviors(config);
-  if (config.behaviorInfo.build) console.log( );
+  if (config.behaviorInfo.build) console.log();
   console.log('Starting behavior api server with configuration');
   console.log(Utils.inspect(config));
   console.log();
   const server = fastify(config.fastifyOpts);
-  server.decorate('conf', config);
-  server.register(require('fastify-graceful-shutdown'));
-  server.register(require('./routes'));
-  server.register(require('./behaviorLookup'));
+  server
+    .decorate('conf', config)
+    .register(require('fastify-graceful-shutdown'), { timeout: 3000 })
+    .register(require('./routes'))
+    .register(require('./behaviorLookup'));
   const listeningOn = await server.listen(config.port, config.host);
   console.log(
     `Behavior api server listening on\n${

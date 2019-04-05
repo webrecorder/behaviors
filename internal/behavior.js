@@ -241,8 +241,7 @@ class Behavior {
    */
   get isDefaultBehavior() {
     return !!(
-      this._checkedMetadata.value &&
-      this._checkedMetadata.value.defaultBehavior
+      this._checkedMetadata.value && this._checkedMetadata.value.defaultBehavior
     );
   }
 

@@ -110,6 +110,7 @@ class LookupWorker extends EventEmitter {
    * Initialize the lookup worker
    */
   init() {
+    this._channel = new MessageChannel();
     this._worker = new Worker(this.workerPath, {
       workerData: {
         workerId: this.id,
@@ -302,7 +303,8 @@ class BehaviorLookUp {
    * complete
    */
   shutdown(done) {
-    if (this._isRealShutdown) return;
+    const doneCB = done ? done : noop;
+    if (this._isRealShutdown) return doneCB();
     this._isRealShutdown = true;
     const terminationPromises = new Array(this._numWorkers);
     for (let workerId = 0; workerId < this._numWorkers; workerId++) {
@@ -310,7 +312,6 @@ class BehaviorLookUp {
         .get(workerId)
         .terminate();
     }
-    const doneCB = done ? done : noop;
     Promise.all(terminationPromises).then(() => {
       this._workersById.clear();
       doneCB();
@@ -402,15 +403,14 @@ class BehaviorLookUp {
 function behaviorLookup(server, opts, pluginNext) {
   const behaviorLookerUpper = new BehaviorLookUp(server.conf);
   behaviorLookerUpper.init();
-  server.decorate('behaviorLookUp', behaviorLookerUpper);
-  server.decorate('lookupBehavior', behaviorLookerUpper.lookupBehavior);
-  server.decorate('lookupBehaviorInfo', behaviorLookerUpper.lookupBehaviorInfo);
-  server.decorate('reloadBehaviors', behaviorLookerUpper.reloadBehaviors);
-  server.ready(() => {
-    server.gracefulShutdown((signal, next) => {
-      behaviorLookerUpper.shutdown(next);
+  server
+    .decorate('behaviorLookUp', behaviorLookerUpper)
+    .decorate('lookupBehavior', behaviorLookerUpper.lookupBehavior)
+    .decorate('lookupBehaviorInfo', behaviorLookerUpper.lookupBehaviorInfo)
+    .decorate('reloadBehaviors', behaviorLookerUpper.reloadBehaviors)
+    .addHook('onClose', (server, done) => {
+      behaviorLookerUpper.shutdown(done);
     });
-  });
   pluginNext();
 }
 

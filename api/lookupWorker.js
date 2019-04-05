@@ -131,7 +131,7 @@ async function lookupBehavior(msg) {
   };
   try {
     const foundBehavior = findBehavior(msg);
-    results.behavior = path.join(behaviorDir, foundBehavior.name);
+    results.behavior = path.join(behaviorDir, foundBehavior.fileName);
   } catch (error) {
     results.wasError = true;
     results.errorMsg = error.message;
@@ -186,7 +186,7 @@ function reloadBehaviors(msg) {
 
 parentPort.once('message', msg => {
   if (!(msg.serverCom instanceof MessagePort)) {
-    throw new Error('The serverCom was not an instance of MessagePort!')
+    throw new Error('The serverCom was not an instance of MessagePort!');
   }
   loadBehaviorMdata();
   /**
