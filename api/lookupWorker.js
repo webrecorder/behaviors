@@ -1,7 +1,11 @@
 'use strict';
 const { parentPort, workerData, MessagePort } = require('worker_threads');
 const path = require('path');
+const util = require('util');
 const msgTypes = require('./msgTypes');
+
+console.log('Lookup Worker starting with configuration');
+console.log(util.inspect(workerData, { depth: null, compact: false }));
 
 /**
  * @type {MessagePort}
