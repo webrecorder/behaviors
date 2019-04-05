@@ -94,7 +94,7 @@ class WrBehaviorsPlugin {
           const description = $('div[data-ice="description"]', details);
           const extraDocs = stepsPlugin.behaviorsUnknownTags.get(docFunName);
           let name;
-          for(name in extraDocs) {
+          for (name in extraDocs) {
             description.append(`<b>${name}:</b>`);
             description.append(markdown(extraDocs[name]));
           }

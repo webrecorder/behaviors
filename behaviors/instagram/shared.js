@@ -50,7 +50,6 @@ export const postTypes = {
   commentsOnly: Symbol('$$instagram-comments-only-post$$')
 };
 
-
 /**
  * @param {Element | Node | HTMLElement} post
  * @return {boolean}
@@ -68,7 +67,6 @@ export function isMultiImagePost(post) {
   return results.success;
 }
 
-
 /**
  * @desc Determines the type of the post
  * @param {*} post
@@ -79,7 +77,6 @@ export function determinePostType(post) {
   if (isVideoPost(post)) return postTypes.video;
   return postTypes.commentsOnly;
 }
-
 
 /**
  * @desc Executes the xpath query that selects the load more comments button
@@ -96,7 +93,6 @@ export function getMoreComments(xpg) {
   }
   return moreComments[0];
 }
-
 
 /**
  *

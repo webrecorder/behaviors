@@ -1,4 +1,3 @@
-
 /**
  * @external {AsyncIterator} https://github.com/tc39/proposal-async-iteration
  */
@@ -18,7 +17,6 @@
 /**
  * @external {HTMLElement} https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
  */
-
 
 /**
  * @external {Window} https://developer.mozilla.org/en-US/docs/Web/API/Window
@@ -43,4 +41,3 @@
 /**
  * @external {HTMLIFrameElement} https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement
  */
-

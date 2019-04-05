@@ -6,7 +6,8 @@ export const storySelectors = {
 export const buttonSelectors = {
   moreReplies: 'a[role="button"].UFIPagerLink',
   repliesToRepliesA: 'a[role="button"].UFICommentLink',
-  spanReplies: 'span.UFIReplySocialSentenceLinkText.UFIReplySocialSentenceVerified'
+  spanReplies:
+    'span.UFIReplySocialSentenceLinkText.UFIReplySocialSentenceVerified'
 };
 
 export const annoyingElements = {
@@ -32,10 +33,14 @@ export const elementIds = {
  * @type {{userTimelineItem: string, feedItem: string}}
  */
 export const xpathQueries = {
-  feedItem: '//div[starts-with(@id,"hyperfeed_story_id") and not(contains(@class, "wrvistited"))]',
-  userTimelineItem: '//div[contains(@class, "userContentWrapper") and not(contains(@class, "wrvistited"))]',
-  repliesA: '//a[@role="button" and contains(@class, "UFICommentLink") and not(contains(@class, "wrvistited")) and not(contains(text(), "Write a comment"))]',
-  subReplies: '//span[contains(@class, "UFIReplySocialSentenceLinkText") and not(contains(@class, "wrvistited")) and contains(text(), "Reply")] | //span[contains(@class, "UFIReplySocialSentenceLinkText") and not(contains(@class, "wrvistited")) and contains(text(), "Replies")]'
+  feedItem:
+    '//div[starts-with(@id,"hyperfeed_story_id") and not(contains(@class, "wrvistited"))]',
+  userTimelineItem:
+    '//div[contains(@class, "userContentWrapper") and not(contains(@class, "wrvistited"))]',
+  repliesA:
+    '//a[@role="button" and contains(@class, "UFICommentLink") and not(contains(@class, "wrvistited")) and not(contains(text(), "Write a comment"))]',
+  subReplies:
+    '//span[contains(@class, "UFIReplySocialSentenceLinkText") and not(contains(@class, "wrvistited")) and contains(text(), "Reply")] | //span[contains(@class, "UFIReplySocialSentenceLinkText") and not(contains(@class, "wrvistited")) and contains(text(), "Replies")]'
 };
 
 // hyperfeed_story_id_5c4f8af9e0bd66660400368

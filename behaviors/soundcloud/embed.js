@@ -43,7 +43,7 @@ export default async function* soundCloudEmbedBehavior(cliAPI) {
 export const metaData = {
   name: 'soundCloudEmbedBehavior',
   match: {
-    regex: /^https:\/\/w\.soundcloud\.com\/player\/?visual=true&url=.+/
+    regex: /^https:\/\/w\.soundcloud\.com\/player\/.+/
   },
   description:
     'Plays all tracks or collection of that are in the soundcloud embed. Once a track has been played, the next track is not played until network idle has been reached'

@@ -20,7 +20,6 @@ function loggedIn(xpg) {
   );
 }
 
-
 async function* viewStories() {
   // get the original full URI of the browser
   const originalLoc = window.location.href;

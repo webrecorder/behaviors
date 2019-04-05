@@ -3,7 +3,6 @@ const { CheckState, ExportDefaultType } = require('./states');
 const Utils = require('./utils');
 
 class Checking {
-
   /**
    * @param {?string} name
    * @param {symbol} exportType
@@ -119,7 +118,10 @@ class Checking {
           TypeGuards.isCallExpression(right) &&
           Checking.typeIsAsyncIterator(right.getReturnType())
         ) {
-          return Checking.checkExportGood(left.getText(), ExportDefaultType.value);
+          return Checking.checkExportGood(
+            left.getText(),
+            ExportDefaultType.value
+          );
         }
         console.log('watt', right.getText());
       } else {
@@ -150,7 +152,9 @@ class Checking {
         return Checking.checkMetadataBad(
           Utils.joinStrings(
             'The behavior exported metadata contains a name property that is not a string',
-            `It is an ${typeof value.name} with value of ${Utils.inspect(value.name)}`
+            `It is an ${typeof value.name} with value of ${Utils.inspect(
+              value.name
+            )}`
           ),
           value
         );
@@ -224,7 +228,10 @@ class Checking {
       }
     }
     if (errorMsgs.length) {
-      return Checking.createErrorResultsObj(Utils.stringifyArray(errorMsgs), results);
+      return Checking.createErrorResultsObj(
+        Utils.stringifyArray(errorMsgs),
+        results
+      );
     }
     return Checking.createNoErrorResultsObj(results);
   }
@@ -258,12 +265,15 @@ class Checking {
         errorMsgs.push(
           `The property ${propName} of parent object ${name} is invalid ${
             convertResults.errorMsg
-            }`
+          }`
         );
       }
     }
     if (errorMsgs.length) {
-      return Checking.createErrorResultsObj(Utils.stringifyArray(errorMsgs), results);
+      return Checking.createErrorResultsObj(
+        Utils.stringifyArray(errorMsgs),
+        results
+      );
     }
     return Checking.createNoErrorResultsObj(results);
   }
@@ -349,7 +359,10 @@ class Checking {
     }
 
     if (errorMsgs.length) {
-      return Checking.createErrorResultsObj(Utils.stringifyArray(errorMsgs), metadata);
+      return Checking.createErrorResultsObj(
+        Utils.stringifyArray(errorMsgs),
+        metadata
+      );
     }
     return Checking.createNoErrorResultsObj(metadata);
   }
@@ -389,7 +402,9 @@ class Checking {
           `Its value is: ${Utils.inspect(sub[i])}`
         );
       } else {
-        subTestResults = Checking.testRegex(`${Utils.regexSource(base)}${Utils.regexSource(sub[i])}`);
+        subTestResults = Checking.testRegex(
+          `${Utils.regexSource(base)}${Utils.regexSource(sub[i])}`
+        );
         if (subTestResults.wasError) {
           subRegexsBadMsgs.push(
             `The ${Utils.numberOrdinalSuffix(
@@ -402,7 +417,9 @@ class Checking {
       }
     }
     if (subRegexsBadMsgs.length) {
-      return Checking.createErrorResultsObj(Utils.stringifyArray(subRegexsBadMsgs));
+      return Checking.createErrorResultsObj(
+        Utils.stringifyArray(subRegexsBadMsgs)
+      );
     }
     return Checking.createNoErrorResultsObj();
   }
@@ -530,7 +547,10 @@ class Checking {
     }
     const metaData = moduleSymbol.getExportByName('metaData');
     if (metaData) {
-      checkResults.metadata = Checking.validateAndExtractMetaData(metaData, typeChecker);
+      checkResults.metadata = Checking.validateAndExtractMetaData(
+        metaData,
+        typeChecker
+      );
     }
     const defaultExportSymbol = moduleSymbol.getExportByName('default');
     // if the symbol for the default export is null but the module symbol
@@ -546,11 +566,17 @@ class Checking {
       // get the aliased symbol and its value declaration for checking
       const aliasedSymbol = Checking.resolveAlias(defaultExportSymbol);
       const valueDeclaration = aliasedSymbol.getValueDeclaration();
-      result = Checking.checkDefaultExportValueDeclaration(typeChecker, valueDeclaration);
+      result = Checking.checkDefaultExportValueDeclaration(
+        typeChecker,
+        valueDeclaration
+      );
     } else {
       // get the aliased symbol and its value declaration for checking
       const valueDeclaration = defaultExportSymbol.getValueDeclaration();
-      result = Checking.checkDefaultExportValueDeclaration(typeChecker, valueDeclaration);
+      result = Checking.checkDefaultExportValueDeclaration(
+        typeChecker,
+        valueDeclaration
+      );
     }
     // now lets check to see if the behavior exports a postStep function
     if (moduleSymbol.getExportByName('postStep')) {

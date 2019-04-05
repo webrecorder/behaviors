@@ -17,4 +17,3 @@ exports.ExportDefaultType = {
   function: Symbol('function'),
   value: Symbol('value')
 };
-

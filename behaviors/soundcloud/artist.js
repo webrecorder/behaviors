@@ -1,4 +1,4 @@
-import * as lib from '../../lib'
+import * as lib from '../../lib';
 import { selectors, xpQueries } from './shared';
 
 const styleClasses = lib.addBehaviorStyle(
@@ -62,7 +62,8 @@ export const metaData = {
   match: {
     regex: /^(?:https:\/\/(?:www\.)?)?soundcloud\.com\/[^/]+(\/)?$/
   },
-  description: 'Plays all tracks or collection of tracks by the artist, Once a track has been played, the next track is not played until network idle has been reached'
+  description:
+    'Plays all tracks or collection of tracks by the artist, Once a track has been played, the next track is not played until network idle has been reached'
 };
 
 export const isBehavior = true;
