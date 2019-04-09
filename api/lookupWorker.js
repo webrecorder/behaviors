@@ -4,8 +4,12 @@ const path = require('path');
 const util = require('util');
 const msgTypes = require('./msgTypes');
 
-console.log('Lookup Worker starting with configuration');
-console.log(util.inspect(workerData, { depth: null, compact: false }));
+console.log(
+  `Lookup Worker starting with configuration\n${util.inspect(workerData, {
+    depth: null,
+    compact: false
+  })}\n`
+);
 
 /**
  * @type {MessagePort}

@@ -103,12 +103,12 @@ async function* doSlideShowInFrame(win, doc) {
  * @return {AsyncIterableIterator<*>}
  */
 export default function init(cliAPI) {
-  if (lib.canAcessIf(lib.qs(selectors.iframeLoader))) {
+  if (lib.canAccessIf(lib.qs(selectors.iframeLoader))) {
     // 'have iframe loader in top'
     return doSlideShowInFrame(window, document);
   }
   const maybeIF = lib.findTag(cliAPI.$x, 'iframe', isSlideShelfIF);
-  if (maybeIF && lib.canAcessIf(maybeIF)) {
+  if (maybeIF && lib.canAccessIf(maybeIF)) {
     // have slideself loader in top
     return doSlideShowInFrame(maybeIF.contentWindow, maybeIF.contentDocument);
   }
