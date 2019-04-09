@@ -14,7 +14,8 @@ export const selectors = {
   showMoreInThread: 'button.ThreadedConversation-showMoreThreadsButton',
   tweetPermalinkContainer: 'div.permalink-container',
   tweetPermalinkRepliesContainer: 'ol.stream-items',
-  threadedConvMoreReplies: 'a.ThreadedConversation-moreRepliesLink'
+  threadedConvMoreReplies: 'a.ThreadedConversation-moreRepliesLink',
+  tweetVideo: 'div.AdaptiveMedia-videoContainer > video',
 };
 
 /**

@@ -35,6 +35,7 @@ async function* viewStories() {
   let toBeClicked = lib.qs(selectors.nextStory);
   // we will continue to speed up autoplay untill the next story
   // button does not exist or we are done (window.location.href === originalLoc)
+  lib.collectOutlinksFromDoc();
   while (!lib.locationEquals(originalLoc) && toBeClicked != null) {
     wasClicked = await lib.clickWithDelay(toBeClicked);
     // if the next story part button was not clicked
@@ -79,6 +80,7 @@ async function* handlePost(post, xpg) {
     document,
     selectors.divDialog
   );
+  lib.collectOutlinksFrom(popupDialog);
   // get the next inner div.dialog because its next sibling is the close button
   // until instagram decides to change things
   const innerDivDialog = lib.qs(selectors.divDialog, popupDialog);
