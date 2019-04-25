@@ -43,7 +43,6 @@ export default async function* instagramPostBehavior(cliAPI) {
       );
       break;
   }
-  console.log(determinePostType(postMain, true));
   lib.autoFetchFromDoc();
   yield* viewCommentsAndReplies(cliAPI.$x, postMain);
 }
