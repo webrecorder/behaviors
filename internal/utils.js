@@ -23,8 +23,8 @@ class Utils {
   static isBehavior(sourceFile) {
     const moduleSymbol = sourceFile.getSymbol();
     if (moduleSymbol == null) return isBehaviorResults.notABehavior;
-    const metaDataSymbol = moduleSymbol.getExportByName('metaData');
-    const isBehaviorSymbol = moduleSymbol.getExportByName('isBehavior');
+    const metaDataSymbol = moduleSymbol.getExport('metaData');
+    const isBehaviorSymbol = moduleSymbol.getExport('isBehavior');
     if (metaDataSymbol != null && isBehaviorSymbol != null) {
       return isBehaviorResults.behavior;
     }

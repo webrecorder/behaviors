@@ -291,29 +291,31 @@ class Checking {
       TypeGuards.isRegularExpressionLiteral(initializer)
     ) {
       return Checking.createNoErrorResultsObj(initializer.getLiteralValue());
-    } else if (TypeGuards.isObjectLiteralExpression(initializer)) {
+    }
+    if (TypeGuards.isObjectLiteralExpression(initializer)) {
       return Checking.convertObjectLiteralExpression(initializer, {
         name,
         strict
       });
-    } else if (TypeGuards.isArrayLiteralExpression(initializer)) {
+    }
+    if (TypeGuards.isArrayLiteralExpression(initializer)) {
       return Checking.convertArrayLiteralExpression(initializer, {
         name,
         strict
       });
-    } else if (!strict) {
+    }
+    if (!strict) {
       if (
         TypeGuards.isNumericLiteral(initializer) ||
         TypeGuards.isBooleanLiteral(initializer)
       ) {
         return Checking.createNoErrorResultsObj(initializer.getLiteralValue());
-      } else {
-        return Checking.createErrorResultsObj(
-          `Found metadata property ${Utils.inspect(
-            expression.getStructure()
-          )}\nIt is not an String, Object, or Array of Strings.`
-        );
       }
+      return Checking.createErrorResultsObj(
+        `Found metadata property ${Utils.inspect(
+          expression.getStructure()
+        )}\nIt is not an String, Object, or Array of Strings.`
+      );
     }
     return Checking.createErrorResultsObj(
       `Found metadata property ${Utils.inspect(
@@ -545,14 +547,14 @@ class Checking {
       checkResults.state = CheckState.fileNotModule;
       return checkResults;
     }
-    const metaData = moduleSymbol.getExportByName('metaData');
+    const metaData = moduleSymbol.getExport('metaData');
     if (metaData) {
       checkResults.metadata = Checking.validateAndExtractMetaData(
         metaData,
         typeChecker
       );
     }
-    const defaultExportSymbol = moduleSymbol.getExportByName('default');
+    const defaultExportSymbol = moduleSymbol.getExport('default');
     // if the symbol for the default export is null but the module symbol
     // is not null then we can not do anything with it
     if (defaultExportSymbol == null) {
@@ -579,7 +581,7 @@ class Checking {
       );
     }
     // now lets check to see if the behavior exports a postStep function
-    if (moduleSymbol.getExportByName('postStep')) {
+    if (moduleSymbol.getExport('postStep')) {
       checkResults.hasPostStep = true;
     }
     checkResults.state = result.state;

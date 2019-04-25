@@ -5,11 +5,12 @@ let scrollCount = 0;
 
 export default async function* autoScrollBehavior() {
   await lib.domCompletePromise();
+  lib.collectOutlinksFromDoc();
   yield;
   let shouldWait;
   while (lib.canScrollMore() && scrollCount < maxScroll) {
     scrollCount += 1;
-    lib.collectOutlinksFrom(document);
+    lib.collectOutlinksFromDoc();
     lib.scrollWindowDownBy(300);
     shouldWait = await lib.findAllMediaElementsAndPlay();
     yield shouldWait;

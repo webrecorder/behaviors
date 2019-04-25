@@ -5,7 +5,7 @@ import {
   postTypes,
   multiImageClickOpts,
   determinePostType,
-  getMoreComments
+  viewCommentsAndReplies
 } from './shared';
 
 const behaviorStyle = lib.addBehaviorStyle(`
@@ -24,7 +24,7 @@ async function* viewStories() {
   // get the original full URI of the browser
   const originalLoc = window.location.href;
   // click the first story
-  const firstStoryClicked = lib.selectElemAndClick(selectors.openStories);
+  const firstStoryClicked = lib.selectElemAndClick(selectors.user.openStories);
   if (!firstStoryClicked) return; // no storied if
   // history manipulation will change the browser URI so
   // we must wait for that to happen
@@ -32,7 +32,7 @@ async function* viewStories() {
   let wasClicked;
   let videoButton;
   // stories are sorta on autoplay but we should speed things up
-  let toBeClicked = lib.qs(selectors.nextStory);
+  let toBeClicked = lib.qs(selectors.user.nextStory);
   // we will continue to speed up autoplay untill the next story
   // button does not exist or we are done (window.location.href === originalLoc)
   lib.collectOutlinksFromDoc();
@@ -41,7 +41,7 @@ async function* viewStories() {
     // if the next story part button was not clicked
     // or autoplay is finished we are done
     if (!wasClicked || lib.locationEquals(originalLoc)) break;
-    videoButton = lib.qs(selectors.storyVideo);
+    videoButton = lib.qs(selectors.user.storyVideo);
     if (videoButton) {
       // this part of a story is video content
       let maybeVideo = lib.qs('video');
@@ -59,7 +59,7 @@ async function* viewStories() {
       if (lib.locationEquals(originalLoc)) break;
     }
     yield;
-    toBeClicked = lib.qs(selectors.nextStory);
+    toBeClicked = lib.qs(selectors.user.nextStory);
   }
 }
 
@@ -72,18 +72,19 @@ async function* handlePost(post, xpg) {
   }
   if (!maybeA) {
     // we got nothing halp!!!
+    lib.collectOutlinksFrom(post);
     return;
   }
   await lib.clickWithDelay(maybeA);
   // wait for the post dialog to open and get a reference to that dom element
   const popupDialog = await lib.waitForAndSelectElement(
     document,
-    selectors.divDialog
+    selectors.user.divDialog
   );
   lib.collectOutlinksFrom(popupDialog);
   // get the next inner div.dialog because its next sibling is the close button
   // until instagram decides to change things
-  const innerDivDialog = lib.qs(selectors.divDialog, popupDialog);
+  const innerDivDialog = lib.qs(selectors.user.divDialog, popupDialog);
   if (debug) {
     lib.addClass(popupDialog, behaviorStyle.wrDebugVisitedOverlay);
   }
@@ -93,16 +94,16 @@ async function* handlePost(post, xpg) {
     ? maybeCloseButton
     : null;
   // get a reference to the posts contents (div.dialog > article)
-  const content = lib.qs(selectors.divDialogArticle, innerDivDialog);
+  const content = lib.qs(selectors.user.divDialogArticle, innerDivDialog);
   // the next image button exists in the popup post even if the post is not
   // multi-image, so lets get a reference to it
-  const displayDiv = lib.qs(selectors.multiImageDisplayDiv, content);
+  const displayDiv = lib.qs(selectors.user.multiImageDisplayDiv, content);
   switch (determinePostType(post)) {
     case postTypes.multiImage: {
       // display each image by clicking the right chevron (next image)
       await lib.selectFromAndClickUntilNullWithDelay(
         content,
-        selectors.rightChevron,
+        selectors.user.rightChevron,
         multiImageClickOpts
       );
       break;
@@ -113,21 +114,15 @@ async function* handlePost(post, xpg) {
       // just in case
       await lib.selectElemFromAndClickWithDelay(
         displayDiv,
-        selectors.playVideo
+        selectors.user.playVideo
       );
       break;
     // default: just loading comments
   }
-  yield;
   // The load more comments button, depending on the number of comments,
   // will contain two variations of text (see xpathQ for those two variations).
   // getMoreComments handles getting that button for the two variations
-  let moreCommentsButton = getMoreComments(xpg);
-  while (moreCommentsButton) {
-    await lib.clickWithDelay(moreCommentsButton, 1000);
-    moreCommentsButton = getMoreComments(xpg);
-    yield;
-  }
+  yield* viewCommentsAndReplies(xpg, content);
   if (closeButton != null) {
     await lib.clickWithDelay(closeButton);
   } else {
@@ -160,11 +155,13 @@ export default async function* instagramUserBehavior(cliAPI) {
     yield* viewStories();
   }
   const postRowContainer = lib.chainFistChildElemOf(
-    lib.qs(selectors.postTopMostContainer),
+    lib.qs(selectors.user.postTopMostContainer),
     2
   );
   if (postRowContainer == null) {
     // we got nothing at this point, HALP!!!
+    lib.collectOutlinksFromDoc();
+    lib.autoFetchFromDoc();
     return;
   }
   // for each post row view the posts it contains
@@ -178,7 +175,7 @@ export default async function* instagramUserBehavior(cliAPI) {
 export const metaData = {
   name: 'instagramUserBehavior',
   match: {
-    regex: /^https:\/\/(www\.)?instagram\.com\/[^/]+(\/)?$/
+    regex: /^https:\/\/(www\.)?instagram\.com\/[^/]+(?:\/(?:tagged(?:\/)?)?)?$/
   },
   description:
     "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved"
