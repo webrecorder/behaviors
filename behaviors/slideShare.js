@@ -56,8 +56,7 @@ function extracAndPreserveSlideImgs(doc) {
 async function* consumeSlides(win, doc, slideSelector) {
   extracAndPreserveSlideImgs(doc);
   const numSlides = getNumSlides(doc, slideSelector);
-  let i = 1;
-  for (; i < numSlides; ++i) {
+  for (var i = 0; i < numSlides; ++i) {
     lib.clickInContext(lib.id(selectors.nextSlide, doc), win);
     yield;
   }
@@ -69,7 +68,9 @@ async function* consumeSlides(win, doc, slideSelector) {
  * @return {AsyncIterableIterator<*>}
  */
 async function* handleSlideDeck() {
+  lib.collectOutlinksFromDoc();
   yield* consumeSlides(window, document, selectors.sectionSlide);
+  lib.collectOutlinksFromDoc();
 }
 
 /**
@@ -86,8 +87,7 @@ async function* doSlideShowInFrame(win, doc) {
     deckIF.contentDocument,
     selectors.divSlide
   );
-  let i = 1;
-  for (; i < numDecks; ++i) {
+  for (var i = 0; i < numDecks; ++i) {
     await lib.waitForEventTargetToFireEvent(deckIF, 'load');
     lib.addOutlink(decks[i].firstElementChild);
     lib.clickInContext(decks[i].firstElementChild, win);

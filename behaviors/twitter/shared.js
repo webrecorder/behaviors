@@ -15,7 +15,7 @@ export const selectors = {
   tweetPermalinkContainer: 'div.permalink-container',
   tweetPermalinkRepliesContainer: 'ol.stream-items',
   threadedConvMoreReplies: 'a.ThreadedConversation-moreRepliesLink',
-  tweetVideo: 'div.AdaptiveMedia-videoContainer > video',
+  tweetVideo: 'div.AdaptiveMedia-videoContainer > video'
 };
 
 /**

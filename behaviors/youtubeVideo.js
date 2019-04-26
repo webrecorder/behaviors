@@ -63,6 +63,7 @@ export default async function* playVideoAndLoadComments(cliAPI) {
   );
   if (moreInfo != null) {
     await lib.scrollIntoViewAndClick(moreInfo);
+    lib.collectOutlinksFromDoc();
     yield;
   }
   await lib.selectAndPlay('video');
@@ -75,6 +76,7 @@ export default async function* playVideoAndLoadComments(cliAPI) {
   if (relatedVideos) {
     lib.addOutLinks(lib.qsa(selectors.outlinks, relatedVideos));
   }
+  lib.autoFetchFromDoc();
   const commentsContainer = lib.qs('#comments > #sections > #contents');
   const mStream = new lib.MutationStream();
   yield* lib.traverseChildrenOfLoaderParentRemovingPrevious(

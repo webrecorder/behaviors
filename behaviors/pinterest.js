@@ -41,7 +41,10 @@ export default async function* iteratePins(cliAPI) {
     return select;
   };
   const getRenderedPins = () =>
-    std.reactInstancesFromElements(pinContainerR.stateNode.childNodes, keySelector);
+    std.reactInstancesFromElements(
+      pinContainerR.stateNode.childNodes,
+      keySelector
+    );
   let currentPostRows = getRenderedPins();
   // consume rows until all posts have been loaded
   do {
