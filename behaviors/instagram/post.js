@@ -22,13 +22,13 @@ const contentPrior = window.__$$BPRIOR$$__ || 1;
 
 export default async function* instagramPostBehavior(cliAPI) {
   lib.collectOutlinksFromDoc();
-  yield;
   const postMain = getPostMain();
   if (postMain == null) return;
+  let howmanyims;
   switch (determinePostType(postMain, true)) {
     case postTypes.multiImage: {
       // display each image by clicking the right chevron (next image)
-      await lib.selectFromAndClickUntilNullWithDelay(
+      howmanyims = await lib.selectFromAndClickUntilNullWithDelay(
         postMain,
         selectors.post.nextImage,
         multiImageClickOpts

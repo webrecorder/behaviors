@@ -11,6 +11,7 @@ const loadDelayTime = 3000;
 let removedAnnoying = lib.maybeRemoveElemById(annoyingElements.pageletGrowthId);
 
 const contentPrior = window.__$$BPRIOR$$__ || 1;
+let totalFeedItems = 0;
 
 
 async function clickLoadMoreReplies(tlItem) {
@@ -33,11 +34,13 @@ async function* clickRepliesToReplies(tlItem) {
   let i = 0;
   let length = rToR.length;
   let rtr;
+  let totalReplies = 0;
   while (i < length) {
     rtr = rToR[i];
     if (debug) lib.addClass(rtr, behaviorStyle.wrDebugVisited);
     await lib.scrollIntoViewAndClickWithDelay(rtr, delayTime);
-    yield;
+    totalReplies += 1;
+    yield { wait: false, msg: `viewed reply #${totalReplies} of feed item #${totalFeedItems}` };
     i += 1;
   }
   rToR = lib.qsa(buttonSelectors.repliesToRepliesA, tlItem);
@@ -48,7 +51,7 @@ async function* clickRepliesToReplies(tlItem) {
       rtr = rToR[i];
       if (debug) lib.addClass(rtr, behaviorStyle.wrDebugVisited);
       await lib.scrollIntoViewAndClickWithDelay(rtr, delayTime);
-      yield;
+      yield { wait: false, msg: `viewed reply #${totalReplies} of feed item #${totalFeedItems}` };
       i += 1;
     }
   }
@@ -80,11 +83,12 @@ export default async function* initFBUserFeedBehaviorIterator(cliAPI) {
     length = timelineItems.length;
     for (i = 0; i < length; i++) {
       tlItem = timelineItems[i];
+      totalFeedItems += 1;
       if (debug) tlItem.classList.add('wr-debug-visited');
       await lib.scrollIntoViewWithDelay(tlItem, delayTime);
       lib.markElemAsVisited(tlItem);
       lib.collectOutlinksFrom(tlItem);
-      yield;
+      yield { wait: false, msg: `viewed feed item ${totalFeedItems}` };
       if (contentPrior === 1) {
         replies = await clickLoadMoreReplies(tlItem);
         if (replies) {

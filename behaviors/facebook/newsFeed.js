@@ -29,9 +29,11 @@ export default async function* initFBNewsFeedBehaviorIterator(cliAPI) {
   let feedItem;
   let i;
   let length;
+  let totalFeedItems = 0;
   do {
     length = feedItems.length;
     for (i = 0; i < length; i++) {
+      totalFeedItems += 1;
       feedItem = feedItems[i];
       if (debug) {
         lib.addClass(feedItem, behaviorClasses.wrDebugVisited);
@@ -39,7 +41,7 @@ export default async function* initFBNewsFeedBehaviorIterator(cliAPI) {
       await lib.scrollToElemOffsetWithDelay(feedItem, scrollDelay);
       lib.markElemAsVisited(feedItem);
       lib.collectOutlinksFrom(feedItem);
-      yield;
+      yield { wait: false, msg: `viewed feed item ${totalFeedItems}` };
     }
     feedItems = getFeedItems(xpathQueries.feedItem);
     if (feedItems.length === 0) {
