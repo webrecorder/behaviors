@@ -1,5 +1,7 @@
 import * as lib from '../lib';
 
+const contentPrior = window.__$$BPRIOR$$__ || 1;
+
 const selectors = {
   iframeLoader: 'iframe.ssIframeLoader',
   nextSlide: 'btnNext',
@@ -87,6 +89,7 @@ async function* doSlideShowInFrame(win, doc) {
     deckIF.contentDocument,
     selectors.divSlide
   );
+  if (contentPrior !== 1) return;
   for (var i = 0; i < numDecks; ++i) {
     await lib.waitForEventTargetToFireEvent(deckIF, 'load');
     lib.addOutlink(decks[i].firstElementChild);
@@ -122,7 +125,11 @@ export const metaData = {
     regex: /^(?:https:\/\/(?:www\.)?)slideshare\.net\/[a-zA-Z]+[?].+/
   },
   description:
-    'Views each slide contained in the slide deck. If there are multiple slide decks each deck is viewed'
+    'Views each slide contained in the slide deck. If there are multiple slide decks each deck is viewed',
+  priorities: {
+    1: 'Full behavior',
+    2: 'Primary slide deck in a collection of decks',
+  }
 };
 
 export const isBehavior = true;

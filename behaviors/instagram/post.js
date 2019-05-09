@@ -18,6 +18,8 @@ function getPostMain() {
   return maybeArticle;
 }
 
+const contentPrior = window.__$$BPRIOR$$__ || 1;
+
 export default async function* instagramPostBehavior(cliAPI) {
   lib.collectOutlinksFromDoc();
   yield;
@@ -43,8 +45,9 @@ export default async function* instagramPostBehavior(cliAPI) {
       );
       break;
   }
-  lib.autoFetchFromDoc();
-  yield* viewCommentsAndReplies(cliAPI.$x, postMain);
+  if (contentPrior === 1) {
+    yield* viewCommentsAndReplies(cliAPI.$x, postMain);
+  }
 }
 
 export const metaData = {
@@ -53,7 +56,11 @@ export const metaData = {
     regex: /^https:\/\/(www\.)?instagram\.com\/p\/[^/]+(?:\/)?$/
   },
   description:
-    "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved"
+    "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved",
+  priorities: {
+    1: 'Full behavior',
+    2: 'No comments or replies',
+  }
 };
 
 export const isBehavior = true;

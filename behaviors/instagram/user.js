@@ -20,6 +20,8 @@ function loggedIn(xpg) {
   );
 }
 
+const contentPrior = window.__$$BPRIOR$$__ || 1;
+
 async function* viewStories() {
   // get the original full URI of the browser
   const originalLoc = window.location.href;
@@ -122,7 +124,9 @@ async function* handlePost(post, xpg) {
   // The load more comments button, depending on the number of comments,
   // will contain two variations of text (see xpathQ for those two variations).
   // getMoreComments handles getting that button for the two variations
-  yield* viewCommentsAndReplies(xpg, content);
+  if (contentPrior === 1 || contentPrior === 2) {
+    yield* viewCommentsAndReplies(xpg, content);
+  }
   if (closeButton != null) {
     await lib.clickWithDelay(closeButton);
   } else {
@@ -151,7 +155,7 @@ async function* handleRow(row, xpg) {
 
 export default async function* instagramUserBehavior(cliAPI) {
   // view all stories when logged in
-  if (loggedIn(cliAPI.$x)) {
+  if (loggedIn(cliAPI.$x) && (contentPrior === 1 || contentPrior === 3)) {
     yield* viewStories();
   }
   const postRowContainer = lib.chainFistChildElemOf(
@@ -178,7 +182,13 @@ export const metaData = {
     regex: /^https:\/\/(www\.)?instagram\.com\/[^/]+(?:\/(?:tagged(?:\/)?)?)?$/
   },
   description:
-    "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved"
+    "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved",
+  priorities: {
+    1: 'Full behavior',
+    2: 'No stories but comments',
+    3: 'Stories but no comments',
+    4: 'No stories and no comments',
+  }
 };
 
 export const isBehavior = true;

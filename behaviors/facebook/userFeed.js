@@ -10,6 +10,9 @@ const loadDelayTime = 3000;
 
 let removedAnnoying = lib.maybeRemoveElemById(annoyingElements.pageletGrowthId);
 
+const contentPrior = window.__$$BPRIOR$$__ || 1;
+
+
 async function clickLoadMoreReplies(tlItem) {
   const replies = lib.qs(buttonSelectors.moreReplies, tlItem);
   if (replies) {
@@ -82,9 +85,11 @@ export default async function* initFBUserFeedBehaviorIterator(cliAPI) {
       lib.markElemAsVisited(tlItem);
       lib.collectOutlinksFrom(tlItem);
       yield;
-      replies = await clickLoadMoreReplies(tlItem);
-      if (replies) {
-        yield* clickRepliesToReplies(tlItem);
+      if (contentPrior === 1) {
+        replies = await clickLoadMoreReplies(tlItem);
+        if (replies) {
+          yield* clickRepliesToReplies(tlItem);
+        }
       }
     }
     timelineItems = cliAPI.$x(xpathQueries.userTimelineItem);
@@ -107,7 +112,11 @@ export const metaData = {
     regex: /^https:\/\/(www\.)?facebook\.com\/[^/]+\/?$/
   },
   description:
-    'Views all items in the Facebook user/organization/artists/etc timeline'
+    'Views all items in the Facebook user/organization/artists/etc timeline',
+  priorities: {
+    1: 'Full behavior',
+    2: 'No replies',
+  }
 };
 
 export const isBehavior = true;

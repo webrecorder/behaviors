@@ -10,6 +10,9 @@ const behaviorStyle = lib.addBehaviorStyle(
   '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
 );
 
+const contentPrior = window.__$$BPRIOR$$__ || 1;
+
+
 /**
  * @desc Clicks (views) the currently visited tweet
  * @param {HTMLElement|Element} tweetContainer
@@ -171,10 +174,10 @@ async function* handleTweet(tweetStreamLI, originalBaseURI) {
   const tweetPermalinkOverlay = await openTweet(streamTweetDiv);
   // logger.log(tweetPermalinkOverlay);
   // logger.log('opened tweet');
-  if (hasReplies) {
+  if (hasReplies && contentPrior === 1) {
     // logger.log('visiting replies');
     yield* vistReplies(tweetPermalinkOverlay);
-  } else if (apartOfThread) {
+  } else if (apartOfThread && contentPrior === 1) {
     yield* vistThreadedTweet(tweetPermalinkOverlay);
   } else {
     lib.collectOutlinksFrom(tweetPermalinkOverlay);
@@ -183,6 +186,7 @@ async function* handleTweet(tweetStreamLI, originalBaseURI) {
   // logger.log('closing tweet overlay');
   await closeTweetOverlay(originalBaseURI);
 }
+
 /**
  * @return {AsyncIterableIterator<boolean>}
  */
@@ -218,7 +222,11 @@ export const metaData = {
     regex: /^(?:https:\/\/(?:www\.)?)?twitter\.com\/hashtag\/[^?]+.*/
   },
   description:
-    'For each tweet containing the searched hashtag views each tweet. If the tweet has a video it is played and a wait until network idle is done. If the tweet is a part of a thread or has replies views all related tweets'
+    'For each tweet containing the searched hashtag views each tweet. If the tweet has a video it is played and a wait until network idle is done. If the tweet is a part of a thread or has replies views all related tweets',
+  priorities: {
+    1: 'Full behavior',
+    2: 'No replies',
+  }
 };
 
 export const isBehavior = true;

@@ -5,6 +5,9 @@ lib.addBehaviorStyle(
   '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
 );
 
+const contentPrior = window.__$$BPRIOR$$__ || 1;
+
+
 class Tweet {
   /**
    *
@@ -209,8 +212,12 @@ export default async function* timelineIterator(cliApi) {
           yield false;
         }
       }
-      if (aTweet.hasRepliedOrInThread()) {
-        yield* aTweet.viewRepliesOrThread();
+      if (contentPrior === 1) {
+        if (aTweet.hasRepliedOrInThread()) {
+          yield* aTweet.viewRepliesOrThread();
+        } else {
+          yield* aTweet.viewRegularTweet();
+        }
       } else {
         yield* aTweet.viewRegularTweet();
       }
@@ -229,7 +236,11 @@ export const metaData = {
     regex: /^(?:https:\/\/(?:www\.)?)?twitter\.com\/[^/]+$/
   },
   description:
-    'For each tweet within the timeline views each tweet. If the tweet has a video it is played. If the tweet is a part of a thread or has replies views all related tweets'
+    'For each tweet within the timeline views each tweet. If the tweet has a video it is played. If the tweet is a part of a thread or has replies views all related tweets',
+  priorities: {
+    1: 'Full behavior',
+    2: 'No replies',
+  }
 };
 
 export const isBehavior = true;

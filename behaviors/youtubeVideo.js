@@ -1,5 +1,7 @@
 import * as lib from '../lib';
 
+const contentPrior = window.__$$BPRIOR$$__ || 1;
+
 const selectors = {
   videoInfoMoreId: 'more',
   loadMoreComments: 'div[slot="more-button"] > paper-button',
@@ -77,6 +79,7 @@ export default async function* playVideoAndLoadComments(cliAPI) {
     lib.addOutLinks(lib.qsa(selectors.outlinks, relatedVideos));
   }
   lib.autoFetchFromDoc();
+  if (contentPrior !== 1) return;
   const commentsContainer = lib.qs('#comments > #sections > #contents');
   const mStream = new lib.MutationStream();
   yield* lib.traverseChildrenOfLoaderParentRemovingPrevious(
@@ -91,7 +94,11 @@ export const metaData = {
   match: {
     regex: /^(?:https:\/\/(?:www\.)?)?youtube\.com\/watch[?]v=.+/
   },
-  description: 'Plays a YouTube video and loads all comments'
+  description: 'Plays a YouTube video and loads all comments',
+  priorities: {
+    1: 'Full behavior',
+    2: 'No comments',
+  }
 };
 
 // playVideoAndLoadComments().then(() => console.log('done'));
