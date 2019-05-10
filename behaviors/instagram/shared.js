@@ -129,6 +129,7 @@ export async function* loadReplies(xpg, cntx) {
     for (var i = 0; i < moreReplies.length; i++) {
       lib.scrollIntoView(moreReplies[i]);
       await lib.clickWithDelay(moreReplies[i], 500);
+      yield lib.stateWithMsgNoWait('Loaded post comment reply');
     }
   }
 }
@@ -138,9 +139,12 @@ export async function* viewCommentsAndReplies(xpg, cntx) {
   if (!more) {
     yield* loadReplies(xpg, cntx);
   }
+  let totalComments = 0;
   while (more) {
+    totalComments += 1;
     await lib.clickWithDelay(more, 1000);
     more = getMoreComments(xpg, cntx);
+    yield lib.stateWithMsgNoWait(`Loaded post comment #${totalComments}`);
     yield* loadReplies(xpg, cntx);
   }
 }

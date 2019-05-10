@@ -393,9 +393,8 @@ class Checking {
 
   static checkRegexBaseSubs({ base, sub }) {
     const subRegexsBadMsgs = [];
-    let i = sub.length;
     let subTestResults;
-    while (i--) {
+    for (var i = 0; i < sub.length; ++i) {
       if (!Utils.isStringOrRegex(sub[i])) {
         subRegexsBadMsgs.push(
           `The ${Utils.numberOrdinalSuffix(

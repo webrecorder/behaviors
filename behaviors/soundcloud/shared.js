@@ -4,7 +4,8 @@ export const selectors = {
   multiTrackItem: 'li.compactTrackList__item',
   playMultiTrackTrack: 'div.compactTrackListItem.clickToPlay',
   soundItem: 'div.soundItem',
-  singleTrackEmbedPlay: 'button[role="application"].playButton'
+  singleTrackEmbedPlay: 'button[role="application"].playButton',
+  trackList: 'ul.compactTrackList__list'
 };
 
 export const xpQueries = {

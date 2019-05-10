@@ -13,7 +13,6 @@ let removedAnnoying = lib.maybeRemoveElemById(annoyingElements.pageletGrowthId);
 const contentPrior = window.__$$BPRIOR$$__ || 1;
 let totalFeedItems = 0;
 
-
 async function clickLoadMoreReplies(tlItem) {
   const replies = lib.qs(buttonSelectors.moreReplies, tlItem);
   if (replies) {
@@ -40,7 +39,9 @@ async function* clickRepliesToReplies(tlItem) {
     if (debug) lib.addClass(rtr, behaviorStyle.wrDebugVisited);
     await lib.scrollIntoViewAndClickWithDelay(rtr, delayTime);
     totalReplies += 1;
-    yield { wait: false, msg: `viewed reply #${totalReplies} of feed item #${totalFeedItems}` };
+    yield lib.stateWithMsgNoWait(
+      `viewed reply #${totalReplies} of feed item #${totalFeedItems}`
+    );
     i += 1;
   }
   rToR = lib.qsa(buttonSelectors.repliesToRepliesA, tlItem);
@@ -51,7 +52,9 @@ async function* clickRepliesToReplies(tlItem) {
       rtr = rToR[i];
       if (debug) lib.addClass(rtr, behaviorStyle.wrDebugVisited);
       await lib.scrollIntoViewAndClickWithDelay(rtr, delayTime);
-      yield { wait: false, msg: `viewed reply #${totalReplies} of feed item #${totalFeedItems}` };
+      yield lib.stateWithMsgNoWait(
+        `viewed reply #${totalReplies} of feed item #${totalFeedItems}`
+      );
       i += 1;
     }
   }
@@ -88,7 +91,7 @@ export default async function* initFBUserFeedBehaviorIterator(cliAPI) {
       await lib.scrollIntoViewWithDelay(tlItem, delayTime);
       lib.markElemAsVisited(tlItem);
       lib.collectOutlinksFrom(tlItem);
-      yield { wait: false, msg: `viewed feed item ${totalFeedItems}` };
+      yield lib.stateWithMsgNoWait(`viewed feed item ${totalFeedItems}`);
       if (contentPrior === 1) {
         replies = await clickLoadMoreReplies(tlItem);
         if (replies) {
@@ -119,7 +122,7 @@ export const metaData = {
     'Views all items in the Facebook user/organization/artists/etc timeline',
   priorities: {
     1: 'Full behavior',
-    2: 'No replies',
+    2: 'No replies'
   }
 };
 

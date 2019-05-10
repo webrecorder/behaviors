@@ -11,9 +11,9 @@ export default async function* autoScrollBehavior() {
   while (lib.canScrollMore() && scrollCount < maxScroll) {
     scrollCount += 1;
     lib.collectOutlinksFromDoc();
-    lib.scrollWindowDownBy(300);
+    lib.scrollWindowDownBy(500);
     shouldWait = await lib.findAllMediaElementsAndPlay();
-    yield shouldWait;
+    yield lib.createState(shouldWait, 'Scrolled');
   }
 }
 

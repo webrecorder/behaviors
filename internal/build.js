@@ -197,14 +197,13 @@ class Build {
         defaultBehavior: {},
         behaviors: []
       };
-      let i = behaviors.length;
       ColorPrinter.blankLine();
       ColorPrinter.info(
         `Creating ${numBehaviors} runnable ${plur('behavior', numBehaviors)}`
       );
       ColorPrinter.blankLine();
       const createBuildStartTime = process.hrtime();
-      while (i--) {
+      for (let i = 0; i < behaviors.length; ++i) {
         await Build.createRunnableBehavior(behaviors[i], finalOpts);
         updateBehaviorMetadata(behaviors[i], behaviorMetadata);
         ColorPrinter.blankLine();
@@ -440,7 +439,6 @@ class Build {
       defaultBehavior: {},
       behaviors: []
     };
-    let i = behaviors.length;
     ColorPrinter.blankLine();
     ColorPrinter.info(
       `Creating the metadata file for ${numBehaviors} ${plur(
@@ -449,7 +447,7 @@ class Build {
       )}`
     );
     ColorPrinter.blankLine();
-    while (i--) {
+    for (var i = 0; i < behaviors.length; ++i) {
       updateBehaviorMetadata(behaviors[i], behaviorMetadata);
     }
     const buildMetadataStartTime = process.hrtime();

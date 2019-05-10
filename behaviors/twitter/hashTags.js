@@ -6,12 +6,13 @@ import {
   threadedTweetXpath
 } from './shared';
 
-const behaviorStyle = lib.addBehaviorStyle(
-  '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
-);
-
+let behaviorStyle;
+if (debug) {
+  behaviorStyle = lib.addBehaviorStyle(
+    '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
+  );
+}
 const contentPrior = window.__$$BPRIOR$$__ || 1;
-
 
 /**
  * @desc Clicks (views) the currently visited tweet
@@ -24,7 +25,7 @@ async function openTweet(tweetContainer) {
   const wasClicked = await lib.clickAndWaitFor(tweetContainer, () =>
     document.baseURI.endsWith(permalinkPath)
   );
-  if (wasClicked) {
+  if (wasClicked.clicked) {
     // the overlay was opened
     const fullTweetOverlay = lib.id(elemIds.permalinkOverlay);
     if (debug) {
@@ -37,7 +38,7 @@ async function openTweet(tweetContainer) {
 
 /**
  * @desc Closes the overlay representing viewing a tweet
- * @return {Promise<boolean>}
+ * @return {Promise<{predicate: boolean, maxExceeded: boolean, clicked: boolean}>}
  */
 async function closeTweetOverlay(originalBaseURI) {
   const overlay = lib.qs(selectors.closeFullTweetSelector);
@@ -56,6 +57,8 @@ async function* vistReplies(fullTweetOverlay) {
   let snapShot = lib.xpathSnapShot(overlayTweetXpath, fullTweetOverlay);
   let aTweet;
   let i, len;
+  let totalReplies = 0;
+  yield lib.stateWithMsgNoWait('Viewing tweet with replies');
   // logger.log(`we have ${snapShot.snapshotLength} replies`);
   if (snapShot.snapshotLength === 0) return;
   do {
@@ -70,7 +73,8 @@ async function* vistReplies(fullTweetOverlay) {
         lib.addClass(aTweet, behaviorStyle.wrDebugVisitedThreadReply);
       }
       await lib.scrollIntoViewWithDelay(aTweet);
-      yield false;
+      yield lib.stateWithMsgNoWait(`Viewing tweet reply #${totalReplies}`);
+      totalReplies += 1;
       i += 1;
     }
     snapShot = lib.xpathSnapShot(overlayTweetXpath, fullTweetOverlay);
@@ -91,6 +95,8 @@ async function* vistThreadedTweet(fullTweetOverlay) {
   let snapShot = lib.xpathSnapShot(threadedTweetXpath, fullTweetOverlay);
   let aTweet;
   let i, len;
+  let totalThreadedReplies = 0;
+  yield lib.stateWithMsgNoWait('Viewing threaded tweet');
   // logger.log(`we have ${snapShot.snapshotLength} replies`);
   if (snapShot.snapshotLength === 0) return;
   do {
@@ -105,7 +111,10 @@ async function* vistThreadedTweet(fullTweetOverlay) {
         lib.addClass(aTweet, behaviorStyle.wrDebugVisitedThreadReply);
       }
       await lib.scrollIntoViewWithDelay(aTweet);
-      yield false;
+      yield lib.stateWithMsgNoWait(
+        `Viewed threaded tweets reply #${totalThreadedReplies}`
+      );
+      totalThreadedReplies += 1;
       i += 1;
     }
     snapShot = lib.xpathSnapShot(threadedTweetXpath, fullTweetOverlay);
@@ -126,7 +135,7 @@ async function* vistThreadedTweet(fullTweetOverlay) {
 /**
  * @param {HTMLLIElement | Element} tweetStreamLI
  * @param {string} originalBaseURI
- * @return {AsyncIterator<boolean>}
+ * @return {AsyncIterator<*>}
  */
 async function* handleTweet(tweetStreamLI, originalBaseURI) {
   const notTweet = lib.hasClass(tweetStreamLI, selectors.userProfileInStream);
@@ -136,7 +145,7 @@ async function* handleTweet(tweetStreamLI, originalBaseURI) {
     }
     lib.collectOutlinksFrom(tweetStreamLI);
     await lib.scrollIntoViewWithDelay(tweetStreamLI);
-    yield false;
+    yield lib.stateWithMsgNoWait('Encountered a non-tweet');
     return;
   }
 
@@ -152,12 +161,10 @@ async function* handleTweet(tweetStreamLI, originalBaseURI) {
   if (videoContainer != null) {
     const video = videoContainer.querySelector('video');
     if (video) {
-      try {
-        await video.play();
-        yield true;
-      } catch (e) {
-        yield false;
-      }
+      const wasPlayed = await lib.noExceptPlayMediaElement(video);
+      yield lib.stateWithMsgWait(
+        `${wasPlayed ? 'Played' : 'Could not play'} a tweets video`
+      );
     }
   }
   const footer = lib.qs(selectors.tweetFooterSelector, tweetContent);
@@ -181,7 +188,7 @@ async function* handleTweet(tweetStreamLI, originalBaseURI) {
     yield* vistThreadedTweet(tweetPermalinkOverlay);
   } else {
     lib.collectOutlinksFrom(tweetPermalinkOverlay);
-    yield false;
+    yield lib.stateWithMsgNoWait('View regular tweet');
   }
   // logger.log('closing tweet overlay');
   await closeTweetOverlay(originalBaseURI);
@@ -225,7 +232,7 @@ export const metaData = {
     'For each tweet containing the searched hashtag views each tweet. If the tweet has a video it is played and a wait until network idle is done. If the tweet is a part of a thread or has replies views all related tweets',
   priorities: {
     1: 'Full behavior',
-    2: 'No replies',
+    2: 'No replies'
   }
 };
 

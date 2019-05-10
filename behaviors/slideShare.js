@@ -2,6 +2,8 @@ import * as lib from '../lib';
 
 const contentPrior = window.__$$BPRIOR$$__ || 1;
 
+let totalSlideDecks = 0;
+
 const selectors = {
   iframeLoader: 'iframe.ssIframeLoader',
   nextSlide: 'btnNext',
@@ -56,14 +58,20 @@ function extracAndPreserveSlideImgs(doc) {
  * @return {AsyncIterableIterator<*>}
  */
 async function* consumeSlides(win, doc, slideSelector) {
+  totalSlideDecks += 1;
+  yield lib.stateWithMsgNoWait(`Viewing slide deck #${totalSlideDecks}`);
   extracAndPreserveSlideImgs(doc);
   const numSlides = getNumSlides(doc, slideSelector);
   for (var i = 0; i < numSlides; ++i) {
     lib.clickInContext(lib.id(selectors.nextSlide, doc), win);
-    yield;
+    yield lib.stateWithMsgNoWait(
+      `Viewed slide #${i + 1} of deck #${totalSlideDecks}`
+    );
   }
   await lib.clickInContextWithDelay(lib.id(selectors.nextSlide, doc), win);
-  yield;
+  yield lib.stateWithMsgNoWait(
+    `Viewed final slide #${numSlides} of deck #${totalSlideDecks}`
+  );
 }
 
 /**
@@ -128,7 +136,7 @@ export const metaData = {
     'Views each slide contained in the slide deck. If there are multiple slide decks each deck is viewed',
   priorities: {
     1: 'Full behavior',
-    2: 'Primary slide deck in a collection of decks',
+    2: 'Primary slide deck in a collection of decks'
   }
 };
 

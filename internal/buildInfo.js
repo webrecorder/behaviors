@@ -62,9 +62,8 @@ function createBehaviorConfigs(configCustomizer) {
 async function makeInputOutputConfigs({ buildDirPath, distPath }) {
   const inOut = [];
   const buildDirFiles = await fs.readdir(buildDirPath);
-  let i = buildDirFiles.length;
-  let buildDirFile, inConf, outConf;
-  while (i--) {
+  let buildDirFile, inConf;
+  for (var i = 0; i < buildDirFiles.length; ++i) {
     buildDirFile = buildDirFiles[i];
     inConf = {
       input: path.join(buildDirPath, buildDirFile),

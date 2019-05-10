@@ -1,17 +1,20 @@
 import * as lib from '../../lib';
 import {
-  selectors,
-  xpathQ,
-  postTypes,
-  multiImageClickOpts,
   determinePostType,
-  viewCommentsAndReplies
+  multiImageClickOpts,
+  postTypes,
+  selectors,
+  viewCommentsAndReplies,
+  xpathQ
 } from './shared';
 
-const behaviorStyle = lib.addBehaviorStyle(`
+let behaviorStyle;
+if (debug) {
+  behaviorStyle = lib.addBehaviorStyle(`
   .wr-debug-visited {border: 6px solid #3232F1;}
   .wr-debug-visited-overlay {border: 6px solid pink;}
 `);
+}
 
 function loggedIn(xpg) {
   return (
@@ -38,11 +41,13 @@ async function* viewStories() {
   // we will continue to speed up autoplay untill the next story
   // button does not exist or we are done (window.location.href === originalLoc)
   lib.collectOutlinksFromDoc();
+  let totalStories = 0;
   while (!lib.locationEquals(originalLoc) && toBeClicked != null) {
     wasClicked = await lib.clickWithDelay(toBeClicked);
     // if the next story part button was not clicked
     // or autoplay is finished we are done
     if (!wasClicked || lib.locationEquals(originalLoc)) break;
+    totalStories += 1;
     videoButton = lib.qs(selectors.user.storyVideo);
     if (videoButton) {
       // this part of a story is video content
@@ -57,10 +62,12 @@ async function* viewStories() {
       if (maybeVideo && maybeVideo.paused) {
         await lib.noExceptPlayMediaElement(maybeVideo);
       }
+      yield lib.stateWithMsgNoWait(`Viewed video of story #${totalStories}`);
       // safety check due to autoplay
       if (lib.locationEquals(originalLoc)) break;
+    } else {
+      yield lib.stateWithMsgNoWait(`Viewed story #${totalStories}`);
     }
-    yield;
     toBeClicked = lib.qs(selectors.user.nextStory);
   }
 }
@@ -100,14 +107,17 @@ async function* handlePost(post, xpg) {
   // the next image button exists in the popup post even if the post is not
   // multi-image, so lets get a reference to it
   const displayDiv = lib.qs(selectors.user.multiImageDisplayDiv, content);
+  const baseMsg = 'Viewed post';
+  let postTypeMsg;
   switch (determinePostType(post)) {
     case postTypes.multiImage: {
       // display each image by clicking the right chevron (next image)
-      await lib.selectFromAndClickUntilNullWithDelay(
+      const numImages = await lib.selectFromAndClickUntilNullWithDelay(
         content,
         selectors.user.rightChevron,
         multiImageClickOpts
       );
+      postTypeMsg = `with ${numImages} images`;
       break;
     }
     case postTypes.video:
@@ -118,12 +128,14 @@ async function* handlePost(post, xpg) {
         displayDiv,
         selectors.user.playVideo
       );
+      postTypeMsg = 'with an video';
       break;
     // default: just loading comments
   }
   // The load more comments button, depending on the number of comments,
   // will contain two variations of text (see xpathQ for those two variations).
   // getMoreComments handles getting that button for the two variations
+  yield lib.stateWithMsgNoWait(`${baseMsg}${postTypeMsg ? postTypeMsg : ''}`);
   if (contentPrior === 1 || contentPrior === 2) {
     yield* viewCommentsAndReplies(xpg, content);
   }
@@ -166,6 +178,7 @@ export default async function* instagramUserBehavior(cliAPI) {
     // we got nothing at this point, HALP!!!
     lib.collectOutlinksFromDoc();
     lib.autoFetchFromDoc();
+    yield stateWithMsgNoWait('There was no post');
     return;
   }
   // for each post row view the posts it contains
@@ -187,7 +200,7 @@ export const metaData = {
     1: 'Full behavior',
     2: 'No stories but comments',
     3: 'Stories but no comments',
-    4: 'No stories and no comments',
+    4: 'No stories and no comments'
   }
 };
 

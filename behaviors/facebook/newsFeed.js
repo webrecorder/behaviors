@@ -1,10 +1,12 @@
 import * as lib from '../../lib';
 import { annoyingElements, xpathQueries } from './shared';
 
-const behaviorClasses = lib.addBehaviorStyle(
-  '.wr-debug-visited {border: 6px solid #3232F1;}'
-);
-
+let behaviorClasses;
+if (debug) {
+  behaviorClasses = lib.addBehaviorStyle(
+    '.wr-debug-visited {border: 6px solid #3232F1;}'
+  );
+}
 const scrollDelay = 1500;
 
 /**
@@ -41,7 +43,7 @@ export default async function* initFBNewsFeedBehaviorIterator(cliAPI) {
       await lib.scrollToElemOffsetWithDelay(feedItem, scrollDelay);
       lib.markElemAsVisited(feedItem);
       lib.collectOutlinksFrom(feedItem);
-      yield { wait: false, msg: `viewed feed item ${totalFeedItems}` };
+      yield lib.stateWithMsgNoWait(`viewed feed item ${totalFeedItems}`);
     }
     feedItems = getFeedItems(xpathQueries.feedItem);
     if (feedItems.length === 0) {
