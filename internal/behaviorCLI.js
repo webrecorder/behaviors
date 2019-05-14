@@ -8,9 +8,12 @@ const Build = require('./build');
  */
 async function behaviorCLI(program) {
   if (
-    [program.validate, program.build, program.metadata, program.watch].every(
-      value => !value
-    )
+    [
+      program.validate,
+      program.build,
+      program.metadata,
+      program.watch,
+    ].every(value => !value)
   ) {
     program.outputHelp();
     return Promise.resolve();

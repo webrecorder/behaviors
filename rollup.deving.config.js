@@ -5,7 +5,7 @@ import cleanup from 'rollup-plugin-cleanup';
 const { wrappers } = require('./internal/buildInfo');
 const { buildDir, distDir } = require('./internal/paths');
 
-const behavior = 'instagramUserBehavior.js';
+const behavior = 'soundcloudArtist.newBehavior.js';
 const behaviorPath = path.join(buildDir, behavior);
 
 console.log(buildDir);
@@ -19,7 +19,7 @@ export default {
     format: 'es',
     exports: 'none'
   },
-  watch: { chokidar: true },
+  watch: { chokidar: {usePolling: true, }, clearScreen:  true },
   plugins: [
     resolve(),
     cleanup(),

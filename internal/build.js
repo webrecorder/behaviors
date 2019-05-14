@@ -161,12 +161,62 @@ function updateBehaviorMetadata(behavior, behaviorMetadata) {
   }
 }
 
+async function createRunnableBehaviorInBuildDir(behavior, opts) {
+  let runnablePath;
+  if (behavior.checkStateGood) {
+    let code;
+    if (behavior.hasPostStep) {
+      code = initRunnableBehavior({
+        dImport: behavior.importName,
+        libP: opts.libDir,
+        behaviorP: behavior.importPathRelativeToBuildDir,
+        postStep: 'postStep'
+      });
+    } else {
+      code = initRunnableBehavior({
+        dImport: behavior.importName,
+        libP: opts.libDir,
+        behaviorP: behavior.importPathRelativeToBuildDir
+      });
+    }
+    runnablePath = behavior.filePathInBuildDir;
+    await fs.writeFile(runnablePath, code, 'utf8');
+  } else {
+    runnablePath = behavior.filePathInBuildDir;
+    await fs.copy(behavior.path, behavior.filePathInBuildDir, {
+      overwrite: true
+    });
+  }
+  return runnablePath;
+}
+
 class Build {
+  static async createRunnerConfig(opts) {
+    const project = new Project({ tsConfigFilePath: opts.tsConfigFilePath });
+    const resolvedWhat = await buildingWhat(opts, 'Creation of runner config');
+    await fs.ensureDir(opts.buildDir);
+    await fs.ensureDir(opts.distDir);
+    const finalOpts = Object.assign(
+      {
+        project: project,
+        file: resolvedWhat.path,
+      },
+      opts
+    );
+    const behavior = Collect.behaviorFromFile(finalOpts);
+    behavior.init();
+    const runnablePath = await createRunnableBehaviorInBuildDir(
+      behavior,
+      finalOpts
+    );
+    const runnableDistPath = Path.join(opts.distDir, behavior.buildFileName);
+    return { runnablePath, runnableDistPath };
+  }
   /**
    * Creates runnable behavior(s) for either a directory containing behaviors
    * or a single behavior
    * @param {Config} opts - The behavior config
-   * @return {Promise<void>}
+   * @return {Promise<Array<Behavior> | Behavior | null>}
    */
   static async createRunnableBehaviors(opts) {
     const totalTime = process.hrtime();
@@ -229,7 +279,7 @@ class Build {
         )} and can be found at ${metadataFilePath}`
       );
       ColorPrinter.info(`Total time: ${Utils.timeDiff(totalTime)}`);
-      return;
+      return behaviors;
     }
     ColorPrinter.info(
       `Creating runnable behaviors for the behavior located at ${
@@ -240,14 +290,16 @@ class Build {
     const finalOpts = Object.assign(
       {
         project: project,
-        file: resolvedWhat.path
+        file: resolvedWhat.path,
+        dir: opts.behaviorDir
       },
       opts
     );
     const behavior = Collect.behaviorFromFile(finalOpts);
-    if (!behavior) return;
+    if (!behavior) return null;
     await Build.createRunnableBehavior(behavior, finalOpts);
     ColorPrinter.info(`Total time: ${Utils.timeDiff(totalTime)}`);
+    return behavior;
   }
 
   /**
@@ -261,31 +313,7 @@ class Build {
     behavior.init();
     const buildFileName = behavior.buildFileName;
     ColorPrinter.info(`Creating runnable behavior for ${buildFileName}`);
-    let runnablePath;
-    if (behavior.checkStateGood) {
-      let code;
-      if (behavior.hasPostStep) {
-        code = initRunnableBehavior({
-          dImport: behavior.importName,
-          libP: opts.libDir,
-          behaviorP: behavior.importPathRelativeToBuildDir,
-          postStep: 'postStep'
-        });
-      } else {
-        code = initRunnableBehavior({
-          dImport: behavior.importName,
-          libP: opts.libDir,
-          behaviorP: behavior.importPathRelativeToBuildDir
-        });
-      }
-      runnablePath = behavior.filePathInBuildDir;
-      await fs.writeFile(runnablePath, code, 'utf8');
-    } else {
-      runnablePath = behavior.filePathInBuildDir;
-      await fs.copy(behavior.path, behavior.filePathInBuildDir, {
-        overwrite: true
-      });
-    }
+    const runnablePath = await createRunnableBehaviorInBuildDir(behavior, opts);
     ColorPrinter.info(
       `Runnable behavior's build file created in ${Utils.timeDiff(
         startTime
@@ -318,6 +346,7 @@ class Build {
         buildStartTime
       )}: ${runnablePath} -> ${runnableDistPath}`
     );
+    return { buildFileName, runnableDistPath };
   }
 
   /**

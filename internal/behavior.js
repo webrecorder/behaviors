@@ -177,13 +177,10 @@ class Behavior {
       return this._buildFileName;
     }
     let fileName;
-    const rootBehaviorDirPath = this._opts.dir;
+    const rootBehaviorDirPath = this._opts.behaviorDir;
     const containingDirPath = this._file.getDirectoryPath();
     if (rootBehaviorDirPath === containingDirPath) {
       fileName = this.fileName;
-      this._buildFileName = fileName.toLowerCase().endsWith('behavior.js')
-        ? fileName
-        : `${Path.basename(fileName, '.js')}Behavior.js`;
     } else {
       fileName = this._file
         .getFilePath()
@@ -195,10 +192,10 @@ class Behavior {
         .split(Path.sep)
         .map(Utils.upperFirst)
         .join('');
-      this._buildFileName = fileName.toLowerCase().endsWith('behavior.js')
-        ? fileName
-        : `${Path.basename(fileName, '.js')}Behavior.js`;
     }
+    this._buildFileName = fileName.toLowerCase().endsWith('behavior.js')
+      ? fileName
+      : `${Path.basename(fileName, '.js')}Behavior.js`;
     return this._buildFileName;
   }
 

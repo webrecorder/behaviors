@@ -84,7 +84,7 @@ class Collect {
 
     const typeChecker = project.getTypeChecker();
     const sourceFile = project.getSourceFile(opts.file);
-    const isBehaviorCheckResults = isBehavior(sourceFile);
+    const isBehaviorCheckResults = Utils.isBehavior(sourceFile);
 
     let behavior;
     if (isBehaviorCheckResults === isBehaviorResults.behavior) {

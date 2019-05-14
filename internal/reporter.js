@@ -182,7 +182,4 @@ class Reporter {
   }
 }
 
-/**
- * @type {Reporter}
- */
 module.exports = Reporter;
