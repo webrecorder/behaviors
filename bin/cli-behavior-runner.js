@@ -13,9 +13,10 @@ program
     defaultBehaviorConfigPath
   )
   .option(
-    '-p, --debugging-port <port>',
+    '-d, --debugging-port <port>',
     'The port the remote debugging port is listening on'
   )
+  .option('-p, --page <page>')
   .parse(process.argv);
 
 behaviorRunnerCLI(program).catch(error => {

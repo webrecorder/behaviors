@@ -2,54 +2,13 @@ const cp = require('child_process');
 const path = require('path');
 const fs = require('fs-extra');
 const EventEmitter = require('eventemitter3');
-const { CRIExtra, Browser } = require('chrome-remote-interface-extra');
+const { CRIExtra, Browser, Events } = require('chrome-remote-interface-extra');
 const Collector = require('./collect');
 const ColorPrinter = require('./colorPrinter');
 const { makeInputOutputConfig } = require('./buildInfo');
 const getConfigIfExistsOrDefault = require('./behaviorConfig');
 const Build = require('./build');
 const { Project } = require('ts-morph');
-
-/**
- * @return {Promise<Browser>}
- */
-async function connectToBrowser() {
-  const { webSocketDebuggerUrl } = await CRIExtra.Version();
-  return Browser.connect(webSocketDebuggerUrl);
-}
-
-async function runBehavior(config) {
-  const browser = await connectToBrowser();
-}
-
-class BehaviorRunner {
-  static async start(configPath) {
-    const runner = new BehaviorRunner(configPath);
-  }
-  constructor(config) {
-    this.config = config;
-    /**
-     * @type {Behavior}
-     */
-    this._rollupProcess = null;
-  }
-
-  async init() {
-    console.log(this.config);
-    const { inConf, outConf } = makeInputOutputConfig(
-      this.config.behaviorBuildPath,
-      this.config.behaviorDistPath
-    );
-    const rollupBin = path.join(
-      __dirname,
-      '..',
-      'node_modules',
-      '.bin',
-      'rollup'
-    );
-    // this._rollupProcess = cp.fork(rollupBin);
-  }
-}
 
 function createRollupConfig(opts) {
   return `import resolve from '${opts.rollupResolve}';
@@ -74,6 +33,31 @@ export default {
 };
 
 `;
+}
+
+async function* autorun({ browser, behaviorP, pageURL }) {
+  const page = await browser.newPage();
+  const behavior = await fs.readFile(behaviorP, 'utf8');
+  await page.goto(pageURL);
+
+  await page.evaluateWithCliAPI(behavior);
+
+  page.on(Events.Page.Error, error => {
+    console.error('Page error', error);
+  });
+
+  page.on(Events.Page.Console, msg => {
+    console.log('Console msg: ', msg.text());
+  });
+
+  const runnerHandle = await page.evaluateHandle(() => $WBBehaviorRunner$);
+  let result;
+  while (1) {
+    result = await runnerHandle.callFnEval('step');
+    if (result.done) break;
+  }
+  await runnerHandle.dispose();
+  await page.close({ runBeforeUnload: true });
 }
 
 module.exports = async function runnerCLI(program) {
@@ -105,32 +89,46 @@ module.exports = async function runnerCLI(program) {
     })
   );
 
-  const rollupBin = path.join(
-    __dirname,
-    '..',
-    'node_modules',
-    '.bin',
-    'rollup'
-  );
+  const { webSocketDebuggerUrl } = await CRIExtra.Version();
+  const browser = await Browser.connect(webSocketDebuggerUrl);
 
-  const rollupProcess = cp.spawn(
-    'node',
-    [rollupBin, '--watch', '-c', rollupConfigPath],
-    {
-      cwd: process.cwd(),
-      env: process.env,
-      stdio: ['ignore', 'pipe', 'pipe']
-    }
-  );
+  for await (const msg of autorun({
+    browser,
+    behaviorP: runnableDistPath,
+    pageURL: program.page
+  })) {
+    console.log(`done = ${result.done}, wait = ${result.wait}`);
+    console.log(`message = ${result.msg}`);
+    console.log();
+  }
+  await browser.close();
 
-
-  const createdBuffer = Buffer.from('1b5b33326d63726561746564201b5b316d646973742f736f75', 'hex');
-
-  rollupProcess.stderr.on('data', data => {
-    if (data.indexOf(createdBuffer) === 0) {
-      console.log('created' , data.toString());
-    } else {
-      console.log('other', data.toString());
-    }
-  });
+  // const rollupBin = path.join(
+  //   __dirname,
+  //   '..',
+  //   'node_modules',
+  //   '.bin',
+  //   'rollup'
+  // );
+  //
+  // const rollupProcess = cp.spawn(
+  //   'node',
+  //   [rollupBin, '--watch', '-c', rollupConfigPath],
+  //   {
+  //     cwd: process.cwd(),
+  //     env: process.env,
+  //     stdio: ['ignore', 'pipe', 'pipe']
+  //   }
+  // );
+  //
+  //
+  // const createdBuffer = Buffer.from('1b5b33326d63726561746564201b5b316d646973742f736f75', 'hex');
+  //
+  // rollupProcess.stderr.on('data', data => {
+  //   if (data.indexOf(createdBuffer) === 0) {
+  //     console.log('created' , data.toString());
+  //   } else {
+  //     console.log('other', data.toString());
+  //   }
+  // });
 };
