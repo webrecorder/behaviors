@@ -16,6 +16,7 @@ program
     '-d, --debugging-port <port>',
     'The port the remote debugging port is listening on'
   )
+  .option('-l, --launch-chrome [executable]','')
   .option('-p, --page <page>')
   .parse(process.argv);
 

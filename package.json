@@ -25,6 +25,7 @@
     "find-my-way": "^2.0.1",
     "fs-extra": "^8.0.1",
     "js-yaml": "^3.13.1",
+    "launch-chrome": "https://github.com/N0taN3rd/launch-chrome.git",
     "plur": "^3.1.1",
     "prettier": "^1.17.1",
     "pretty-time": "^1.1.0",
