@@ -6,7 +6,7 @@ const {
   behaviorDir,
   buildDir,
   tsConfigFilePath,
-  libDir
+  libDir,
 } = require('./paths');
 
 const isYamlRe = /\.ya?ml$/i;
@@ -104,7 +104,7 @@ module.exports = async function getConfigIfExistsOrDefault({ config, build }) {
     buildDir,
     distDir,
     tsConfigFilePath,
-    metadata: process.cwd()
+    metadata: process.cwd(),
   };
 };
 

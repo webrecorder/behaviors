@@ -1,10 +1,12 @@
 import * as lib from '../../lib';
 import { annoyingElements, xpathQueries } from './shared';
 
-const behaviorClasses = lib.addBehaviorStyle(
-  '.wr-debug-visited {border: 6px solid #3232F1;}'
-);
-
+let behaviorClasses;
+if (debug) {
+  behaviorClasses = lib.addBehaviorStyle(
+    '.wr-debug-visited {border: 6px solid #3232F1;}'
+  );
+}
 const scrollDelay = 1500;
 
 /**
@@ -29,9 +31,11 @@ export default async function* initFBNewsFeedBehaviorIterator(cliAPI) {
   let feedItem;
   let i;
   let length;
+  let totalFeedItems = 0;
   do {
     length = feedItems.length;
     for (i = 0; i < length; i++) {
+      totalFeedItems += 1;
       feedItem = feedItems[i];
       if (debug) {
         lib.addClass(feedItem, behaviorClasses.wrDebugVisited);
@@ -39,7 +43,7 @@ export default async function* initFBNewsFeedBehaviorIterator(cliAPI) {
       await lib.scrollToElemOffsetWithDelay(feedItem, scrollDelay);
       lib.markElemAsVisited(feedItem);
       lib.collectOutlinksFrom(feedItem);
-      yield;
+      yield lib.stateWithMsgNoWait(`Viewed feed item ${totalFeedItems}`);
     }
     feedItems = getFeedItems(xpathQueries.feedItem);
     if (feedItems.length === 0) {
@@ -60,9 +64,9 @@ export const postStep = lib.buildCustomPostStepFn(() => {
 export const metaData = {
   name: 'facebookNewsFeed',
   match: {
-    regex: /^https:\/\/(www\.)?facebook\.com(\/)?([?]sk=nf)?$/
+    regex: /^https:\/\/(www\.)?facebook\.com(\/)?([?]sk=nf)?$/,
   },
-  description: 'Views all items in the Facebook news feed'
+  description: 'Views all items in the Facebook news feed',
 };
 
 export const isBehavior = true;

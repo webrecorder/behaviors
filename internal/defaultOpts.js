@@ -1,4 +1,8 @@
-exports.prettierOpts = { singleQuote: true, parser: 'babel' };
+exports.prettierOpts = {
+  singleQuote: true,
+  trailingComma: 'es5',
+  parser: 'babel',
+};
 
 exports.BParseOptions = {
   sourceType: 'module',
@@ -6,6 +10,6 @@ exports.BParseOptions = {
     'asyncGenerators',
     'exportDefaultFrom',
     'exportNamespaceFrom',
-    'objectRestSpread'
-  ]
+    'objectRestSpread',
+  ],
 };

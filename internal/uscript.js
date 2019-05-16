@@ -23,7 +23,7 @@ function extractMetablock(userscriptText) {
     return {
       meta: meta,
       metablock: metablock,
-      content: code
+      content: code,
     };
   } catch (e) {
     if (console) console.error(e);

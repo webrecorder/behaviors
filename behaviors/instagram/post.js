@@ -4,7 +4,7 @@ import {
   multiImageClickOpts,
   postTypes,
   selectors,
-  viewCommentsAndReplies
+  viewCommentsAndReplies,
 } from './shared';
 
 function getPostMain() {
@@ -22,15 +22,21 @@ export default async function* instagramPostBehavior(cliAPI) {
   lib.collectOutlinksFromDoc();
   yield;
   const postMain = getPostMain();
-  if (postMain == null) return;
+  if (postMain == null) {
+    yield lib.stateWithMsgNoWait('There was no post');
+    return;
+  }
+  const baseMsg = 'Viewed post';
+  let postTypeMsg;
   switch (determinePostType(postMain, true)) {
     case postTypes.multiImage: {
       // display each image by clicking the right chevron (next image)
-      await lib.selectFromAndClickUntilNullWithDelay(
+      const numImages = await lib.selectFromAndClickUntilNullWithDelay(
         postMain,
         selectors.post.nextImage,
         multiImageClickOpts
       );
+      postTypeMsg = `with ${numImages} images`;
       break;
     }
     case postTypes.video:
@@ -41,19 +47,20 @@ export default async function* instagramPostBehavior(cliAPI) {
         postMain,
         selectors.post.playVideo
       );
+      postTypeMsg = 'with an video';
       break;
   }
-  lib.autoFetchFromDoc();
+  yield lib.stateWithMsgNoWait(`${baseMsg}${postTypeMsg ? postTypeMsg : ''}`);
   yield* viewCommentsAndReplies(cliAPI.$x, postMain);
 }
 
 export const metaData = {
   name: 'instagramPostBehavior',
   match: {
-    regex: /^https:\/\/(www\.)?instagram\.com\/p\/[^/]+(?:\/)?$/
+    regex: /^https:\/\/(www\.)?instagram\.com\/p\/[^/]+(?:\/)?$/,
   },
   description:
-    "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved"
+    "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved",
 };
 
 export const isBehavior = true;

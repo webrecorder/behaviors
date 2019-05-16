@@ -7,7 +7,7 @@ const msgTypes = require('./msgTypes');
 console.log(
   `Lookup Worker starting with configuration\n${util.inspect(workerData, {
     depth: null,
-    compact: false
+    compact: false,
   })}\n`
 );
 
@@ -38,17 +38,21 @@ const workerId = workerData.workerId;
 
 /**
  * Returns T/F indicating if the supplied URL matches a behaviors match object
- * @param {string} url - The URL to match to a behavior
- * @param {Object} match - A behaviors match object
+ * @param {Object} query - The URL to match to a behavior
+ * @param {Object} behavior - A behavior
  * @return {boolean}
  */
-function behaviorMatches(url, match) {
+function behaviorMatches(query, behavior) {
+  if (query.name) {
+    return query.name === behavior.name;
+  }
+  const match = behavior.match;
+  const url = query.url;
   if (match.regex) {
     if (match.regex.base) {
       if (match.regex.base.test(url)) {
         const sub = match.regex.sub;
-        let subIdx = sub.length;
-        while (subIdx--) {
+        for (let subIdx = 0; subIdx < sub.length; subIdx++) {
           if (sub[subIdx].test(url)) return true;
         }
       }
@@ -98,6 +102,8 @@ function onMsg(msg) {
       return lookupBehavior(msg);
     case msgTypes.lookupBehaviorInfo:
       return lookupBehaviorInfo(msg);
+    case msgTypes.behaviorList:
+      return behaviorList(msg);
     case msgTypes.shutdown:
       if (serverCom) {
         serverCom.close();
@@ -109,16 +115,17 @@ function onMsg(msg) {
 /**
  * Attempts to find a matching behavior returning the matching behavior
  * if a match was made otherwise the default behavior
- * @param {Object} msg - The message sent to the LookupWorker from the
+ * @param {Object} query - The message sent to the LookupWorker from the
  * parent process
  * @return {Object}
  */
-function findBehavior(msg) {
-  const url = msg.url;
+function findBehavior(query) {
+  if (query.name && behaviorMetadata.defaultBehavior.name === query.name) {
+    return behaviorMetadata.defaultBehavior;
+  }
   const behaviors = behaviorMetadata.behaviors;
-  let behaviorIdx = behaviors.length;
-  while (behaviorIdx--) {
-    if (behaviorMatches(url, behaviors[behaviorIdx].match)) {
+  for (let behaviorIdx = 0; behaviorIdx < behaviors.length; behaviorIdx++) {
+    if (behaviorMatches(query, behaviors[behaviorIdx])) {
       return behaviors[behaviorIdx];
     }
   }
@@ -135,10 +142,10 @@ async function lookupBehavior(msg) {
   const results = {
     behavior: null,
     wasError: false,
-    errorMsg: null
+    errorMsg: null,
   };
   try {
-    const foundBehavior = findBehavior(msg);
+    const foundBehavior = findBehavior(msg.query);
     results.behavior = path.join(behaviorDir, foundBehavior.fileName);
   } catch (error) {
     results.wasError = true;
@@ -157,15 +164,10 @@ async function lookupBehaviorInfo(msg) {
   const results = {
     behavior: null,
     wasError: false,
-    errorMsg: null
+    errorMsg: null,
   };
   try {
-    const foundBehavior = findBehavior(msg);
-    results.behavior = {
-      name: foundBehavior.name,
-      description: foundBehavior.description,
-      defaultBehavior: foundBehavior.defaultBehavior || false
-    };
+    results.behavior = findBehavior(msg.query);
   } catch (error) {
     results.wasError = true;
     results.errorMsg = error.message;
@@ -184,12 +186,20 @@ function reloadBehaviors(msg) {
   const results = {
     reloadResults: {
       defaultBehavior: behaviorMetadata.defaultBehavior.name,
-      numBehaviors: behaviorMetadata.behaviors.length
+      numBehaviors: behaviorMetadata.behaviors.length,
     },
     wasError: false,
-    errorMsg: null
+    errorMsg: null,
   };
   reply(msg.id, msgTypes.reloadBehaviorsResults, results);
+}
+
+function behaviorList(msg) {
+  reply(msg.id, msgTypes.behaviorListResults, {
+    list: behaviorMetadata,
+    wasError: false,
+    errorMsg: null,
+  });
 }
 
 parentPort.once('message', msg => {

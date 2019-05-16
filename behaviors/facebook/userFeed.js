@@ -1,14 +1,19 @@
 import * as lib from '../../lib';
 import { annoyingElements, buttonSelectors, xpathQueries } from './shared';
 
-const behaviorStyle = lib.addBehaviorStyle(
-  '.wr-debug-visited {border: 6px solid #3232F1;}'
-);
+let behaviorStyle;
+if (debug) {
+  behaviorStyle = lib.addBehaviorStyle(
+    '.wr-debug-visited {border: 6px solid #3232F1;}'
+  );
+}
 
 const delayTime = 1500;
 const loadDelayTime = 3000;
 
 let removedAnnoying = lib.maybeRemoveElemById(annoyingElements.pageletGrowthId);
+
+let totalFeedItems = 0;
 
 async function clickLoadMoreReplies(tlItem) {
   const replies = lib.qs(buttonSelectors.moreReplies, tlItem);
@@ -30,11 +35,15 @@ async function* clickRepliesToReplies(tlItem) {
   let i = 0;
   let length = rToR.length;
   let rtr;
+  let totalReplies = 0;
   while (i < length) {
     rtr = rToR[i];
     if (debug) lib.addClass(rtr, behaviorStyle.wrDebugVisited);
     await lib.scrollIntoViewAndClickWithDelay(rtr, delayTime);
-    yield;
+    totalReplies += 1;
+    yield lib.stateWithMsgNoWait(
+      `viewed reply #${totalReplies} of feed item #${totalFeedItems}`
+    );
     i += 1;
   }
   rToR = lib.qsa(buttonSelectors.repliesToRepliesA, tlItem);
@@ -45,7 +54,9 @@ async function* clickRepliesToReplies(tlItem) {
       rtr = rToR[i];
       if (debug) lib.addClass(rtr, behaviorStyle.wrDebugVisited);
       await lib.scrollIntoViewAndClickWithDelay(rtr, delayTime);
-      yield;
+      yield lib.stateWithMsgNoWait(
+        `viewed reply #${totalReplies} of feed item #${totalFeedItems}`
+      );
       i += 1;
     }
   }
@@ -77,11 +88,12 @@ export default async function* initFBUserFeedBehaviorIterator(cliAPI) {
     length = timelineItems.length;
     for (i = 0; i < length; i++) {
       tlItem = timelineItems[i];
+      totalFeedItems += 1;
       if (debug) tlItem.classList.add('wr-debug-visited');
       await lib.scrollIntoViewWithDelay(tlItem, delayTime);
       lib.markElemAsVisited(tlItem);
       lib.collectOutlinksFrom(tlItem);
-      yield;
+      yield lib.stateWithMsgNoWait(`viewed feed item ${totalFeedItems}`);
       replies = await clickLoadMoreReplies(tlItem);
       if (replies) {
         yield* clickRepliesToReplies(tlItem);
@@ -104,10 +116,10 @@ export const postStep = lib.buildCustomPostStepFn(() => {
 export const metaData = {
   name: 'facebookUserFeed',
   match: {
-    regex: /^https:\/\/(www\.)?facebook\.com\/[^/]+\/?$/
+    regex: /^https:\/\/(www\.)?facebook\.com\/[^/]+\/?$/,
   },
   description:
-    'Views all items in the Facebook user/organization/artists/etc timeline'
+    'Views all items in the Facebook user/organization/artists/etc timeline',
 };
 
 export const isBehavior = true;

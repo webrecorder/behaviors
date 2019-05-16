@@ -15,7 +15,7 @@ export const selectors = {
   tweetPermalinkContainer: 'div.permalink-container',
   tweetPermalinkRepliesContainer: 'ol.stream-items',
   threadedConvMoreReplies: 'a.ThreadedConversation-moreRepliesLink',
-  tweetVideo: 'div.AdaptiveMedia-videoContainer > video'
+  tweetVideo: 'div.AdaptiveMedia-videoContainer > video',
 };
 
 /**
@@ -33,11 +33,11 @@ export const selectors = {
  */
 
 export const elemIds = {
-  permalinkOverlay: 'permalink-overlay'
+  permalinkOverlay: 'permalink-overlay',
 };
 
 export const dataAttrs = {
-  itemType: 'item-type'
+  itemType: 'item-type',
 };
 
 /**
@@ -103,14 +103,14 @@ export const timelineUpdatesSelectors = {
   userTweetsRootH3: 'h3[dir="auto"]',
   tweetWithinContainer: 'article',
   tweetActions: 'div[aria-label="Tweet actions"]',
-  replyAction: 'div[aria-label~="Reply"]'
+  replyAction: 'div[aria-label~="Reply"]',
 };
 
 export const timelineUpdatesMisc = {
   showThisThreadText: 'Show this thread',
-  numRepliesRegex: /[0-9]+\sReply/
+  numRepliesRegex: /[0-9]+\sReply/,
 };
 
 export const timelineUpdatesXpaths = {
-  showThisThread: '//div[text()="Show this thread"]'
+  showThisThread: '//div[text()="Show this thread"]',
 };

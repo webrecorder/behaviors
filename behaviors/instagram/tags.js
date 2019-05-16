@@ -5,7 +5,7 @@ import {
   postTypes,
   multiImageClickOpts,
   determinePostType,
-  getMoreComments
+  getMoreComments,
 } from './shared';
 
 const behaviorStyle = lib.addBehaviorStyle(`
@@ -82,7 +82,7 @@ async function* handlePost(post, xpg) {
     await lib.clickWithDelay(
       lib.xpathOneOf({
         xpg,
-        queries: xpathQ.postPopupClose
+        queries: xpathQ.postPopupClose,
       })
     );
   }

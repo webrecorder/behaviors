@@ -4,12 +4,13 @@ export const selectors = {
   multiTrackItem: 'li.compactTrackList__item',
   playMultiTrackTrack: 'div.compactTrackListItem.clickToPlay',
   soundItem: 'div.soundItem',
-  singleTrackEmbedPlay: 'button[role="application"].playButton'
+  singleTrackEmbedPlay: 'button[role="application"].playButton',
+  trackList: 'ul.compactTrackList__list'
 };
 
 export const xpQueries = {
   soundItem:
     '//div[@class="userStreamItem" and not(contains(@class, "wrvistited"))]',
   soundListItem:
-    '//li[contains(@class, "soundsList__item") and not(contains(@class, "wrvistited"))]'
+    '//li[contains(@class, "soundsList__item") and not(contains(@class, "wrvistited"))]',
 };

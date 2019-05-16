@@ -1,19 +1,31 @@
 import * as lib from '../lib';
 
+let timesScrolled = 0;
 const maxScroll = 100;
-let scrollCount = 0;
+
+async function* scroll() {
+  let scrollCount = 0;
+  while (lib.canScrollMore() && scrollCount < maxScroll) {
+    scrollCount++;
+    timesScrolled++;
+    lib.collectOutlinksFromDoc();
+    lib.scrollWindowDownBy(500);
+    yield lib.stateWithMsgWaitFromAwaitable(
+      lib.findAllMediaElementsAndPlay(),
+      `Scrolled page ${timesScrolled} times`
+    );
+  }
+  yield lib.stateWithMsgWait('Waiting for network idle');
+}
 
 export default async function* autoScrollBehavior() {
-  await lib.domCompletePromise();
+  yield lib.composeAsync(
+    lib.partial(lib.stateWithMsgNoWait, 'Beginning scroll'),
+    lib.domCompletePromise
+  )();
   lib.collectOutlinksFromDoc();
-  yield;
-  let shouldWait;
-  while (lib.canScrollMore() && scrollCount < maxScroll) {
-    scrollCount += 1;
-    lib.collectOutlinksFromDoc();
-    lib.scrollWindowDownBy(300);
-    shouldWait = await lib.findAllMediaElementsAndPlay();
-    yield shouldWait;
+  while (lib.canScrollMore()) {
+    yield* scroll();
   }
 }
 
@@ -21,7 +33,7 @@ export const metaData = {
   name: 'autoScrollBehavior',
   defaultBehavior: true,
   description:
-    'Scrolls the page a maximum of 100 times or until we can scroll no more. If media elements are discovered while scrolling they are played'
+    'Scrolls the page until we can scroll no more. If media elements are discovered while scrolling they are played',
 };
 
 export const isBehavior = true;

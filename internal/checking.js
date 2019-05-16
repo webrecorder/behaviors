@@ -180,7 +180,7 @@ class Checking {
     if (TypeGuards.isObjectLiteralExpression(expression)) {
       return Checking.convertObjectLiteralExpression(expression, {
         name: 'from array literal',
-        strict
+        strict,
       });
     }
     return Checking.createErrorResultsObj('booo');
@@ -200,14 +200,16 @@ class Checking {
     const results = [];
     const arrayElems = arrayLiteralExpression.getElements();
     const length = arrayElems.length;
+    let arrayElem;
     for (var i = 0; i < length; i++) {
-      if (TypeGuards.isStringLiteral(arrayElems[i])) {
-        results.push(arrayElems[i].getLiteralValue());
-      } else if (TypeGuards.isRegularExpressionLiteral(arrayElems[i])) {
-        results.push(arrayElems[i].getLiteralValue());
+      arrayElem = arrayElems[i];
+      if (TypeGuards.isStringLiteral(arrayElem)) {
+        results.push(arrayElem.getLiteralValue());
+      } else if (TypeGuards.isRegularExpressionLiteral(arrayElem)) {
+        results.push(arrayElem.getLiteralValue());
       } else if (!strict) {
         var subConvertResults = Checking.convertArrayLiterExpressionElementExpressions(
-          arrayElems[i],
+          arrayElem,
           strict
         );
         if (!subConvertResults.wasError) {
@@ -258,7 +260,7 @@ class Checking {
       propName = propertyAssignment.getName();
       convertResults = Checking.convertMetadataPropAssign(propertyAssignment, {
         name: propName,
-        strict
+        strict,
       });
       results[propName] = convertResults.value;
       if (convertResults.wasError) {
@@ -295,13 +297,13 @@ class Checking {
     if (TypeGuards.isObjectLiteralExpression(initializer)) {
       return Checking.convertObjectLiteralExpression(initializer, {
         name,
-        strict
+        strict,
       });
     }
     if (TypeGuards.isArrayLiteralExpression(initializer)) {
       return Checking.convertArrayLiteralExpression(initializer, {
         name,
-        strict
+        strict,
       });
     }
     if (!strict) {
@@ -352,7 +354,7 @@ class Checking {
       }
       convertResults = Checking.convertMetadataPropAssign(propertyAssignment, {
         name,
-        strict
+        strict,
       });
       metadata[name] = convertResults.value;
       if (convertResults.wasError) {
@@ -393,9 +395,8 @@ class Checking {
 
   static checkRegexBaseSubs({ base, sub }) {
     const subRegexsBadMsgs = [];
-    let i = sub.length;
     let subTestResults;
-    while (i--) {
+    for (var i = 0; i < sub.length; ++i) {
       if (!Utils.isStringOrRegex(sub[i])) {
         subRegexsBadMsgs.push(
           `The ${Utils.numberOrdinalSuffix(
@@ -538,7 +539,7 @@ class Checking {
       state: CheckState.fileNotModule,
       metadata: null,
       hasPostStep: false,
-      defaultExport: null
+      defaultExport: null,
     };
     const moduleSymbol = sourceFile.getSymbol();
     // if the module symbol is null then its not a module
@@ -587,7 +588,7 @@ class Checking {
     checkResults.state = result.state;
     checkResults.defaultExport = {
       name: result.name,
-      exportType: result.exportType
+      exportType: result.exportType,
     };
     return checkResults;
   }

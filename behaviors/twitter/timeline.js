@@ -1,9 +1,11 @@
 import * as lib from '../../lib';
 import { selectors, tweetXpath, overlayTweetXpath } from './shared';
 
-lib.addBehaviorStyle(
-  '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
-);
+if (debug) {
+  lib.addBehaviorStyle(
+    '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
+  );
+}
 
 class Tweet {
   /**
@@ -79,24 +81,24 @@ class Tweet {
    * @desc Clicks (views) the currently visited tweet
    * @return {AsyncIterableIterator<boolean>}
    */
-  async *viewRepliesOrThread() {
+  async *viewRepliesOrThread(totalTweets) {
     await this.openFullTweet();
-    yield* this.visitThreadReplyTweets();
+    yield* this.visitThreadReplyTweets(totalTweets);
     await this.closeFullTweetOverlay();
   }
 
   /**
-   * @return {AsyncIterableIterator<boolean>}
+   * @return {AsyncIterableIterator<*>}
    */
-  async *viewRegularTweet() {
+  async *viewRegularTweet(totalTweets) {
     await this.openFullTweet();
-    yield false;
+    yield lib.stateWithMsgNoWait(`Viewed tweet #${totalTweets}`);
     await this.closeFullTweetOverlay();
   }
 
   /**
    * @desc Clicks (views) the currently visited tweet
-   * @return {Promise<boolean>}
+   * @return {Promise<*>}
    */
   openFullTweet() {
     const permalinkPath = this.permalinkPath();
@@ -113,25 +115,30 @@ class Tweet {
   }
 
   /**
-   * @return {AsyncIterableIterator<boolean>}
+   * @return {AsyncIterableIterator<*>}
    */
-  async *visitThreadReplyTweets() {
+  async *visitThreadReplyTweets(totalTweets) {
     lib.collectOutlinksFrom(this.fullTweetOverlay);
     let snapShot = lib.xpathSnapShot(overlayTweetXpath, this.fullTweetOverlay);
     let aTweet;
     let i, len;
+    yield lib.stateWithMsgNoWait(`Viewing threaded tweet #${totalTweets}`);
     if (snapShot.snapshotLength === 0) return;
+    let totalThreads = 0;
     do {
       len = snapShot.snapshotLength;
       i = 0;
       while (i < len) {
+        totalThreads += 1;
         aTweet = snapShot.snapshotItem(i);
         lib.markElemAsVisited(aTweet);
         if (debug) {
           aTweet.classList.add('wr-debug-visited-thread-reply');
         }
         await lib.scrollIntoViewWithDelay(aTweet);
-        yield false;
+        yield lib.stateWithMsgNoWait(
+          `Viewed thread #${totalThreads} of tweet #${totalTweets}`
+        );
         i += 1;
       }
       snapShot = lib.xpathSnapShot(overlayTweetXpath, this.fullTweetOverlay);
@@ -151,7 +158,7 @@ class Tweet {
 
   /**
    * @desc Closes the overlay representing viewing a tweet
-   * @return {Promise<boolean>}
+   * @return {Promise<*>}
    */
   closeFullTweetOverlay() {
     const overlay = document.querySelector(selectors.closeFullTweetSelector);
@@ -186,33 +193,35 @@ class Tweet {
  *      - GOTO S2
  *
  * @param {Object} cliApi
- * @return {AsyncIterator<boolean>}
+ * @return {AsyncIterator<*>}
  */
 export default async function* timelineIterator(cliApi) {
   const baseURI = document.baseURI;
   let tweets = cliApi.$x(tweetXpath);
   let aTweet;
+  let totalTweets = 0;
   do {
     while (tweets.length > 0) {
       aTweet = new Tweet(tweets.shift(), baseURI);
       if (debug) {
         aTweet.tweet.classList.add('wr-debug-visited');
       }
+      totalTweets += 1;
       await lib.scrollIntoViewWithDelay(aTweet.tweet, 500);
       lib.collectOutlinksFrom(aTweet.tweet);
       const tweetVideo = aTweet.tweetVideo();
       if (tweetVideo != null) {
-        try {
-          await tweetVideo.play();
-          yield true;
-        } catch (e) {
-          yield false;
-        }
+        const played = await lib.noExceptPlayMediaElement(tweetVideo);
+        const msg = `${
+          played ? 'Played' : 'Could not play'
+        } video of tweet #${totalTweets}`;
+
+        yield lib.createState(played, msg);
       }
       if (aTweet.hasRepliedOrInThread()) {
-        yield* aTweet.viewRepliesOrThread();
+        yield* aTweet.viewRepliesOrThread(totalTweets);
       } else {
-        yield* aTweet.viewRegularTweet();
+        yield* aTweet.viewRegularTweet(totalTweets);
       }
     }
     tweets = cliApi.$x(tweetXpath);
@@ -226,10 +235,10 @@ export default async function* timelineIterator(cliApi) {
 export const metaData = {
   name: 'twitterTimelineBehavior',
   match: {
-    regex: /^(?:https:\/\/(?:www\.)?)?twitter\.com\/[^/]+$/
+    regex: /^(?:https:\/\/(?:www\.)?)?twitter\.com\/[^/]+$/,
   },
   description:
-    'For each tweet within the timeline views each tweet. If the tweet has a video it is played. If the tweet is a part of a thread or has replies views all related tweets'
+    'For each tweet within the timeline views each tweet. If the tweet has a video it is played. If the tweet is a part of a thread or has replies views all related tweets',
 };
 
 export const isBehavior = true;

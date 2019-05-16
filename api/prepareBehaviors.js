@@ -3,7 +3,7 @@ const cp = require('child_process');
 const {
   behaviorCLIPath,
   defaultBehaviorConfigPath,
-  rootDir
+  rootDir,
 } = require('../internal/paths');
 
 const spawnArgs = ['-c', defaultBehaviorConfigPath, '-b'];
@@ -22,7 +22,7 @@ module.exports = function prepareBehaviors(config) {
     const cliProcess = cp.fork(behaviorCLIPath, spawnArgs, {
       cwd: rootDir,
       env: process.env,
-      stdio: 'inherit'
+      stdio: 'inherit',
     });
 
     cliProcess.on('error', err => {

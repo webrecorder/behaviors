@@ -86,7 +86,7 @@ class StdLibUtils {
           },
           ExportNamedDeclaration(path) {
             addToExported(path, exported);
-          }
+          },
         });
         exported.exports.sort(stringSort);
       }
@@ -118,7 +118,7 @@ class StdLibUtils {
         specifiers.push(
           `  ${path.node.exported.name}: lib.${path.node.exported.name}`
         );
-      }
+      },
     });
 
     const code = prettier.format(

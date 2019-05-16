@@ -1,5 +1,7 @@
 import * as lib from '../lib';
 
+let totalSlideDecks = 0;
+
 const selectors = {
   iframeLoader: 'iframe.ssIframeLoader',
   nextSlide: 'btnNext',
@@ -54,14 +56,20 @@ function extracAndPreserveSlideImgs(doc) {
  * @return {AsyncIterableIterator<*>}
  */
 async function* consumeSlides(win, doc, slideSelector) {
+  totalSlideDecks += 1;
+  yield lib.stateWithMsgNoWait(`Viewing slide deck #${totalSlideDecks}`);
   extracAndPreserveSlideImgs(doc);
   const numSlides = getNumSlides(doc, slideSelector);
   for (var i = 0; i < numSlides; ++i) {
     lib.clickInContext(lib.id(selectors.nextSlide, doc), win);
-    yield;
+    yield lib.stateWithMsgNoWait(
+      `Viewed slide #${i + 1} of deck #${totalSlideDecks}`
+    );
   }
   await lib.clickInContextWithDelay(lib.id(selectors.nextSlide, doc), win);
-  yield;
+  yield lib.stateWithMsgNoWait(
+    `Viewed final slide #${numSlides} of deck #${totalSlideDecks}`
+  );
 }
 
 /**

@@ -10,5 +10,7 @@ module.exports = {
   lookupBehavior: 'lookup-behavior',
   lookupBehaviorInfo: 'lookup-behavior-info',
   behaviorLookupResults: 'behavior-lookup-results',
-  shutdown: 'shutdown'
+  behaviorList: 'list-all-behaviors',
+  behaviorListResults: 'list-all-behaviors-results',
+  shutdown: 'shutdown',
 };

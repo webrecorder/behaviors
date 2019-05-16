@@ -1,6 +1,6 @@
 const plur = require('plur');
 const ColorPrinter = require('./colorPrinter');
-const { isBehaviorResults } = require('./utils');
+const { behaviorKinds } = require('./utils');
 
 const chalk = ColorPrinter.chalk;
 
@@ -36,7 +36,7 @@ class Reporter {
     numBehaviors,
     numNonBehaviors,
     numOnlyMetadata,
-    numOnlySentinel
+    numOnlySentinel,
   }) {
     const numFiles =
       numBehaviors + numNonBehaviors + numOnlyMetadata + numOnlySentinel;
@@ -108,7 +108,7 @@ class Reporter {
    * @param {{result: symbol, time: string, fileName: string}}
    */
   static collectedBehaviorFromFileReport({ result, time, fileName }) {
-    if (result === isBehaviorResults.behavior) {
+    if (result === behaviorKinds.behavior) {
       ColorPrinter.info(`${fileName}, collected in ${time}`);
     } else {
       ColorPrinter.error(
@@ -116,17 +116,17 @@ class Reporter {
       );
     }
     switch (result) {
-      case isBehaviorResults.notABehavior:
+      case behaviorKinds.notABehavior:
         Reporter.fullBehaviorFormatExplanation();
         break;
-      case isBehaviorResults.maybeBehaviorSentinelOnly:
+      case behaviorKinds.maybeBehaviorSentinelOnly:
         ColorPrinter.error(
           'It was discovered to only export the "isBehavior" sentinel\n',
           'For this file to be considered an behavior\nPlease add the following to the file:\n'
         );
         Reporter.displayMetadataFormat();
         break;
-      case isBehaviorResults.maybeBehaviorMetaDataOnly:
+      case behaviorKinds.maybeBehaviorMetaDataOnly:
         ColorPrinter.error(
           'It was discovered to only export metadata\n',
           'For this file to be considered an behavior\nPlease add the following to the file:\n'
@@ -182,7 +182,4 @@ class Reporter {
   }
 }
 
-/**
- * @type {Reporter}
- */
 module.exports = Reporter;

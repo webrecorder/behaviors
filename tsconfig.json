@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "moduleResolution": "node",
     "module": "esnext",
     "target": "esnext",
     "sourceMap": false,
@@ -10,11 +12,6 @@
     "strict": false,
     "noEmit": true
   },
-  "include": [
-    "lib/**/*.js",
-    "behaviors/**/*.js"
-  ],
-  "exclude": [
-    "internal/**/*"
-  ]
+  "include": ["lib/**/*", "behaviors/**/*"],
+  "exclude": ["internal/**/*"]
 }
