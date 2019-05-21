@@ -49,6 +49,7 @@ async function buildWatchRun(runConfig) {
     } catch (e) {
       console.log(e);
     }
+    stopEE.removeAllListeners();
     if (prr == null) prr = promiseResolveReject();
     ColorPrinter.info('Behavior run finished');
     ColorPrinter.info('Waiting for file changes');
