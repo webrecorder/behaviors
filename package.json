@@ -29,11 +29,11 @@
     "prettier": "^1.17.1",
     "pretty-time": "^1.1.0",
     "qs": "^6.7.0",
-    "rollup": "^1.12.2",
+    "rollup": "^1.12.3",
     "rollup-plugin-alias": "^1.5.1",
     "rollup-plugin-cleanup": "^3.1.1",
     "rollup-plugin-node-resolve": "^5.0.0",
-    "ts-morph": "^2.1.0",
+    "ts-morph": "^2.1.2",
     "typescript": "^3.4.5",
     "uuid": "^3.3.2"
   },

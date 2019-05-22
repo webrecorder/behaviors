@@ -88,6 +88,38 @@ async function runBuilt(runConfig) {
   await browser.close();
 }
 
+/**
+ *
+ * @param runnerHandle
+ * @param {EventEmitter} stopEE
+ * @return {Promise<boolean>}
+ */
+async function performNextStep(runnerHandle, stopEE) {
+  const midEvalStopProm = promiseResolveReject();
+  stopEE.once('stop-eval', midEvalStopProm.resolve);
+  let result;
+  try {
+    result = await Promise.race([
+      runnerHandle.callFnEval('step'),
+      midEvalStopProm.promise,
+    ]);
+  } catch (e) {
+    ColorPrinter.showError('Behavior error', e);
+  } finally {
+    stopEE.removeListener('stop-eval', midEvalStopProm.resolve, null, true);
+  }
+  if (result) {
+    ColorPrinter.blue(
+      `Performed step\n  - done = ${result.done}\n  - wait = ${
+        result.wait
+      }\n  - msg = ${result.msg}`
+    );
+    ColorPrinter.blankLine();
+    return result.done;
+  }
+  return true;
+}
+
 async function autorun({ browser, stopEE, runConfig }) {
   const page = await browser.newPage();
   const behavior = await fs.readFile(runConfig.builtPath, 'utf8');
@@ -106,9 +138,9 @@ async function autorun({ browser, stopEE, runConfig }) {
   });
 
   const runnerHandle = await page.evaluateHandle(() => $WBBehaviorRunner$);
-  let result;
   let run = true;
   let to;
+
   if (runConfig.timeout) {
     to = setTimeout(() => {
       ColorPrinter.warning(
@@ -120,21 +152,20 @@ async function autorun({ browser, stopEE, runConfig }) {
       run = false;
     }, runConfig.timeout);
   }
+
   if (stopEE) {
     stopEE.on('stop', () => {
       run = false;
+      // performNextStep is mighty funky at times
+      // so we use an additional event to tell it
+      // to stop
+      stopEE.emit('stop-eval');
     });
   }
+
   try {
     while (run) {
-      result = await runnerHandle.callFnEval('step');
-      ColorPrinter.blue(
-        `Performed step\n  - done = ${result.done}\n  - wait = ${
-          result.wait
-        }\n  - msg = ${result.msg}`
-      );
-      ColorPrinter.blankLine();
-      if (result.done) break;
+      if (await performNextStep(runnerHandle, stopEE)) break;
       if (runConfig.slowmo) await delay(runConfig.slowmo);
     }
   } catch (e) {
@@ -147,35 +178,39 @@ async function autorun({ browser, stopEE, runConfig }) {
 }
 
 async function launchBrowser(runConfig) {
+  const args = [
+    '--disable-gpu-process-crash-limit',
+    '--disable-backing-store-limit',
+    '--disable-background-networking',
+    '--disable-background-timer-throttling',
+    '--disable-renderer-backgrounding',
+    '--disable-backgrounding-occluded-windows',
+    '--disable-ipc-flooding-protection',
+    '--disable-client-side-phishing-detection',
+    '--disable-default-apps',
+    '--disable-extensions',
+    '--disable-popup-blocking',
+    '--disable-hang-monitor',
+    '--disable-prompt-on-repost',
+    '--disable-sync',
+    '--disable-domain-reliability',
+    '--disable-infobars',
+    '--disable-features=site-per-process,TranslateUI,LazyFrameLoading',
+    '--disable-breakpad',
+    '--disable-backing-store-limit',
+    '--enable-features=NetworkService,NetworkServiceInProcess,brotli-encoding,AwaitOptimization',
+    '--metrics-recording-only',
+    '--no-first-run',
+    '--safebrowsing-disable-auto-update',
+    '--mute-audio',
+    '--autoplay-policy=no-user-gesture-required',
+  ];
+  if (runConfig.openDevTools) {
+    args.push('--auto-open-devtools-for-tabs');
+  }
   const { closeBrowser, browserWSEndpoint } = await launch({
     executable: runConfig.chromeEXE,
-    args: [
-      '--disable-gpu-process-crash-limit',
-      '--disable-backing-store-limit',
-      '--disable-background-networking',
-      '--disable-background-timer-throttling',
-      '--disable-renderer-backgrounding',
-      '--disable-backgrounding-occluded-windows',
-      '--disable-ipc-flooding-protection',
-      '--disable-client-side-phishing-detection',
-      '--disable-default-apps',
-      '--disable-extensions',
-      '--disable-popup-blocking',
-      '--disable-hang-monitor',
-      '--disable-prompt-on-repost',
-      '--disable-sync',
-      '--disable-domain-reliability',
-      '--disable-infobars',
-      '--disable-features=site-per-process,TranslateUI,LazyFrameLoading',
-      '--disable-breakpad',
-      '--disable-backing-store-limit',
-      '--enable-features=NetworkService,NetworkServiceInProcess,brotli-encoding,AwaitOptimization',
-      '--metrics-recording-only',
-      '--no-first-run',
-      '--safebrowsing-disable-auto-update',
-      '--mute-audio',
-      '--autoplay-policy=no-user-gesture-required',
-    ],
+    args,
   });
   return Browser.connect(browserWSEndpoint, {
     closeCallback: closeBrowser,
@@ -217,4 +252,5 @@ module.exports = {
   buildAndRun,
   runBuilt,
   buildWatchRun,
+  autorun,
 };

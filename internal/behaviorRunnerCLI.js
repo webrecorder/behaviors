@@ -57,6 +57,7 @@ async function getRunConfigIfExistsOrDefault(program) {
     mode: flagsToRunModemode(program),
     timeout: secondsToMilliseconds(program.timeout),
     slowmo: secondsToMilliseconds(program.slowmo),
+    openDevTools: false,
   };
 }
 

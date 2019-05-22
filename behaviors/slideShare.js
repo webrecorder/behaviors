@@ -11,7 +11,7 @@ const selectors = {
   sectionSlide: 'section.slide',
   slideImg: 'img.slide_image',
   relatedDecks: 'div.tab.related-tab',
-  moreComments: 'a.j-more-comments'
+  moreComments: 'a.j-more-comments',
 };
 
 const isSlideShelfIF = _if => _if.src.endsWith('/slideshelf');
@@ -61,7 +61,11 @@ async function* consumeSlides(win, doc, slideSelector) {
   extracAndPreserveSlideImgs(doc);
   const numSlides = getNumSlides(doc, slideSelector);
   for (var i = 0; i < numSlides; ++i) {
-    lib.clickInContext(lib.id(selectors.nextSlide, doc), win);
+    await lib.clickInContextWithDelay(
+      lib.id(selectors.nextSlide, doc),
+      win,
+      500
+    );
     yield lib.stateWithMsgNoWait(
       `Viewed slide #${i + 1} of deck #${totalSlideDecks}`
     );
@@ -127,10 +131,10 @@ export default function init(cliAPI) {
 export const metaData = {
   name: 'slideShareBehavior',
   match: {
-    regex: /^(?:https:\/\/(?:www\.)?)slideshare\.net\/[a-zA-Z]+[?].+/
+    regex: /^(?:https:\/\/(?:www\.)?)slideshare\.net\/[a-zA-Z]+[?].+/,
   },
   description:
-    'Views each slide contained in the slide deck. If there are multiple slide decks each deck is viewed'
+    'Views each slide contained in the slide deck. If there are multiple slide decks each deck is viewed',
 };
 
 export const isBehavior = true;

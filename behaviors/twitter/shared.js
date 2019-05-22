@@ -16,6 +16,7 @@ export const selectors = {
   tweetPermalinkRepliesContainer: 'ol.stream-items',
   threadedConvMoreReplies: 'a.ThreadedConversation-moreRepliesLink',
   tweetVideo: 'div.AdaptiveMedia-videoContainer > video',
+  tweetStreamFooter: 'div.stream-footer',
 };
 
 /**
@@ -39,6 +40,8 @@ export const elemIds = {
 export const dataAttrs = {
   itemType: 'item-type',
 };
+
+export const StreamHasMoreTweetsCSSClz = 'has-more-items';
 
 /**
  * @desc Xpath query used to traverse each tweet within a timeline.

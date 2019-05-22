@@ -4758,10 +4758,10 @@ rollup-pluginutils@^2.7.0:
     estree-walker "^0.6.0"
     micromatch "^3.1.10"
 
-rollup@^1.12.2:
-  version "1.12.2"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.12.2.tgz#a7c34a4bef71feb43e3ae69f0b26ae683e75db44"
-  integrity sha512-ePehZfVMIE4eO0/LV6VaMY8kp0D9sbziUabpBeJbHAHa2WJPxuS0lYLmiLamb02e098RIRyq1F2yjM4O08dQVA==
+rollup@^1.12.3:
+  version "1.12.3"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.12.3.tgz#068b1957d5bebf6c0a758cfe42609b512add35a9"
+  integrity sha512-ueWhPijWN+GaPgD3l77hXih/gcDXmYph6sWeQegwBYtaqAE834e8u+MC2wT6FKIUsz1DBOyOXAQXUZB+rjWDoQ==
   dependencies:
     "@types/estree" "0.0.39"
     "@types/node" "^12.0.2"
@@ -5419,10 +5419,10 @@ trim-right@^1.0.1:
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
   integrity sha1-yy4SAwZ+DI3h9hQJS5/kVwTqYAM=
 
-ts-morph@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/ts-morph/-/ts-morph-2.1.0.tgz#a899b3fe284a72090f73c4d6a7f82e4168667abd"
-  integrity sha512-1DqAp8mVBb8jx3ohfPAiUT7gIEcDPuY3lg8QYlZIAQ6FuWqCzLNc4ZdAfF+nlLghkev2gnvqdqdQQxCO8ynKjw==
+ts-morph@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/ts-morph/-/ts-morph-2.1.2.tgz#15989de895c5f3b73d5c1dbee3e7c52889de3ef4"
+  integrity sha512-krb7EsMjMf7JKh6rqXW2uF23qRz3BgStiGlQ2wxX6YpjTYdoY/v0Z+Zf8WL9LA3VR07rYSrAQ20MHH45DokZdw==
   dependencies:
     "@dsherret/to-absolute-glob" "^2.0.2"
     code-block-writer "8.0.0"
