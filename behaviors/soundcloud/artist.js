@@ -50,7 +50,6 @@ async function* handleSoundItem(soundListItem) {
   // via your run of the mill audio tag we gotta be slower than normal
   lib.collectOutlinksFrom(soundListItem);
   const soundItem = soundListItem.firstElementChild;
-  console.log(soundItem);
   if (debug) lib.addClass(soundItem, behaviorStyle.wrDebugVisited);
   await lib.scrollIntoViewWithDelay(soundItem);
   const whichTrack = soundItem.firstElementChild
@@ -78,14 +77,14 @@ async function* handleSoundItem(soundListItem) {
       trackList,
       handleMultipleTrackItem,
       async () => {
-        const shouldWait = needToLoadMoreTracks(soundItem);
-        if (needToLoadMoreTracks(soundItem)) {
+        const loadMore = needToLoadMoreTracks(soundItem);
+        if (loadMore) {
           await lib.selectElemFromAndClickWithDelay(
             soundItem,
             selectors.loadMoreTracks
           );
         }
-        return shouldWait;
+        return loadMore;
       }
     );
   }

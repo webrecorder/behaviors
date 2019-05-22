@@ -1,11 +1,5 @@
 import * as lib from '../../lib';
-import {
-  elemIds,
-  getNoneNukedConsole,
-  overlayTweetXpath,
-  selectors,
-  tweetXpath,
-} from './shared';
+import { elemIds, overlayTweetXpath, selectors, tweetXpath } from './shared';
 
 let behaviorStyle;
 if (debug) {
@@ -13,9 +7,6 @@ if (debug) {
     '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
   );
 }
-
-const logger = getNoneNukedConsole();
-window.logger = logger;
 
 function hasRepliedOrInThread(tweet) {
   const footer = lib.qs(selectors.tweetFooterSelector, tweet);
@@ -151,7 +142,6 @@ export default async function* timelineIterator(cliApi) {
     originalBaseURI,
     logger,
   });
-  await lib.delay(10 * 1000);
 }
 
 export const metaData = {
