@@ -22,15 +22,19 @@ function loadMoreComments(cRenderer, selector) {
   return false;
 }
 
+let totalComments = 0;
+
 async function* handleComment(comment, mStream) {
+  totalComments += 1;
   lib.markElemAsVisited(comment);
   await lib.scrollIntoViewWithDelay(comment);
-  yield;
+  yield lib.stateWithMsgNoWait(`Viewing video comment #${totalComments}`);
   const replies = lib.qs(selectors.loadedReplies, comment);
   if (
     replies != null &&
     lib.selectorExists('#more > div.more-button', comment)
   ) {
+    let totalReplies = 0;
     let next;
     const mutationIter = mStream.predicatedStream(
       replies,
@@ -40,13 +44,16 @@ async function* handleComment(comment, mStream) {
     );
     next = await mutationIter.next();
     while (!next.done) {
+      totalReplies += 1;
       await lib.scrollIntoViewWithDelay(replies.lastChild, 750);
       if (!loadMoreComments(comment, selectors.showMoreReplies)) {
         mStream.disconnect();
         break;
       }
       next = await mutationIter.next();
-      yield;
+      yield lib.stateWithMsgNoWait(
+        `Viewed reply #${totalReplies} of comment #${totalComments}`
+      );
     }
   }
 }
@@ -64,10 +71,10 @@ export default async function* playVideoAndLoadComments(cliAPI) {
   if (moreInfo != null) {
     await lib.scrollIntoViewAndClick(moreInfo);
     lib.collectOutlinksFromDoc();
-    yield;
+    yield lib.stateWithMsgNoWait('Loaded videos info');
   }
   await lib.selectAndPlay('video');
-  yield;
+  yield lib.stateWithMsgNoWait('Played video');
   await lib.scrollIntoViewAndWaitFor(
     lib.id(selectors.commentsContainerId),
     () => lib.selectorExists(selectors.commentRenderer)

@@ -6,7 +6,7 @@ exports.CheckState = {
   bad: Symbol('bad'),
   fileNotModule: Symbol('not-a-module'),
   noDefaultExport: Symbol('no-default-export'),
-  notChecked: Symbol('not-checked')
+  notChecked: Symbol('not-checked'),
 };
 
 /**
@@ -15,5 +15,5 @@ exports.CheckState = {
  */
 exports.ExportDefaultType = {
   function: Symbol('function'),
-  value: Symbol('value')
+  value: Symbol('value'),
 };

@@ -13,22 +13,22 @@ export const selectors = {
     multiImageDisplayDiv: 'div > div[role="button"]',
     playVideo: 'a[role="button"]',
     divDialog: 'div[role="dialog"]',
-    divDialogArticle: 'div[role="dialog"] > article'
+    divDialogArticle: 'div[role="dialog"] > article',
   },
   post: {
     main: 'section > main > div > div > article',
     nextImage: 'div.coreSpriteRightChevron',
-    playVideo: 'span[role="button"].videoSpritePlayButton'
-  }
+    playVideo: 'span[role="button"].videoSpritePlayButton',
+  },
 };
 
 export const multiImagePostSelectors = {
   user: [
     'span[aria-label*="Carousel" i]',
     'span[class*="SpriteCarousel" i]',
-    'span.coreSpriteSidecarIconLarge'
+    'span.coreSpriteSidecarIconLarge',
   ],
-  post: ['button > div.coreSpriteRightChevron', 'div.coreSpriteRightChevron']
+  post: ['button > div.coreSpriteRightChevron', 'div.coreSpriteRightChevron'],
 };
 
 export const videoPostSelectors = {
@@ -37,18 +37,18 @@ export const videoPostSelectors = {
     'span[class*="SpriteVideo" i]',
     'span.coreSpriteVideoIconLarge',
     'span[aria-label$="Video" i]',
-    'span[class*="glyphsSpriteVideo_large"]'
+    'span[class*="glyphsSpriteVideo_large"]',
   ],
   post: [
     'span[role="button"].videoSpritePlayButton',
-    'span.videoSpritePlayButton'
-  ]
+    'span.videoSpritePlayButton',
+  ],
 };
 
 export const xpathQ = {
   postPopupClose: [
     '//body/div/div/button[contains(text(), "Close")]',
-    '/html/body/div[2]/button[1][contains(text(), "Close")]'
+    '/html/body/div[2]/button[1][contains(text(), "Close")]',
   ],
   loadMoreComments: '//li/button[contains(text(), "Load more comments")]',
   showAllComments: '//li/button[contains(text(), "View all")]',
@@ -56,8 +56,8 @@ export const xpathQ = {
     '//span[contains(text(), "View") and contains(text(), "replies")]',
   notLoggedIn: {
     signUp: '//a[contains(text(), "Sign Up")]',
-    login: '//button[contains(text(), "Log In")]'
-  }
+    login: '//button[contains(text(), "Log In")]',
+  },
 };
 
 export const multiImageClickOpts = { safety: 30 * 1000, delayTime: 1000 };
@@ -65,7 +65,7 @@ export const multiImageClickOpts = { safety: 30 * 1000, delayTime: 1000 };
 export const postTypes = {
   video: Symbol('$$instagram-video-post$$'),
   multiImage: Symbol('$$instagram-multi-image-post$$'),
-  commentsOnly: Symbol('$$instagram-comments-only-post$$')
+  commentsOnly: Symbol('$$instagram-comments-only-post$$'),
 };
 
 /**
@@ -129,6 +129,7 @@ export async function* loadReplies(xpg, cntx) {
     for (var i = 0; i < moreReplies.length; i++) {
       lib.scrollIntoView(moreReplies[i]);
       await lib.clickWithDelay(moreReplies[i], 500);
+      yield lib.stateWithMsgNoWait('Loaded post comment reply');
     }
   }
 }
@@ -138,9 +139,12 @@ export async function* viewCommentsAndReplies(xpg, cntx) {
   if (!more) {
     yield* loadReplies(xpg, cntx);
   }
+  let totalComments = 0;
   while (more) {
+    totalComments += 1;
     await lib.clickWithDelay(more, 1000);
     more = getMoreComments(xpg, cntx);
+    yield lib.stateWithMsgNoWait(`Loaded post comment #${totalComments}`);
     yield* loadReplies(xpg, cntx);
   }
 }
@@ -156,7 +160,7 @@ export function getProfileInfo() {
     return {
       username: window.user.username,
       userId: window.user.id,
-      numHighlights: window.user.highlight_reel_count
+      numHighlights: window.user.highlight_reel_count,
     };
   }
 
@@ -173,7 +177,7 @@ export function getProfileInfo() {
     return {
       username: user.username,
       userId: user.id,
-      numHighlights: user.highlight_reel_count
+      numHighlights: user.highlight_reel_count,
     };
   }
   return null;

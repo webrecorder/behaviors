@@ -1,0 +1,18 @@
+buildConfig: ./behavior-config.yml
+behavior: ./behaviors/autoscroll.js
+builtPath: ./dist/autoscrollBehavior.js
+url: 'https://stackoverflow.com/questions/1221517/how-to-get-subnet-mask-of-local-system-using-java'
+
+# path to chrome executable or command
+# chromeEXE: google-chrome-unstable
+#openDevTools: true
+
+mode: build-watch
+# available options:
+#  - build-watch: build and run the behavior watching for changes
+#  - build: build and run the behavior once
+#  - built: just run the previously built behavior
+
+# time values in seconds
+timeout: 60
+slowmo: 10

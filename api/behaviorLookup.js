@@ -5,6 +5,7 @@ const fp = require('fastify-plugin');
 const uuid = require('uuid/v4');
 const EventEmitter = require('eventemitter3');
 const msgTypes = require('./msgTypes');
+const { autobind } = require('./utils');
 
 /**
  * @typedef {Object} LookupWorkerConfig
@@ -25,7 +26,7 @@ function noop() {}
 const WorkerEvents = {
   error: Symbol('worker-error'),
   exit: Symbol('worker-exit'),
-  message: Symbol('worker-message')
+  message: Symbol('worker-message'),
 };
 
 /**
@@ -101,9 +102,7 @@ class LookupWorker extends EventEmitter {
      * @private
      */
     this._terminationPromise = null;
-    this._onWorkerError = this._onWorkerError.bind(this);
-    this._onWorkerExit = this._onWorkerExit.bind(this);
-    this._onWorkerMsg = this._onWorkerMsg.bind(this);
+    autobind(this);
   }
 
   /**
@@ -114,11 +113,11 @@ class LookupWorker extends EventEmitter {
     this._worker = new Worker(this.workerPath, {
       workerData: {
         workerId: this.id,
-        behaviorInfo: this.behaviorInfo
-      }
+        behaviorInfo: this.behaviorInfo,
+      },
     });
     this._worker.postMessage({ serverCom: this._channel.port1 }, [
-      this._channel.port1
+      this._channel.port1,
     ]);
     this._channel.port2.on('message', this._onWorkerMsg);
     this._worker.on('error', this._onWorkerError);
@@ -160,6 +159,9 @@ class LookupWorker extends EventEmitter {
    * @private
    */
   _onWorkerExit(code) {
+    if (this._terminationPromise) {
+      this._terminationPromise.resolve();
+    }
     this.emit(WorkerEvents.exit, { id: this.id, code });
   }
 
@@ -216,12 +218,7 @@ class BehaviorLookUp {
      */
     this._msgIdsToPromises = new Map();
 
-    this.lookupBehavior = this.lookupBehavior.bind(this);
-    this.lookupBehaviorInfo = this.lookupBehaviorInfo.bind(this);
-    this.reloadBehaviors = this.reloadBehaviors.bind(this);
-    this._onLookupWorkerExit = this._onLookupWorkerExit.bind(this);
-    this._onLookupWorkerError = this._onLookupWorkerError.bind(this);
-    this._onLookupWorkerMsg = this._onLookupWorkerMsg.bind(this);
+    autobind(this);
   }
 
   /**
@@ -234,7 +231,7 @@ class BehaviorLookUp {
       const worker = new LookupWorker({
         behaviorInfo,
         id: workerId,
-        workerPath
+        workerPath,
       });
       worker.init();
       worker.on(WorkerEvents.error, this._onLookupWorkerError);
@@ -262,22 +259,32 @@ class BehaviorLookUp {
    * Initiates a behavior lookup action returning, a promise containing the
    * results of this action that resolves once the results of this action have
    * been received
-   * @param {string} url - The URL to retrieve the behavior for
+   * @param {Object} query - The query for the behavior
    * @return {Promise<string>}
    */
-  lookupBehavior(url) {
-    return this._sendMsg(msgTypes.lookupBehavior, url);
+  lookupBehavior(query) {
+    return this._sendMsg(msgTypes.lookupBehavior, query);
   }
 
   /**
    * Initiates a behavior info lookup action, returning a promise containing the
    * results of this action that resolves once the results of this action have
    * been received
-   * @param {string} url - The URL to retrieve the behavior info for
+   * @param {Object} query - The query for the behavior
    * @return {Promise<Object>}
    */
-  lookupBehaviorInfo(url) {
-    return this._sendMsg(msgTypes.lookupBehaviorInfo, url);
+  lookupBehaviorInfo(query) {
+    return this._sendMsg(msgTypes.lookupBehaviorInfo, query);
+  }
+
+  /**
+   * Initiates a behavior info lookup action, returning a promise containing the
+   * results of this action that resolves once the results of this action have
+   * been received
+   * @return {Promise<Object>}
+   */
+  behaviorList() {
+    return this._sendMsg(msgTypes.behaviorList);
   }
 
   /**
@@ -290,7 +297,7 @@ class BehaviorLookUp {
     const reloadResponses = new Array(this._numWorkers);
     for (let workerId = 0; workerId < this._numWorkers; workerId++) {
       reloadResponses[workerId] = this._sendDirectMessage(workerId, {
-        type: msgTypes.reloadBehaviors
+        type: msgTypes.reloadBehaviors,
       });
     }
     return Promise.all(reloadResponses).then(arrayFirstElement);
@@ -312,24 +319,28 @@ class BehaviorLookUp {
         .get(workerId)
         .terminate();
     }
-    Promise.all(terminationPromises).then(() => {
-      this._workersById.clear();
-      doneCB();
-    });
+    Promise.all(terminationPromises)
+      .then(() => {
+        this._workersById.clear();
+        doneCB();
+      })
+      .catch(error => {
+        doneCB();
+      });
   }
 
   /**
    * Sends a message to a worker. The worker the message is sent to is
    * determined by {@link nextWorkerId}
    * @param {string} type - The type of the action to be performed
-   * @param {string} [url] - Optional URL to be sent to worker
+   * @param {Object} [query] - Optional query to be sent to worker
    * @return {Promise<Object|String>}
    * @private
    */
-  _sendMsg(type, url) {
+  _sendMsg(type, query) {
     const workerId = this.nextWorkerId();
     const msgId = uuid();
-    const msg = { id: msgId, type, url };
+    const msg = { id: msgId, type, query };
     const prr = promiseResolveReject();
     this._msgIdsToPromises.set(msgId, prr);
     this._workersById.get(workerId).sendMsg(msg);
@@ -362,6 +373,9 @@ class BehaviorLookUp {
     if (lookupProm) {
       if (!msg.results.wasError) {
         switch (msg.type) {
+          case msgTypes.behaviorListResults:
+            lookupProm.resolve(msg.results.list);
+            break;
           case msgTypes.behaviorLookupResults:
             lookupProm.resolve(msg.results.behavior);
             break;
@@ -394,24 +408,5 @@ class BehaviorLookUp {
     console.log(`Lookup worker ${id} exited with code ${code}`);
   }
 }
-/**
- *
- * @param {fastify.FastifyInstance} server
- * @param opts
- * @param pluginNext
- */
-function behaviorLookup(server, opts, pluginNext) {
-  const behaviorLookerUpper = new BehaviorLookUp(server.conf);
-  behaviorLookerUpper.init();
-  server
-    .decorate('behaviorLookUp', behaviorLookerUpper)
-    .decorate('lookupBehavior', behaviorLookerUpper.lookupBehavior)
-    .decorate('lookupBehaviorInfo', behaviorLookerUpper.lookupBehaviorInfo)
-    .decorate('reloadBehaviors', behaviorLookerUpper.reloadBehaviors)
-    .addHook('onClose', (server, done) => {
-      behaviorLookerUpper.shutdown(done);
-    });
-  pluginNext();
-}
 
-module.exports = fp(behaviorLookup);
+module.exports = BehaviorLookUp;

@@ -50,13 +50,13 @@ class Behavior {
      */
     this._defaultExport = {
       name: null,
-      exportType: null
+      exportType: null,
     };
 
-    this._checkedMetadata = {
+    this._metadata = null;
+    this._metadataCheckInfo = {
       checkState: null,
       errorMsg: null,
-      value: null
     };
 
     /**
@@ -101,13 +101,23 @@ class Behavior {
     );
     this._checkState = checkResults.state;
     this._hasPostStep = checkResults.hasPostStep;
-    if (checkResults.metadata) {
-      this._checkedMetadata = checkResults.metadata;
-    }
     if (checkResults.defaultExport) {
       this._defaultExport.name = checkResults.defaultExport.name;
       this._defaultExport.exportType = checkResults.defaultExport.exportType;
     }
+    if (checkResults.metadata) {
+      this._metadata = Object.assign({}, checkResults.metadata.value, {
+        fileName: this.buildFileName,
+      });
+      this._metadataCheckInfo.checkState = checkResults.metadata.checkState;
+      this._metadataCheckInfo.errorMsg = checkResults.metadata.errorMsg;
+    } else {
+      console.log(this);
+    }
+  }
+
+  get match() {
+    return this._metadata.match;
   }
 
   /**
@@ -115,7 +125,7 @@ class Behavior {
    * @return {boolean}
    */
   get hasValidMetadata() {
-    return this._checkedMetadata.checkState === CheckState.good;
+    return this._metadataCheckInfo.checkState === CheckState.good;
   }
 
   /**
@@ -131,7 +141,7 @@ class Behavior {
    * @return {string}
    */
   get importName() {
-    if (this._checkedMetadata.name) return this._checkedMetadata.name;
+    if (this._metadata && this._metadata.name) return this._metadata.name;
     if (this._defaultExport.name) return this._defaultExport.name;
     return 'behavior';
   }
@@ -177,13 +187,10 @@ class Behavior {
       return this._buildFileName;
     }
     let fileName;
-    const rootBehaviorDirPath = this._opts.dir;
+    const rootBehaviorDirPath = this._opts.behaviorDir;
     const containingDirPath = this._file.getDirectoryPath();
     if (rootBehaviorDirPath === containingDirPath) {
       fileName = this.fileName;
-      this._buildFileName = fileName.toLowerCase().endsWith('behavior.js')
-        ? fileName
-        : `${Path.basename(fileName, '.js')}Behavior.js`;
     } else {
       fileName = this._file
         .getFilePath()
@@ -195,10 +202,10 @@ class Behavior {
         .split(Path.sep)
         .map(Utils.upperFirst)
         .join('');
-      this._buildFileName = fileName.toLowerCase().endsWith('behavior.js')
-        ? fileName
-        : `${Path.basename(fileName, '.js')}Behavior.js`;
     }
+    this._buildFileName = fileName.toLowerCase().endsWith('behavior.js')
+      ? fileName
+      : `${Path.basename(fileName, '.js')}Behavior.js`;
     return this._buildFileName;
   }
 
@@ -240,9 +247,7 @@ class Behavior {
    * @return {boolean}
    */
   get isDefaultBehavior() {
-    return !!(
-      this._checkedMetadata.value && this._checkedMetadata.value.defaultBehavior
-    );
+    return !!(this.metadata && this.metadata.defaultBehavior);
   }
 
   /**
@@ -250,7 +255,7 @@ class Behavior {
    * @return {?string}
    */
   get getMetadataValidationErrorMsg() {
-    return this._checkedMetadata.errorMsg;
+    return this._metadataCheckInfo.errorMsg;
   }
 
   /**
@@ -258,7 +263,7 @@ class Behavior {
    * @return {?Object}
    */
   get metadata() {
-    return this._checkedMetadata.value;
+    return this._metadata;
   }
 
   [util.inspect.custom](depth, options) {
@@ -266,7 +271,7 @@ class Behavior {
       return options.stylize('[BehaviorFile]', 'special');
     }
     const newOptions = Object.assign({}, options, {
-      depth: options.depth === null ? null : options.depth - 1
+      depth: options.depth === null ? null : options.depth - 1,
     });
     const inspectable = {
       path: this.path,
@@ -274,7 +279,7 @@ class Behavior {
       checkState: this._checkState,
       hasPostStep: this._hasPostStep,
       defaultExport: this._defaultExport,
-      metadata: this.metadata
+      metadata: this.metadata,
     };
     const inner = util.inspect(inspectable, newOptions);
     return `${options.stylize('BehaviorFile', 'special')} ${inner}`;

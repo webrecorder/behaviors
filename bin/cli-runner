@@ -1,0 +1,62 @@
+#!/usr/bin/env node
+'use strict';
+const program = require('commander');
+const pkg = require('../package');
+const { defaultBehaviorConfigPath } = require('../internal/paths');
+const behaviorRunnerCLI = require('../internal/behaviorRunnerCLI');
+
+function valueToInt(value) {
+  if (!value) return value;
+  return parseInt(value, '10');
+}
+
+program
+  .version(pkg.version)
+  .usage('[options] <path-to-behavior>')
+  .option(
+    '--build-config [behavior build config path]',
+    'Path to the behavior config file',
+    defaultBehaviorConfigPath
+  )
+  .option(
+    '-c, --config [run config path]',
+    `Path to a behavior's run config file`
+  )
+  .option('-r, --run', 'Builds and runs the behavior')
+  .option(
+    '-w, --watch',
+    'Watches the behavior for changes rebuilding and running the behavior on change'
+  )
+  .option('--run-built', 'Runs a previously built behavior')
+  .option(
+    '-s, --slowmo <amount>',
+    'How much slow mo (delay) should be used between behavior steps',
+    valueToInt
+  )
+  .option(
+    '-t, --run-timeout <amount>',
+    'Maximum amount of time a behavior will run',
+    valueToInt
+  )
+  .option(
+    '-e, --chromeEXE <chrome executable>',
+    'The chrome executable to be launched rather than attempting to discover / choose the best version of chrome installed'
+  )
+  .option('-u, --url <url>', 'URL of the page to run the behavior on')
+  .parse(process.argv);
+
+behaviorRunnerCLI(program).catch(error => {
+  console.error(error);
+  process.exit(1);
+});
+
+/**
+ * @typedef {Object} Config
+ * @property {boolean|string} what
+ * @property {string} behaviorDir
+ * @property {string} libDir
+ * @property {string} buildDir
+ * @property {string} distDir
+ * @property {string} tsConfigFilePath
+ * @property {string} [metadata]
+ */

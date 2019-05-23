@@ -98,5 +98,5 @@ module.exports = {
   defaultBehaviorConfigPath,
   directoryIndexExists,
   directoryIndexPath,
-  makeFinalBehaviorImportPath
+  makeFinalBehaviorImportPath,
 };

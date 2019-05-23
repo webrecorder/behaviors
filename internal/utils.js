@@ -1,40 +1,49 @@
 const util = require('util');
 const prettyTime = require('pretty-time');
 
-const isBehaviorResults = {
+const behaviorKinds = {
   behavior: Symbol('source-_file-behavior'),
   notABehavior: Symbol('source-not-a-behavior'),
   maybeBehaviorMetaDataOnly: Symbol('source-maybe-behavior-metadata-only'),
-  maybeBehaviorSentinelOnly: Symbol('source-maybe-behavior-sentinel-only')
+  maybeBehaviorSentinelOnly: Symbol('source-maybe-behavior-sentinel-only'),
 };
 
 const defaultInspectOpts = {
   depth: null,
   compact: false,
-  breakLength: Infinity
+  breakLength: Infinity,
 };
 
 class Utils {
   /**
    * Determines if the supplied source file is for a behavior or not
    * @param {SourceFile} sourceFile
-   * @return {symbol} - The results of the is behavior check
+   * @return {boolean} - The results of the is behavior check
    */
   static isBehavior(sourceFile) {
     const moduleSymbol = sourceFile.getSymbol();
-    if (moduleSymbol == null) return isBehaviorResults.notABehavior;
+    if (moduleSymbol == null) return false;
+    return (
+      moduleSymbol.getExport('metaData') != null &&
+      moduleSymbol.getExport('isBehavior') != null
+    );
+  }
+
+  static behaviorKind(sourceFile) {
+    const moduleSymbol = sourceFile.getSymbol();
+    if (moduleSymbol == null) return behaviorKinds.notABehavior;
     const metaDataSymbol = moduleSymbol.getExport('metaData');
     const isBehaviorSymbol = moduleSymbol.getExport('isBehavior');
     if (metaDataSymbol != null && isBehaviorSymbol != null) {
-      return isBehaviorResults.behavior;
+      return behaviorKinds.behavior;
     }
     if (metaDataSymbol != null && isBehaviorSymbol == null) {
-      return isBehaviorResults.maybeBehaviorMetaDataOnly;
+      return behaviorKinds.maybeBehaviorMetaDataOnly;
     }
     if (metaDataSymbol == null && isBehaviorSymbol != null) {
-      return isBehaviorResults.maybeBehaviorSentinelOnly;
+      return behaviorKinds.maybeBehaviorSentinelOnly;
     }
-    return isBehaviorResults.notABehavior;
+    return behaviorKinds.notABehavior;
   }
 
   /**
@@ -185,6 +194,6 @@ class Utils {
   }
 }
 
-Utils.isBehaviorResults = isBehaviorResults;
+Utils.behaviorKinds = behaviorKinds;
 
 module.exports = Utils;

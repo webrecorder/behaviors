@@ -5,13 +5,16 @@ import {
   postTypes,
   multiImageClickOpts,
   determinePostType,
-  viewCommentsAndReplies
+  viewCommentsAndReplies,
 } from './shared';
 
-const behaviorStyle = lib.addBehaviorStyle(`
+let behaviorStyle;
+if (debug) {
+  behaviorStyle = lib.addBehaviorStyle(`
   .wr-debug-visited {border: 6px solid #3232F1;}
   .wr-debug-visited-overlay {border: 6px solid pink;}
 `);
+}
 
 function loggedIn(xpg) {
   return (
@@ -36,11 +39,13 @@ async function* viewStories() {
   // we will continue to speed up autoplay untill the next story
   // button does not exist or we are done (window.location.href === originalLoc)
   lib.collectOutlinksFromDoc();
+  let totalStories = 0;
   while (!lib.locationEquals(originalLoc) && toBeClicked != null) {
     wasClicked = await lib.clickWithDelay(toBeClicked);
     // if the next story part button was not clicked
     // or autoplay is finished we are done
     if (!wasClicked || lib.locationEquals(originalLoc)) break;
+    totalStories += 1;
     videoButton = lib.qs(selectors.user.storyVideo);
     if (videoButton) {
       // this part of a story is video content
@@ -55,10 +60,12 @@ async function* viewStories() {
       if (maybeVideo && maybeVideo.paused) {
         await lib.noExceptPlayMediaElement(maybeVideo);
       }
+      yield lib.stateWithMsgNoWait(`Viewed video of story #${totalStories}`);
       // safety check due to autoplay
       if (lib.locationEquals(originalLoc)) break;
+    } else {
+      yield lib.stateWithMsgNoWait(`Viewed story #${totalStories}`);
     }
-    yield;
     toBeClicked = lib.qs(selectors.user.nextStory);
   }
 }
@@ -98,14 +105,17 @@ async function* handlePost(post, xpg) {
   // the next image button exists in the popup post even if the post is not
   // multi-image, so lets get a reference to it
   const displayDiv = lib.qs(selectors.user.multiImageDisplayDiv, content);
+  const baseMsg = 'Viewed post';
+  let postTypeMsg;
   switch (determinePostType(post)) {
     case postTypes.multiImage: {
       // display each image by clicking the right chevron (next image)
-      await lib.selectFromAndClickUntilNullWithDelay(
+      const numImages = await lib.selectFromAndClickUntilNullWithDelay(
         content,
         selectors.user.rightChevron,
         multiImageClickOpts
       );
+      postTypeMsg = `with ${numImages} images`;
       break;
     }
     case postTypes.video:
@@ -116,12 +126,14 @@ async function* handlePost(post, xpg) {
         displayDiv,
         selectors.user.playVideo
       );
+      postTypeMsg = 'with an video';
       break;
     // default: just loading comments
   }
   // The load more comments button, depending on the number of comments,
   // will contain two variations of text (see xpathQ for those two variations).
   // getMoreComments handles getting that button for the two variations
+  yield lib.stateWithMsgNoWait(`${baseMsg}${postTypeMsg ? postTypeMsg : ''}`);
   yield* viewCommentsAndReplies(xpg, content);
   if (closeButton != null) {
     await lib.clickWithDelay(closeButton);
@@ -129,7 +141,7 @@ async function* handlePost(post, xpg) {
     await lib.clickWithDelay(
       lib.xpathOneOf({
         xpg,
-        queries: xpathQ.postPopupClose
+        queries: xpathQ.postPopupClose,
       })
     );
   }
@@ -162,6 +174,7 @@ export default async function* instagramUserBehavior(cliAPI) {
     // we got nothing at this point, HALP!!!
     lib.collectOutlinksFromDoc();
     lib.autoFetchFromDoc();
+    yield lib.stateWithMsgNoWait('There was no post');
     return;
   }
   // for each post row view the posts it contains
@@ -175,10 +188,10 @@ export default async function* instagramUserBehavior(cliAPI) {
 export const metaData = {
   name: 'instagramUserBehavior',
   match: {
-    regex: /^https:\/\/(www\.)?instagram\.com\/[^/]+(?:\/(?:tagged(?:\/)?)?)?$/
+    regex: /^https:\/\/(www\.)?instagram\.com\/[^/]+(?:\/(?:tagged(?:\/)?)?)?$/,
   },
   description:
-    "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved"
+    "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved",
 };
 
 export const isBehavior = true;

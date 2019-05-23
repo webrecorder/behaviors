@@ -1,7 +1,6 @@
 import test from 'ava';
 import rp from 'request-promise-native';
 import startServer from './helpers/testServer';
-import BehaviorToMetadata from './helpers/behaviorToMetadata';
 import TestedValues from './helpers/testedValues';
 import { loadBehavior } from './helpers/utils';
 
@@ -14,20 +13,50 @@ test.before(async t => {
   server = await startServer();
 });
 
-for (const aTest of TestedValues) {
-  test(`Retrieving the behavior js for "${aTest.name}" should work`, async t => {
+test.after.always(t => {
+  t.timeout(60*1000);
+  return server.close();
+});
+
+for (let i = 0; i < TestedValues.length; i++) {
+  const aTest = TestedValues[i];
+  test(`Retrieving the behavior js for "${
+    aTest.name
+  }" by URL should work`, async t => {
     const response = await rp(aTest.behaviorURL);
-    const expectedBehavior = await loadBehavior(aTest.filename);
+    const expectedBehavior = await loadBehavior(aTest.metadata.fileName);
     t.is(response, expectedBehavior);
   });
 
-  test(`Retrieving the behavior info for "${aTest.name}" should work`, async t => {
+  test(`Retrieving the behavior info for "${
+    aTest.name
+  }" by URL should work`, async t => {
     const response = await rp({
       method: 'GET',
       uri: aTest.infoURL,
-      json: true
+      json: true,
     });
-    const expectedInfo = BehaviorToMetadata[aTest.filename];
+    const expectedInfo = aTest.metadata;
+    t.deepEqual(response, expectedInfo);
+  });
+
+  test(`Retrieving the behavior js for "${
+    aTest.name
+  }" by NAME should work`, async t => {
+    const response = await rp(aTest.behaviorByNameURL);
+    const expectedBehavior = await loadBehavior(aTest.metadata.fileName);
+    t.is(response, expectedBehavior);
+  });
+
+  test(`Retrieving the behavior info for "${
+    aTest.name
+  }" by NAME should work`, async t => {
+    const response = await rp({
+      method: 'GET',
+      uri: aTest.infoByNameURL,
+      json: true,
+    });
+    const expectedInfo = aTest.metadata;
     t.deepEqual(response, expectedInfo);
   });
 }

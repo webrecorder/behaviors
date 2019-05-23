@@ -21,7 +21,7 @@ const wrappers = {
     intro: '(function runner(cliAPI, debug) { ',
     renderChunk: makePretty,
     outro,
-    name: 'wr-behavior-wrapper-setup'
+    name: 'wr-behavior-wrapper-setup',
   },
   runAwaitable: {
     intro: '(function runner(cliAPI, debug) { ',
@@ -29,14 +29,14 @@ const wrappers = {
       return makePretty(code.replace('/*!return!*/', 'return'));
     },
     outro,
-    name: 'wr-behavior-wrapper-async-run'
+    name: 'wr-behavior-wrapper-async-run',
   },
   none: {
     intro: '',
     renderChunk: makePretty,
     footer: '',
-    name: 'wr-behavior-wrapper-none'
-  }
+    name: 'wr-behavior-wrapper-none',
+  },
 };
 
 /**
@@ -51,9 +51,9 @@ function createBehaviorConfigs(configCustomizer) {
       output: {
         sourcemap: false,
         format: 'es',
-        exports: 'none'
+        exports: 'none',
       },
-      plugins: [nodeResolve(), cleanup(), wrappers.setup]
+      plugins: [nodeResolve(), cleanup(), wrappers.setup],
     };
     return configCustomizer(file, config);
   });
@@ -62,17 +62,16 @@ function createBehaviorConfigs(configCustomizer) {
 async function makeInputOutputConfigs({ buildDirPath, distPath }) {
   const inOut = [];
   const buildDirFiles = await fs.readdir(buildDirPath);
-  let i = buildDirFiles.length;
-  let buildDirFile, inConf, outConf;
-  while (i--) {
+  let buildDirFile, inConf;
+  for (var i = 0; i < buildDirFiles.length; ++i) {
     buildDirFile = buildDirFiles[i];
     inConf = {
       input: path.join(buildDirPath, buildDirFile),
-      plugins: [nodeResolve(), cleanup(), wrappers.setup]
+      plugins: [nodeResolve(), cleanup(), wrappers.setup],
     };
     inOut.push({
       in: inConf,
-      out: {}
+      out: {},
     });
   }
   return inOut;
@@ -81,13 +80,13 @@ async function makeInputOutputConfigs({ buildDirPath, distPath }) {
 function makeInputOutputConfig(inFile, outFile) {
   const inConf = {
     input: inFile,
-    plugins: [nodeResolve(), cleanup(), wrappers.setup]
+    plugins: [nodeResolve(), cleanup(), wrappers.setup],
   };
   const outConf = {
     file: outFile,
     sourcemap: false,
     format: 'es',
-    exports: 'none'
+    exports: 'none',
   };
   return { inConf, outConf };
 }
@@ -98,5 +97,5 @@ module.exports = {
   noWrapperFiles,
   createBehaviorConfigs,
   buildDir,
-  wrappers
+  wrappers,
 };

@@ -155,6 +155,7 @@ function ensureNumWorkers(value) {
 
 program
   .version(pkg.version)
+  .usage('[options]')
   .option(
     '-p, --port [port]',
     'The port the api server is to bind to',
@@ -193,7 +194,7 @@ const enableLogging = Utils.envFlagToBool(process.env.BEHAVIOR_API_LOGGING);
 const qsOpts = {
   charset: 'iso-8859-1',
   interpretNumericEntities: true,
-  charsetSentinel: true
+  charsetSentinel: true,
 };
 
 /**
@@ -207,14 +208,14 @@ const config = {
   behaviorInfo: {
     behaviorDir: program.behaviorDir,
     mdataPath: program.behaviorMetadata,
-    build: program.buildBehaviors
+    build: program.buildBehaviors,
   },
   fastifyOpts: {
     trustProxy: true,
     maxParamLength: 5e12,
     logger: enableLogging || process.env.LOG != null,
-    querystringParser: url => qs.parse(url, qsOpts)
-  }
+    querystringParser: url => qs.parse(url, qsOpts),
+  },
 };
 
 module.exports = config;
