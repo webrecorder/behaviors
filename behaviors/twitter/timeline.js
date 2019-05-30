@@ -140,7 +140,6 @@ export default async function* timelineIterator(cliApi) {
   yield* lib.traverseChildrenOfLoaderParent(streamItems, handleTweet, {
     xpg: cliApi.$x,
     originalBaseURI,
-    logger,
   });
 }
 

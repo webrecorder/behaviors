@@ -1,7 +1,6 @@
 'use strict';
 const path = require('path');
 const { Worker, MessageChannel } = require('worker_threads');
-const fp = require('fastify-plugin');
 const uuid = require('uuid/v4');
 const EventEmitter = require('eventemitter3');
 const msgTypes = require('./msgTypes');
@@ -140,7 +139,9 @@ class LookupWorker extends EventEmitter {
     if (this._isRealShutdown) return this._terminationPromise.promise;
     this._isRealShutdown = true;
     this._terminationPromise = promiseResolveReject();
-    this._worker.terminate(noop);
+    this._worker.terminate((error, exitCode) => {
+      this._terminationPromise.resolve();
+    });
     return this._terminationPromise.promise;
   }
 

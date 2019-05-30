@@ -23,34 +23,32 @@ function ensureNoBehaviorPJsExt(behaviorP) {
   return behaviorP;
 }
 
-function initRunnableBehavior({ dImport, postStep, behaviorP, libP }) {
+function initRunnableBehavior({ behavior, libP }) {
+  const dImport = behavior.importName;
+  const behaviorP = behavior.importPathRelativeToBuildDir;
+  const cliAPI =
+    '{ $x: maybePolyfillXPG(window.$x), getEventListeners: window.getEventListeners }';
   let behaviorImport;
-  if (postStep) {
-    behaviorImport = `import ${dImport}, {${postStep}} from '${ensureNoBehaviorPJsExt(
+  let init;
+  if (behavior.hasPostStep) {
+    behaviorImport = `import ${dImport}, { postStep } from '${ensureNoBehaviorPJsExt(
       behaviorP
     )}';`;
+    init = `behaviorStepIterator: ${dImport}(${cliAPI}), postStepFN: postStep`;
   } else {
     behaviorImport = `import ${dImport} from '${ensureNoBehaviorPJsExt(
       behaviorP
     )}';`;
-  }
-  const initImport = `${behaviorImport}
-import { maybePolyfillXPG, initRunnableBehavior } from '${libP}';`;
-
-  let init;
-  if (postStep) {
-    init = `initRunnableBehavior(window, ${dImport}(cliAPI), ${postStep});`;
-  } else {
-    init = `initRunnableBehavior(window, ${dImport}(cliAPI));`;
+    init = `behaviorStepIterator: ${dImport}(${cliAPI})`;
   }
 
-  const code = `${initImport}
+  const code = `${behaviorImport}
+import { maybePolyfillXPG, initRunnableBehavior } from '${libP}';
 
-cliAPI.$x = maybePolyfillXPG(cliAPI.$x);
-
-${init}
+initRunnableBehavior({ win: window, ${init}, metadata: ${
+    behavior.rawMetadata
+  } });
 `;
-
   return prettier.format(code, prettierOpts);
 }
 
@@ -161,21 +159,7 @@ function updateBehaviorMetadata(behavior, behaviorMetadata) {
 async function createRunnableBehaviorInBuildDir(behavior, opts) {
   let runnablePath;
   if (behavior.checkStateGood) {
-    let code;
-    if (behavior.hasPostStep) {
-      code = initRunnableBehavior({
-        dImport: behavior.importName,
-        libP: opts.libDir,
-        behaviorP: behavior.importPathRelativeToBuildDir,
-        postStep: 'postStep',
-      });
-    } else {
-      code = initRunnableBehavior({
-        dImport: behavior.importName,
-        libP: opts.libDir,
-        behaviorP: behavior.importPathRelativeToBuildDir,
-      });
-    }
+    const code = initRunnableBehavior({ behavior, libP: opts.libDir });
     runnablePath = behavior.filePathInBuildDir;
     await fs.writeFile(runnablePath, code, 'utf8');
   } else {
