@@ -58,6 +58,7 @@ class Behavior {
       checkState: null,
       errorMsg: null,
     };
+    this._rawMetadata = null;
 
     /**
      * @type {boolean}
@@ -109,6 +110,7 @@ class Behavior {
       this._metadata = Object.assign({}, checkResults.metadata.value, {
         fileName: this.buildFileName,
       });
+      this._rawMetadata = checkResults.metadata.raw;
       this._metadataCheckInfo.checkState = checkResults.metadata.checkState;
       this._metadataCheckInfo.errorMsg = checkResults.metadata.errorMsg;
     } else {
@@ -176,6 +178,13 @@ class Behavior {
    */
   get fileName() {
     return this._file.getBaseName();
+  }
+
+  get name() {
+    if (this._metadata) {
+      return this._metadata.name
+    }
+    return Path.basename(this._buildFileName, '.js')
   }
 
   /**
@@ -266,6 +275,10 @@ class Behavior {
     return this._metadata;
   }
 
+  get rawMetadata () {
+    return this._rawMetadata;
+  }
+
   [util.inspect.custom](depth, options) {
     if (depth < 0) {
       return options.stylize('[BehaviorFile]', 'special');
@@ -276,6 +289,7 @@ class Behavior {
     const inspectable = {
       path: this.path,
       fileName: this.fileName,
+      name: this.name,
       checkState: this._checkState,
       hasPostStep: this._hasPostStep,
       defaultExport: this._defaultExport,

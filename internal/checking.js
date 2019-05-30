@@ -23,18 +23,20 @@ class Checking {
 
   /**
    * @param {*} value
-   * @return {{checkState: symbol, value: *, errorMsg: ?string}}
+   * @param {string} raw
+   * @return {{checkState: symbol, value: *, raw: string, errorMsg: ?string}}
    */
-  static checkMetadataGood(value) {
-    return { checkState: CheckState.good, value, errorMsg: null };
+  static checkMetadataGood(value, raw) {
+    return { checkState: CheckState.good, value, raw, errorMsg: null };
   }
   /**
    * @param {string} errorMsg
    * @param {*} [value]
-   * @return {{checkState: symbol, value: *, errorMsg: string}}
+   * @param {string} raw
+   * @return {{checkState: symbol, value: *, raw: string, errorMsg: string}}
    */
-  static checkMetadataBad(errorMsg, value) {
-    return { checkState: CheckState.bad, value, errorMsg };
+  static checkMetadataBad(errorMsg, value, raw) {
+    return { checkState: CheckState.bad, value, raw, errorMsg };
   }
 
   /**
@@ -141,11 +143,12 @@ class Checking {
    *
    * @param mdataSymbol
    * @param {TypeChecker} typeChecker
-   * @return {{checkState: symbol, errorMsg: ?string, value: ?Object }}
+   * @return {{checkState: symbol, errorMsg: ?string, value: ?Object, raw: string }}
    */
   static validateAndExtractMetaData(mdataSymbol, typeChecker) {
     const valueDeclar = mdataSymbol.getValueDeclaration();
     const intializer = valueDeclar.getInitializer();
+    const raw = intializer.getFullText();
     const { value, wasError, errorMsg } = Checking.safeConvertMdata(intializer);
     if (!wasError) {
       if (!Utils.isString(value.name)) {
@@ -156,18 +159,19 @@ class Checking {
               value.name
             )}`
           ),
-          value
+          value,
+          raw
         );
       }
       if (!value.defaultBehavior) {
         const matchResults = Checking.checkMetadataMatch(value.match);
         if (matchResults.wasError) {
-          return Checking.checkMetadataBad(matchResults.errorMsg, value);
+          return Checking.checkMetadataBad(matchResults.errorMsg, value, raw);
         }
       }
-      return Checking.checkMetadataGood(value);
+      return Checking.checkMetadataGood(value, raw);
     }
-    return Checking.checkMetadataBad(errorMsg, value);
+    return Checking.checkMetadataBad(errorMsg, value, raw);
   }
 
   /**

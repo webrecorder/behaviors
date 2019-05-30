@@ -4,29 +4,27 @@ const Behavior = require('./behavior');
 const Reporter = require('./reporter');
 const Utils = require('./utils');
 
-function* allSourceFilesFromDir(dir) {
-  const sourceFiles = dir.getSourceFiles();
-  var i = 0;
-  for (; i < sourceFiles.length; i++) {
-    yield sourceFiles[i];
-  }
-  const directories = dir.getDirectories();
-  for (i = 0; i < directories.length; i++) {
-    yield* allSourceFilesFromDir(directories[i]);
-  }
-}
 
 exports.behaviorsFromDirIterator = function* behaviorsFromDirIterator(opts) {
   const project = opts.project;
   project.addExistingDirectory(opts.dir, { recursive: true });
   project.resolveSourceFileDependencies();
   const typeChecker = project.getTypeChecker();
-  for (const sourceFile of allSourceFilesFromDir(
-    project.getDirectory(opts.dir)
-  )) {
-    if (Utils.isBehavior(sourceFile)) {
-      yield new Behavior({ file: sourceFile, typeChecker, opts });
+  let directories = [project.getDirectory(opts.dir)];
+  let nextDir;
+  let sourceFiles;
+  let sourceFile;
+  let i;
+  while (directories.length) {
+    nextDir = directories.shift();
+    sourceFiles = nextDir.getSourceFiles();
+    for (i = 0; i < sourceFiles.length; i++) {
+      sourceFile = sourceFiles[i];
+      if (Utils.isBehavior(sourceFile)) {
+        yield new Behavior({ file: sourceFile, typeChecker, opts });
+      }
     }
+    directories = directories.concat(nextDir.getDirectories())
   }
 };
 

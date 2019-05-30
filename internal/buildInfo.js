@@ -14,17 +14,17 @@ const debugMode = false;
 
 const SHOW_DEBUG = process.env.SHOW_DEBUG != null || debugMode;
 
-const outro = `})({ $x } , ${SHOW_DEBUG});`;
+const outro = `})(${SHOW_DEBUG});`;
 
 const wrappers = {
   setup: {
-    intro: '(function runner(cliAPI, debug) { ',
+    intro: '(function runner(debug) { ',
     renderChunk: makePretty,
     outro,
     name: 'wr-behavior-wrapper-setup',
   },
   runAwaitable: {
-    intro: '(function runner(cliAPI, debug) { ',
+    intro: '(function runner(debug) { ',
     renderChunk(code) {
       return makePretty(code.replace('/*!return!*/', 'return'));
     },
