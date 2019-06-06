@@ -72,20 +72,26 @@ function removeItemFromRequireCache(item) {
 }
 
 /**
- * Sends a reply back to the parent process
- * @param {string} id - The id for the message this message is a response to
- * @param {string} type - The type of response message
- * @param {Object} results - The results of the action performed
- */
-function reply(id, type, results) {
-  serverCom.postMessage({ type, id, results, workerId });
-}
-
-/**
  * Loads the behavior metadata
  */
 function loadBehaviorMdata() {
   behaviorMetadata = require(mdataPath);
+}
+
+/**
+ * Simply creates the reply message object in order to simplify
+ * the reply format
+ * @param {Object} msg
+ * @return {{workerId: number, wasError: boolean, id: string, results: *, errorMsg: ?string}}
+ */
+function createReplyObj(msg) {
+  return {
+    workerId,
+    id: msg.id,
+    results: null,
+    wasError: false,
+    errorMsg: null,
+  };
 }
 
 /**
@@ -102,6 +108,8 @@ function onMsg(msg) {
       return lookupBehavior(msg);
     case msgTypes.lookupBehaviorInfo:
       return lookupBehaviorInfo(msg);
+    case msgTypes.lookupBehaviorInfoAll:
+      return allBehaviorInfo(msg);
     case msgTypes.behaviorList:
       return behaviorList(msg);
     case msgTypes.shutdown:
@@ -138,20 +146,16 @@ function findBehavior(query) {
  * parent process
  * @return {Promise<void>}
  */
-async function lookupBehavior(msg) {
-  const results = {
-    behavior: null,
-    wasError: false,
-    errorMsg: null,
-  };
+function lookupBehavior(msg) {
+  const replyObj = createReplyObj(msg);
   try {
     const foundBehavior = findBehavior(msg.query);
-    results.behavior = path.join(behaviorDir, foundBehavior.fileName);
+    replyObj.results = path.join(behaviorDir, foundBehavior.fileName);
   } catch (error) {
-    results.wasError = true;
-    results.errorMsg = error.message;
+    replyObj.wasError = true;
+    replyObj.errorMsg = error.message;
   }
-  reply(msg.id, msgTypes.behaviorLookupResults, results);
+  serverCom.postMessage(replyObj);
 }
 
 /**
@@ -160,19 +164,15 @@ async function lookupBehavior(msg) {
  * parent process
  * @return {Promise<void>}
  */
-async function lookupBehaviorInfo(msg) {
-  const results = {
-    behavior: null,
-    wasError: false,
-    errorMsg: null,
-  };
+function lookupBehaviorInfo(msg) {
+  const replyObj = createReplyObj(msg);
   try {
-    results.behavior = findBehavior(msg.query);
+    replyObj.results = findBehavior(msg.query);
   } catch (error) {
-    results.wasError = true;
-    results.errorMsg = error.message;
+    replyObj.wasError = true;
+    replyObj.errorMsg = error.message;
   }
-  reply(msg.id, msgTypes.behaviorLookupResults, results);
+  serverCom.postMessage(replyObj);
 }
 
 /**
@@ -183,23 +183,43 @@ async function lookupBehaviorInfo(msg) {
 function reloadBehaviors(msg) {
   removeItemFromRequireCache(mdataPath);
   loadBehaviorMdata();
-  const results = {
-    reloadResults: {
-      defaultBehavior: behaviorMetadata.defaultBehavior.name,
-      numBehaviors: behaviorMetadata.behaviors.length,
-    },
-    wasError: false,
-    errorMsg: null,
+  const replyObj = createReplyObj(msg);
+  replyObj.results = {
+    defaultBehavior: behaviorMetadata.defaultBehavior.name,
+    numBehaviors: behaviorMetadata.behaviors.length,
   };
-  reply(msg.id, msgTypes.reloadBehaviorsResults, results);
+  serverCom.postMessage(replyObj);
 }
 
+/**
+ * Replies with the metadata of all behaviors
+ * @param {Object} msg - The message sent to the LookupWorker from the
+ * parent process
+ */
+function allBehaviorInfo(msg) {
+  const replyObj = createReplyObj(msg);
+  replyObj.results = behaviorMetadata;
+  serverCom.postMessage(replyObj);
+}
+
+/**
+ * Like {@link lookupBehaviorInfo} except that this function replies
+ * with a list of matching behaviors (direct matches, default behavior)
+ * @param {Object} msg - The message sent to the LookupWorker from the
+ * parent process
+ */
 function behaviorList(msg) {
-  reply(msg.id, msgTypes.behaviorListResults, {
-    list: behaviorMetadata,
-    wasError: false,
-    errorMsg: null,
-  });
+  const replyObj = createReplyObj(msg);
+  try {
+    replyObj.results = [
+      findBehavior(msg.query),
+      behaviorMetadata.defaultBehavior,
+    ];
+  } catch (error) {
+    replyObj.wasError = true;
+    replyObj.errorMsg = error.message;
+  }
+  serverCom.postMessage(replyObj);
 }
 
 parentPort.once('message', msg => {

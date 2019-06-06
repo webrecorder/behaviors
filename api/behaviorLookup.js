@@ -260,22 +260,33 @@ class BehaviorLookUp {
    * Initiates a behavior lookup action returning, a promise containing the
    * results of this action that resolves once the results of this action have
    * been received
-   * @param {Object} query - The query for the behavior
+   * @param {Object} request - The request initiating this action
    * @return {Promise<string>}
    */
-  lookupBehavior(query) {
-    return this._sendMsg(msgTypes.lookupBehavior, query);
+  lookupBehavior(request) {
+    return this._sendMsg(msgTypes.lookupBehavior, request.query);
   }
 
   /**
    * Initiates a behavior info lookup action, returning a promise containing the
    * results of this action that resolves once the results of this action have
    * been received
-   * @param {Object} query - The query for the behavior
+   * @param {Object} request - The request initiating this action
    * @return {Promise<Object>}
    */
-  lookupBehaviorInfo(query) {
-    return this._sendMsg(msgTypes.lookupBehaviorInfo, query);
+  info(request) {
+    return this._sendMsg(msgTypes.lookupBehaviorInfo, request.query);
+  }
+
+  /**
+   * Initiates a behavior info lookup action, returning a promise containing the
+   * results of this action that resolves once the results of this action have
+   * been received
+   * @param {Object} request - The request initiating this action
+   * @return {Promise<Object>}
+   */
+  infoList(request) {
+    return this._sendMsg(msgTypes.behaviorList, request.query);
   }
 
   /**
@@ -284,8 +295,8 @@ class BehaviorLookUp {
    * been received
    * @return {Promise<Object>}
    */
-  behaviorList() {
-    return this._sendMsg(msgTypes.behaviorList);
+  allInfo() {
+    return this._sendMsg(msgTypes.lookupBehaviorInfoAll);
   }
 
   /**
@@ -372,20 +383,10 @@ class BehaviorLookUp {
   _onLookupWorkerMsg(msg) {
     const lookupProm = this._msgIdsToPromises.get(msg.id);
     if (lookupProm) {
-      if (!msg.results.wasError) {
-        switch (msg.type) {
-          case msgTypes.behaviorListResults:
-            lookupProm.resolve(msg.results.list);
-            break;
-          case msgTypes.behaviorLookupResults:
-            lookupProm.resolve(msg.results.behavior);
-            break;
-          case msgTypes.reloadBehaviorsResults:
-            lookupProm.resolve(msg.results.reloadResults);
-            break;
-        }
+      if (!msg.wasError) {
+        lookupProm.resolve(msg.results);
       } else {
-        lookupProm.reject(new Error(msg.results.errorMsg));
+        lookupProm.reject(new Error(msg.errorMsg));
       }
       this._msgIdsToPromises.delete(msg.id);
     }

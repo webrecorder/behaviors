@@ -182,9 +182,9 @@ class Behavior {
 
   get name() {
     if (this._metadata) {
-      return this._metadata.name
+      return this._metadata.name;
     }
-    return Path.basename(this._buildFileName, '.js')
+    return Path.basename(this._buildFileName, '.js');
   }
 
   /**
@@ -275,7 +275,7 @@ class Behavior {
     return this._metadata;
   }
 
-  get rawMetadata () {
+  get rawMetadata() {
     return this._rawMetadata;
   }
 
