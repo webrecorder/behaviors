@@ -1,5 +1,6 @@
 import * as lib from '../../lib';
 import { elemIds, overlayTweetXpath, selectors, tweetXpath } from './shared';
+import autoScrollBehavior from '../autoscroll';
 
 let behaviorStyle;
 if (debug) {
@@ -131,11 +132,18 @@ async function* handleTweet(tweetLi, { originalBaseURI }) {
  *      - GOTO S2
  *
  * @param {Object} cliApi
- * @return {AsyncIterator<boolean>}
+ * @return {AsyncIterator<*>}
  */
 export default async function* timelineIterator(cliApi) {
   const originalBaseURI = document.baseURI;
   const streamItems = lib.qs(selectors.tweetStreamItems);
+  if (!streamItems) {
+    yield lib.stateWithMsgNoWait(
+      'Could not find the tweets defaulting to auto scroll'
+    );
+    yield* autoScrollBehavior();
+    return;
+  }
   // for each post row view the posts it contains
   yield* lib.traverseChildrenOfLoaderParent(streamItems, handleTweet, {
     xpg: cliApi.$x,
@@ -146,7 +154,7 @@ export default async function* timelineIterator(cliApi) {
 export const metaData = {
   name: 'twitterTimelineBehavior',
   match: {
-    regex: /^(?:https:\/\/(?:www\.)?)?twitter\.com\/[^/]+$/,
+    regex: /^(?:https:[/]{2}(?:www[.])?)?twitter[.]com[/]?(?:[^/]+[/]?)?$/,
   },
   description:
     'For each tweet within the timeline views each tweet. If the tweet has a video it is played. If the tweet is a part of a thread or has replies views all related tweets',

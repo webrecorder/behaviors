@@ -39,8 +39,11 @@ const BaseAPIUrl = 'http://localhost:3030';
 const APIUrls = {
   fetchBehaviorURL: `${BaseAPIUrl}/behavior?url=`,
   fetchBehaviorInfoURL: `${BaseAPIUrl}/info?url=`,
+  fetchBehaviorInfoListURL: `${BaseAPIUrl}/info-list?url=`,
   fetchBehaviorByName: `${BaseAPIUrl}/behavior?name=`,
   fetchBehaviorInfoByName: `${BaseAPIUrl}/info?name=`,
+  fetchBehaviorInfoListByName: `${BaseAPIUrl}/info-list?name=`,
+  fetchBehaviorInfoAll: `${BaseAPIUrl}/info-all`,
 };
 
 /**
@@ -62,6 +65,15 @@ function fetchBehaviorInfoURL(url) {
 }
 
 /**
+ * Returns the full URL for requesting a behaviors info
+ * @param {string} url - The URL of a page that should have a behavior
+ * @return {string}
+ */
+function fetchBehaviorInfoListURL(url) {
+  return `${APIUrls.fetchBehaviorInfoListURL}${url}`;
+}
+
+/**
  * Returns the full URL for requesting a behaviors JS
  * @param {string} name - The name of the behavior
  * @return {string}
@@ -78,6 +90,38 @@ function fetchBehaviorByName(name) {
 function fetchBehaviorInfoByName(name) {
   return `${APIUrls.fetchBehaviorInfoByName}${name}`;
 }
+
+/**
+ * Returns the full URL for requesting a behaviors info
+ * @param {string} name - The name of the behavior
+ * @return {string}
+ */
+function fetchBehaviorInfoListByName(name) {
+  return `${APIUrls.fetchBehaviorInfoListByName}${name}`;
+}
+
+/**
+ * Creates and returns an tested value object
+ * @param {string} name - The name of the object
+ * @param {string} bname - The name of the behavior
+ * @param {string} url - The URL the behavior is supposed to be matched to
+ * @param {Object} metadata - The behaviors metadata
+ * @return {{infoListURL: string, metadata: Object, infoURL: string, infoListByNameURL: string, behaviorByNameURL: string, infoByNameURL: string, name: string, url: string, behaviorURL: string}}
+ */
+function createTestedValue(name, bname, url, metadata) {
+  return {
+    name,
+    metadata,
+    url,
+    infoURL: fetchBehaviorInfoURL(url),
+    infoByNameURL: fetchBehaviorInfoByName(bname),
+    infoListURL: fetchBehaviorInfoListURL(url),
+    infoListByNameURL: fetchBehaviorInfoListByName(bname),
+    behaviorURL: fetchBehaviorURL(url),
+    behaviorByNameURL: fetchBehaviorByName(bname)
+  };
+}
+
 /**
  *
  * @param {Behavior} behavior
@@ -86,33 +130,27 @@ function makeTestedValue(behavior) {
   if (behavior.match) {
     behavior.match.regex = behavior.match.regex.source;
   }
-  const name = behavior.metadata.name;
+  const metadata = behavior.metadata;
+  const name = metadata.name;
   const bnameLower = name.toLowerCase();
   for (const [testPart, testValue] of Object.entries(TestURLs)) {
     if (bnameLower.includes(testPart)) {
       if (typeof testValue === 'string') {
-        return {
-          name: Utils.upperFirst(testPart),
-          infoURL: fetchBehaviorInfoURL(testValue),
-          infoByNameURL: fetchBehaviorInfoByName(name),
-          behaviorURL: fetchBehaviorURL(testValue),
-          behaviorByNameURL: fetchBehaviorByName(name),
-          metadata: behavior.metadata,
-          url: testValue,
-        };
+        return createTestedValue(
+          Utils.upperFirst(testPart),
+          name,
+          testValue,
+          metadata
+        );
       }
       for (const [specific, specificValue] of Object.entries(testValue)) {
         if (bnameLower.includes(specific)) {
-          console.log(testPart, specific);
-          return {
-            name: `${Utils.upperFirst(testPart)} ${Utils.upperFirst(specific)}`,
-            infoURL: fetchBehaviorInfoURL(specificValue),
-            infoByNameURL: fetchBehaviorInfoURL(specificValue),
-            behaviorURL: fetchBehaviorByName(name),
-            behaviorByNameURL: fetchBehaviorByName(name),
-            metadata: behavior.metadata,
-            url: specificValue,
-          };
+          return createTestedValue(
+            `${Utils.upperFirst(testPart)} ${Utils.upperFirst(specific)}`,
+            name,
+            specificValue,
+            metadata
+          );
         }
       }
     }
@@ -134,8 +172,17 @@ async function generateTestedValues() {
     config
   );
   const testValues = [];
+  let defaultBehaviorMD;
+  const behaviorMdata = {};
+  let count = 0;
   for (const behavior of behaviorsFromDirIterator(opts)) {
     behavior.init();
+    if (behavior.isDefaultBehavior) {
+      defaultBehaviorMD = Utils.inspect(behavior.metadata);
+    } else {
+      behaviorMdata[behavior.name] = behavior.metadata;
+      count += 1;
+    }
     const result = makeTestedValue(behavior);
     if (result) {
       testValues.push(result);
@@ -152,7 +199,18 @@ async function generateTestedValues() {
   await fs.writeFile(
     bToMPath,
     prettier.format(
-      `module.exports = ${Utils.inspect(testValues)};`,
+      `module.exports = {
+tests: ${Utils.inspect(testValues)},
+defaultBMD: ${defaultBehaviorMD},
+allResult: {
+  url: '${APIUrls.fetchBehaviorInfoAll}',
+  count: ${count},
+ value: {
+  defaultBehavior: ${defaultBehaviorMD},
+ behaviors: ${Utils.inspect(behaviorMdata)}
+ }
+}
+};`,
       prettierOpts
     )
   );

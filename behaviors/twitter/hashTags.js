@@ -5,6 +5,7 @@ import {
   selectors,
   threadedTweetXpath,
 } from './shared';
+import autoScrollBehavior from '../autoscroll';
 
 let behaviorStyle;
 if (debug) {
@@ -154,7 +155,10 @@ export default async function* hashTagIterator(cliAPI) {
   const originalBaseURI = document.baseURI;
   const streamItems = lib.qs(selectors.tweetStreamItems);
   if (!streamItems) {
-    yield lib.stateWithMsgNoWait('Could not find the tweets');
+    yield lib.stateWithMsgNoWait(
+      'Could not find the tweets defaulting to auto scroll'
+    );
+    yield* autoScrollBehavior();
     return;
   }
   yield* lib.traverseChildrenOfLoaderParent(

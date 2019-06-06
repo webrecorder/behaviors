@@ -211,10 +211,10 @@ function allBehaviorInfo(msg) {
 function behaviorList(msg) {
   const replyObj = createReplyObj(msg);
   try {
-    replyObj.results = [
-      findBehavior(msg.query),
-      behaviorMetadata.defaultBehavior,
-    ];
+    const foundBehavior = findBehavior(msg.query);
+    replyObj.results = foundBehavior.defaultBehavior
+      ? [foundBehavior]
+      : [foundBehavior, behaviorMetadata.defaultBehavior];
   } catch (error) {
     replyObj.wasError = true;
     replyObj.errorMsg = error.message;
