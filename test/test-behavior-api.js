@@ -14,7 +14,7 @@ test.before(async t => {
 });
 
 test.after.always(t => {
-  t.timeout(60*1000);
+  t.timeout(60 * 1000);
   return server.close();
 });
 

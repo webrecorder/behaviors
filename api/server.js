@@ -1,5 +1,6 @@
 'use strict';
 const fastify = require('fastify');
+const initRoutes = require('./routes');
 const prepareBehaviors = require('./prepareBehaviors');
 const BehaviorLookUp = require('./behaviorLookup');
 const Utils = require('../internal/utils');
@@ -19,17 +20,11 @@ module.exports = async function initServer(config) {
   behaviorLookerUpper.init();
   const server = fastify(config.fastifyOpts);
   server
-    .decorate('conf', config)
     .register(require('fastify-graceful-shutdown'), { timeout: 3000 })
-    .register(require('./routes'))
-    .decorate('behaviorLookUp', behaviorLookerUpper)
-    .decorate('lookupBehavior', behaviorLookerUpper.lookupBehavior)
-    .decorate('lookupBehaviorInfo', behaviorLookerUpper.lookupBehaviorInfo)
-    .decorate('behaviorList', behaviorLookerUpper.behaviorList)
-    .decorate('reloadBehaviors', behaviorLookerUpper.reloadBehaviors)
     .addHook('onClose', (server, done) => {
       behaviorLookerUpper.shutdown(done);
     });
+  initRoutes(server, behaviorLookerUpper);
   const listeningOn = await server.listen(config.port, config.host);
   console.log(
     `Behavior api server listening on\n${

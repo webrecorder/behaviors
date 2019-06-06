@@ -30,6 +30,8 @@ module.exports = [
         regex:
           '^(?:https?:\\/\\/(?:www\\.)?)?deathimitateslanguage\\.harmvandendorpel\\.com\\/?$',
       },
+      description:
+        'Scrolls the page clicking all the images rendered at the current scroll level',
       fileName: 'deathImitatesLanguageBehavior.js',
     },
     url: 'https://deathimitateslanguage.harmvandendorpel.com',

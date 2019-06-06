@@ -15,11 +15,5 @@
     "browser": true,
     "es6": true,
     "node": true
-  },
-  "globals": {
-    "$x": true,
-    "$": true,
-    "$$": true,
-    "xpg": true
   }
 }

@@ -4,7 +4,6 @@ const Behavior = require('./behavior');
 const Reporter = require('./reporter');
 const Utils = require('./utils');
 
-
 exports.behaviorsFromDirIterator = function* behaviorsFromDirIterator(opts) {
   const project = opts.project;
   project.addExistingDirectory(opts.dir, { recursive: true });
@@ -24,7 +23,7 @@ exports.behaviorsFromDirIterator = function* behaviorsFromDirIterator(opts) {
         yield new Behavior({ file: sourceFile, typeChecker, opts });
       }
     }
-    directories = directories.concat(nextDir.getDirectories())
+    directories = directories.concat(nextDir.getDirectories());
   }
 };
 
