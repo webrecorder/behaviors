@@ -1,7 +1,7 @@
 import test from 'ava';
 import rp from 'request-promise-native';
 import startServer from './helpers/testServer';
-import TestedValues from './helpers/testedValues';
+import { tests, allResult, defaultBMD } from './helpers/testedValues';
 import { loadBehavior } from './helpers/utils';
 
 /**
@@ -18,8 +18,7 @@ test.after.always(t => {
   return server.close();
 });
 
-for (let i = 0; i < TestedValues.length; i++) {
-  const aTest = TestedValues[i];
+for (const aTest of tests) {
   test(`Retrieving the behavior js for "${
     aTest.name
   }" by URL should work`, async t => {
@@ -59,4 +58,54 @@ for (let i = 0; i < TestedValues.length; i++) {
     const expectedInfo = aTest.metadata;
     t.deepEqual(response, expectedInfo);
   });
+
+  test(`Retrieving the behavior info-list for "${
+    aTest.name
+  }" by URL should work`, async t => {
+    const response = await rp({
+      method: 'GET',
+      uri: aTest.infoListURL,
+      json: true,
+    });
+    const expectedInfo = aTest.metadata;
+    if (response.length === 1) {
+      t.deepEqual(response, [expectedInfo]);
+    } else {
+      t.deepEqual(response, [expectedInfo, defaultBMD]);
+    }
+  });
+
+  test(`Retrieving the behavior info-list for "${
+    aTest.name
+  }" by name should work`, async t => {
+    const response = await rp({
+      method: 'GET',
+      uri: aTest.infoListByNameURL,
+      json: true,
+    });
+    const expectedInfo = aTest.metadata;
+    if (response.length === 1) {
+      t.deepEqual(response, [expectedInfo]);
+    } else {
+      t.deepEqual(response, [expectedInfo, defaultBMD]);
+    }
+  });
 }
+
+test('Retrieving all behavior info should work', async t => {
+  const {
+    url,
+    value: { defaultBehavior, behaviors },
+    count,
+  } = allResult;
+  const response = await rp({
+    method: 'GET',
+    uri: url,
+    json: true,
+  });
+  t.deepEqual(response.defaultBehavior, defaultBehavior);
+  t.is(response.behaviors.length, count);
+  for (const b of response.behaviors) {
+    t.deepEqual(b, behaviors[b.name]);
+  }
+});

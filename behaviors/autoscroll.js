@@ -3,7 +3,7 @@ import * as lib from '../lib';
 let timesScrolled = 0;
 const maxScroll = 100;
 
-async function* scroll() {
+export async function* scroll() {
   let scrollCount = 0;
   while (lib.canScrollMore() && scrollCount < maxScroll) {
     scrollCount++;
