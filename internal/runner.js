@@ -110,9 +110,7 @@ async function performNextStep(runnerHandle, stopEE) {
   }
   if (result) {
     ColorPrinter.blue(
-      `Performed step\n  - done = ${result.done}\n  - wait = ${
-        result.wait
-      }\n  - msg = ${result.msg}`
+      `Performed step\n  - done = ${result.done}\n  - wait = ${result.wait}\n  - msg = ${result.msg}`
     );
     ColorPrinter.blankLine();
     return result.done;
@@ -144,9 +142,7 @@ async function autorun({ browser, stopEE, runConfig }) {
   if (runConfig.timeout) {
     to = setTimeout(() => {
       ColorPrinter.warning(
-        `Stopping running behavior due to run time exceeded configured timeout ${
-          runConfig.timeout
-        }`
+        `Stopping running behavior due to run time exceeded configured timeout ${runConfig.timeout}`
       );
       ColorPrinter.blankLine();
       run = false;
@@ -173,6 +169,7 @@ async function autorun({ browser, stopEE, runConfig }) {
   }
   if (to) clearTimeout(to);
   await runnerHandle.dispose();
+  if (runConfig.openDevTools) await delay(6000);
   await page.close({ runBeforeUnload: true });
   page.removeAllListeners();
 }

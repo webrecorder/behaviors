@@ -1,10 +1,11 @@
 import * as lib from '../../lib';
 import {
+  commentViewer,
   determinePostType,
+  loadAllComments,
   multiImageClickOpts,
   postTypes,
   selectors,
-  viewCommentsAndReplies,
 } from './shared';
 
 function getPostMain() {
@@ -51,7 +52,11 @@ export default async function* instagramPostBehavior(cliAPI) {
       break;
   }
   yield lib.stateWithMsgNoWait(`${baseMsg}${postTypeMsg ? postTypeMsg : ''}`);
-  yield* viewCommentsAndReplies(cliAPI.$x, postMain);
+  const commentList = lib.qs('ul', postMain);
+  if (commentList) {
+    yield* loadAllComments(commentList);
+    yield* lib.traverseChildrenOf(commentList, commentViewer());
+  }
 }
 
 export const metaData = {
