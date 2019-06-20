@@ -110,7 +110,7 @@ export const metaData = {
     regex: /^(?:https:\/\/(?:www\.)?)?soundcloud\.com\/[^/]+(\/)?$/,
   },
   description:
-    'Plays all tracks or collection of tracks by the artist. Once a track has been played, the next track is not played until network idle has been reached.'
+    'Capture every track on Soundcloud profile.'
 };
 
 export const isBehavior = true;
