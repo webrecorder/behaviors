@@ -33,7 +33,7 @@ export const metaData = {
   name: 'autoScrollBehavior',
   defaultBehavior: true,
   description:
-    'Scrolls the page until we can scroll no more. If media elements are discovered while scrolling they are played',
+    'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.'
 };
 
 export const isBehavior = true;

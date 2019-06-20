@@ -174,7 +174,7 @@ export const metaData = {
     regex: /^(?:https:\/\/(?:www\.)?)?twitter\.com\/hashtag\/[^?]+.*/,
   },
   description:
-    'For each tweet containing the searched hashtag views each tweet. If the tweet has a video it is played and a wait until network idle is done. If the tweet is a part of a thread or has replies views all related tweets',
+    'Capture every tweet in hashtag search, including embedded videos, images and replies.'
 };
 
 export const isBehavior = true;

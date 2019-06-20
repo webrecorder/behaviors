@@ -157,7 +157,7 @@ export const metaData = {
     regex: /^(?:https:[/]{2}(?:www[.])?)?twitter[.]com[/]?(?:[^/]+[/]?)?$/,
   },
   description:
-    'For each tweet within the timeline views each tweet. If the tweet has a video it is played. If the tweet is a part of a thread or has replies views all related tweets',
+    'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.'
 };
 
 export const isBehavior = true;
