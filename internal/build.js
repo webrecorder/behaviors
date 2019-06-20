@@ -45,9 +45,7 @@ function initRunnableBehavior({ behavior, libP }) {
   const code = `${behaviorImport}
 import { maybePolyfillXPG, initRunnableBehavior } from '${libP}';
 
-initRunnableBehavior({ win: window, ${init}, metadata: ${
-    behavior.rawMetadata
-  } });
+initRunnableBehavior({ win: window, ${init}, metadata: ${behavior.rawMetadata} });
 `;
   return prettier.format(code, prettierOpts);
 }
@@ -65,9 +63,7 @@ async function resolveWhatPath(opts, operation) {
     exists = await fs.pathExists(opts.behaviorDir);
     if (!exists) {
       throw new Error(
-        `${operation} failed because the behavior directory does not exist: ${
-          opts.behaviorDir
-        }`
+        `${operation} failed because the behavior directory does not exist: ${opts.behaviorDir}`
       );
     }
     return opts.behaviorDir;
@@ -77,9 +73,7 @@ async function resolveWhatPath(opts, operation) {
     exists = await fs.pathExists(opts.what);
     if (!exists) {
       throw new Error(
-        `${operation} failed because the behavior(s) path ${
-          opts.what
-        } does not exist`
+        `${operation} failed because the behavior(s) path ${opts.what} does not exist`
       );
     }
     return opts.what;
@@ -110,9 +104,7 @@ async function resolveWhatPath(opts, operation) {
 
   throw new Error(
     Utils.joinStrings(
-      `${operation} failed because the behavior(s) path ${
-        opts.what
-      } does not exist and we tried the following paths:`,
+      `${operation} failed because the behavior(s) path ${opts.what} does not exist and we tried the following paths:`,
       relResolvedWhat,
       behaviorDirPlusWhat,
       cwdPlusWhat,
@@ -441,9 +433,7 @@ async function generateMetdataFile(opts) {
   }
 
   ColorPrinter.info(
-    `Creating runnable behaviors for all behaviors found in the directory located at ${
-      resolvedWhat.path
-    }`
+    `Creating runnable behaviors for all behaviors found in the directory located at ${resolvedWhat.path}`
   );
   ColorPrinter.blankLine();
   const finalOpts = Object.assign(

@@ -118,7 +118,7 @@ function createTestedValue(name, bname, url, metadata) {
     infoListURL: fetchBehaviorInfoListURL(url),
     infoListByNameURL: fetchBehaviorInfoListByName(bname),
     behaviorURL: fetchBehaviorURL(url),
-    behaviorByNameURL: fetchBehaviorByName(bname)
+    behaviorByNameURL: fetchBehaviorByName(bname),
   };
 }
 

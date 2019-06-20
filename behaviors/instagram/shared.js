@@ -1,4 +1,5 @@
 import * as lib from '../../lib';
+import { qs, scrollIntoViewAndClickWithDelay } from '../../lib';
 
 export const selectors = {
   user: {
@@ -20,6 +21,8 @@ export const selectors = {
     nextImage: 'div.coreSpriteRightChevron',
     playVideo: 'span[role="button"].videoSpritePlayButton',
   },
+  moreRepliesSpan: '* > button[type="button"] > span',
+  postersOwnComment: 'li[role="menuitem"]',
 };
 
 export const multiImagePostSelectors = {
@@ -33,6 +36,7 @@ export const multiImagePostSelectors = {
 
 export const videoPostSelectors = {
   user: [
+    'span[role="button"].videoSpritePlayButton',
     'span[aria-label*="Video" i]',
     'span[class*="SpriteVideo" i]',
     'span.coreSpriteVideoIconLarge',
@@ -132,6 +136,61 @@ export async function* loadReplies(xpg, cntx) {
       yield lib.stateWithMsgNoWait('Loaded post comment reply');
     }
   }
+}
+
+const MoreCommentsSpanSelector = '* > span[aria-label*="more comments" i]';
+
+export async function* loadAllComments(commentList) {
+  // the more comments span, as far as I can tell, can be at
+  // the bottom or top of the list depending on how instagram's JS fells
+  // so we just gotta find it somewhere as a child of the comment list
+  let moreCommentsClicked = 0;
+  let moreSpan = lib.qs(MoreCommentsSpanSelector, commentList);
+  while (moreSpan) {
+    if (!moreSpan.isConnected) break;
+    await lib.scrollIntoViewAndClickWithDelay(moreSpan);
+    moreCommentsClicked += 1;
+    yield lib.stateWithMsgNoWait(
+      `Loaded additional comments #${moreCommentsClicked} times`
+    );
+    moreSpan = lib.qs(MoreCommentsSpanSelector, commentList);
+  }
+  yield lib.stateWithMsgNoWait('All comments loaded');
+}
+
+export function commentViewer() {
+  let consumedDummy = false;
+  let numComments = 0;
+  return async function* viewComment(comment) {
+    // the first child of the comment list is an li with a div child
+    // this is the posters comment
+    if (!consumedDummy && comment.matches(selectors.postersOwnComment)) {
+      consumedDummy = true;
+      lib.scrollIntoView(comment);
+      yield lib.stateWithMsgNoWait('View posters own comment');
+      return;
+    }
+    // these children are li's with ul child
+    numComments += 1;
+    yield lib.stateWithMsgNoWait(`Viewed comment ${numComments}`);
+    let replies = lib.qs(selectors.moreRepliesSpan, comment);
+    // some comments do not need more replies loaded
+    if (replies && !lib.elementTextContains(replies, 'hide', true)) {
+      let numReplies = 0;
+      while (replies) {
+        if (!replies.isConnected) break;
+        await scrollIntoViewAndClickWithDelay(replies);
+        if (lib.elementTextContains(replies, 'hide', true)) {
+          break;
+        }
+        numReplies += 1;
+        yield lib.stateWithMsgNoWait(
+          `Clicked loaded more replies for comment ${numComments} (#${numReplies} times)`
+        );
+        replies = qs(selectors.moreRepliesSpan, comment);
+      }
+    }
+  };
 }
 
 export async function* viewCommentsAndReplies(xpg, cntx) {

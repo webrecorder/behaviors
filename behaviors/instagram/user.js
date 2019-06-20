@@ -1,11 +1,12 @@
 import * as lib from '../../lib';
 import {
+  commentViewer,
+  determinePostType,
+  loadAllComments,
+  multiImageClickOpts,
+  postTypes,
   selectors,
   xpathQ,
-  postTypes,
-  multiImageClickOpts,
-  determinePostType,
-  viewCommentsAndReplies,
 } from './shared';
 
 let behaviorStyle;
@@ -80,6 +81,7 @@ async function* handlePost(post, xpg) {
   if (!maybeA) {
     // we got nothing halp!!!
     lib.collectOutlinksFrom(post);
+    yield lib.stateWithMsgNoWait('Encountered a non-post');
     return;
   }
   await lib.clickWithDelay(maybeA);
@@ -134,7 +136,11 @@ async function* handlePost(post, xpg) {
   // will contain two variations of text (see xpathQ for those two variations).
   // getMoreComments handles getting that button for the two variations
   yield lib.stateWithMsgNoWait(`${baseMsg}${postTypeMsg ? postTypeMsg : ''}`);
-  yield* viewCommentsAndReplies(xpg, content);
+  const commentList = lib.qs('ul', content);
+  if (commentList) {
+    yield* loadAllComments(commentList);
+    yield* lib.traverseChildrenOf(commentList, commentViewer());
+  }
   if (closeButton != null) {
     await lib.clickWithDelay(closeButton);
   } else {

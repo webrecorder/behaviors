@@ -269,9 +269,7 @@ class Checking {
       results[propName] = convertResults.value;
       if (convertResults.wasError) {
         errorMsgs.push(
-          `The property ${propName} of parent object ${name} is invalid ${
-            convertResults.errorMsg
-          }`
+          `The property ${propName} of parent object ${name} is invalid ${convertResults.errorMsg}`
         );
       }
     }
