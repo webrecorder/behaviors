@@ -1,30 +1,27 @@
 import * as lib from '../lib';
 
-let timesScrolled = 0;
 const maxScroll = 100;
+const scroller = lib.createScroller();
 
 export async function* scroll() {
-  let scrollCount = 0;
-  while (lib.canScrollMore() && scrollCount < maxScroll) {
-    scrollCount++;
-    timesScrolled++;
+  let localTimesScrolled = 0;
+  while (scroller.canScrollMoreUpDown() && localTimesScrolled < maxScroll) {
     lib.collectOutlinksFromDoc();
-    lib.scrollWindowDownBy(500);
+    scroller.scrollDown();
     yield lib.stateWithMsgWaitFromAwaitable(
       lib.findAllMediaElementsAndPlay(),
-      `Scrolled page ${timesScrolled} times`
+      `Scrolled page ${scroller.scrollCountDown} times`
     );
+    localTimesScrolled += 1;
   }
   yield lib.stateWithMsgWait('Waiting for network idle');
 }
 
 export default async function* autoScrollBehavior() {
-  yield lib.composeAsync(
-    lib.partial(lib.stateWithMsgNoWait, 'Beginning scroll'),
-    lib.domCompletePromise
-  )();
+  yield lib.stateWithMsgNoWait('Beginning scroll');
+  await lib.domCompletePromise();
   lib.collectOutlinksFromDoc();
-  while (lib.canScrollMore()) {
+  while (scroller.canScrollMoreUpDown()) {
     yield* scroll();
   }
 }
