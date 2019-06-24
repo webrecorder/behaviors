@@ -134,7 +134,7 @@ export const metaData = {
     regex: /^(?:https:\/\/(?:www\.)?)slideshare\.net\/[a-zA-Z]+[?].+/,
   },
   description:
-    'Views each slide contained in the slide deck. If there are multiple slide decks each deck is viewed',
+    'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.'
 };
 
 export const isBehavior = true;

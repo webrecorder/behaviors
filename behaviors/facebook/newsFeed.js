@@ -66,7 +66,7 @@ export const metaData = {
   match: {
     regex: /^https:\/\/(www\.)?facebook\.com(\/)?([?]sk=nf)?$/,
   },
-  description: 'Views all items in the Facebook news feed',
+  description: 'Capture all items and comments in the Facebook timeline and scroll down to load more.'
 };
 
 export const isBehavior = true;
