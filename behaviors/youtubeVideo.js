@@ -98,7 +98,7 @@ export const metaData = {
   match: {
     regex: /^(?:https:\/\/(?:www\.)?)?youtube\.com\/watch[?]v=.+/
   },
-  description: 'Plays a YouTube video and loads all comments'
+  description: 'Capture the YouTube video and all comments.'
 };
 
 // playVideoAndLoadComments().then(() => console.log('done'));

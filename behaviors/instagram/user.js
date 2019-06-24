@@ -197,7 +197,7 @@ export const metaData = {
     regex: /^https:\/\/(www\.)?instagram\.com\/[^/]+(?:\/(?:tagged(?:\/)?)?)?$/,
   },
   description:
-    "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved",
+    'Capture all stories, images, videos and comments on user’s page.'
 };
 
 export const isBehavior = true;

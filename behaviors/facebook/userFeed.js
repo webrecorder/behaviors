@@ -119,7 +119,7 @@ export const metaData = {
     regex: /^https:\/\/(www\.)?facebook\.com\/[^/]+\/?$/,
   },
   description:
-    'Views all items in the Facebook user/organization/artists/etc timeline',
+    'Capture all items and comments in the Facebook page and scroll down to load more content where possible.'
 };
 
 export const isBehavior = true;
