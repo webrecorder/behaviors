@@ -6,7 +6,7 @@ module.exports = {
         name: 'autoScrollBehavior',
         defaultBehavior: true,
         description:
-          'Scrolls the page until we can scroll no more. If media elements are discovered while scrolling they are played',
+          'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
         fileName: 'autoscrollBehavior.js',
       },
       url: 'https://example.com',
@@ -54,7 +54,7 @@ module.exports = {
             '^(?:https:\\/\\/(?:www\\.)?)slideshare\\.net\\/[a-zA-Z]+[?].+',
         },
         description:
-          'Views each slide contained in the slide deck. If there are multiple slide decks each deck is viewed',
+          'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',
         fileName: 'slideShareBehavior.js',
       },
       url:
@@ -78,7 +78,7 @@ module.exports = {
         match: {
           regex: '^(?:https:\\/\\/(?:www\\.)?)?youtube\\.com\\/watch[?]v=.+',
         },
-        description: 'Plays a YouTube video and loads all comments',
+        description: 'Capture the YouTube video and all comments.',
         fileName: 'youtubeVideoBehavior.js',
       },
       url: 'https://www.youtube.com/watch?v=MfH0oirdHLs',
@@ -101,7 +101,8 @@ module.exports = {
         match: {
           regex: '^https:\\/\\/(www\\.)?facebook\\.com(\\/)?([?]sk=nf)?$',
         },
-        description: 'Views all items in the Facebook news feed',
+        description:
+          'Capture all items and comments in the Facebook timeline and scroll down to load more.',
         fileName: 'facebookNewsFeedBehavior.js',
       },
       url: 'https://www.facebook.com',
@@ -123,7 +124,7 @@ module.exports = {
           regex: '^https:\\/\\/(www\\.)?facebook\\.com\\/[^\\/]+\\/?$',
         },
         description:
-          'Views all items in the Facebook user/organization/artists/etc timeline',
+          'Capture all items and comments in the Facebook page and scroll down to load more content where possible.',
         fileName: 'facebookUserFeedBehavior.js',
       },
       url: 'https://www.facebook.com/Smithsonian/',
@@ -146,7 +147,7 @@ module.exports = {
           regex: '^https:\\/\\/(www\\.)?instagram\\.com\\/p\\/[^\\/]+(?:\\/)?$',
         },
         description:
-          "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved",
+          'Capture every image and/or video, retrieve all comments, and scroll down to load more.',
         fileName: 'instagramPostBehavior.js',
       },
       url: 'https://www.instagram.com/p/Bxiub6BB0Ab/',
@@ -171,7 +172,7 @@ module.exports = {
             '^https:\\/\\/(www\\.)?instagram\\.com\\/[^\\/]+(?:\\/(?:tagged(?:\\/)?)?)?$',
         },
         description:
-          "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved",
+          'Capture all stories, images, videos and comments on user’s page.',
         fileName: 'instagramUserBehavior.js',
       },
       url: 'https://www.instagram.com/rhizomedotorg',
@@ -188,6 +189,30 @@ module.exports = {
         'http://localhost:3030/behavior?name=instagramUserBehavior',
     },
     {
+      name: 'Subreddit',
+      metadata: {
+        name: 'subRedditBehavior',
+        description: 'Capture all posts on sub-reddits page.',
+        match: {
+          regex:
+            '^https:\\/\\/(www\\.)?reddit\\.com\\/r\\/[^\\/]+(?:\\/(?:[a-z]+\\/?))?',
+        },
+        fileName: 'redditSubBehavior.js',
+      },
+      url: 'https://www.reddit.com/r/unixporn',
+      infoURL:
+        'http://localhost:3030/info?url=https://www.reddit.com/r/unixporn',
+      infoByNameURL: 'http://localhost:3030/info?name=subRedditBehavior',
+      infoListURL:
+        'http://localhost:3030/info-list?url=https://www.reddit.com/r/unixporn',
+      infoListByNameURL:
+        'http://localhost:3030/info-list?name=subRedditBehavior',
+      behaviorURL:
+        'http://localhost:3030/behavior?url=https://www.reddit.com/r/unixporn',
+      behaviorByNameURL:
+        'http://localhost:3030/behavior?name=subRedditBehavior',
+    },
+    {
       name: 'Soundcloud Artist',
       metadata: {
         name: 'soundCloudArtistBehavior',
@@ -195,8 +220,7 @@ module.exports = {
           regex:
             '^(?:https:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/[^\\/]+(\\/)?$',
         },
-        description:
-          'Plays all tracks or collection of tracks by the artist, Once a track has been played, the next track is not played until network idle has been reached',
+        description: 'Capture every track on Soundcloud profile.',
         fileName: 'soundcloudArtistBehavior.js',
       },
       url: 'https://soundcloud.com/perturbator',
@@ -219,8 +243,7 @@ module.exports = {
         match: {
           regex: '^https:\\/\\/w\\.soundcloud\\.com\\/player\\/.+',
         },
-        description:
-          'Plays all tracks or collection of that are in the soundcloud embed. Once a track has been played, the next track is not played until network idle has been reached',
+        description: 'Capture every track in the Soundcloud embed.',
         fileName: 'soundcloudEmbedBehavior.js',
       },
       url:
@@ -246,7 +269,7 @@ module.exports = {
             '^(?:https:\\/\\/(?:www\\.)?)?twitter\\.com\\/hashtag\\/[^?]+.*',
         },
         description:
-          'For each tweet containing the searched hashtag views each tweet. If the tweet has a video it is played and a wait until network idle is done. If the tweet is a part of a thread or has replies views all related tweets',
+          'Capture every tweet in hashtag search, including embedded videos, images and replies.',
         fileName: 'twitterHashTagsBehavior.js',
       },
       url: 'https://twitter.com/hashtag/iipcwac18?vertical=default&src=hash',
@@ -271,7 +294,7 @@ module.exports = {
             '^(?:https:[\\/]{2}(?:www[.])?)?twitter[.]com[\\/]?(?:[^\\/]+[\\/]?)?$',
         },
         description:
-          'For each tweet within the timeline views each tweet. If the tweet has a video it is played. If the tweet is a part of a thread or has replies views all related tweets',
+          'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.',
         fileName: 'twitterTimelineBehavior.js',
       },
       url: 'https://twitter.com/webrecorder_io',
@@ -292,18 +315,18 @@ module.exports = {
     name: 'autoScrollBehavior',
     defaultBehavior: true,
     description:
-      'Scrolls the page until we can scroll no more. If media elements are discovered while scrolling they are played',
+      'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
     fileName: 'autoscrollBehavior.js',
   },
   allResult: {
     url: 'http://localhost:3030/info-all',
-    count: 12,
+    count: 13,
     value: {
       defaultBehavior: {
         name: 'autoScrollBehavior',
         defaultBehavior: true,
         description:
-          'Scrolls the page until we can scroll no more. If media elements are discovered while scrolling they are played',
+          'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
         fileName: 'autoscrollBehavior.js',
       },
       behaviors: {
@@ -323,6 +346,8 @@ module.exports = {
             regex:
               '^(?:https:\\/\\/(:?www\\.)?)pintrest\\.com\\/[a-zA-Z]+[?].+',
           },
+          description:
+            'After login, automatically capture all pins on page and scroll down to load more if possible.',
           fileName: 'pinterestBehavior.js',
         },
         slideShareBehavior: {
@@ -332,7 +357,7 @@ module.exports = {
               '^(?:https:\\/\\/(?:www\\.)?)slideshare\\.net\\/[a-zA-Z]+[?].+',
           },
           description:
-            'Views each slide contained in the slide deck. If there are multiple slide decks each deck is viewed',
+            'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',
           fileName: 'slideShareBehavior.js',
         },
         youtubeVideoBehavior: {
@@ -340,7 +365,7 @@ module.exports = {
           match: {
             regex: '^(?:https:\\/\\/(?:www\\.)?)?youtube\\.com\\/watch[?]v=.+',
           },
-          description: 'Plays a YouTube video and loads all comments',
+          description: 'Capture the YouTube video and all comments.',
           fileName: 'youtubeVideoBehavior.js',
         },
         facebookNewsFeed: {
@@ -348,7 +373,8 @@ module.exports = {
           match: {
             regex: '^https:\\/\\/(www\\.)?facebook\\.com(\\/)?([?]sk=nf)?$',
           },
-          description: 'Views all items in the Facebook news feed',
+          description:
+            'Capture all items and comments in the Facebook timeline and scroll down to load more.',
           fileName: 'facebookNewsFeedBehavior.js',
         },
         facebookUserFeed: {
@@ -357,7 +383,7 @@ module.exports = {
             regex: '^https:\\/\\/(www\\.)?facebook\\.com\\/[^\\/]+\\/?$',
           },
           description:
-            'Views all items in the Facebook user/organization/artists/etc timeline',
+            'Capture all items and comments in the Facebook page and scroll down to load more content where possible.',
           fileName: 'facebookUserFeedBehavior.js',
         },
         instagramPostBehavior: {
@@ -367,7 +393,7 @@ module.exports = {
               '^https:\\/\\/(www\\.)?instagram\\.com\\/p\\/[^\\/]+(?:\\/)?$',
           },
           description:
-            "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved",
+            'Capture every image and/or video, retrieve all comments, and scroll down to load more.',
           fileName: 'instagramPostBehavior.js',
         },
         instagramUserBehavior: {
@@ -377,8 +403,17 @@ module.exports = {
               '^https:\\/\\/(www\\.)?instagram\\.com\\/[^\\/]+(?:\\/(?:tagged(?:\\/)?)?)?$',
           },
           description:
-            "Views all the content on an instangram User's page: if the user has stories they are viewed, if a users post has image(s)/video(s) they are viewed, and all comments are retrieved",
+            'Capture all stories, images, videos and comments on user’s page.',
           fileName: 'instagramUserBehavior.js',
+        },
+        subRedditBehavior: {
+          name: 'subRedditBehavior',
+          description: 'Capture all posts on sub-reddits page.',
+          match: {
+            regex:
+              '^https:\\/\\/(www\\.)?reddit\\.com\\/r\\/[^\\/]+(?:\\/(?:[a-z]+\\/?))?',
+          },
+          fileName: 'redditSubBehavior.js',
         },
         soundCloudArtistBehavior: {
           name: 'soundCloudArtistBehavior',
@@ -386,8 +421,7 @@ module.exports = {
             regex:
               '^(?:https:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/[^\\/]+(\\/)?$',
           },
-          description:
-            'Plays all tracks or collection of tracks by the artist, Once a track has been played, the next track is not played until network idle has been reached',
+          description: 'Capture every track on Soundcloud profile.',
           fileName: 'soundcloudArtistBehavior.js',
         },
         soundCloudEmbedBehavior: {
@@ -395,8 +429,7 @@ module.exports = {
           match: {
             regex: '^https:\\/\\/w\\.soundcloud\\.com\\/player\\/.+',
           },
-          description:
-            'Plays all tracks or collection of that are in the soundcloud embed. Once a track has been played, the next track is not played until network idle has been reached',
+          description: 'Capture every track in the Soundcloud embed.',
           fileName: 'soundcloudEmbedBehavior.js',
         },
         twitterHashTagsBehavior: {
@@ -406,7 +439,7 @@ module.exports = {
               '^(?:https:\\/\\/(?:www\\.)?)?twitter\\.com\\/hashtag\\/[^?]+.*',
           },
           description:
-            'For each tweet containing the searched hashtag views each tweet. If the tweet has a video it is played and a wait until network idle is done. If the tweet is a part of a thread or has replies views all related tweets',
+            'Capture every tweet in hashtag search, including embedded videos, images and replies.',
           fileName: 'twitterHashTagsBehavior.js',
         },
         twitterTimelineBehavior: {
@@ -416,7 +449,7 @@ module.exports = {
               '^(?:https:[\\/]{2}(?:www[.])?)?twitter[.]com[\\/]?(?:[^\\/]+[\\/]?)?$',
           },
           description:
-            'For each tweet within the timeline views each tweet. If the tweet has a video it is played. If the tweet is a part of a thread or has replies views all related tweets',
+            'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.',
           fileName: 'twitterTimelineBehavior.js',
         },
       },

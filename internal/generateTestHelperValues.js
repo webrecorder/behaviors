@@ -11,6 +11,7 @@ const { behaviorsFromDirIterator } = require('./collect');
 const getConfigIfExistsOrDefault = require('./behaviorConfig');
 
 const TestURLs = {
+  subreddit: 'https://www.reddit.com/r/unixporn',
   youtube: 'https://www.youtube.com/watch?v=MfH0oirdHLs',
   facebook: {
     userfeed: 'https://www.facebook.com/Smithsonian/',
