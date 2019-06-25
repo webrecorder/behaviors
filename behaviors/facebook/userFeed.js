@@ -104,7 +104,7 @@ export default async function* initFBUserFeedBehaviorIterator(cliAPI) {
       await lib.scrollDownByElemHeightWithDelay(tlItem, loadDelayTime);
       timelineItems = cliAPI.$x(xpathQueries.userTimelineItem);
     }
-  } while (timelineItems.length > 0 && lib.canScrollMore());
+  } while (timelineItems.length > 0 && lib.canScrollDownMore());
 }
 
 export const postStep = lib.buildCustomPostStepFn(() => {

@@ -50,7 +50,7 @@ export default async function* initFBNewsFeedBehaviorIterator(cliAPI) {
       await lib.delay();
       feedItems = getFeedItems(xpathQueries.feedItem);
     }
-  } while (feedItems.length > 0 && lib.canScrollMore());
+  } while (feedItems.length > 0 && lib.canScrollDownMore());
 }
 
 let removedAnnoying = lib.maybeRemoveElemById(annoyingElements.pageletGrowthId);

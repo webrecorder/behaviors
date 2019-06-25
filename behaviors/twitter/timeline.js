@@ -1,5 +1,6 @@
 import * as lib from '../../lib';
-import { elemIds, overlayTweetXpath, selectors, tweetXpath } from './shared';
+import * as selectors from './selectors';
+import * as shared from './shared';
 import autoScrollBehavior from '../autoscroll';
 
 let behaviorStyle;
@@ -31,24 +32,15 @@ async function openFullTweet(tweet) {
     () => lib.docBaseURIEndsWith(permalinkPath),
     { max: 60000 }
   );
-  const fullTweetOverlay = lib.id(elemIds.permalinkOverlay);
-  if (debug) {
-    lib.addClass(fullTweetOverlay, behaviorStyle.wrDebugVisitedOverlay);
-  }
-  return fullTweetOverlay;
+  return lib.id(selectors.permalinkOverlayId);
 }
 
 function closeFullTweetOverlay(originalBaseURI) {
   const overlay = lib.qs(selectors.closeFullTweetSelector);
   if (!overlay) return Promise.resolve(false);
-  if (debug) lib.addClass(overlay, behaviorStyle.wrDebugClick);
-  return lib.clickAndWaitFor(overlay, () => {
-    const done = lib.docBaseURIEquals(originalBaseURI);
-    if (done && debug) {
-      lib.removeClass(overlay, behaviorStyle.wrDebugClick);
-    }
-    return done;
-  });
+  return lib.clickAndWaitFor(overlay, () =>
+    lib.docBaseURIEquals(originalBaseURI)
+  );
 }
 
 const shouldSkipTweet = tweetLi =>
@@ -62,53 +54,42 @@ const shouldSkipTweet = tweetLi =>
  * @return {AsyncIterableIterator<*>}
  */
 async function* handleTweet(tweetLi, { originalBaseURI }) {
-  if (shouldSkipTweet(tweetLi)) {
-    await lib.scrollIntoViewWithDelay(tweetLi);
-    lib.collectOutlinksFrom(tweetLi);
-    yield lib.stateWithMsgNoWait('Found a non tweet');
-    return;
+  if (shared.isSensitiveTweet(tweetLi)) {
+    await shared.revealSensitiveMedia(tweetLi);
   }
   const tweet = tweetLi.firstElementChild;
   const permalink = tweet.dataset.permalinkPath;
   yield lib.stateWithMsgNoWait(`Viewing tweet ${permalink}`);
-  if (debug) lib.addClass(tweet, behaviorStyle.wrDebugVisited);
   await lib.scrollIntoViewWithDelay(tweet);
   lib.collectOutlinksFrom(tweet);
-  const video = lib.qs(selectors.tweetVideo, tweet);
+  let video = lib.qs(selectors.tweetVideo, tweet);
   if (video) {
     yield lib.stateWithMsgWaitFromAwaitable(
       lib.noExceptPlayMediaElement(video),
       `Handled tweet's video`
     );
   }
-
   const fullTweetOverlay = await openFullTweet(tweet);
   if (!fullTweetOverlay) return;
+  await shared.postOpenTweet(fullTweetOverlay, video);
   if (hasRepliedOrInThread(tweet)) {
     yield lib.stateWithMsgNoWait(
       `Viewing tweet ${permalink} threads or replies`
     );
-    let totalSubTweets = 1;
-    for await (var subTweet of lib.repeatedXpathQueryIteratorAsync(
-      overlayTweetXpath,
-      fullTweetOverlay,
-      () =>
-        lib.selectElemFromAndClickWithDelay(
-          fullTweetOverlay,
-          selectors.showMoreInThread
-        )
-    )) {
-      yield lib.stateWithMsgNoWait(
-        `Viewing sub tweet #${totalSubTweets} of tweet ${permalink}`
-      );
-      await lib.scrollIntoViewWithDelay(subTweet);
-      lib.markElemAsVisited(subTweet);
-      lib.collectOutlinksFrom(subTweet);
-      if (debug) {
-        lib.addClass(subTweet, behaviorStyle.wrDebugVisitedThreadReply);
-      }
-      totalSubTweets += 1;
-    }
+    yield* lib.mapAsyncIterator(
+      lib.repeatedXpathQueryIteratorAsync(
+        selectors.overlayTweetXpath,
+        fullTweetOverlay,
+        () =>
+          lib.selectElemFromAndClickWithDelay(
+            fullTweetOverlay,
+            selectors.showMoreInThread
+          )
+      ),
+      shared.createThreadReplyVisitor(
+        `Viewed tweet ${permalink} reply`
+      )
+    );
   }
   await closeFullTweetOverlay(originalBaseURI);
 }
@@ -137,6 +118,11 @@ async function* handleTweet(tweetLi, { originalBaseURI }) {
 export default async function* timelineIterator(cliApi) {
   const originalBaseURI = document.baseURI;
   const streamItems = lib.qs(selectors.tweetStreamItems);
+  if (shared.isSensitiveProfile()) {
+    yield lib.stateWithMsgNoWait('Revealing sensitive profile');
+    await shared.revealSensitiveProfile();
+    yield lib.stateWithMsgNoWait('Revealed sensitive profile');
+  }
   if (!streamItems) {
     yield lib.stateWithMsgNoWait(
       'Could not find the tweets defaulting to auto scroll'
@@ -145,9 +131,22 @@ export default async function* timelineIterator(cliApi) {
     return;
   }
   // for each post row view the posts it contains
-  yield* lib.traverseChildrenOfLoaderParent(streamItems, handleTweet, {
-    xpg: cliApi.$x,
-    originalBaseURI,
+  yield* lib.traverseChildrenOfCustom({
+    parentElement: streamItems,
+    handler: handleTweet,
+    loader: true,
+    async filter(tweetLi) {
+      const shouldSkip = shouldSkipTweet(tweetLi);
+      if (shouldSkip) {
+        await lib.scrollIntoViewWithDelay(tweetLi);
+        lib.collectOutlinksFrom(tweetLi);
+      }
+      return !shouldSkip;
+    },
+    additionalArgs: {
+      xpg: cliApi.$x,
+      originalBaseURI,
+    },
   });
 }
 
@@ -157,7 +156,7 @@ export const metaData = {
     regex: /^(?:https:[/]{2}(?:www[.])?)?twitter[.]com[/]?(?:[^/]+[/]?)?$/,
   },
   description:
-    'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.'
+    'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.',
 };
 
 export const isBehavior = true;

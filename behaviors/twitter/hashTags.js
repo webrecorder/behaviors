@@ -1,18 +1,7 @@
 import * as lib from '../../lib';
-import {
-  elemIds,
-  overlayTweetXpath,
-  selectors,
-  threadedTweetXpath,
-} from './shared';
+import * as selectors from './selectors';
 import autoScrollBehavior from '../autoscroll';
-
-let behaviorStyle;
-if (debug) {
-  behaviorStyle = lib.addBehaviorStyle(
-    '.wr-debug-visited {border: 6px solid #3232F1;} .wr-debug-visited-thread-reply {border: 6px solid green;} .wr-debug-visited-overlay {border: 6px solid pink;} .wr-debug-click {border: 6px solid red;}'
-  );
-}
+import * as shared from './shared';
 
 /**
  * @desc Clicks (views) the currently visited tweet
@@ -27,11 +16,7 @@ async function openTweet(tweetContainer) {
   );
   if (wasClicked.clicked) {
     // the overlay was opened
-    const fullTweetOverlay = lib.id(elemIds.permalinkOverlay);
-    if (debug) {
-      lib.addClass(fullTweetOverlay, behaviorStyle.wrDebugVisitedOverlay);
-    }
-    return fullTweetOverlay;
+    return lib.id(selectors.permalinkOverlayId);
   }
   return null;
 }
@@ -43,17 +28,16 @@ async function openTweet(tweetContainer) {
 async function closeTweetOverlay(originalBaseURI) {
   const overlay = lib.qs(selectors.closeFullTweetSelector);
   if (!overlay) return Promise.resolve(false);
-  if (debug) lib.addClass(overlay, behaviorStyle.wrDebugClick);
-  return lib.clickAndWaitFor(overlay, () => {
-    const done = document.baseURI === originalBaseURI;
-    if (done && debug) {
-      lib.removeClass(overlay, behaviorStyle.wrDebugClick);
-    }
-    return done;
-  });
+  return lib.clickAndWaitFor(
+    overlay,
+    () => document.baseURI === originalBaseURI
+  );
 }
 
 async function* handleTweetStreamItem(tweetStreamLI, originalBaseURI) {
+  if (lib.selectorExists(selectors.sensativeMediaDiv)) {
+    await shared.revealSensitiveMedia(tweetStreamLI);
+  }
   await lib.scrollIntoViewWithDelay(tweetStreamLI);
   lib.markElemAsVisited(tweetStreamLI);
   lib.collectOutlinksFrom(tweetStreamLI);
@@ -69,9 +53,6 @@ async function* handleTweetStreamItem(tweetStreamLI, originalBaseURI) {
     yield lib.stateWithMsgNoWait('Encountered tweet feed separator');
     return;
   } else if (lib.hasClass(tweetStreamLI, selectors.userProfileInStream)) {
-    if (debug) {
-      lib.addClass(tweetStreamLI, behaviorStyle.wrDebugVisited);
-    }
     yield lib.stateWithMsgNoWait('Encountered a non-tweet');
     return;
   }
@@ -79,20 +60,12 @@ async function* handleTweetStreamItem(tweetStreamLI, originalBaseURI) {
   const streamTweetDiv = tweetStreamLI.firstElementChild;
   const tweetContent = lib.qs(selectors.tweetInStreamContent, streamTweetDiv);
 
-  if (debug) {
-    lib.addClass(streamTweetDiv, behaviorStyle.wrDebugVisited);
-  }
-  const videoContainer = tweetStreamLI.querySelector(
-    'div.AdaptiveMedia-videoContainer'
-  );
-  if (videoContainer != null) {
-    const video = videoContainer.querySelector('video');
-    if (video) {
-      yield lib.stateWithMsgWaitFromAwaitable(
-        lib.noExceptPlayMediaElement(video),
-        `Handled a tweet's video`
-      );
-    }
+  let video = lib.qs(selectors.tweetVideo, tweetStreamLI);
+  if (video) {
+    yield lib.stateWithMsgWaitFromAwaitable(
+      lib.noExceptPlayMediaElement(video),
+      `Handled tweet's video`
+    );
   }
   const footer = lib.qs(selectors.tweetFooterSelector, tweetContent);
   const replyAction = lib.qs(selectors.replyActionSelector, footer);
@@ -109,8 +82,9 @@ async function* handleTweetStreamItem(tweetStreamLI, originalBaseURI) {
   await lib.scrollIntoViewWithDelay(tweetContent);
 
   const tweetPermalinkOverlay = await openTweet(streamTweetDiv);
+  if (!tweetPermalinkOverlay) return;
 
-  lib.collectOutlinksFrom(tweetPermalinkOverlay);
+  await shared.postOpenTweet(tweetPermalinkOverlay, video);
 
   if (hasReplies || apartOfThread) {
     yield lib.stateWithMsgNoWait(
@@ -122,25 +96,21 @@ async function* handleTweetStreamItem(tweetStreamLI, originalBaseURI) {
     const baseMsg = apartOfThread
       ? 'Viewed threaded tweet'
       : 'Viewing tweet reply';
-    let totalRepliesThreads = 1;
-    for await (var aTweet of lib.repeatedXpathQueryIteratorAsync(
-      apartOfThread ? threadedTweetXpath : overlayTweetXpath,
-      tweetPermalinkOverlay,
-      () =>
-        lib.selectElemFromAndClickWithDelay(
-          tweetPermalinkOverlay,
-          nextElemSetQS
-        )
-    )) {
-      lib.markElemAsVisited(aTweet);
-      lib.collectOutlinksFrom(aTweet);
-      if (debug) {
-        lib.addClass(aTweet, behaviorStyle.wrDebugVisitedThreadReply);
-      }
-      await lib.scrollIntoViewWithDelay(aTweet);
-      yield lib.stateWithMsgNoWait(`${baseMsg} #${totalRepliesThreads}`);
-      totalRepliesThreads += 1;
-    }
+
+    yield* lib.mapAsyncIterator(
+      lib.repeatedXpathQueryIteratorAsync(
+        apartOfThread
+          ? selectors.threadedTweetXpath
+          : selectors.overlayTweetXpath,
+        tweetPermalinkOverlay,
+        () =>
+          lib.selectElemFromAndClickWithDelay(
+            tweetPermalinkOverlay,
+            nextElemSetQS
+          )
+      ),
+      shared.createThreadReplyVisitor(baseMsg)
+    );
   } else {
     yield lib.stateWithMsgNoWait('Viewing regular tweet');
   }
@@ -152,6 +122,7 @@ async function* handleTweetStreamItem(tweetStreamLI, originalBaseURI) {
  * @return {AsyncIterableIterator<*>}
  */
 export default async function* hashTagIterator(cliAPI) {
+  lib.autoFetchFromDoc();
   const originalBaseURI = document.baseURI;
   const streamItems = lib.qs(selectors.tweetStreamItems);
   if (!streamItems) {
@@ -174,7 +145,7 @@ export const metaData = {
     regex: /^(?:https:\/\/(?:www\.)?)?twitter\.com\/hashtag\/[^?]+.*/,
   },
   description:
-    'Capture every tweet in hashtag search, including embedded videos, images and replies.'
+    'Capture every tweet in hashtag search, including embedded videos, images and replies.',
 };
 
 export const isBehavior = true;
