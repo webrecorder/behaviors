@@ -1,70 +1,7 @@
 import * as lib from '../../lib';
-import { qs, scrollIntoViewAndClickWithDelay } from '../../lib';
+import * as selectors from './selectors';
 
-export const selectors = {
-  user: {
-    openStories: 'div[aria-label="Open Stories"]',
-    nextStory: 'div[class*="RightChevron" i]',
-    storyVideo: 'button.videoSpritePlayButton',
-    multipleImages: 'span.coreSpriteSidecarIconLarge',
-    postTopMostContainer: 'article',
-    rightChevron: 'button > div[class*="RightChevron" i]',
-    postPopupArticle:
-      'div[role="dialog"] > div[role="dialog"] > div[role="dialog"] > article',
-    multiImageDisplayDiv: 'div > div[role="button"]',
-    playVideo: 'a[role="button"]',
-    divDialog: 'div[role="dialog"]',
-    divDialogArticle: 'div[role="dialog"] > article',
-  },
-  post: {
-    main: 'section > main > div > div > article',
-    nextImage: 'div.coreSpriteRightChevron',
-    playVideo: 'span[role="button"].videoSpritePlayButton',
-  },
-  moreRepliesSpan: '* > button[type="button"] > span',
-  postersOwnComment: 'li[role="menuitem"]',
-};
-
-export const multiImagePostSelectors = {
-  user: [
-    'span[aria-label*="Carousel" i]',
-    'span[class*="SpriteCarousel" i]',
-    'span.coreSpriteSidecarIconLarge',
-  ],
-  post: ['button > div.coreSpriteRightChevron', 'div.coreSpriteRightChevron'],
-};
-
-export const videoPostSelectors = {
-  user: [
-    'span[role="button"].videoSpritePlayButton',
-    'span[aria-label*="Video" i]',
-    'span[class*="SpriteVideo" i]',
-    'span.coreSpriteVideoIconLarge',
-    'span[aria-label$="Video" i]',
-    'span[class*="glyphsSpriteVideo_large"]',
-  ],
-  post: [
-    'span[role="button"].videoSpritePlayButton',
-    'span.videoSpritePlayButton',
-  ],
-};
-
-export const xpathQ = {
-  postPopupClose: [
-    '//body/div/div/button[contains(text(), "Close")]',
-    '/html/body/div[2]/button[1][contains(text(), "Close")]',
-  ],
-  loadMoreComments: '//li/button[contains(text(), "Load more comments")]',
-  showAllComments: '//li/button[contains(text(), "View all")]',
-  loadReplies:
-    '//span[contains(text(), "View") and contains(text(), "replies")]',
-  notLoggedIn: {
-    signUp: '//a[contains(text(), "Sign Up")]',
-    login: '//button[contains(text(), "Log In")]',
-  },
-};
-
-export const multiImageClickOpts = { safety: 30 * 1000, delayTime: 1000 };
+export const multiImageClickOpts = { safety: 30 * 1000, delayTime: 1500 };
 
 export const postTypes = {
   video: Symbol('$$instagram-video-post$$'),
@@ -78,10 +15,10 @@ export const postTypes = {
  * @return {boolean}
  */
 export function isVideoPost(post, isSinglePost) {
-  const selectors = isSinglePost
-    ? videoPostSelectors.post
-    : videoPostSelectors.user;
-  const results = lib.anySelectorExists(selectors, post);
+  const selectorsToUse = isSinglePost
+    ? selectors.postVideoPostSelectors
+    : selectors.userVideoPostSelectors;
+  const results = lib.anySelectorExists(selectorsToUse, post);
   return results.success;
 }
 
@@ -91,10 +28,10 @@ export function isVideoPost(post, isSinglePost) {
  * @return {boolean}
  */
 export function isMultiImagePost(post, isSinglePost) {
-  const selectors = isSinglePost
-    ? multiImagePostSelectors.post
-    : multiImagePostSelectors.user;
-  const results = lib.anySelectorExists(selectors, post);
+  const selectorsToUse = isSinglePost
+    ? selectors.postMultiImagePostSelectors
+    : selectors.userMultiImagePostSelectors;
+  const results = lib.anySelectorExists(selectorsToUse, post);
   return results.success;
 }
 
@@ -120,15 +57,15 @@ export function determinePostType(post, isSinglePost) {
 export function getMoreComments(xpg, cntx) {
   // first check for load more otherwise return the results of querying
   // for show all comments
-  const moreComments = xpg(xpathQ.loadMoreComments, cntx);
+  const moreComments = xpg(selectors.loadMoreCommentsXpath, cntx);
   if (moreComments.length === 0) {
-    return xpg(xpathQ.showAllComments, cntx)[0];
+    return xpg(selectors.showAllCommentsXpath, cntx)[0];
   }
   return moreComments[0];
 }
 
 export async function* loadReplies(xpg, cntx) {
-  const moreReplies = xpg(xpathQ.loadReplies, cntx);
+  const moreReplies = xpg(selectors.loadRepliesXpath, cntx);
   if (moreReplies.length) {
     for (var i = 0; i < moreReplies.length; i++) {
       lib.scrollIntoView(moreReplies[i]);
@@ -138,14 +75,12 @@ export async function* loadReplies(xpg, cntx) {
   }
 }
 
-const MoreCommentsSpanSelector = '* > span[aria-label*="more comments" i]';
-
 export async function* loadAllComments(commentList) {
   // the more comments span, as far as I can tell, can be at
   // the bottom or top of the list depending on how instagram's JS fells
   // so we just gotta find it somewhere as a child of the comment list
   let moreCommentsClicked = 0;
-  let moreSpan = lib.qs(MoreCommentsSpanSelector, commentList);
+  let moreSpan = lib.qs(selectors.moreCommentsSpanSelector, commentList);
   while (moreSpan) {
     if (!moreSpan.isConnected) break;
     await lib.scrollIntoViewAndClickWithDelay(moreSpan);
@@ -153,7 +88,7 @@ export async function* loadAllComments(commentList) {
     yield lib.stateWithMsgNoWait(
       `Loaded additional comments #${moreCommentsClicked} times`
     );
-    moreSpan = lib.qs(MoreCommentsSpanSelector, commentList);
+    moreSpan = lib.qs(selectors.moreCommentsSpanSelector, commentList);
   }
   yield lib.stateWithMsgNoWait('All comments loaded');
 }
@@ -164,6 +99,7 @@ export function commentViewer() {
   return async function* viewComment(comment) {
     // the first child of the comment list is an li with a div child
     // this is the posters comment
+    lib.collectOutlinksFrom(comment);
     if (!consumedDummy && comment.matches(selectors.postersOwnComment)) {
       consumedDummy = true;
       lib.scrollIntoView(comment);
@@ -179,7 +115,7 @@ export function commentViewer() {
       let numReplies = 0;
       while (replies) {
         if (!replies.isConnected) break;
-        await scrollIntoViewAndClickWithDelay(replies);
+        await lib.scrollIntoViewAndClickWithDelay(replies);
         if (lib.elementTextContains(replies, 'hide', true)) {
           break;
         }
@@ -187,10 +123,51 @@ export function commentViewer() {
         yield lib.stateWithMsgNoWait(
           `Clicked loaded more replies for comment ${numComments} (#${numReplies} times)`
         );
-        replies = qs(selectors.moreRepliesSpan, comment);
+        replies = lib.qs(selectors.moreRepliesSpan, comment);
       }
+      lib.collectOutlinksFrom(comment);
     }
   };
+}
+
+export async function handlePostContent({
+  thePost,
+  multiImgElem,
+  videoElem,
+  isSinglePost,
+}) {
+  const baseMsg = 'Viewed post';
+  const result = { msg: null, wait: false };
+  switch (determinePostType(thePost, isSinglePost)) {
+    case postTypes.multiImage: {
+      lib.selectAllAndClick(selectors.videoSpritePlayButton, thePost);
+      // display each image by clicking the right chevron (next image)
+      const numImages = await lib.selectFromAndClickUntilNullWithDelay(
+        multiImgElem,
+        isSinglePost ? selectors.postNextImage : selectors.userNextImage,
+        multiImageClickOpts
+      );
+      result.msg = `${baseMsg} with ${numImages} images`;
+      break;
+    }
+    case postTypes.video:
+      // select and play the video. The video is a mp4 that is already loaded
+      // need to only play it for the length of time we are visiting the post
+      // just in case
+      await lib.selectElemFromAndClickWithDelay(
+        videoElem,
+        isSinglePost ? selectors.postPlayVideo : selectors.userPlayVideo
+      );
+      result.msg = `${baseMsg} with an video`;
+      result.wait = true;
+      break;
+    default:
+      result.msg = baseMsg;
+      break;
+  }
+  lib.autoFetchFromDoc();
+  lib.collectOutlinksFrom(thePost);
+  return result;
 }
 
 export async function* viewCommentsAndReplies(xpg, cntx) {

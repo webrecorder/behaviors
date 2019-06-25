@@ -1,23 +1,5 @@
-export const selectors = {
-  tweetStreamContainer: 'div.stream-container',
-  tweetStreamDiv: 'div.stream',
-  tweetInStreamContent: 'div.content',
-  tweetStreamItems: 'ol.stream-items',
-  tweetFooterSelector: 'div.stream-item-footer',
-  replyActionSelector: 'div.ProfileTweet-action--reply',
-  noReplySpanSelector: 'span.ProfileTweet-actionCount--isZero',
-  replyBtnSelector: 'button[data-modal="ProfileTweet-reply"]',
-  closeFullTweetSelector: 'div.PermalinkProfile-dismiss > span',
-  threadSelector: 'a.js-nav.show-thread-link',
-  userProfileInStream: 'AdaptiveStreamUserGallery-user',
-  userProfileContent: 'div.AdaptiveStreamUserGallery-user',
-  showMoreInThread: 'button.ThreadedConversation-showMoreThreadsButton',
-  tweetPermalinkContainer: 'div.permalink-container',
-  tweetPermalinkRepliesContainer: 'ol.stream-items',
-  threadedConvMoreReplies: 'a.ThreadedConversation-moreRepliesLink',
-  tweetVideo: 'div.AdaptiveMedia-videoContainer > video',
-  tweetStreamFooter: 'div.stream-footer',
-};
+import * as lib from '../../lib';
+import * as selectors from './selectors';
 
 /**
  * An abstraction around interacting with HTML of a tweet in a timeline.
@@ -96,6 +78,62 @@ export function getNoneNukedConsole() {
     consoleIframe = document.getElementById('$consoleIframe$');
   }
   return consoleIframe.contentWindow.console;
+}
+
+export function isSensitiveTweet(tweet) {
+  const sensitiveDiv = lib.qs(selectors.sensativeMediaDiv, tweet);
+  if (sensitiveDiv == null) return false;
+  return window.getComputedStyle(sensitiveDiv).display !== 'none';
+}
+
+export function isSensitiveProfile() {
+  const profileWarning = lib.qs(selectors.profileWarningHeader);
+  if (profileWarning == null) return false;
+  return window.getComputedStyle(profileWarning).display !== 'none';
+}
+
+export async function revealSensitiveMedia(tweet, delayTime) {
+  await lib.selectAllAndClickWithDelay({
+    selector: selectors.sensativeReveal,
+    context: tweet,
+    delayTime,
+  });
+}
+
+export async function revealSensitiveProfile() {
+  await lib.selectElemFromAndClickWithDelay(
+    lib.qs(selectors.profileWarningHeader),
+    selectors.profileWarningButton,
+    1500
+  );
+}
+
+export async function postOpenTweet(tweetOverlay, timelineVideo) {
+  if (isSensitiveTweet(tweetOverlay)) {
+    await revealSensitiveMedia(tweetOverlay);
+  }
+  if (timelineVideo) {
+    await lib.selectAndPlay(selectors.tweetVideo, timelineVideo);
+  }
+  lib.collectOutlinksFrom(tweetOverlay);
+}
+
+export function createThreadReplyVisitor(baseMsg) {
+  let totalRepliesThreads = 1;
+  return async function handleThreadReplyTweets(subTweet) {
+    if (isSensitiveTweet(subTweet)) {
+      await revealSensitiveMedia(subTweet);
+    }
+    await lib.scrollIntoViewWithDelay(subTweet);
+    lib.markElemAsVisited(subTweet);
+    lib.collectOutlinksFrom(subTweet);
+    let mediaPlayed = false;
+    const subTweetVideo = lib.qs(selectors.tweetVideo, subTweet);
+    if (subTweetVideo) {
+      mediaPlayed = await lib.noExceptPlayMediaElement(subTweetVideo);
+    }
+    return lib.createState(mediaPlayed, `${baseMsg} #${totalRepliesThreads++}`);
+  };
 }
 
 export function isStreamLiDataItemTypeTweet(streamLi) {

@@ -1,26 +1,11 @@
 import * as lib from '../../lib';
-import {
-  commentViewer,
-  determinePostType,
-  loadAllComments,
-  multiImageClickOpts,
-  postTypes,
-  selectors,
-  xpathQ,
-} from './shared';
-
-let behaviorStyle;
-if (debug) {
-  behaviorStyle = lib.addBehaviorStyle(`
-  .wr-debug-visited {border: 6px solid #3232F1;}
-  .wr-debug-visited-overlay {border: 6px solid pink;}
-`);
-}
+import * as shared from './shared';
+import * as selectors from './selectors';
 
 function loggedIn(xpg) {
   return (
-    xpg(xpathQ.notLoggedIn.login).length === 0 &&
-    xpg(xpathQ.notLoggedIn.signUp).length === 0
+    xpg(selectors.notLoggedInXpaths.login).length === 0 &&
+    xpg(selectors.notLoggedInXpaths.signUp).length === 0
   );
 }
 
@@ -28,7 +13,7 @@ async function* viewStories() {
   // get the original full URI of the browser
   const originalLoc = window.location.href;
   // click the first story
-  const firstStoryClicked = lib.selectElemAndClick(selectors.user.openStories);
+  const firstStoryClicked = lib.selectElemAndClick(selectors.userOpenStories);
   if (!firstStoryClicked) return; // no storied if
   // history manipulation will change the browser URI so
   // we must wait for that to happen
@@ -36,7 +21,7 @@ async function* viewStories() {
   let wasClicked;
   let videoButton;
   // stories are sorta on autoplay but we should speed things up
-  let toBeClicked = lib.qs(selectors.user.nextStory);
+  let toBeClicked = lib.qs(selectors.userNextStory);
   // we will continue to speed up autoplay untill the next story
   // button does not exist or we are done (window.location.href === originalLoc)
   lib.collectOutlinksFromDoc();
@@ -47,7 +32,7 @@ async function* viewStories() {
     // or autoplay is finished we are done
     if (!wasClicked || lib.locationEquals(originalLoc)) break;
     totalStories += 1;
-    videoButton = lib.qs(selectors.user.storyVideo);
+    videoButton = lib.qs(selectors.userStoryVideo);
     if (videoButton) {
       // this part of a story is video content
       let maybeVideo = lib.qs('video');
@@ -67,13 +52,14 @@ async function* viewStories() {
     } else {
       yield lib.stateWithMsgNoWait(`Viewed story #${totalStories}`);
     }
-    toBeClicked = lib.qs(selectors.user.nextStory);
+    toBeClicked = lib.qs(selectors.userNextStory);
   }
 }
 
 async function* handlePost(post, xpg) {
   // open the post (displayed in a separate part of the dom)
   // click the first child of the post div (a tag)
+  lib.autoFetchFromDoc();
   let maybeA = lib.firstChildElementOf(post);
   if (!lib.objectInstanceOf(maybeA, window.HTMLAnchorElement)) {
     maybeA = lib.qs('a', maybeA);
@@ -88,66 +74,44 @@ async function* handlePost(post, xpg) {
   // wait for the post dialog to open and get a reference to that dom element
   const popupDialog = await lib.waitForAndSelectElement(
     document,
-    selectors.user.divDialog
+    selectors.userDivDialog
   );
   lib.collectOutlinksFrom(popupDialog);
   // get the next inner div.dialog because its next sibling is the close button
   // until instagram decides to change things
-  const innerDivDialog = lib.qs(selectors.user.divDialog, popupDialog);
-  if (debug) {
-    lib.addClass(popupDialog, behaviorStyle.wrDebugVisitedOverlay);
-  }
+  const innerDivDialog = lib.qs(selectors.userDivDialog, popupDialog);
   // maybe our friendo the close button
   const maybeCloseButton = lib.getElemSibling(innerDivDialog);
   const closeButton = lib.elementsNameEquals(maybeCloseButton, 'button')
     ? maybeCloseButton
     : null;
   // get a reference to the posts contents (div.dialog > article)
-  const content = lib.qs(selectors.user.divDialogArticle, innerDivDialog);
+  const content = lib.qs(selectors.userDivDialogArticle, innerDivDialog);
   // the next image button exists in the popup post even if the post is not
   // multi-image, so lets get a reference to it
-  const displayDiv = lib.qs(selectors.user.multiImageDisplayDiv, content);
-  const baseMsg = 'Viewed post';
-  let postTypeMsg;
-  switch (determinePostType(post)) {
-    case postTypes.multiImage: {
-      // display each image by clicking the right chevron (next image)
-      const numImages = await lib.selectFromAndClickUntilNullWithDelay(
-        content,
-        selectors.user.rightChevron,
-        multiImageClickOpts
-      );
-      postTypeMsg = `with ${numImages} images`;
-      break;
-    }
-    case postTypes.video:
-      // select and play the video. The video is a mp4 that is already loaded
-      // need to only play it for the length of time we are visiting the post
-      // just in case
-      await lib.selectElemFromAndClickWithDelay(
-        displayDiv,
-        selectors.user.playVideo
-      );
-      postTypeMsg = 'with an video';
-      break;
-    // default: just loading comments
+  const displayDiv = lib.qs(selectors.userMultiImageDisplayDiv, content);
+  const { msg, wait } = await shared.handlePostContent({
+    thePost: post,
+    multiImgElem: content,
+    videoElem: displayDiv,
+    isSinglePost: false,
+  });
+  yield lib.createState(wait, msg);
+  const commentList = lib.qs('ul', content);
+  if (commentList) {
+    yield* shared.loadAllComments(commentList);
+    yield* lib.traverseChildrenOf(commentList, shared.commentViewer());
   }
   // The load more comments button, depending on the number of comments,
   // will contain two variations of text (see xpathQ for those two variations).
-  // getMoreComments handles getting that button for the two variations
-  yield lib.stateWithMsgNoWait(`${baseMsg}${postTypeMsg ? postTypeMsg : ''}`);
-  const commentList = lib.qs('ul', content);
-  if (commentList) {
-    yield* loadAllComments(commentList);
-    yield* lib.traverseChildrenOf(commentList, commentViewer());
-  }
+  // getMoreComments handles getting that button for the two variationsif (closeButton != null) {
   if (closeButton != null) {
     await lib.clickWithDelay(closeButton);
   } else {
     await lib.clickWithDelay(
       lib.xpathOneOf({
         xpg,
-        queries: xpathQ.postPopupClose,
+        queries: selectors.postPopupCloseXpath,
       })
     );
   }
@@ -160,9 +124,6 @@ async function* handlePost(post, xpg) {
  * @return {AsyncIterableIterator<*>}
  */
 async function* handleRow(row, xpg) {
-  if (debug) {
-    lib.addClass(row, behaviorStyle.wrDebugVisited);
-  }
   await lib.scrollIntoViewWithDelay(row);
   yield* lib.traverseChildrenOf(row, handlePost, xpg);
 }
@@ -173,7 +134,7 @@ export default async function* instagramUserBehavior(cliAPI) {
     yield* viewStories();
   }
   const postRowContainer = lib.chainFistChildElemOf(
-    lib.qs(selectors.user.postTopMostContainer),
+    lib.qs(selectors.userPostTopMostContainer),
     2
   );
   if (postRowContainer == null) {
@@ -197,7 +158,7 @@ export const metaData = {
     regex: /^https:\/\/(www\.)?instagram\.com\/[^/]+(?:\/(?:tagged(?:\/)?)?)?$/,
   },
   description:
-    'Capture all stories, images, videos and comments on user’s page.'
+    'Capture all stories, images, videos and comments on user’s page.',
 };
 
 export const isBehavior = true;

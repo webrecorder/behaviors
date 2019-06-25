@@ -16,23 +16,23 @@
     "cheerio": "^1.0.0-rc.2",
     "chokidar": "^3.0.1",
     "commander": "^2.20.0",
-    "eventemitter3": "^3.1.2",
+    "eventemitter3": "^4.0.0",
     "fastify": "^2.5.0",
     "fastify-graceful-shutdown": "^2.0.1",
     "fastify-plugin": "^1.6.0",
     "fastify-swagger": "^2.4.0",
     "fastparallel": "^2.3.0",
-    "find-my-way": "^2.0.1",
+    "find-my-way": "^2.1.0",
     "fs-extra": "^8.0.1",
     "js-yaml": "^3.13.1",
     "plur": "^3.1.1",
     "prettier": "^1.18.2",
     "pretty-time": "^1.1.0",
     "qs": "^6.7.0",
-    "rollup": "^1.15.6",
+    "rollup": "^1.16.2",
     "rollup-plugin-alias": "^1.5.2",
     "rollup-plugin-cleanup": "^3.1.1",
-    "rollup-plugin-node-resolve": "^5.0.3",
+    "rollup-plugin-node-resolve": "^5.0.4",
     "ts-morph": "^2.3.0",
     "typescript": "^3.5.2",
     "uuid": "^3.3.2"
@@ -47,6 +47,7 @@
     "generate-runnable-behaviors": "node ./bin/cli-behaviors -b",
     "generate-stdlib-debug": "node ./bin/cli-stdlib --debug-script",
     "generate-stdlib-index": "node ./bin/cli-stdlib --gen-index",
+    "generate-test-helper-values": "node ./internal/generateTestHelperValues.js",
     "publish-docs": "gh-pages -d docs",
     "test": "ava --verbose",
     "format": "prettier --write test/**/*.js lib/**/*.js internal/**/*.js api/**/*.js behaviors/**/*.js"
@@ -62,8 +63,8 @@
     "esdoc-external-webapi-plugin": "^1.0.0",
     "esdoc-publish-html-plugin": "^1.1.2",
     "esdoc-standard-plugin": "^1.0.0",
-    "eslint": "^5.16.0",
-    "eslint-config-prettier": "^5.0.0",
+    "eslint": "^6.0.1",
+    "eslint-config-prettier": "^5.1.0",
     "eslint-plugin-prettier": "^3.1.0",
     "gh-pages": "^2.0.1",
     "is-ci": "^2.0.0",
@@ -74,11 +75,23 @@
   "engines": {
     "node": ">=11"
   },
+  "ava": {
+    "verbose": true,
+    "files": [
+      "test/*.js"
+    ],
+    "helpers": [
+      "test/helpers/**.js"
+    ],
+    "sources": [
+      "api/**/*"
+    ]
+  },
   "resolutions": {
     "*/**/acorn": "^6.1.1",
     "*/**/graceful-fs": "^4.1.15",
     "*/**/universalify": "^0.1.2",
     "*/**/tslib": "^1.9.3",
-    "*/**/typescript": "^3.3.3333"
+    "*/**/typescript": "^3.5.2"
   }
 }
