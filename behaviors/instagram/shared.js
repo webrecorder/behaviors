@@ -191,7 +191,7 @@ export async function* viewCommentsAndReplies(xpg, cntx) {
  */
 export function getProfileInfo() {
   if (
-    lib.globalWithPropsExist('user', 'username', 'id', 'highlight_reel_count')
+    lib.globalWithPropsExist(window, 'user', 'username', 'id', 'highlight_reel_count')
   ) {
     return {
       username: window.user.username,

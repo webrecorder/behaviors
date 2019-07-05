@@ -192,7 +192,7 @@ async function launchBrowser(runConfig) {
     '--disable-sync',
     '--disable-domain-reliability',
     '--disable-infobars',
-    '--disable-features=site-per-process,TranslateUI,LazyFrameLoading',
+    '--disable-features=site-per-process,TranslateUI',
     '--disable-breakpad',
     '--disable-backing-store-limit',
     '--enable-features=NetworkService,NetworkServiceInProcess,brotli-encoding,AwaitOptimization',

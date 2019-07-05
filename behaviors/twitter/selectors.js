@@ -27,6 +27,12 @@ export const profileWarningButton = 'button[class*="profileWarningTimeline" i]';
 export const sensativeMediaDiv = 'div[class="tombstone" i]';
 export const sensativeReveal = 'button[class*="tombstone-action" i]';
 
+export const AdaptiveSearchTimelineClz =
+  'AdaptiveSearchTimeline-separationModule';
+export const SeparatedModuleClz = 'separated-module';
+
+export const timelineEndDiv = '.stream-footer > .timeline-end';
+
 /**
  * @desc Xpath query used to traverse each tweet within a timeline.
  *

@@ -25,6 +25,22 @@ export const dataAttrs = {
 
 export const StreamHasMoreTweetsCSSClz = 'has-more-items';
 
+export function notRealTweet(tweetLi) {
+  if (lib.hasClass(tweetLi, selectors.AdaptiveSearchTimelineClz)) return true;
+  // separated-module has-profile-promoted-tweet
+  if (lib.hasClass(tweetLi, selectors.SeparatedModuleClz)) return true;
+  return tweetLi.getBoundingClientRect().height === 0;
+}
+
+export function getStreamIndicatorElems() {
+  const timelineEndDiv = lib.qs(selectors.timelineEndDiv);
+  return {
+    streamEnd: lib.qs('.stream-end', timelineEndDiv),
+    streamLoading: lib.qs('.stream-loading', timelineEndDiv),
+    streamFail: lib.qs('.stream-fail-container'),
+  };
+}
+
 /**
  * @desc Xpath query used to traverse each tweet within a timeline.
  *

@@ -43,10 +43,6 @@ function closeFullTweetOverlay(originalBaseURI) {
   );
 }
 
-const shouldSkipTweet = tweetLi =>
-  lib.hasClass(tweetLi, 'AdaptiveSearchTimeline-separationModule') ||
-  tweetLi.getBoundingClientRect().height === 0;
-
 /**
  *
  * @param {HTMLLIElement} tweetLi
@@ -86,9 +82,7 @@ async function* handleTweet(tweetLi, { originalBaseURI }) {
             selectors.showMoreInThread
           )
       ),
-      shared.createThreadReplyVisitor(
-        `Viewed tweet ${permalink} reply`
-      )
+      shared.createThreadReplyVisitor(`Viewed tweet ${permalink} reply`)
     );
   }
   await closeFullTweetOverlay(originalBaseURI);
@@ -116,27 +110,41 @@ async function* handleTweet(tweetLi, { originalBaseURI }) {
  * @return {AsyncIterator<*>}
  */
 export default async function* timelineIterator(cliApi) {
-  const originalBaseURI = document.baseURI;
-  const streamItems = lib.qs(selectors.tweetStreamItems);
-  if (shared.isSensitiveProfile()) {
-    yield lib.stateWithMsgNoWait('Revealing sensitive profile');
-    await shared.revealSensitiveProfile();
-    yield lib.stateWithMsgNoWait('Revealed sensitive profile');
-  }
-  if (!streamItems) {
-    yield lib.stateWithMsgNoWait(
-      'Could not find the tweets defaulting to auto scroll'
-    );
-    yield* autoScrollBehavior();
-    return;
-  }
-  // for each post row view the posts it contains
-  yield* lib.traverseChildrenOfCustom({
-    parentElement: streamItems,
-    handler: handleTweet,
+  const { streamEnd, streamFail } = shared.getStreamIndicatorElems();
+  return lib.traversal({
     loader: true,
+    setupFailure: autoScrollBehavior,
+    shouldWait(parentElement, curChild) {
+      if (curChild.nextElementSibling != null) return false;
+      if (lib.isElemVisible(streamEnd)) {
+        return false;
+      }
+      return !lib.isElemVisible(streamFail);
+    },
+    wait(parentElement, curChild) {
+      const previousChildCount = parentElement.childElementCount;
+      return lib.waitForAdditionalElemChildrenMO(parentElement, {
+        max: -1,
+        pollRate: lib.secondsToDelayAmount(2.5),
+        guard() {
+          return (
+            // twitter will let user know if things failed
+            lib.isElemVisible(streamFail) ||
+            // sanity check
+            previousChildCount !== parentElement.childElementCount
+          );
+        },
+      });
+    },
+    async setup() {
+      if (shared.isSensitiveProfile()) {
+        await shared.revealSensitiveProfile();
+      }
+      return lib.qs(selectors.tweetStreamItems);
+    },
+    handler: handleTweet,
     async filter(tweetLi) {
-      const shouldSkip = shouldSkipTweet(tweetLi);
+      const shouldSkip = shared.notRealTweet(tweetLi);
       if (shouldSkip) {
         await lib.scrollIntoViewWithDelay(tweetLi);
         lib.collectOutlinksFrom(tweetLi);
@@ -145,7 +153,7 @@ export default async function* timelineIterator(cliApi) {
     },
     additionalArgs: {
       xpg: cliApi.$x,
-      originalBaseURI,
+      originalBaseURI: document.baseURI,
     },
   });
 }
