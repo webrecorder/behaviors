@@ -1,6 +1,7 @@
 import * as lib from '../../lib';
 import * as shared from './shared';
 import * as selectors from './selectors';
+import autoScrollBehavior from '../autoscroll';
 
 function loggedIn(xpg) {
   return (
@@ -56,7 +57,7 @@ async function* viewStories() {
   }
 }
 
-async function* handlePost(post, xpg) {
+async function* handlePost(post, cliAPI) {
   // open the post (displayed in a separate part of the dom)
   // click the first child of the post div (a tag)
   lib.autoFetchFromDoc();
@@ -76,6 +77,10 @@ async function* handlePost(post, xpg) {
     document,
     selectors.userDivDialog
   );
+  const loadingSpinner = lib.qs('svg', popupDialog); // TODO ensure this works 100%
+  if (loadingSpinner) {
+    // TODO wait for loading to become complete
+  }
   lib.collectOutlinksFrom(popupDialog);
   // get the next inner div.dialog because its next sibling is the close button
   // until instagram decides to change things
@@ -110,46 +115,63 @@ async function* handlePost(post, xpg) {
   } else {
     await lib.clickWithDelay(
       lib.xpathOneOf({
-        xpg,
+        xpg: cliAPI.$x,
         queries: selectors.postPopupCloseXpath,
       })
     );
   }
 }
 
-/**
- * @desc
- * @param {Element} row
- * @param {*} xpg
- * @return {AsyncIterableIterator<*>}
- */
-async function* handleRow(row, xpg) {
-  await lib.scrollIntoViewWithDelay(row);
-  yield* lib.traverseChildrenOf(row, handlePost, xpg);
-}
-
-export default async function* instagramUserBehavior(cliAPI) {
-  // view all stories when logged in
-  if (loggedIn(cliAPI.$x)) {
-    yield* viewStories();
-  }
-  const postRowContainer = lib.chainFistChildElemOf(
-    lib.qs(selectors.userPostTopMostContainer),
-    2
-  );
-  if (postRowContainer == null) {
-    // we got nothing at this point, HALP!!!
-    lib.collectOutlinksFromDoc();
-    lib.autoFetchFromDoc();
-    yield lib.stateWithMsgNoWait('There was no post');
-    return;
-  }
-  // for each post row view the posts it contains
-  yield* lib.traverseChildrenOfLoaderParent(
-    postRowContainer,
-    handleRow,
-    cliAPI.$x
-  );
+export default function instagramUserBehavior(cliAPI) {
+  const loadingInfo = shared.userLoadingInfo();
+  return lib.traverseChildrenOfCustom({
+    // view all stories when logged in
+    preTraversal: loggedIn(cliAPI.$x) ? viewStories : null,
+    async setup() {
+      const parent = lib.chainFistChildElemOf(
+        lib.qs(selectors.userPostTopMostContainer),
+        2
+      );
+      if (parent) {
+        await lib.scrollIntoViewWithDelay(parent.firstElementChild);
+      }
+      return parent;
+    },
+    async nextChild(parentElement, currentRow) {
+      const nextRow = currentRow.nextElementSibling;
+      if (nextRow) {
+        await lib.scrollIntoViewWithDelay(nextRow);
+      }
+      return nextRow;
+    },
+    shouldWait(parentElement, curChild) {
+      if (curChild.nextElementSibling != null) return false;
+      if (loadingInfo) return loadingInfo.hasNextPage();
+      return true;
+    },
+    wait(parentElement, curChild) {
+      const previousChildCount = parentElement.childElementCount;
+      return lib.waitForAdditionalElemChildrenMO(parentElement, {
+        max: lib.secondsToDelayAmount(60),
+        pollRate: lib.secondsToDelayAmount(2.5),
+        guard() {
+          return (
+            !loadingInfo.hasNextPage() ||
+            previousChildCount !== parentElement.childElementCount
+          );
+        },
+      });
+    },
+    handler(row) {
+      return lib.traverseChildrenOf(row, handlePost, cliAPI);
+    },
+    setupFailure() {
+      // we got nothing at this point, HALP!!!
+      lib.collectOutlinksFromDoc();
+      lib.autoFetchFromDoc();
+      return autoScrollBehavior();
+    },
+  });
 }
 
 export const metaData = {

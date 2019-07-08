@@ -21,29 +21,6 @@ function hasRepliedOrInThread(tweet) {
 }
 
 /**
- * @desc Clicks (views) the currently visited tweet
- * @param {Element} tweet
- * @return {Promise<Element>}
- */
-async function openFullTweet(tweet) {
-  const permalinkPath = tweet.dataset.permalinkPath;
-  await lib.clickAndWaitFor(
-    tweet,
-    () => lib.docBaseURIEndsWith(permalinkPath),
-    { max: 60000 }
-  );
-  return lib.id(selectors.permalinkOverlayId);
-}
-
-function closeFullTweetOverlay(originalBaseURI) {
-  const overlay = lib.qs(selectors.closeFullTweetSelector);
-  if (!overlay) return Promise.resolve(false);
-  return lib.clickAndWaitFor(overlay, () =>
-    lib.docBaseURIEquals(originalBaseURI)
-  );
-}
-
-/**
  *
  * @param {HTMLLIElement} tweetLi
  * @param {Object} args
@@ -65,7 +42,12 @@ async function* handleTweet(tweetLi, { originalBaseURI }) {
       `Handled tweet's video`
     );
   }
-  const fullTweetOverlay = await openFullTweet(tweet);
+  await lib.clickAndWaitFor(
+    tweet,
+    () => lib.docBaseURIEndsWith(permalink),
+    { max: 60000 }
+  );
+  const fullTweetOverlay = lib.id(selectors.permalinkOverlayId);
   if (!fullTweetOverlay) return;
   await shared.postOpenTweet(fullTweetOverlay, video);
   if (hasRepliedOrInThread(tweet)) {
@@ -85,7 +67,12 @@ async function* handleTweet(tweetLi, { originalBaseURI }) {
       shared.createThreadReplyVisitor(`Viewed tweet ${permalink} reply`)
     );
   }
-  await closeFullTweetOverlay(originalBaseURI);
+  const closeOverlay = lib.qs(selectors.closeFullTweetSelector);
+  if (!closeOverlay) {
+    await lib.clickAndWaitFor(closeOverlay, () =>
+      lib.docBaseURIEquals(originalBaseURI)
+    );
+  }
 }
 
 /**
@@ -111,7 +98,7 @@ async function* handleTweet(tweetLi, { originalBaseURI }) {
  */
 export default async function* timelineIterator(cliApi) {
   const { streamEnd, streamFail } = shared.getStreamIndicatorElems();
-  return lib.traversal({
+  return lib.traverseChildrenOfCustom({
     loader: true,
     setupFailure: autoScrollBehavior,
     shouldWait(parentElement, curChild) {
@@ -130,6 +117,7 @@ export default async function* timelineIterator(cliApi) {
           return (
             // twitter will let user know if things failed
             lib.isElemVisible(streamFail) ||
+            lib.isElemVisible(streamEnd) ||
             // sanity check
             previousChildCount !== parentElement.childElementCount
           );

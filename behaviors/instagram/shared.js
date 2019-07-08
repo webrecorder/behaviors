@@ -185,36 +185,82 @@ export async function* viewCommentsAndReplies(xpg, cntx) {
   }
 }
 
-/**
- *
- * @return {?Object}
- */
-export function getProfileInfo() {
-  if (
-    lib.globalWithPropsExist(window, 'user', 'username', 'id', 'highlight_reel_count')
-  ) {
-    return {
-      username: window.user.username,
-      userId: window.user.id,
-      numHighlights: window.user.highlight_reel_count,
-    };
+export function initInfo() {
+  const sharedData = window._sharedData;
+  if (!sharedData) return null;
+  const info = {
+    type: null,
+    loggedIn: false,
+    profileId: null,
+    postCount: null,
+    allLoaded: null,
+  };
+  if (sharedData.entry_data && sharedData.entry_data.ProfilePage) {
+    info.type = 'u';
+    const user = sharedData.entry_data.ProfilePage[0].graphql.user;
+    // user profile
+    if (user) {
+      info.profileId = user.id;
+      info.postCount = user.edge_owner_to_timeline_media.count;
+      info.allLoaded = !user.edge_owner_to_timeline_media.page_info
+        .has_next_page;
+    }
   }
+}
 
-  const user = lib.getViaPath(
-    window,
-    '_sharedData',
-    'entry_data',
-    'ProfilePage',
-    0,
-    'graphql',
-    'user'
-  );
-  if (user != null) {
-    return {
-      username: user.username,
-      userId: user.id,
-      numHighlights: user.highlight_reel_count,
-    };
+export function userLoadingInfo() {
+  const store = (() => {
+    const root = lib.getViaPath(
+      lib.id('react-root'),
+      '_reactRootContainer',
+      '_internalRoot'
+    );
+    if (root) return lib.findReduxStore(root.current);
+    return null;
+  })();
+  if (!store) {
+    const user = lib.getViaPath(
+      window,
+      '_sharedData',
+      'entry_data',
+      'ProfilePage',
+      0,
+      'graphql',
+      'user'
+    );
+    if (user) {
+      return {
+        haveStore: false,
+        hasNextPage: () => true,
+        postCount: user.edge_owner_to_timeline_media.count,
+        allLoaded: !user.edge_owner_to_timeline_media.page_info.has_next_page,
+      };
+    }
+    return null;
   }
-  return null;
+  let postsByUserId = store.getState().profilePosts.byUserId;
+  const userId = Object.keys(postsByUserId.toJS())[0];
+  if (typeof window.____$UNSUB === 'function') {
+    window.____$UNSUB();
+  }
+  window.____$UNSUB = store.subscribe(() => {
+    const nextState = store.getState();
+    if (postsByUserId !== nextState.profilePosts.byUserId) {
+      postsByUserId = nextState.profilePosts.byUserId;
+      const pag = postsByUserId.get(userId).pagination;
+      console.log(
+        `isFetching=${
+          pag.isFetching
+        }, hasNextPage=${pag.hasNextPage}, loadedCount=${pag.loadedCount}`
+      );
+    }
+  });
+  return {
+    haveStore: true,
+    postCount: postsByUserId.get(userId).count,
+    allLoaded: !postsByUserId.get(userId).pagination.hasNextPage,
+    hasNextPage: () => postsByUserId.get(userId).pagination.hasNextPage,
+    isFetching: () => postsByUserId.get(userId).pagination.isFetching,
+    loadedCount: () => postsByUserId.get(userId).pagination.loadedCount,
+  };
 }
