@@ -38,7 +38,7 @@ async function* viewStories() {
       // this part of a story is video content
       let maybeVideo = lib.qs('video');
       // click the button if not already playing
-      if (maybeVideo && maybeVideo.paused) {
+      if (maybeVideo) {
         await lib.clickWithDelay(videoButton);
       }
       // safety check due to autoplay
@@ -77,10 +77,6 @@ async function* handlePost(post, cliAPI) {
     document,
     selectors.userDivDialog
   );
-  const loadingSpinner = lib.qs('svg', popupDialog); // TODO ensure this works 100%
-  if (loadingSpinner) {
-    // TODO wait for loading to become complete
-  }
   lib.collectOutlinksFrom(popupDialog);
   // get the next inner div.dialog because its next sibling is the close button
   // until instagram decides to change things
@@ -109,7 +105,7 @@ async function* handlePost(post, cliAPI) {
   }
   // The load more comments button, depending on the number of comments,
   // will contain two variations of text (see xpathQ for those two variations).
-  // getMoreComments handles getting that button for the two variationsif (closeButton != null) {
+  // getMoreComments handles getting that button for the two variations
   if (closeButton != null) {
     await lib.clickWithDelay(closeButton);
   } else {
@@ -138,21 +134,21 @@ export default function instagramUserBehavior(cliAPI) {
       return parent;
     },
     async nextChild(parentElement, currentRow) {
-      const nextRow = currentRow.nextElementSibling;
+      const nextRow = lib.getElemSibling(currentRow);
       if (nextRow) {
         await lib.scrollIntoViewWithDelay(nextRow);
       }
       return nextRow;
     },
-    shouldWait(parentElement, curChild) {
-      if (curChild.nextElementSibling != null) return false;
+    shouldWait(parentElement, currentRow) {
+      if (currentRow.nextElementSibling != null) return false;
       if (loadingInfo) return loadingInfo.hasNextPage();
       return true;
     },
-    wait(parentElement, curChild) {
+    wait(parentElement, currentRow) {
       const previousChildCount = parentElement.childElementCount;
       return lib.waitForAdditionalElemChildrenMO(parentElement, {
-        max: lib.secondsToDelayAmount(60),
+        max: -1,
         pollRate: lib.secondsToDelayAmount(2.5),
         guard() {
           return (
@@ -177,7 +173,7 @@ export default function instagramUserBehavior(cliAPI) {
 export const metaData = {
   name: 'instagramUserBehavior',
   match: {
-    regex: /^https:\/\/(www\.)?instagram\.com\/[^/]+(?:\/(?:tagged(?:\/)?)?)?$/,
+    regex: /^https:\/\/(www\.)?instagram\.com\/[^/]+(?:\/(?:[?].+)?(?:tagged(?:\/)?)?)?$/,
   },
   description:
     'Capture all stories, images, videos and comments on user’s page.',

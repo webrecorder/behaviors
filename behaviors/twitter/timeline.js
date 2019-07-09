@@ -37,16 +37,12 @@ async function* handleTweet(tweetLi, { originalBaseURI }) {
   lib.collectOutlinksFrom(tweet);
   let video = lib.qs(selectors.tweetVideo, tweet);
   if (video) {
-    yield lib.stateWithMsgWaitFromAwaitable(
-      lib.noExceptPlayMediaElement(video),
-      `Handled tweet's video`
-    );
+    await lib.noExceptPlayMediaElement(video, true);
+    yield lib.stateWithMsgWait(`Handled tweet's video`);
   }
-  await lib.clickAndWaitFor(
-    tweet,
-    () => lib.docBaseURIEndsWith(permalink),
-    { max: 60000 }
-  );
+  await lib.clickAndWaitFor(tweet, () => lib.docBaseURIEndsWith(permalink), {
+    max: 60000,
+  });
   const fullTweetOverlay = lib.id(selectors.permalinkOverlayId);
   if (!fullTweetOverlay) return;
   await shared.postOpenTweet(fullTweetOverlay, video);
@@ -67,8 +63,11 @@ async function* handleTweet(tweetLi, { originalBaseURI }) {
       shared.createThreadReplyVisitor(`Viewed tweet ${permalink} reply`)
     );
   }
-  const closeOverlay = lib.qs(selectors.closeFullTweetSelector);
-  if (!closeOverlay) {
+  const closeOverlay = lib.qs(
+    selectors.closeFullTweetSelector,
+    fullTweetOverlay
+  );
+  if (closeOverlay) {
     await lib.clickAndWaitFor(closeOverlay, () =>
       lib.docBaseURIEquals(originalBaseURI)
     );
@@ -96,11 +95,12 @@ async function* handleTweet(tweetLi, { originalBaseURI }) {
  * @param {Object} cliApi
  * @return {AsyncIterator<*>}
  */
-export default async function* timelineIterator(cliApi) {
+export default function timelineIterator(cliApi) {
   const { streamEnd, streamFail } = shared.getStreamIndicatorElems();
   return lib.traverseChildrenOfCustom({
     loader: true,
     setupFailure: autoScrollBehavior,
+    handler: handleTweet,
     shouldWait(parentElement, curChild) {
       if (curChild.nextElementSibling != null) return false;
       if (lib.isElemVisible(streamEnd)) {
@@ -130,11 +130,10 @@ export default async function* timelineIterator(cliApi) {
       }
       return lib.qs(selectors.tweetStreamItems);
     },
-    handler: handleTweet,
-    async filter(tweetLi) {
+    filter(tweetLi) {
       const shouldSkip = shared.notRealTweet(tweetLi);
       if (shouldSkip) {
-        await lib.scrollIntoViewWithDelay(tweetLi);
+        lib.scrollIntoView(tweetLi);
         lib.collectOutlinksFrom(tweetLi);
       }
       return !shouldSkip;

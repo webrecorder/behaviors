@@ -5,7 +5,7 @@ import cleanup from 'rollup-plugin-cleanup';
 const { wrappers } = require('./internal/buildInfo');
 const { buildDir, distDir } = require('./internal/paths');
 
-const behavior = 'instagramUserBehavior.js';
+const behavior = 'autoscrollBehavior.js';
 const behaviorPath = path.join(buildDir, behavior);
 
 console.log(buildDir);

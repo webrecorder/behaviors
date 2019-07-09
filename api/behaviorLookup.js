@@ -139,9 +139,7 @@ class LookupWorker extends EventEmitter {
     if (this._isRealShutdown) return this._terminationPromise.promise;
     this._isRealShutdown = true;
     this._terminationPromise = promiseResolveReject();
-    this._worker.terminate((error, exitCode) => {
-      this._terminationPromise.resolve();
-    });
+    this._worker.terminate();
     return this._terminationPromise.promise;
   }
 

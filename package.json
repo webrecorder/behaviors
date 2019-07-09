@@ -29,12 +29,12 @@
     "prettier": "^1.18.2",
     "pretty-time": "^1.1.0",
     "qs": "^6.7.0",
-    "rollup": "^1.16.6",
+    "rollup": "^1.16.7",
     "rollup-plugin-alias": "^1.5.2",
     "rollup-plugin-cleanup": "^3.1.1",
     "rollup-plugin-node-resolve": "^5.2.0",
     "ts-morph": "^3.1.0",
-    "typescript": "^3.5.2",
+    "typescript": "^3.5.3",
     "uuid": "^3.3.2"
   },
   "scripts": {
@@ -55,7 +55,7 @@
   "devDependencies": {
     "@types/cheerio": "^0.22.12",
     "@types/fs-extra": "^8.0.0",
-    "ava": "^2.1.0",
+    "ava": "^2.2.0",
     "babel-eslint": "^10.0.2",
     "chrome-remote-interface-extra": "git+https://github.com/N0taN3rd/chrome-remote-interface-extra.git#pv-1.17.0-post",
     "esdoc": "^1.1.0",
@@ -92,6 +92,6 @@
     "*/**/graceful-fs": "^4.1.15",
     "*/**/universalify": "^0.1.2",
     "*/**/tslib": "^1.9.3",
-    "*/**/typescript": "^3.5.2"
+    "*/**/typescript": "^3.5.3"
   }
 }

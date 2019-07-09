@@ -1,6 +1,6 @@
 buildConfig: ./behavior-config.yml
 behavior: ./behaviors/instagram/user.js
-url: 'https://www.instagram.com/pigdestroyerofficial/'
+url: 'https://www.instagram.com/rhizomedotorg/'
 
 # path to chrome executable or command
 # chromeEXE: google-chrome-unstable
