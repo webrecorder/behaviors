@@ -50,7 +50,7 @@ async function* handleTweetStreamItem(tweetStreamLI, originalBaseURI) {
 
   let video = lib.qs(selectors.tweetVideo, tweetStreamLI);
   if (video) {
-    await lib.noExceptPlayMediaElement(video, true);
+    await lib.noExceptPlayMediaElement(video);
     yield lib.stateWithMsgWait(`Handled tweet's video`);
   }
   const footer = lib.qs(selectors.tweetFooterSelector, tweetContent);

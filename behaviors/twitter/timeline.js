@@ -37,7 +37,7 @@ async function* handleTweet(tweetLi, { originalBaseURI }) {
   lib.collectOutlinksFrom(tweet);
   let video = lib.qs(selectors.tweetVideo, tweet);
   if (video) {
-    await lib.noExceptPlayMediaElement(video, true);
+    await lib.noExceptPlayMediaElement(video);
     yield lib.stateWithMsgWait(`Handled tweet's video`);
   }
   await lib.clickAndWaitFor(tweet, () => lib.docBaseURIEndsWith(permalink), {
