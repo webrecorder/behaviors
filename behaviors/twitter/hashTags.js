@@ -149,13 +149,14 @@ export default function hashTagIterator(cliAPI) {
   });
 }
 
-export const metaData = {
+export const metadata = {
   name: 'twitterHashTagsBehavior',
   match: {
     regex: /^(?:https:\/\/(?:www\.)?)?twitter\.com\/hashtag\/[^?]+.*/,
   },
   description:
     'Capture every tweet in hashtag search, including embedded videos, images and replies.',
+  updated: '2019-07-10T10:32:26',
 };
 
 export const isBehavior = true;

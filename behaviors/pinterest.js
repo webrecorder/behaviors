@@ -18,7 +18,7 @@ async function* consumePins(renderedPins) {
 
 const selectors = {
   gridImage: 'div[data-grid-item]',
-  gridContainer: 'div.gridCentered > div > div > div'
+  gridContainer: 'div.gridCentered > div > div > div',
 };
 
 function getGridContainer() {
@@ -61,13 +61,14 @@ export default async function* iteratePins(cliAPI) {
   } while (currentPostRows.length > 0);
 }
 
-export const metaData = {
+export const metadata = {
   name: 'pinterestBehavior',
   match: {
-    regex: /^(?:https:\/\/(:?www\.)?)pintrest\.com\/[a-zA-Z]+[?].+/
+    regex: /^(?:https:\/\/(:?www\.)?)pintrest\.com\/[a-zA-Z]+[?].+/,
   },
   description:
-    'After login, automatically capture all pins on page and scroll down to load more if possible.'
+    'After login, automatically capture all pins on page and scroll down to load more if possible.',
+  updated: '2019-06-24T15:09:02',
 };
 
 export const isBehavior = true;

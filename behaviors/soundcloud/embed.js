@@ -52,13 +52,13 @@ export default async function* soundCloudEmbedBehavior(cliAPI) {
   }
 }
 
-export const metaData = {
+export const metadata = {
   name: 'soundCloudEmbedBehavior',
   match: {
     regex: /^https:\/\/w\.soundcloud\.com\/player\/.+/,
   },
-  description:
-    'Capture every track in the Soundcloud embed.'
+  description: 'Capture every track in the Soundcloud embed.',
+  updated: '2019-06-24T15:09:02',
 };
 
 export const isBehavior = true;

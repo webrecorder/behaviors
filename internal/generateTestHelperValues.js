@@ -1,14 +1,10 @@
 const path = require('path');
 const fs = require('fs-extra');
 const prettier = require('prettier');
-const { prettierOpts } = require('./defaultOpts');
-const { Project } = require('ts-morph');
-const { defaultBehaviorConfigPath } = require('./paths');
+const { prettierOpts, makeDefaultBuildCollectOpts } = require('./defaultOpts');
 const Utils = require('./utils');
-const { resolveWhatPath } = require('./build');
 const Behavior = require('./behavior');
 const { behaviorsFromDirIterator } = require('./collect');
-const getConfigIfExistsOrDefault = require('./behaviorConfig');
 
 const TestURLs = {
   youtube: 'https://www.youtube.com/watch?v=MfH0oirdHLs',
@@ -158,19 +154,7 @@ function makeTestedValue(behavior) {
 }
 
 async function generateTestedValues() {
-  const config = await getConfigIfExistsOrDefault({
-    config: defaultBehaviorConfigPath,
-    build: true,
-  });
-  const project = new Project({ tsConfigFilePath: config.tsConfigFilePath });
-  const dirPath = await resolveWhatPath(config, 'doIt');
-  const opts = Object.assign(
-    {
-      project: project,
-      dir: dirPath,
-    },
-    config
-  );
+  const opts = await makeDefaultBuildCollectOpts();
   const testValues = [];
   let defaultBehaviorMD;
   const behaviorMdata = {};

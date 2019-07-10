@@ -550,7 +550,7 @@ class Checking {
       checkResults.state = CheckState.fileNotModule;
       return checkResults;
     }
-    const metaData = moduleSymbol.getExport('metaData');
+    const metaData = Utils.getMdataSymbol(moduleSymbol);
     if (metaData) {
       checkResults.metadata = Checking.validateAndExtractMetaData(
         metaData,

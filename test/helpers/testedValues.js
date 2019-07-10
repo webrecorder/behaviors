@@ -7,6 +7,7 @@ module.exports = {
         defaultBehavior: true,
         description:
           'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
+        updated: '2019-07-10T10:32:26',
         fileName: 'autoscrollBehavior.js',
       },
       url: 'https://example.com',
@@ -29,6 +30,7 @@ module.exports = {
         },
         description:
           'Scrolls the page clicking all the images rendered at the current scroll level',
+        updated: '2019-06-06T12:55:43',
         fileName: 'deathImitatesLanguageBehavior.js',
       },
       url: 'https://deathimitateslanguage.harmvandendorpel.com',
@@ -55,6 +57,7 @@ module.exports = {
         },
         description:
           'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',
+        updated: '2019-06-24T15:09:02',
         fileName: 'slideShareBehavior.js',
       },
       url:
@@ -79,6 +82,7 @@ module.exports = {
           regex: '^(?:https:\\/\\/(?:www\\.)?)?youtube\\.com\\/watch[?]v=.+',
         },
         description: 'Capture the YouTube video and all comments.',
+        updated: '2019-06-24T15:09:02',
         fileName: 'youtubeVideoBehavior.js',
       },
       url: 'https://www.youtube.com/watch?v=MfH0oirdHLs',
@@ -103,6 +107,7 @@ module.exports = {
         },
         description:
           'Capture all items and comments in the Facebook timeline and scroll down to load more.',
+        updated: '2019-06-25T16:16:14',
         fileName: 'facebookNewsFeedBehavior.js',
       },
       url: 'https://www.facebook.com',
@@ -125,6 +130,7 @@ module.exports = {
         },
         description:
           'Capture all items and comments in the Facebook page and scroll down to load more content where possible.',
+        updated: '2019-06-25T16:16:14',
         fileName: 'facebookUserFeedBehavior.js',
       },
       url: 'https://www.facebook.com/Smithsonian/',
@@ -148,6 +154,7 @@ module.exports = {
         },
         description:
           'Capture every image and/or video, retrieve all comments, and scroll down to load more.',
+        updated: '2019-06-25T16:16:14',
         fileName: 'instagramPostBehavior.js',
       },
       url: 'https://www.instagram.com/p/Bxiub6BB0Ab/',
@@ -173,6 +180,7 @@ module.exports = {
         },
         description:
           'Capture all stories, images, videos and comments on user’s page.',
+        updated: '2019-07-10T10:32:26',
         fileName: 'instagramUserBehavior.js',
       },
       url: 'https://www.instagram.com/rhizomedotorg',
@@ -197,6 +205,7 @@ module.exports = {
             '^(?:https:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/[^\\/]+(\\/)?$',
         },
         description: 'Capture every track on Soundcloud profile.',
+        updated: '2019-06-24T15:09:02',
         fileName: 'soundcloudArtistBehavior.js',
       },
       url: 'https://soundcloud.com/perturbator',
@@ -220,6 +229,7 @@ module.exports = {
           regex: '^https:\\/\\/w\\.soundcloud\\.com\\/player\\/.+',
         },
         description: 'Capture every track in the Soundcloud embed.',
+        updated: '2019-06-24T15:09:02',
         fileName: 'soundcloudEmbedBehavior.js',
       },
       url:
@@ -246,6 +256,7 @@ module.exports = {
         },
         description:
           'Capture every tweet in hashtag search, including embedded videos, images and replies.',
+        updated: '2019-07-10T10:32:26',
         fileName: 'twitterHashTagsBehavior.js',
       },
       url: 'https://twitter.com/hashtag/iipcwac18?vertical=default&src=hash',
@@ -271,6 +282,7 @@ module.exports = {
         },
         description:
           'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.',
+        updated: '2019-07-10T10:32:26',
         fileName: 'twitterTimelineBehavior.js',
       },
       url: 'https://twitter.com/webrecorder_io',
@@ -292,6 +304,7 @@ module.exports = {
     defaultBehavior: true,
     description:
       'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
+    updated: '2019-07-10T10:32:26',
     fileName: 'autoscrollBehavior.js',
   },
   allResult: {
@@ -303,6 +316,7 @@ module.exports = {
         defaultBehavior: true,
         description:
           'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
+        updated: '2019-07-10T10:32:26',
         fileName: 'autoscrollBehavior.js',
       },
       behaviors: {
@@ -314,6 +328,7 @@ module.exports = {
           },
           description:
             'Scrolls the page clicking all the images rendered at the current scroll level',
+          updated: '2019-06-06T12:55:43',
           fileName: 'deathImitatesLanguageBehavior.js',
         },
         pinterestBehavior: {
@@ -324,6 +339,7 @@ module.exports = {
           },
           description:
             'After login, automatically capture all pins on page and scroll down to load more if possible.',
+          updated: '2019-06-24T15:09:02',
           fileName: 'pinterestBehavior.js',
         },
         slideShareBehavior: {
@@ -334,6 +350,7 @@ module.exports = {
           },
           description:
             'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',
+          updated: '2019-06-24T15:09:02',
           fileName: 'slideShareBehavior.js',
         },
         youtubeVideoBehavior: {
@@ -342,6 +359,7 @@ module.exports = {
             regex: '^(?:https:\\/\\/(?:www\\.)?)?youtube\\.com\\/watch[?]v=.+',
           },
           description: 'Capture the YouTube video and all comments.',
+          updated: '2019-06-24T15:09:02',
           fileName: 'youtubeVideoBehavior.js',
         },
         facebookNewsFeed: {
@@ -351,6 +369,7 @@ module.exports = {
           },
           description:
             'Capture all items and comments in the Facebook timeline and scroll down to load more.',
+          updated: '2019-06-25T16:16:14',
           fileName: 'facebookNewsFeedBehavior.js',
         },
         facebookUserFeed: {
@@ -360,6 +379,7 @@ module.exports = {
           },
           description:
             'Capture all items and comments in the Facebook page and scroll down to load more content where possible.',
+          updated: '2019-06-25T16:16:14',
           fileName: 'facebookUserFeedBehavior.js',
         },
         instagramPostBehavior: {
@@ -370,6 +390,7 @@ module.exports = {
           },
           description:
             'Capture every image and/or video, retrieve all comments, and scroll down to load more.',
+          updated: '2019-06-25T16:16:14',
           fileName: 'instagramPostBehavior.js',
         },
         instagramUserBehavior: {
@@ -380,6 +401,7 @@ module.exports = {
           },
           description:
             'Capture all stories, images, videos and comments on user’s page.',
+          updated: '2019-07-10T10:32:26',
           fileName: 'instagramUserBehavior.js',
         },
         soundCloudArtistBehavior: {
@@ -389,6 +411,7 @@ module.exports = {
               '^(?:https:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/[^\\/]+(\\/)?$',
           },
           description: 'Capture every track on Soundcloud profile.',
+          updated: '2019-06-24T15:09:02',
           fileName: 'soundcloudArtistBehavior.js',
         },
         soundCloudEmbedBehavior: {
@@ -397,6 +420,7 @@ module.exports = {
             regex: '^https:\\/\\/w\\.soundcloud\\.com\\/player\\/.+',
           },
           description: 'Capture every track in the Soundcloud embed.',
+          updated: '2019-06-24T15:09:02',
           fileName: 'soundcloudEmbedBehavior.js',
         },
         twitterHashTagsBehavior: {
@@ -407,6 +431,7 @@ module.exports = {
           },
           description:
             'Capture every tweet in hashtag search, including embedded videos, images and replies.',
+          updated: '2019-07-10T10:32:26',
           fileName: 'twitterHashTagsBehavior.js',
         },
         twitterTimelineBehavior: {
@@ -417,6 +442,7 @@ module.exports = {
           },
           description:
             'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.',
+          updated: '2019-07-10T10:32:26',
           fileName: 'twitterTimelineBehavior.js',
         },
       },

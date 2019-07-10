@@ -26,11 +26,12 @@ export default async function* autoScrollBehavior() {
   }
 }
 
-export const metaData = {
+export const metadata = {
   name: 'autoScrollBehavior',
   defaultBehavior: true,
   description:
     'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
+  updated: '2019-07-10T10:32:26',
 };
 
 export const isBehavior = true;
