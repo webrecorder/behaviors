@@ -1,6 +1,7 @@
 import * as lib from '../../lib';
 import * as shared from './shared';
 import * as selectors from './selectors';
+import autoScrollBehavior from '../autoscroll';
 
 function loggedIn(xpg) {
   return (
@@ -37,7 +38,7 @@ async function* viewStories() {
       // this part of a story is video content
       let maybeVideo = lib.qs('video');
       // click the button if not already playing
-      if (maybeVideo && maybeVideo.paused) {
+      if (maybeVideo) {
         await lib.clickWithDelay(videoButton);
       }
       // safety check due to autoplay
@@ -56,7 +57,7 @@ async function* viewStories() {
   }
 }
 
-async function* handlePost(post, xpg) {
+async function* handlePost(post, cliAPI) {
   // open the post (displayed in a separate part of the dom)
   // click the first child of the post div (a tag)
   lib.autoFetchFromDoc();
@@ -104,58 +105,75 @@ async function* handlePost(post, xpg) {
   }
   // The load more comments button, depending on the number of comments,
   // will contain two variations of text (see xpathQ for those two variations).
-  // getMoreComments handles getting that button for the two variationsif (closeButton != null) {
+  // getMoreComments handles getting that button for the two variations
   if (closeButton != null) {
     await lib.clickWithDelay(closeButton);
   } else {
     await lib.clickWithDelay(
       lib.xpathOneOf({
-        xpg,
+        xpg: cliAPI.$x,
         queries: selectors.postPopupCloseXpath,
       })
     );
   }
 }
 
-/**
- * @desc
- * @param {Element} row
- * @param {*} xpg
- * @return {AsyncIterableIterator<*>}
- */
-async function* handleRow(row, xpg) {
-  await lib.scrollIntoViewWithDelay(row);
-  yield* lib.traverseChildrenOf(row, handlePost, xpg);
-}
-
-export default async function* instagramUserBehavior(cliAPI) {
-  // view all stories when logged in
-  if (loggedIn(cliAPI.$x)) {
-    yield* viewStories();
-  }
-  const postRowContainer = lib.chainFistChildElemOf(
-    lib.qs(selectors.userPostTopMostContainer),
-    2
-  );
-  if (postRowContainer == null) {
-    // we got nothing at this point, HALP!!!
-    lib.collectOutlinksFromDoc();
-    lib.autoFetchFromDoc();
-    yield lib.stateWithMsgNoWait('There was no post');
-    return;
-  }
-  // for each post row view the posts it contains
-  yield* lib.traverseChildrenOfLoaderParent(
-    postRowContainer,
-    handleRow,
-    cliAPI.$x
-  );
+export default function instagramUserBehavior(cliAPI) {
+  const loadingInfo = shared.userLoadingInfo();
+  return lib.traverseChildrenOfCustom({
+    // view all stories when logged in
+    preTraversal: loggedIn(cliAPI.$x) ? viewStories : null,
+    async setup() {
+      const parent = lib.chainFistChildElemOf(
+        lib.qs(selectors.userPostTopMostContainer),
+        2
+      );
+      if (parent) {
+        await lib.scrollIntoViewWithDelay(parent.firstElementChild);
+      }
+      return parent;
+    },
+    async nextChild(parentElement, currentRow) {
+      const nextRow = lib.getElemSibling(currentRow);
+      if (nextRow) {
+        await lib.scrollIntoViewWithDelay(nextRow);
+      }
+      return nextRow;
+    },
+    shouldWait(parentElement, currentRow) {
+      if (currentRow.nextElementSibling != null) return false;
+      if (loadingInfo) return loadingInfo.hasNextPage();
+      return true;
+    },
+    wait(parentElement, currentRow) {
+      const previousChildCount = parentElement.childElementCount;
+      return lib.waitForAdditionalElemChildrenMO(parentElement, {
+        max: -1,
+        pollRate: lib.secondsToDelayAmount(2.5),
+        guard() {
+          return (
+            !loadingInfo.hasNextPage() ||
+            previousChildCount !== parentElement.childElementCount
+          );
+        },
+      });
+    },
+    handler(row) {
+      return lib.traverseChildrenOf(row, handlePost, cliAPI);
+    },
+    setupFailure() {
+      // we got nothing at this point, HALP!!!
+      lib.collectOutlinksFromDoc();
+      lib.autoFetchFromDoc();
+      return autoScrollBehavior();
+    },
+  });
 }
 
 export const metaData = {
   name: 'instagramUserBehavior',
   match: {
-    regex: /^https:\/\/(www\.)?instagram\.com\/[^/]+(?:\/(?:tagged(?:\/)?)?)?$/,
+    regex: /^https:\/\/(www\.)?instagram\.com\/[^/]+(?:\/(?:[?].+)?(?:tagged(?:\/)?)?)?$/,
   },
   description:
     'Capture all stories, images, videos and comments on user’s page.',

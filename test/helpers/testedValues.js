@@ -169,7 +169,7 @@ module.exports = {
         name: 'instagramUserBehavior',
         match: {
           regex:
-            '^https:\\/\\/(www\\.)?instagram\\.com\\/[^\\/]+(?:\\/(?:tagged(?:\\/)?)?)?$',
+            '^https:\\/\\/(www\\.)?instagram\\.com\\/[^\\/]+(?:\\/(?:[?].+)?(?:tagged(?:\\/)?)?)?$',
         },
         description:
           'Capture all stories, images, videos and comments on user’s page.',
@@ -376,7 +376,7 @@ module.exports = {
           name: 'instagramUserBehavior',
           match: {
             regex:
-              '^https:\\/\\/(www\\.)?instagram\\.com\\/[^\\/]+(?:\\/(?:tagged(?:\\/)?)?)?$',
+              '^https:\\/\\/(www\\.)?instagram\\.com\\/[^\\/]+(?:\\/(?:[?].+)?(?:tagged(?:\\/)?)?)?$',
           },
           description:
             'Capture all stories, images, videos and comments on user’s page.',

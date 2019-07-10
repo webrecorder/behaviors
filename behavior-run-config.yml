@@ -1,11 +1,10 @@
 buildConfig: ./behavior-config.yml
-behavior: ./behaviors/autoscroll.js
-builtPath: ./dist/autoscrollBehavior.js
-url: 'https://stackoverflow.com/questions/1221517/how-to-get-subnet-mask-of-local-system-using-java'
+behavior: ./behaviors/instagram/user.js
+url: 'https://www.instagram.com/rhizomedotorg/'
 
 # path to chrome executable or command
 # chromeEXE: google-chrome-unstable
-#openDevTools: true
+openDevTools: true
 
 mode: build-watch
 # available options:
@@ -14,5 +13,5 @@ mode: build-watch
 #  - built: just run the previously built behavior
 
 # time values in seconds
-timeout: 60
-slowmo: 10
+#timeout: 60
+#slowmo: 10

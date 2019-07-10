@@ -1,7 +1,7 @@
 import * as lib from '../../lib';
 import * as selectors from './selectors';
-import autoScrollBehavior from '../autoscroll';
 import * as shared from './shared';
+import autoScrollBehavior from '../autoscroll';
 
 /**
  * @desc Clicks (views) the currently visited tweet
@@ -38,21 +38,9 @@ async function* handleTweetStreamItem(tweetStreamLI, originalBaseURI) {
   if (lib.selectorExists(selectors.sensativeMediaDiv)) {
     await shared.revealSensitiveMedia(tweetStreamLI);
   }
-  await lib.scrollIntoViewWithDelay(tweetStreamLI);
-  lib.markElemAsVisited(tweetStreamLI);
   lib.collectOutlinksFrom(tweetStreamLI);
 
-  if (tweetStreamLI.getBoundingClientRect().height === 0) {
-    yield lib.stateWithMsgNoWait(
-      'Encountered an hidden item in the tweet feed'
-    );
-    return;
-  } else if (
-    lib.hasClass(tweetStreamLI, 'AdaptiveSearchTimeline-separationModule')
-  ) {
-    yield lib.stateWithMsgNoWait('Encountered tweet feed separator');
-    return;
-  } else if (lib.hasClass(tweetStreamLI, selectors.userProfileInStream)) {
+  if (lib.hasClass(tweetStreamLI, selectors.userProfileInStream)) {
     yield lib.stateWithMsgNoWait('Encountered a non-tweet');
     return;
   }
@@ -62,10 +50,8 @@ async function* handleTweetStreamItem(tweetStreamLI, originalBaseURI) {
 
   let video = lib.qs(selectors.tweetVideo, tweetStreamLI);
   if (video) {
-    yield lib.stateWithMsgWaitFromAwaitable(
-      lib.noExceptPlayMediaElement(video),
-      `Handled tweet's video`
-    );
+    await lib.noExceptPlayMediaElement(video);
+    yield lib.stateWithMsgWait(`Handled tweet's video`);
   }
   const footer = lib.qs(selectors.tweetFooterSelector, tweetContent);
   const replyAction = lib.qs(selectors.replyActionSelector, footer);
@@ -114,29 +100,53 @@ async function* handleTweetStreamItem(tweetStreamLI, originalBaseURI) {
   } else {
     yield lib.stateWithMsgNoWait('Viewing regular tweet');
   }
-
   await closeTweetOverlay(originalBaseURI);
 }
 
 /**
  * @return {AsyncIterableIterator<*>}
  */
-export default async function* hashTagIterator(cliAPI) {
+export default function hashTagIterator(cliAPI) {
   lib.autoFetchFromDoc();
-  const originalBaseURI = document.baseURI;
-  const streamItems = lib.qs(selectors.tweetStreamItems);
-  if (!streamItems) {
-    yield lib.stateWithMsgNoWait(
-      'Could not find the tweets defaulting to auto scroll'
-    );
-    yield* autoScrollBehavior();
-    return;
-  }
-  yield* lib.traverseChildrenOfLoaderParent(
-    streamItems,
-    handleTweetStreamItem,
-    originalBaseURI
-  );
+  const { streamEnd, streamFail } = shared.getStreamIndicatorElems();
+  return lib.traverseChildrenOfCustom({
+    loader: true,
+    additionalArgs: document.baseURI,
+    parentElement: lib.qs(selectors.tweetStreamItems),
+    setupFailure: autoScrollBehavior,
+    handler: handleTweetStreamItem,
+    shouldWait(parentElement, curChild) {
+      if (curChild.nextElementSibling != null) return false;
+      if (lib.isElemVisible(streamEnd)) {
+        return false;
+      }
+      return !lib.isElemVisible(streamFail);
+    },
+    wait(parentElement, curChild) {
+      const previousChildCount = parentElement.childElementCount;
+      return lib.waitForAdditionalElemChildrenMO(parentElement, {
+        max: -1,
+        pollRate: lib.secondsToDelayAmount(2.5),
+        guard() {
+          return (
+            // twitter will let user know if things failed
+            lib.isElemVisible(streamFail) ||
+            lib.isElemVisible(streamEnd) ||
+            // sanity check
+            previousChildCount !== parentElement.childElementCount
+          );
+        },
+      });
+    },
+    filter(tweetLi) {
+      const shouldSkip = shared.notRealTweet(tweetLi);
+      if (shouldSkip) {
+        lib.scrollIntoView(tweetLi);
+        lib.collectOutlinksFrom(tweetLi);
+      }
+      return !shouldSkip;
+    },
+  });
 }
 
 export const metaData = {

@@ -130,6 +130,39 @@ export function commentViewer() {
   };
 }
 
+/**
+ * @param {HTMLElement} content
+ * @param {boolean} isSinglePost
+ * @return {Promise<number>}
+ */
+async function viewMultiPost(content, isSinglePost) {
+  let numMulti = 0;
+  const NextPart = lib.qs(
+    isSinglePost ? selectors.postNextImage : selectors.userNextImage,
+    content
+  );
+  const multiList = lib.qs('ul', content);
+  let part = multiList.firstElementChild;
+  while (part) {
+    numMulti += 1;
+    const playButton = lib.qs(selectors.videoSpritePlayButton, part);
+    if (playButton) {
+      const video = lib.qs('video', part);
+      if (video) {
+        const loadedPromise = lib.uaThinksMediaElementCanPlayAllTheWay(video);
+        await lib.clickWithDelay(playButton).then(() => loadedPromise);
+      } else {
+        await lib.clickWithDelay(playButton);
+      }
+    }
+    part = part.nextElementSibling;
+    if (part) {
+      await lib.clickWithDelay(NextPart);
+    }
+  }
+  return numMulti;
+}
+
 export async function handlePostContent({
   thePost,
   multiImgElem,
@@ -139,25 +172,26 @@ export async function handlePostContent({
   const baseMsg = 'Viewed post';
   const result = { msg: null, wait: false };
   switch (determinePostType(thePost, isSinglePost)) {
-    case postTypes.multiImage: {
-      lib.selectAllAndClick(selectors.videoSpritePlayButton, thePost);
-      // display each image by clicking the right chevron (next image)
-      const numImages = await lib.selectFromAndClickUntilNullWithDelay(
-        multiImgElem,
-        isSinglePost ? selectors.postNextImage : selectors.userNextImage,
-        multiImageClickOpts
-      );
-      result.msg = `${baseMsg} with ${numImages} images`;
+    case postTypes.multiImage:
+      const n = await viewMultiPost(multiImgElem, isSinglePost);
+      result.msg = `${baseMsg} with ${n} items`;
       break;
-    }
     case postTypes.video:
       // select and play the video. The video is a mp4 that is already loaded
       // need to only play it for the length of time we are visiting the post
       // just in case
+      const video = lib.qs('video', videoElem);
+      let playthroughp;
+      if (video) {
+        playthroughp = lib.uaThinksMediaElementCanPlayAllTheWay(video);
+      }
       await lib.selectElemFromAndClickWithDelay(
         videoElem,
         isSinglePost ? selectors.postPlayVideo : selectors.userPlayVideo
       );
+      if (playthroughp) {
+        await playthroughp;
+      }
       result.msg = `${baseMsg} with an video`;
       result.wait = true;
       break;
@@ -185,36 +219,76 @@ export async function* viewCommentsAndReplies(xpg, cntx) {
   }
 }
 
-/**
- *
- * @return {?Object}
- */
-export function getProfileInfo() {
-  if (
-    lib.globalWithPropsExist('user', 'username', 'id', 'highlight_reel_count')
-  ) {
-    return {
-      username: window.user.username,
-      userId: window.user.id,
-      numHighlights: window.user.highlight_reel_count,
-    };
+export function initInfo() {
+  const sharedData = window._sharedData;
+  if (!sharedData) return null;
+  const info = {
+    type: null,
+    loggedIn: false,
+    profileId: null,
+    postCount: null,
+    allLoaded: null,
+  };
+  if (sharedData.entry_data && sharedData.entry_data.ProfilePage) {
+    info.type = 'u';
+    const user = sharedData.entry_data.ProfilePage[0].graphql.user;
+    // user profile
+    if (user) {
+      info.profileId = user.id;
+      info.postCount = user.edge_owner_to_timeline_media.count;
+      info.allLoaded = !user.edge_owner_to_timeline_media.page_info
+        .has_next_page;
+    }
   }
+}
 
-  const user = lib.getViaPath(
-    window,
-    '_sharedData',
-    'entry_data',
-    'ProfilePage',
-    0,
-    'graphql',
-    'user'
-  );
-  if (user != null) {
-    return {
-      username: user.username,
-      userId: user.id,
-      numHighlights: user.highlight_reel_count,
-    };
+export function userLoadingInfo() {
+  const store = (() => {
+    const root = lib.getViaPath(
+      lib.id('react-root'),
+      '_reactRootContainer',
+      '_internalRoot'
+    );
+    if (root) return lib.findReduxStore(root.current);
+    return null;
+  })();
+  if (!store) {
+    const user = lib.getViaPath(
+      window,
+      '_sharedData',
+      'entry_data',
+      'ProfilePage',
+      0,
+      'graphql',
+      'user'
+    );
+    if (user) {
+      return {
+        haveStore: false,
+        hasNextPage: () => true,
+        postCount: user.edge_owner_to_timeline_media.count,
+        allLoaded: !user.edge_owner_to_timeline_media.page_info.has_next_page,
+      };
+    }
+    return null;
   }
-  return null;
+  let postsByUserId = store.getState().profilePosts.byUserId;
+  const userId = Object.keys(postsByUserId.toJS())[0];
+  if (typeof window.$____$UNSUB$____$ === 'function') {
+    window.$____$UNSUB$____$();
+  }
+  window.$____$UNSUB$____$ = store.subscribe(() => {
+    const nextState = store.getState();
+    if (postsByUserId !== nextState.profilePosts.byUserId) {
+      postsByUserId = nextState.profilePosts.byUserId;
+    }
+  });
+  return {
+    haveStore: true,
+    postCount: postsByUserId.get(userId).count,
+    allLoaded: !postsByUserId.get(userId).pagination.hasNextPage,
+    hasNextPage: () => postsByUserId.get(userId).pagination.hasNextPage,
+    isFetching: () => postsByUserId.get(userId).pagination.isFetching,
+    loadedCount: () => postsByUserId.get(userId).pagination.loadedCount,
+  };
 }

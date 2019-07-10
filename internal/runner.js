@@ -121,7 +121,7 @@ async function performNextStep(runnerHandle, stopEE) {
 async function autorun({ browser, stopEE, runConfig }) {
   const page = await browser.newPage();
   const behavior = await fs.readFile(runConfig.builtPath, 'utf8');
-  await page.goto(runConfig.url);
+  await page.goto(runConfig.url, {waitUntil: 'networkidle2'});
 
   await page.evaluateWithCliAPI(behavior);
 
@@ -192,7 +192,7 @@ async function launchBrowser(runConfig) {
     '--disable-sync',
     '--disable-domain-reliability',
     '--disable-infobars',
-    '--disable-features=site-per-process,TranslateUI,LazyFrameLoading',
+    '--disable-features=site-per-process,TranslateUI',
     '--disable-breakpad',
     '--disable-backing-store-limit',
     '--enable-features=NetworkService,NetworkServiceInProcess,brotli-encoding,AwaitOptimization',
