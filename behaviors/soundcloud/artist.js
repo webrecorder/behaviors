@@ -104,13 +104,13 @@ export default async function* visitSoundItems(cliAPI) {
   }
 }
 
-export const metaData = {
+export const metadata = {
   name: 'soundCloudArtistBehavior',
   match: {
     regex: /^(?:https:\/\/(?:www\.)?)?soundcloud\.com\/[^/]+(\/)?$/,
   },
-  description:
-    'Capture every track on Soundcloud profile.'
+  description: 'Capture every track on Soundcloud profile.',
+  updated: '2019-06-24T15:09:02',
 };
 
 export const isBehavior = true;

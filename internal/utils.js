@@ -16,6 +16,17 @@ const defaultInspectOpts = {
 
 class Utils {
   /**
+   * Returns the symbol for the metadata export if it exists from the supplied
+   * source files symbol
+   * @param moduleSymbol
+   */
+  static getMdataSymbol(moduleSymbol) {
+    return (
+      moduleSymbol.getExport('metadata') || moduleSymbol.getExport('metaData')
+    );
+  }
+
+  /**
    * Determines if the supplied source file is for a behavior or not
    * @param {SourceFile} sourceFile
    * @return {boolean} - The results of the is behavior check
@@ -24,7 +35,7 @@ class Utils {
     const moduleSymbol = sourceFile.getSymbol();
     if (moduleSymbol == null) return false;
     return (
-      moduleSymbol.getExport('metaData') != null &&
+      Utils.getMdataSymbol(moduleSymbol) != null &&
       moduleSymbol.getExport('isBehavior') != null
     );
   }
@@ -32,7 +43,7 @@ class Utils {
   static behaviorKind(sourceFile) {
     const moduleSymbol = sourceFile.getSymbol();
     if (moduleSymbol == null) return behaviorKinds.notABehavior;
-    const metaDataSymbol = moduleSymbol.getExport('metaData');
+    const metaDataSymbol = Utils.getMdataSymbol(moduleSymbol);
     const isBehaviorSymbol = moduleSymbol.getExport('isBehavior');
     if (metaDataSymbol != null && isBehaviorSymbol != null) {
       return behaviorKinds.behavior;

@@ -113,13 +113,14 @@ export const postStep = lib.buildCustomPostStepFn(() => {
   }
 });
 
-export const metaData = {
+export const metadata = {
   name: 'facebookUserFeed',
   match: {
     regex: /^https:\/\/(www\.)?facebook\.com\/[^/]+\/?$/,
   },
   description:
-    'Capture all items and comments in the Facebook page and scroll down to load more content where possible.'
+    'Capture all items and comments in the Facebook page and scroll down to load more content where possible.',
+  updated: '2019-06-25T16:16:14',
 };
 
 export const isBehavior = true;

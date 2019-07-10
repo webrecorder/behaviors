@@ -24,13 +24,14 @@ export default async function* deathImitatesLanguageBehavior(cliAPI) {
   }
 }
 
-export const metaData = {
+export const metadata = {
   name: 'deathImitatesLanguageBehavior',
   match: {
     regex: /^(?:https?:\/\/(?:www\.)?)?deathimitateslanguage\.harmvandendorpel\.com\/?$/,
   },
   description:
     'Scrolls the page clicking all the images rendered at the current scroll level',
+  updated: '2019-06-06T12:55:43',
 };
 
 export const isBehavior = true;

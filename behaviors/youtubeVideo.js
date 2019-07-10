@@ -9,7 +9,7 @@ const selectors = {
   loadedReplies: 'div[id="loaded-replies"]',
   loadingCommentsSpinner:
     '#continuations > yt-next-continuation > paper-spinner',
-  outlinks: 'ytd-thumbnail > a[id="thumbnail"]'
+  outlinks: 'ytd-thumbnail > a[id="thumbnail"]',
 };
 
 const mutationConf = { attributes: false, childList: true, subtree: false };
@@ -93,12 +93,13 @@ export default async function* playVideoAndLoadComments(cliAPI) {
   );
 }
 
-export const metaData = {
+export const metadata = {
   name: 'youtubeVideoBehavior',
   match: {
-    regex: /^(?:https:\/\/(?:www\.)?)?youtube\.com\/watch[?]v=.+/
+    regex: /^(?:https:\/\/(?:www\.)?)?youtube\.com\/watch[?]v=.+/,
   },
-  description: 'Capture the YouTube video and all comments.'
+  description: 'Capture the YouTube video and all comments.',
+  updated: '2019-06-24T15:09:02',
 };
 
 // playVideoAndLoadComments().then(() => console.log('done'));

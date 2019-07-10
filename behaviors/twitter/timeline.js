@@ -145,13 +145,14 @@ export default function timelineIterator(cliApi) {
   });
 }
 
-export const metaData = {
+export const metadata = {
   name: 'twitterTimelineBehavior',
   match: {
     regex: /^(?:https:[/]{2}(?:www[.])?)?twitter[.]com[/]?(?:[^/]+[/]?)?$/,
   },
   description:
     'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.',
+  updated: '2019-07-10T10:32:26',
 };
 
 export const isBehavior = true;

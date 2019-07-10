@@ -7,6 +7,7 @@ module.exports = function addSchemas(server) {
       fileName: { type: 'string' },
       defaultBehavior: { type: 'boolean' },
       description: { type: 'string' },
+      updated: { type: 'string' },
       match: {
         type: 'object',
         properties: {

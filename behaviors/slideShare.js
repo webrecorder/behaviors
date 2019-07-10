@@ -128,13 +128,14 @@ export default function init(cliAPI) {
   return handleSlideDeck();
 }
 
-export const metaData = {
+export const metadata = {
   name: 'slideShareBehavior',
   match: {
     regex: /^(?:https:\/\/(?:www\.)?)slideshare\.net\/[a-zA-Z]+[?].+/,
   },
   description:
-    'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.'
+    'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',
+  updated: '2019-06-24T15:09:02',
 };
 
 export const isBehavior = true;

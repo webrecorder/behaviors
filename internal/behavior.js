@@ -118,6 +118,58 @@ class Behavior {
     }
   }
 
+  /**
+   * Updates the behaviors 'updated' metadata field to the supplied
+   * timestamp returning T/F if an update was made.
+   *
+   * The behavior's file is automatically updated via this method.
+   *
+   * If the supplied date or the behavior does not export metadata an
+   * error is thrown.
+   * @param {string} timestamp - The new updated timestamp
+   * @return {boolean} - T/F indicating if the updated metadata field changed
+   */
+  setUpdatedMetadata(timestamp) {
+    if (isNaN(new Date(timestamp))) {
+      throw new Error(`Invalid date - ${timestamp}`);
+    }
+    const moduleSymbol = this._file.getSymbol();
+    const mdataSymbol = Utils.getMdataSymbol(moduleSymbol);
+    if (!mdataSymbol) throw new Error('This behavior does not export metaData');
+    // metaData = {....}
+    const vd = mdataSymbol.getValueDeclaration();
+    // {....} - object literal expression
+    const intializer = vd.getInitializer();
+    const updatedValue = `'${timestamp}'`;
+    const updatedP = intializer.getProperty('updated');
+    let save = false;
+    if (!updatedP) {
+      intializer.addPropertyAssignment({
+        name: 'updated',
+        initializer: updatedValue,
+      });
+      save = true;
+    } else {
+      const structure = updatedP.getStructure();
+      if (structure.initializer !== updatedValue) {
+        structure.initializer = updatedValue;
+        updatedP.set(structure);
+        save = true;
+      }
+    }
+    if (save) {
+      this._file.saveSync();
+    }
+    return save;
+  }
+
+  /**
+   * @return {SourceFile}
+   */
+  get file() {
+    return this._file;
+  }
+
   get match() {
     return this._metadata.match;
   }
@@ -178,6 +230,10 @@ class Behavior {
    */
   get fileName() {
     return this._file.getBaseName();
+  }
+
+  get filePath() {
+    return this._file.getFilePath();
   }
 
   get name() {
@@ -281,22 +337,32 @@ class Behavior {
 
   [util.inspect.custom](depth, options) {
     if (depth < 0) {
-      return options.stylize('[BehaviorFile]', 'special');
+      return options.stylize('[Behavior]', 'special');
     }
     const newOptions = Object.assign({}, options, {
       depth: options.depth === null ? null : options.depth - 1,
     });
-    const inspectable = {
-      path: this.path,
-      fileName: this.fileName,
-      name: this.name,
-      checkState: this._checkState,
-      hasPostStep: this._hasPostStep,
-      defaultExport: this._defaultExport,
-      metadata: this.metadata,
-    };
-    const inner = util.inspect(inspectable, newOptions);
-    return `${options.stylize('BehaviorFile', 'special')} ${inner}`;
+    let inspectable;
+    if (this._didInit) {
+      inspectable = {
+        path: this.path,
+        fileName: this.fileName,
+        name: this.name,
+        checkState: this._checkState,
+        hasPostStep: this._hasPostStep,
+        defaultExport: this._defaultExport,
+        metadata: this.metadata,
+      };
+    } else {
+      inspectable = {
+        initRequired: true,
+        fileName: this.fileName,
+      };
+    }
+    return `${options.stylize('Behavior', 'special')} ${util.inspect(
+      inspectable,
+      newOptions
+    )}`;
   }
 }
 

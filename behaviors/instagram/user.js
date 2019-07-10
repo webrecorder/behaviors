@@ -170,13 +170,14 @@ export default function instagramUserBehavior(cliAPI) {
   });
 }
 
-export const metaData = {
+export const metadata = {
   name: 'instagramUserBehavior',
   match: {
     regex: /^https:\/\/(www\.)?instagram\.com\/[^/]+(?:\/(?:[?].+)?(?:tagged(?:\/)?)?)?$/,
   },
   description:
     'Capture all stories, images, videos and comments on user’s page.',
+  updated: '2019-07-10T10:32:26',
 };
 
 export const isBehavior = true;
