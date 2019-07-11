@@ -180,7 +180,7 @@ module.exports = {
         },
         description:
           'Capture all stories, images, videos and comments on user’s page.',
-        updated: '2019-07-10T10:32:26',
+        updated: '2019-07-11T22:33:42',
         fileName: 'instagramUserBehavior.js',
       },
       url: 'https://www.instagram.com/rhizomedotorg',
@@ -401,7 +401,7 @@ module.exports = {
           },
           description:
             'Capture all stories, images, videos and comments on user’s page.',
-          updated: '2019-07-10T10:32:26',
+          updated: '2019-07-11T22:33:42',
           fileName: 'instagramUserBehavior.js',
         },
         soundCloudArtistBehavior: {

@@ -3,19 +3,11 @@ import * as shared from './shared';
 import * as selectors from './selectors';
 import autoScrollBehavior from '../autoscroll';
 
-function loggedIn(xpg) {
-  return (
-    xpg(selectors.notLoggedInXpaths.login).length === 0 &&
-    xpg(selectors.notLoggedInXpaths.signUp).length === 0
-  );
-}
-
-async function* viewStories() {
+async function* viewStories(startStoriesElem) {
   // get the original full URI of the browser
   const originalLoc = window.location.href;
-  // click the first story
-  const firstStoryClicked = lib.selectElemAndClick(selectors.userOpenStories);
-  if (!firstStoryClicked) return; // no storied if
+  // ensure we can start the stories
+  if (!lib.click(startStoriesElem)) return;
   // history manipulation will change the browser URI so
   // we must wait for that to happen
   await lib.waitForHistoryManipToChangeLocation(originalLoc);
@@ -48,11 +40,11 @@ async function* viewStories() {
         await lib.noExceptPlayMediaElement(maybeVideo);
       }
       yield lib.stateWithMsgNoWait(`Viewed video of story #${totalStories}`);
-      // safety check due to autoplay
-      if (lib.locationEquals(originalLoc)) break;
     } else {
       yield lib.stateWithMsgNoWait(`Viewed story #${totalStories}`);
     }
+    // safety check due to autoplay
+    if (lib.locationEquals(originalLoc)) break;
     toBeClicked = lib.qs(selectors.userNextStory);
   }
 }
@@ -119,10 +111,36 @@ async function* handlePost(post, cliAPI) {
 }
 
 export default function instagramUserBehavior(cliAPI) {
+  let preTraversal;
+  // view all stories when logged in
+  if (shared.loggedIn(cliAPI.$x)) {
+    // viewing stories change the markup of the page to be stories mode
+    // not timeline mode and reverts back to timeline mode once done #react
+    // thus we can only hold a reference to the element that will start
+    // a story chain we will view now
+    const canViewNormalStories = lib.selectorExists(selectors.userOpenStories);
+    const profilePic = lib.qs('img[alt*="profile picture"]');
+    let hasSelectedStories = false;
+    if (
+      profilePic &&
+      window.getComputedStyle(profilePic).cursor === 'pointer'
+    ) {
+      hasSelectedStories = true;
+    }
+    if (canViewNormalStories && hasSelectedStories) {
+      preTraversal = async function*() {
+        yield* viewStories(profilePic);
+        yield* viewStories(lib.qs(selectors.userOpenStories));
+      };
+    } else if (hasSelectedStories) {
+      preTraversal = () => viewStories(profilePic);
+    } else if (canViewNormalStories) {
+      preTraversal = () => viewStories(lib.qs(selectors.userOpenStories));
+    }
+  }
   const loadingInfo = shared.userLoadingInfo();
   return lib.traverseChildrenOfCustom({
-    // view all stories when logged in
-    preTraversal: loggedIn(cliAPI.$x) ? viewStories : null,
+    preTraversal,
     async setup() {
       const parent = lib.chainFistChildElemOf(
         lib.qs(selectors.userPostTopMostContainer),
@@ -177,7 +195,7 @@ export const metadata = {
   },
   description:
     'Capture all stories, images, videos and comments on user’s page.',
-  updated: '2019-07-10T10:32:26',
+  updated: '2019-07-11T22:33:42',
 };
 
 export const isBehavior = true;
