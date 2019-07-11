@@ -292,3 +292,11 @@ export function userLoadingInfo() {
     loadedCount: () => postsByUserId.get(userId).pagination.loadedCount,
   };
 }
+
+export function loggedIn(xpg) {
+  return (
+    lib.hasClass(document.documentElement, 'logged-in') ||
+    (xpg(selectors.notLoggedInXpaths.login).length === 0 &&
+      xpg(selectors.notLoggedInXpaths.signUp).length === 0)
+  );
+}
