@@ -219,30 +219,16 @@ export async function* viewCommentsAndReplies(xpg, cntx) {
   }
 }
 
-export function initInfo() {
-  const sharedData = window._sharedData;
-  if (!sharedData) return null;
-  const info = {
-    type: null,
-    loggedIn: false,
-    profileId: null,
-    postCount: null,
-    allLoaded: null,
-  };
-  if (sharedData.entry_data && sharedData.entry_data.ProfilePage) {
-    info.type = 'u';
-    const user = sharedData.entry_data.ProfilePage[0].graphql.user;
-    // user profile
-    if (user) {
-      info.profileId = user.id;
-      info.postCount = user.edge_owner_to_timeline_media.count;
-      info.allLoaded = !user.edge_owner_to_timeline_media.page_info
-        .has_next_page;
-    }
-  }
-}
-
-export function userLoadingInfo() {
+/**
+ * Attempts to create an object that will indicate if the
+ * behavior has viewed all the posts by hooking into the
+ * underlying react application.
+ *
+ * An null value is returned if the redux store can not be
+ * retrieved or the viewed profile data is not existent
+ * @return {?Object}
+ */
+export function loadingInfoFromStore() {
   const store = (() => {
     const root = lib.getViaPath(
       lib.id('react-root'),
@@ -252,28 +238,30 @@ export function userLoadingInfo() {
     if (root) return lib.findReduxStore(root.current);
     return null;
   })();
-  if (!store) {
-    const user = lib.getViaPath(
-      window,
-      '_sharedData',
-      'entry_data',
-      'ProfilePage',
-      0,
-      'graphql',
-      'user'
-    );
-    if (user) {
-      return {
-        haveStore: false,
-        hasNextPage: () => true,
-        postCount: user.edge_owner_to_timeline_media.count,
-        allLoaded: !user.edge_owner_to_timeline_media.page_info.has_next_page,
-      };
-    }
-    return null;
-  }
-  let postsByUserId = store.getState().profilePosts.byUserId;
+  if (!store) return null;
+  let postsByUserId = lib.getViaPath(
+    store.getState(),
+    'profilePosts',
+    'byUserId'
+  );
+  if (!postsByUserId) return null;
   const userId = Object.keys(postsByUserId.toJS())[0];
+  const info = {
+    ok: true,
+    haveStore: true,
+    postCount: postsByUserId.get(userId).count,
+    // pagination info is not added to the information if there are no posts
+    allLoaded: !(
+      lib.getViaPath(postsByUserId.get(userId), 'pagination', 'hasNextPage') ||
+      false
+    ),
+    viewedPost: () => {},
+    viewedPostRow: () => {},
+    hasMorePosts() {
+      if (this.allLoaded) return false;
+      return postsByUserId.get(userId).pagination.hasNextPage;
+    },
+  };
   if (typeof window.$____$UNSUB$____$ === 'function') {
     window.$____$UNSUB$____$();
   }
@@ -283,14 +271,52 @@ export function userLoadingInfo() {
       postsByUserId = nextState.profilePosts.byUserId;
     }
   });
-  return {
-    haveStore: true,
-    postCount: postsByUserId.get(userId).count,
-    allLoaded: !postsByUserId.get(userId).pagination.hasNextPage,
-    hasNextPage: () => postsByUserId.get(userId).pagination.hasNextPage,
-    isFetching: () => postsByUserId.get(userId).pagination.isFetching,
-    loadedCount: () => postsByUserId.get(userId).pagination.loadedCount,
+  return info;
+}
+
+export function userLoadingInfo() {
+  let info = loadingInfoFromStore();
+  if (info != null) return info;
+  // fallback to a simple counting strategy
+  info = {
+    ok: false,
+    haveStore: false,
+    postCount: 0,
+    viewed: 0,
+    hasMorePosts() {
+      return this.viewed < this.postCount;
+    },
+    viewedPost() {
+      this.viewed++;
+    },
+    viewedPostRow() {
+      this.viewed += 3;
+    },
   };
+  const user = lib.getViaPath(
+    window,
+    '_sharedData',
+    'entry_data',
+    'ProfilePage',
+    0,
+    'graphql',
+    'user'
+  );
+  info.postCount = lib.getViaPath(
+    user,
+    'edge_owner_to_timeline_media',
+    'count'
+  );
+  if (typeof info.postCount !== 'number') {
+    const postCount = (
+      lib.elemInnerText(lib.qs(selectors.userPostInfo)) || ''
+    ).trim();
+    if (postCount && !isNaN(postCount)) {
+      info.postCount = Number(postCount);
+    }
+  }
+  info.ok = typeof info.postCount === 'number';
+  return info;
 }
 
 export function loggedIn(xpg) {

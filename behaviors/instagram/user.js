@@ -49,7 +49,7 @@ async function* viewStories(startStoriesElem) {
   }
 }
 
-async function* handlePost(post, cliAPI) {
+async function* handlePost(post, { cliAPI, loadingInfo }) {
   // open the post (displayed in a separate part of the dom)
   // click the first child of the post div (a tag)
   lib.autoFetchFromDoc();
@@ -69,6 +69,7 @@ async function* handlePost(post, cliAPI) {
     document,
     selectors.userDivDialog
   );
+  if (!loadingInfo.haveStore) loadingInfo.viewedPost();
   lib.collectOutlinksFrom(popupDialog);
   // get the next inner div.dialog because its next sibling is the close button
   // until instagram decides to change things
@@ -141,6 +142,7 @@ export default function instagramUserBehavior(cliAPI) {
   const loadingInfo = shared.userLoadingInfo();
   return lib.traverseChildrenOfCustom({
     preTraversal,
+    additionalArgs: { cliAPI, loadingInfo },
     async setup() {
       const parent = lib.chainFistChildElemOf(
         lib.qs(selectors.userPostTopMostContainer),
@@ -160,24 +162,24 @@ export default function instagramUserBehavior(cliAPI) {
     },
     shouldWait(parentElement, currentRow) {
       if (currentRow.nextElementSibling != null) return false;
-      if (loadingInfo) return loadingInfo.hasNextPage();
+      if (loadingInfo) return loadingInfo.hasMorePosts();
       return true;
     },
     wait(parentElement, currentRow) {
       const previousChildCount = parentElement.childElementCount;
       return lib.waitForAdditionalElemChildrenMO(parentElement, {
-        max: -1,
+        max: loadingInfo.ok ? -1 : lib.secondsToDelayAmount(60),
         pollRate: lib.secondsToDelayAmount(2.5),
         guard() {
-          return (
-            !loadingInfo.hasNextPage() ||
-            previousChildCount !== parentElement.childElementCount
-          );
+          const childTest =
+            previousChildCount !== parentElement.childElementCount;
+          if (!loadingInfo.ok) return childTest;
+          return !loadingInfo.hasMorePosts() || childTest;
         },
       });
     },
-    handler(row) {
-      return lib.traverseChildrenOf(row, handlePost, cliAPI);
+    handler(row, additionalArgs) {
+      return lib.traverseChildrenOf(row, handlePost, additionalArgs);
     },
     setupFailure() {
       // we got nothing at this point, HALP!!!
