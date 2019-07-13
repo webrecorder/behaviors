@@ -10,7 +10,8 @@ export const userMultiImageDisplayDiv = 'div > div[role="button"]';
 export const userPlayVideo = 'a[role="button"]';
 export const userDivDialog = 'div[role="dialog"]';
 export const userDivDialogArticle = 'div[role="dialog"] > article';
-
+export const userPostInfo =
+  'section > main > div > header > section > ul > li > span > span';
 export const userMultiImagePostSelectors = [
   'span[aria-label*="Carousel" i]',
   'span[class*="SpriteCarousel" i]',
