@@ -146,6 +146,30 @@ module.exports = {
       behaviorByNameURL: 'http://localhost:3030/behavior?name=facebookUserFeed',
     },
     {
+      name: 'Instagram Own',
+      metadata: {
+        name: 'instagramOwnFeedBehavior',
+        match: {
+          regex: '^https:\\/\\/(www\\.)?instagram\\.com(?:\\/)?$',
+        },
+        description:
+          'Capture all stories, images, videos and comments on the logged in users feed.',
+        updated: '2019-07-15T22:29:05',
+        fileName: 'instagramOwnFeedBehavior.js',
+      },
+      url: 'https://www.instagram.com/',
+      infoURL: 'http://localhost:3030/info?url=https://www.instagram.com/',
+      infoByNameURL: 'http://localhost:3030/info?name=instagramOwnFeedBehavior',
+      infoListURL:
+        'http://localhost:3030/info-list?url=https://www.instagram.com/',
+      infoListByNameURL:
+        'http://localhost:3030/info-list?name=instagramOwnFeedBehavior',
+      behaviorURL:
+        'http://localhost:3030/behavior?url=https://www.instagram.com/',
+      behaviorByNameURL:
+        'http://localhost:3030/behavior?name=instagramOwnFeedBehavior',
+    },
+    {
       name: 'Instagram Post',
       metadata: {
         name: 'instagramPostBehavior',
@@ -154,19 +178,19 @@ module.exports = {
         },
         description:
           'Capture every image and/or video, retrieve all comments, and scroll down to load more.',
-        updated: '2019-06-25T16:16:14',
+        updated: '2019-07-15T22:29:05',
         fileName: 'instagramPostBehavior.js',
       },
-      url: 'https://www.instagram.com/p/Bxiub6BB0Ab/',
+      url: 'https://www.instagram.com/p/Bxiub6BB0Ab',
       infoURL:
-        'http://localhost:3030/info?url=https://www.instagram.com/p/Bxiub6BB0Ab/',
+        'http://localhost:3030/info?url=https://www.instagram.com/p/Bxiub6BB0Ab',
       infoByNameURL: 'http://localhost:3030/info?name=instagramPostBehavior',
       infoListURL:
-        'http://localhost:3030/info-list?url=https://www.instagram.com/p/Bxiub6BB0Ab/',
+        'http://localhost:3030/info-list?url=https://www.instagram.com/p/Bxiub6BB0Ab',
       infoListByNameURL:
         'http://localhost:3030/info-list?name=instagramPostBehavior',
       behaviorURL:
-        'http://localhost:3030/behavior?url=https://www.instagram.com/p/Bxiub6BB0Ab/',
+        'http://localhost:3030/behavior?url=https://www.instagram.com/p/Bxiub6BB0Ab',
       behaviorByNameURL:
         'http://localhost:3030/behavior?name=instagramPostBehavior',
     },
@@ -180,19 +204,19 @@ module.exports = {
         },
         description:
           'Capture all stories, images, videos and comments on user’s page.',
-        updated: '2019-07-11T22:33:42',
+        updated: '2019-07-15T22:29:05',
         fileName: 'instagramUserBehavior.js',
       },
-      url: 'https://www.instagram.com/rhizomedotorg',
+      url: 'https://www.instagram.com/rhizomedotorg/',
       infoURL:
-        'http://localhost:3030/info?url=https://www.instagram.com/rhizomedotorg',
+        'http://localhost:3030/info?url=https://www.instagram.com/rhizomedotorg/',
       infoByNameURL: 'http://localhost:3030/info?name=instagramUserBehavior',
       infoListURL:
-        'http://localhost:3030/info-list?url=https://www.instagram.com/rhizomedotorg',
+        'http://localhost:3030/info-list?url=https://www.instagram.com/rhizomedotorg/',
       infoListByNameURL:
         'http://localhost:3030/info-list?name=instagramUserBehavior',
       behaviorURL:
-        'http://localhost:3030/behavior?url=https://www.instagram.com/rhizomedotorg',
+        'http://localhost:3030/behavior?url=https://www.instagram.com/rhizomedotorg/',
       behaviorByNameURL:
         'http://localhost:3030/behavior?name=instagramUserBehavior',
     },
@@ -309,7 +333,7 @@ module.exports = {
   },
   allResult: {
     url: 'http://localhost:3030/info-all',
-    count: 12,
+    count: 13,
     value: {
       defaultBehavior: {
         name: 'autoScrollBehavior',
@@ -382,6 +406,16 @@ module.exports = {
           updated: '2019-06-25T16:16:14',
           fileName: 'facebookUserFeedBehavior.js',
         },
+        instagramOwnFeedBehavior: {
+          name: 'instagramOwnFeedBehavior',
+          match: {
+            regex: '^https:\\/\\/(www\\.)?instagram\\.com(?:\\/)?$',
+          },
+          description:
+            'Capture all stories, images, videos and comments on the logged in users feed.',
+          updated: '2019-07-15T22:29:05',
+          fileName: 'instagramOwnFeedBehavior.js',
+        },
         instagramPostBehavior: {
           name: 'instagramPostBehavior',
           match: {
@@ -390,7 +424,7 @@ module.exports = {
           },
           description:
             'Capture every image and/or video, retrieve all comments, and scroll down to load more.',
-          updated: '2019-06-25T16:16:14',
+          updated: '2019-07-15T22:29:05',
           fileName: 'instagramPostBehavior.js',
         },
         instagramUserBehavior: {
@@ -401,7 +435,7 @@ module.exports = {
           },
           description:
             'Capture all stories, images, videos and comments on user’s page.',
-          updated: '2019-07-11T22:33:42',
+          updated: '2019-07-15T22:29:05',
           fileName: 'instagramUserBehavior.js',
         },
         soundCloudArtistBehavior: {

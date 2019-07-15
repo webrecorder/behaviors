@@ -3,52 +3,6 @@ import * as shared from './shared';
 import * as selectors from './selectors';
 import autoScrollBehavior from '../autoscroll';
 
-async function* viewStories(startStoriesElem) {
-  // get the original full URI of the browser
-  const originalLoc = window.location.href;
-  // ensure we can start the stories
-  if (!lib.click(startStoriesElem)) return;
-  // history manipulation will change the browser URI so
-  // we must wait for that to happen
-  await lib.waitForHistoryManipToChangeLocation(originalLoc);
-  let wasClicked;
-  let videoButton;
-  // stories are sorta on autoplay but we should speed things up
-  let toBeClicked = lib.qs(selectors.userNextStory);
-  // we will continue to speed up autoplay untill the next story
-  // button does not exist or we are done (window.location.href === originalLoc)
-  lib.collectOutlinksFromDoc();
-  let totalStories = 0;
-  while (!lib.locationEquals(originalLoc) && toBeClicked != null) {
-    wasClicked = await lib.clickWithDelay(toBeClicked);
-    // if the next story part button was not clicked
-    // or autoplay is finished we are done
-    if (!wasClicked || lib.locationEquals(originalLoc)) break;
-    totalStories += 1;
-    videoButton = lib.qs(selectors.userStoryVideo);
-    if (videoButton) {
-      // this part of a story is video content
-      let maybeVideo = lib.qs('video');
-      // click the button if not already playing
-      if (maybeVideo) {
-        await lib.clickWithDelay(videoButton);
-      }
-      // safety check due to autoplay
-      if (lib.locationEquals(originalLoc)) break;
-      // force play the video if not already playing
-      if (maybeVideo && maybeVideo.paused) {
-        await lib.noExceptPlayMediaElement(maybeVideo);
-      }
-      yield lib.stateWithMsgNoWait(`Viewed video of story #${totalStories}`);
-    } else {
-      yield lib.stateWithMsgNoWait(`Viewed story #${totalStories}`);
-    }
-    // safety check due to autoplay
-    if (lib.locationEquals(originalLoc)) break;
-    toBeClicked = lib.qs(selectors.userNextStory);
-  }
-}
-
 async function* handlePost(post, { cliAPI, loadingInfo }) {
   // open the post (displayed in a separate part of the dom)
   // click the first child of the post div (a tag)
@@ -70,6 +24,10 @@ async function* handlePost(post, { cliAPI, loadingInfo }) {
     selectors.userDivDialog
   );
   if (!loadingInfo.haveStore) loadingInfo.viewedPost();
+  if (!popupDialog) {
+    yield lib.stateWithMsgNoWait('Failed to open the post for viewing');
+    return;
+  }
   lib.collectOutlinksFrom(popupDialog);
   // get the next inner div.dialog because its next sibling is the close button
   // until instagram decides to change things
@@ -80,17 +38,22 @@ async function* handlePost(post, { cliAPI, loadingInfo }) {
     ? maybeCloseButton
     : null;
   // get a reference to the posts contents (div.dialog > article)
-  const content = lib.qs(selectors.userDivDialogArticle, innerDivDialog);
+  const content = lib.qs(selectors.userPostTopMostContainer, popupDialog);
   // the next image button exists in the popup post even if the post is not
   // multi-image, so lets get a reference to it
   const displayDiv = lib.qs(selectors.userMultiImageDisplayDiv, content);
-  const { msg, wait } = await shared.handlePostContent({
-    thePost: post,
-    multiImgElem: content,
-    videoElem: displayDiv,
-    isSinglePost: false,
-  });
-  yield lib.createState(wait, msg);
+  let result;
+  try {
+    result = await shared.handlePostContent({
+      thePost: post,
+      multiImgElem: content,
+      videoElem: displayDiv,
+      viewing: shared.ViewingUser,
+    });
+  } catch (e) {
+    result = lib.stateWithMsgNoWait('An error occurred while handling a post');
+  }
+  yield result;
   const commentList = lib.qs('ul', content);
   if (commentList) {
     yield* shared.loadAllComments(commentList);
@@ -130,13 +93,14 @@ export default function instagramUserBehavior(cliAPI) {
     }
     if (canViewNormalStories && hasSelectedStories) {
       preTraversal = async function*() {
-        yield* viewStories(profilePic);
-        yield* viewStories(lib.qs(selectors.userOpenStories));
+        yield* shared.viewStories(profilePic);
+        yield* shared.viewStories(lib.qs(selectors.userOpenStories));
       };
     } else if (hasSelectedStories) {
-      preTraversal = () => viewStories(profilePic);
+      preTraversal = () => shared.viewStories(profilePic);
     } else if (canViewNormalStories) {
-      preTraversal = () => viewStories(lib.qs(selectors.userOpenStories));
+      preTraversal = () =>
+        shared.viewStories(lib.qs(selectors.userOpenStories));
     }
   }
   const loadingInfo = shared.userLoadingInfo();
@@ -197,7 +161,7 @@ export const metadata = {
   },
   description:
     'Capture all stories, images, videos and comments on user’s page.',
-  updated: '2019-07-11T22:33:42',
+  updated: '2019-07-15T22:29:05',
 };
 
 export const isBehavior = true;

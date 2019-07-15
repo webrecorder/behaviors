@@ -20,14 +20,18 @@ export default async function* instagramPostBehavior(cliAPI) {
     yield lib.stateWithMsgNoWait('There was no post');
     return;
   }
-  yield lib.stateWithMsgNoWait('Viewing the post');
-  const { msg, wait } = await shared.handlePostContent({
-    thePost: postMain,
-    multiImgElem: postMain,
-    videoElem: postMain,
-    isSinglePost: true,
-  });
-  yield lib.createState(wait, msg);
+  let result;
+  try {
+    result = await shared.handlePostContent({
+      thePost: postMain,
+      multiImgElem: postMain,
+      videoElem: postMain,
+      viewing: shared.ViewingSinglePost,
+    });
+  } catch (e) {
+    result = lib.stateWithMsgNoWait('An error occurred while handling a post');
+  }
+  yield result;
   const commentList = lib.qs('ul', postMain);
   if (commentList) {
     yield* shared.loadAllComments(commentList);
@@ -42,7 +46,7 @@ export const metadata = {
   },
   description:
     'Capture every image and/or video, retrieve all comments, and scroll down to load more.',
-  updated: '2019-06-25T16:16:14',
+  updated: '2019-07-15T22:29:05',
 };
 
 export const isBehavior = true;
