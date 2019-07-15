@@ -13,8 +13,9 @@ const TestURLs = {
     newsfeed: 'https://www.facebook.com',
   },
   instagram: {
-    user: 'https://www.instagram.com/rhizomedotorg',
-    post: 'https://www.instagram.com/p/Bxiub6BB0Ab/',
+    user: 'https://www.instagram.com/rhizomedotorg/',
+    post: 'https://www.instagram.com/p/Bxiub6BB0Ab',
+    own: 'https://www.instagram.com/',
   },
   twitter: {
     hashtags: 'https://twitter.com/hashtag/iipcwac18?vertical=default&src=hash',

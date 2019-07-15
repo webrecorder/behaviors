@@ -1,49 +1,60 @@
 import * as lib from '../../lib';
 import * as selectors from './selectors';
 
-export const multiImageClickOpts = { safety: 30 * 1000, delayTime: 1500 };
-
 export const postTypes = {
   video: Symbol('$$instagram-video-post$$'),
   multiImage: Symbol('$$instagram-multi-image-post$$'),
   commentsOnly: Symbol('$$instagram-comments-only-post$$'),
 };
 
+export const ViewingOwnTimeline = Symbol('$$instagram-viewing-own-timeline');
+export const ViewingUser = Symbol('$$instagram-viewing-user$$');
+export const ViewingSinglePost = Symbol('$$instagram-viewing-single-post$$');
+
 /**
  * @param {Element | Node | HTMLElement} post
- * @param {boolean} [isSinglePost]
+ * @param {symbol} [viewing]
  * @return {boolean}
  */
-export function isVideoPost(post, isSinglePost) {
-  const selectorsToUse = isSinglePost
-    ? selectors.postVideoPostSelectors
-    : selectors.userVideoPostSelectors;
-  const results = lib.anySelectorExists(selectorsToUse, post);
-  return results.success;
+export function isVideoPost(post, viewing) {
+  let selectors_;
+  switch (viewing) {
+    case ViewingOwnTimeline:
+    case ViewingSinglePost:
+      selectors_ = selectors.postVideoPostSelectors;
+      break;
+    default:
+      selectors_ = selectors.userVideoPostSelectors;
+      break;
+  }
+  return lib.anySelectorExists(selectors_, post).success;
 }
 
 /**
  * @param {Element | Node | HTMLElement} post
- * @param {boolean} [isSinglePost]
+ * @param {symbol} [viewing]
  * @return {boolean}
  */
-export function isMultiImagePost(post, isSinglePost) {
-  const selectorsToUse = isSinglePost
-    ? selectors.postMultiImagePostSelectors
-    : selectors.userMultiImagePostSelectors;
-  const results = lib.anySelectorExists(selectorsToUse, post);
-  return results.success;
+export function isMultiImagePost(post, viewing) {
+  if (viewing === ViewingOwnTimeline) {
+    return lib.selectorExists(selectors.nextImageIconDiv, post);
+  }
+  const selectors_ =
+    viewing === ViewingUser
+      ? selectors.userMultiImagePostSelectors
+      : selectors.postMultiImagePostSelectors;
+  return lib.anySelectorExists(selectors_, post).success;
 }
 
 /**
  * @desc Determines the type of the post
  * @param {*} post
- * @param {boolean} [isSinglePost]
+ * @param {symbol} [viewing]
  * @return {symbol}
  */
-export function determinePostType(post, isSinglePost) {
-  if (isMultiImagePost(post, isSinglePost)) return postTypes.multiImage;
-  if (isVideoPost(post, isSinglePost)) return postTypes.video;
+export function determinePostType(post, viewing) {
+  if (isMultiImagePost(post, viewing)) return postTypes.multiImage;
+  if (isVideoPost(post, viewing)) return postTypes.video;
   return postTypes.commentsOnly;
 }
 
@@ -131,17 +142,20 @@ export function commentViewer() {
 }
 
 /**
- * @param {HTMLElement} content
- * @param {boolean} isSinglePost
+ * @param {Element} content
+ * @param {symbol} viewing
  * @return {Promise<number>}
  */
-async function viewMultiPost(content, isSinglePost) {
+export async function viewMultiPost(content, viewing) {
   let numMulti = 0;
   const NextPart = lib.qs(
-    isSinglePost ? selectors.postNextImage : selectors.userNextImage,
+    viewing === ViewingSinglePost
+      ? selectors.postNextImage
+      : selectors.nextImageIconDiv,
     content
   );
   const multiList = lib.qs('ul', content);
+  if (!multiList) return 0;
   let part = multiList.firstElementChild;
   while (part) {
     numMulti += 1;
@@ -167,17 +181,17 @@ export async function handlePostContent({
   thePost,
   multiImgElem,
   videoElem,
-  isSinglePost,
+  viewing,
 }) {
   const baseMsg = 'Viewed post';
   const result = { msg: null, wait: false };
-  switch (determinePostType(thePost, isSinglePost)) {
+  switch (determinePostType(thePost, viewing)) {
     case postTypes.multiImage:
-      const n = await viewMultiPost(multiImgElem, isSinglePost);
-      result.msg = `${baseMsg} with ${n} items`;
+      const n = await viewMultiPost(multiImgElem, viewing);
+      result.msg = `${baseMsg} with ${n} images or videos`;
       break;
     case postTypes.video:
-      // select and play the video. The video is a mp4 that is already loaded
+      // select and play the video. The video is maybe an mp4 that is already loaded
       // need to only play it for the length of time we are visiting the post
       // just in case
       const video = lib.qs('video', videoElem);
@@ -187,12 +201,14 @@ export async function handlePostContent({
       }
       await lib.selectElemFromAndClickWithDelay(
         videoElem,
-        isSinglePost ? selectors.postPlayVideo : selectors.userPlayVideo
+        viewing === ViewingSinglePost
+          ? selectors.postPlayVideo
+          : selectors.userPlayVideo
       );
       if (playthroughp) {
         await playthroughp;
       }
-      result.msg = `${baseMsg} with an video`;
+      result.msg = `${baseMsg} with video`;
       result.wait = true;
       break;
     default:
@@ -202,6 +218,52 @@ export async function handlePostContent({
   lib.autoFetchFromDoc();
   lib.collectOutlinksFrom(thePost);
   return result;
+}
+
+export async function* viewStories(startStoriesElem) {
+  // get the original full URI of the browser
+  const originalLoc = window.location.href;
+  // ensure we can start the stories
+  if (!lib.click(startStoriesElem)) return;
+  // history manipulation will change the browser URI so
+  // we must wait for that to happen
+  await lib.waitForHistoryManipToChangeLocation(originalLoc);
+  let wasClicked;
+  let videoButton;
+  // stories are sorta on autoplay but we should speed things up
+  let toBeClicked = lib.qs(selectors.userNextStory);
+  // we will continue to speed up autoplay untill the next story
+  // button does not exist or we are done (window.location.href === originalLoc)
+  lib.collectOutlinksFromDoc();
+  let totalStories = 0;
+  while (!lib.locationEquals(originalLoc) && toBeClicked != null) {
+    wasClicked = await lib.clickWithDelay(toBeClicked);
+    // if the next story part button was not clicked
+    // or autoplay is finished we are done
+    if (!wasClicked || lib.locationEquals(originalLoc)) break;
+    totalStories += 1;
+    videoButton = lib.qs(selectors.userStoryVideo);
+    if (videoButton) {
+      // this part of a story is video content
+      let maybeVideo = lib.qs('video');
+      // click the button if not already playing
+      if (maybeVideo) {
+        await lib.clickWithDelay(videoButton);
+      }
+      // safety check due to autoplay
+      if (lib.locationEquals(originalLoc)) break;
+      // force play the video if not already playing
+      if (maybeVideo && maybeVideo.paused) {
+        await lib.noExceptPlayMediaElement(maybeVideo);
+      }
+      yield lib.stateWithMsgNoWait(`Viewed video of story #${totalStories}`);
+    } else {
+      yield lib.stateWithMsgNoWait(`Viewed story #${totalStories}`);
+    }
+    // safety check due to autoplay
+    if (lib.locationEquals(originalLoc)) break;
+    toBeClicked = lib.qs(selectors.userNextStory);
+  }
 }
 
 export async function* viewCommentsAndReplies(xpg, cntx) {

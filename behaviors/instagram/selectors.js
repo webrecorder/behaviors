@@ -3,7 +3,6 @@ export const userNextStory = 'div[class*="RightChevron" i]';
 export const userStoryVideo = 'button.videoSpritePlayButton';
 export const userMultipleImages = 'span.coreSpriteSidecarIconLarge';
 export const userPostTopMostContainer = 'article';
-export const userNextImage = 'button > div[class*="RightChevron" i]';
 export const userPostPopupArticle =
   'div[role="dialog"] > div[role="dialog"] > div[role="dialog"] > article';
 export const userMultiImageDisplayDiv = 'div > div[role="button"]';
@@ -46,6 +45,7 @@ export const moreRepliesSpan = '* > button[type="button"] > span';
 export const postersOwnComment = 'li[role="menuitem"]';
 export const moreCommentsSpanSelector =
   '* > span[aria-label*="more comments" i]';
+export const nextImageIconDiv = 'button > div[class*="RightChevron" i]';
 
 export const postPopupCloseXpath = [
   '//body/div/div/button[contains(text(), "Close")]',
