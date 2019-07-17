@@ -23,11 +23,11 @@ async function* handlePost(post, { cliAPI, loadingInfo }) {
     document,
     selectors.userDivDialog
   );
-  if (!loadingInfo.haveStore) loadingInfo.viewedPost();
   if (!popupDialog) {
     yield lib.stateWithMsgNoWait('Failed to open the post for viewing');
     return;
   }
+  yield loadingInfo.viewingPost();
   lib.collectOutlinksFrom(popupDialog);
   // get the next inner div.dialog because its next sibling is the close button
   // until instagram decides to change things
@@ -59,6 +59,7 @@ async function* handlePost(post, { cliAPI, loadingInfo }) {
     yield* shared.loadAllComments(commentList);
     yield* lib.traverseChildrenOf(commentList, shared.commentViewer());
   }
+  yield loadingInfo.fullyViewedPost();
   // The load more comments button, depending on the number of comments,
   // will contain two variations of text (see xpathQ for those two variations).
   // getMoreComments handles getting that button for the two variations

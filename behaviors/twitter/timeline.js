@@ -26,30 +26,29 @@ function hasRepliedOrInThread(tweet) {
  * @param {Object} args
  * @return {AsyncIterableIterator<*>}
  */
-async function* handleTweet(tweetLi, { originalBaseURI }) {
+async function* handleTweet(tweetLi, { originalBaseURI, reporter }) {
   if (shared.isSensitiveTweet(tweetLi)) {
     await shared.revealSensitiveMedia(tweetLi);
   }
   const tweet = tweetLi.firstElementChild;
   const permalink = tweet.dataset.permalinkPath;
-  yield lib.stateWithMsgNoWait(`Viewing tweet ${permalink}`);
   await lib.scrollIntoViewWithDelay(tweet);
   lib.collectOutlinksFrom(tweet);
   let video = lib.qs(selectors.tweetVideo, tweet);
   if (video) {
     await lib.noExceptPlayMediaElement(video);
-    yield lib.stateWithMsgWait(`Handled tweet's video`);
+    yield reporter.viewingTweetWithVideo(permalink);
+  } else {
+    yield reporter.viewingTweet(permalink);
   }
   await lib.clickAndWaitFor(tweet, () => lib.docBaseURIEndsWith(permalink), {
-    max: 60000,
+    max: lib.secondsToDelayAmount(60),
   });
   const fullTweetOverlay = lib.id(selectors.permalinkOverlayId);
   if (!fullTweetOverlay) return;
   await shared.postOpenTweet(fullTweetOverlay, video);
   if (hasRepliedOrInThread(tweet)) {
-    yield lib.stateWithMsgNoWait(
-      `Viewing tweet ${permalink} threads or replies`
-    );
+    yield reporter.viewingTweetWithRepliesOrInThread(permalink);
     yield* lib.mapAsyncIterator(
       lib.repeatedXpathQueryIteratorAsync(
         selectors.overlayTweetXpath,
@@ -60,13 +59,16 @@ async function* handleTweet(tweetLi, { originalBaseURI }) {
             selectors.showMoreInThread
           )
       ),
-      shared.createThreadReplyVisitor(`Viewed tweet ${permalink} reply`)
+      shared.createThreadReplyVisitor(
+        `Viewed tweet's (${permalink}) reply or thread part`
+      )
     );
   }
   const closeOverlay = lib.qs(
     selectors.closeFullTweetSelector,
     fullTweetOverlay
   );
+  yield reporter.fullyViewedTweet(permalink);
   if (closeOverlay) {
     await lib.clickAndWaitFor(closeOverlay, () =>
       lib.docBaseURIEquals(originalBaseURI)
@@ -97,6 +99,7 @@ async function* handleTweet(tweetLi, { originalBaseURI }) {
  */
 export default function timelineIterator(cliApi) {
   const { streamEnd, streamFail } = shared.getStreamIndicatorElems();
+  const reporter = shared.makeReporter();
   return lib.traverseChildrenOfCustom({
     loader: true,
     setupFailure: autoScrollBehavior,
@@ -141,6 +144,7 @@ export default function timelineIterator(cliApi) {
     additionalArgs: {
       xpg: cliApi.$x,
       originalBaseURI: document.baseURI,
+      reporter,
     },
   });
 }

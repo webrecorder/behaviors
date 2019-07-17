@@ -310,15 +310,28 @@ export function loadingInfoFromStore() {
   const userId = Object.keys(postsByUserId.toJS())[0];
   const info = {
     ok: true,
+    counts: {
+      viewed: 0,
+      viewedFully: 0,
+      total: postsByUserId.get(userId).count,
+    },
     haveStore: true,
-    postCount: postsByUserId.get(userId).count,
     // pagination info is not added to the information if there are no posts
     allLoaded: !(
       lib.getViaPath(postsByUserId.get(userId), 'pagination', 'hasNextPage') ||
       false
     ),
-    viewedPost: () => {},
-    viewedPostRow: () => {},
+    viewingPost() {
+      this.counts.viewed++;
+      return lib.stateWithMsgNoWait('Viewing post', this.counts);
+    },
+    viewedPostRow() {
+      this.counts.viewed += 3;
+    },
+    fullyViewedPost() {
+      this.counts.viewedFully++;
+      return lib.stateWithMsgNoWait('Viewed post', this.counts);
+    },
     hasMorePosts() {
       if (this.allLoaded) return false;
       return postsByUserId.get(userId).pagination.hasNextPage;
@@ -343,16 +356,24 @@ export function userLoadingInfo() {
   info = {
     ok: false,
     haveStore: false,
-    postCount: 0,
-    viewed: 0,
-    hasMorePosts() {
-      return this.viewed < this.postCount;
+    counts: {
+      viewed: 0,
+      viewedFully: 0,
+      total: 0,
     },
-    viewedPost() {
-      this.viewed++;
+    hasMorePosts() {
+      return this.counts.viewed < this.total;
+    },
+    viewingPost() {
+      this.counts.viewed++;
+      return lib.stateWithMsgNoWait('Viewing post', this.counts);
     },
     viewedPostRow() {
-      this.viewed += 3;
+      this.counts.viewed += 3;
+    },
+    fullyViewedPost() {
+      this.counts.viewedFully++;
+      return lib.stateWithMsgNoWait('Viewed post', this.counts);
     },
   };
   const user = lib.getViaPath(
@@ -364,20 +385,20 @@ export function userLoadingInfo() {
     'graphql',
     'user'
   );
-  info.postCount = lib.getViaPath(
+  info.counts.total = lib.getViaPath(
     user,
     'edge_owner_to_timeline_media',
     'count'
   );
-  if (typeof info.postCount !== 'number') {
+  if (typeof info.counts.total !== 'number') {
     const postCount = (
       lib.elemInnerText(lib.qs(selectors.userPostInfo)) || ''
     ).trim();
     if (postCount && !isNaN(postCount)) {
-      info.postCount = Number(postCount);
+      info.counts.total = Number(postCount);
     }
   }
-  info.ok = typeof info.postCount === 'number';
+  info.ok = typeof info.total === 'number';
   return info;
 }
 
