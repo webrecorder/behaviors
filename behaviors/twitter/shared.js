@@ -1,6 +1,55 @@
 import * as lib from '../../lib';
 import * as selectors from './selectors';
 
+export function makeReporter() {
+  const total = (() => {
+    const tweetCountSpan = lib.qs(
+      'span[data-count]',
+      lib.firstChildElementOfSelector('.ProfileNav-list')
+    );
+    if (tweetCountSpan && tweetCountSpan.dataset.count) {
+      const numTweets = Number(tweetCountSpan.dataset.count);
+      return !isNaN(numTweets) ? numTweets : -1;
+    }
+    return -1;
+  })();
+  return {
+    counts: {
+      total,
+      videos: 0,
+      viewed: 0,
+      threadsOrReplies: 0,
+      viewedFully: 0,
+    },
+    fullyViewedTweet(permalink) {
+      this.counts.viewedFully++;
+      return lib.stateWithMsgNoWait(
+        `Viewed tweet (${permalink})`,
+        this.counts
+      );
+    },
+    viewingTweetWithVideo(permalink) {
+      this.counts.viewed++;
+      this.counts.videos++;
+      return lib.stateWithMsgWait(
+        `Viewing tweet (${permalink}) with video`,
+        this.counts
+      );
+    },
+    viewingTweet(permalink) {
+      this.counts.viewed++;
+      return lib.stateWithMsgNoWait(`Viewing tweet (${permalink})`, this.counts);
+    },
+    viewingTweetWithRepliesOrInThread(permalink) {
+      this.counts.threadsOrReplies++;
+      return lib.stateWithMsgNoWait(
+        `Viewing tweet (${permalink}) in thread or with replies`,
+        this.counts
+      );
+    },
+  };
+}
+
 export function notRealTweet(tweetLi) {
   if (lib.hasClass(tweetLi, selectors.AdaptiveSearchTimelineClz)) return true;
   // separated-module has-profile-promoted-tweet
@@ -29,6 +78,7 @@ export function getNoneNukedConsole() {
   } else {
     consoleIframe = document.getElementById('$consoleIframe$');
   }
+  window.logger = consoleIframe.contentWindow.console;
   return consoleIframe.contentWindow.console;
 }
 
@@ -65,7 +115,7 @@ export async function postOpenTweet(tweetOverlay, timelineVideo) {
     await revealSensitiveMedia(tweetOverlay);
   }
   if (timelineVideo) {
-    await lib.selectAndPlay(selectors.tweetVideo, timelineVideo);
+    await lib.selectAndPlay(selectors.tweetVideo, tweetOverlay);
   }
   lib.collectOutlinksFrom(tweetOverlay);
 }

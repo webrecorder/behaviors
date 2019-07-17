@@ -112,6 +112,9 @@ async function performNextStep(runnerHandle, stopEE) {
     ColorPrinter.blue(
       `Performed step\n  - done = ${result.done}\n  - wait = ${result.wait}\n  - msg = ${result.msg}`
     );
+    if (result.state) {
+      console.log(ColorPrinter.chalk.blue('  - state = '), result.state);
+    }
     ColorPrinter.blankLine();
     return result.done;
   }

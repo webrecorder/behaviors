@@ -34,24 +34,27 @@ async function closeTweetOverlay(originalBaseURI) {
   );
 }
 
-async function* handleTweetStreamItem(tweetStreamLI, originalBaseURI) {
+async function* handleTweetStreamItem(
+  tweetStreamLI,
+  { originalBaseURI, reporter }
+) {
   if (lib.selectorExists(selectors.sensativeMediaDiv)) {
     await shared.revealSensitiveMedia(tweetStreamLI);
   }
   lib.collectOutlinksFrom(tweetStreamLI);
 
   if (lib.hasClass(tweetStreamLI, selectors.userProfileInStream)) {
-    yield lib.stateWithMsgNoWait('Encountered a non-tweet');
-    return;
+    return lib.stateWithMsgNoWait('Encountered a non-tweet');
   }
-
   const streamTweetDiv = tweetStreamLI.firstElementChild;
   const tweetContent = lib.qs(selectors.tweetInStreamContent, streamTweetDiv);
-
+  const permalink = streamTweetDiv.dataset.permalinkPath;
   let video = lib.qs(selectors.tweetVideo, tweetStreamLI);
   if (video) {
     await lib.noExceptPlayMediaElement(video);
-    yield lib.stateWithMsgWait(`Handled tweet's video`);
+    yield reporter.viewingTweetWithVideo(permalink);
+  } else {
+    yield reporter.viewingTweet(permalink);
   }
   const footer = lib.qs(selectors.tweetFooterSelector, tweetContent);
   const replyAction = lib.qs(selectors.replyActionSelector, footer);
@@ -73,9 +76,7 @@ async function* handleTweetStreamItem(tweetStreamLI, originalBaseURI) {
   await shared.postOpenTweet(tweetPermalinkOverlay, video);
 
   if (hasReplies || apartOfThread) {
-    yield lib.stateWithMsgNoWait(
-      apartOfThread ? 'Viewing threaded tweet' : "Viewing a tweet's replies"
-    );
+    yield reporter.viewingTweetWithRepliesOrInThread(permalink);
     const nextElemSetQS = apartOfThread
       ? selectors.threadedConvMoreReplies
       : selectors.showMoreInThread;
@@ -97,9 +98,8 @@ async function* handleTweetStreamItem(tweetStreamLI, originalBaseURI) {
       ),
       shared.createThreadReplyVisitor(baseMsg)
     );
-  } else {
-    yield lib.stateWithMsgNoWait('Viewing regular tweet');
   }
+  yield reporter.fullyViewedTweet(permalink);
   await closeTweetOverlay(originalBaseURI);
 }
 
@@ -109,9 +109,10 @@ async function* handleTweetStreamItem(tweetStreamLI, originalBaseURI) {
 export default function hashTagIterator(cliAPI) {
   lib.autoFetchFromDoc();
   const { streamEnd, streamFail } = shared.getStreamIndicatorElems();
+  const reporter = shared.makeReporter();
   return lib.traverseChildrenOfCustom({
     loader: true,
-    additionalArgs: document.baseURI,
+    additionalArgs: { reporter, originalBaseURI: document.baseURI },
     parentElement: lib.qs(selectors.tweetStreamItems),
     setupFailure: autoScrollBehavior,
     handler: handleTweetStreamItem,
