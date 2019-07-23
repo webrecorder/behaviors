@@ -3,9 +3,9 @@ import * as selectors from './selectors';
 
 /**
  * @typedef {Object} Reporter
- * @property {{threadsOrReplies: number, total: number, viewedFully: number, viewed: number, videos: number}} counts
+ * @property {{threadsOrReplies: number, total: number, viewedFully: number, videos: number}} counts
  * @property {function(permalink: string): Object} viewingTweetWithRepliesOrInThread
- * @property {function(permalink: string): Object} viewedTweetWithRepliesOrInThreadParts
+ * @property {function(msg: string, wait: boolean): Object} viewedTweetWithRepliesOrInThreadParts
  * @property {function(permalink: string): Object} fullyViewedTweet
  * @property {function(permalink: string): Object} viewingTweetWithVideo
  * @property {function(permalink: string): Object} viewingTweet
@@ -30,7 +30,6 @@ export function makeReporter() {
     counts: {
       total,
       videos: 0,
-      viewed: 0,
       threadsOrReplies: 0,
       viewedFully: 0,
     },
@@ -39,7 +38,6 @@ export function makeReporter() {
       return lib.stateWithMsgNoWait(`Viewed tweet (${permalink})`, this.counts);
     },
     viewingTweetWithVideo(permalink) {
-      this.counts.viewed++;
       this.counts.videos++;
       return lib.stateWithMsgWait(
         `Viewing tweet (${permalink}) with video`,
@@ -47,7 +45,6 @@ export function makeReporter() {
       );
     },
     viewingTweet(permalink) {
-      this.counts.viewed++;
       return lib.stateWithMsgNoWait(
         `Viewing tweet (${permalink})`,
         this.counts
@@ -156,8 +153,11 @@ export function createThreadReplyVisitor(baseMsg, reporter) {
     if (subTweetVideo) {
       mediaPlayed = await lib.noExceptPlayMediaElement(subTweetVideo);
     }
-    return reporter.viewedTweetWithRepliesOrInThreadParts();
-    return lib.createState(mediaPlayed, `${baseMsg} #${totalRepliesThreads++}`);
+    return reporter.viewedTweetWithRepliesOrInThreadParts(
+      `${baseMsg} #${totalRepliesThreads++}`,
+      mediaPlayed
+    );
+    // return lib.createState(mediaPlayed, `${baseMsg} #${totalRepliesThreads++}`);
   };
 }
 

@@ -144,7 +144,7 @@ export default function timelineIterator(cliApi) {
     },
     postTraversal(failure) {
       const msg = failure
-        ? 'Behavior finished due to failure to find tweet container, reverting to auto scroll'
+        ? 'Failed to find tweet container, falling back to auto scroll'
         : 'Behavior finished';
       return lib.stateWithMsgNoWait(msg, reporter.counts);
     },

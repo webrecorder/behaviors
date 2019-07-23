@@ -1,5 +1,5 @@
 import * as lib from '../../lib';
-import { selectors, xpQueries } from './shared';
+import * as selectors from './selectors';
 
 let behaviorStyle;
 if (debug) {
@@ -9,11 +9,11 @@ if (debug) {
 }
 
 function isMultiTrackEmbed(xpathGenerator) {
-  return xpathGenerator(xpQueries.soundListItem).length > 0;
+  return xpathGenerator(selectors.soundListItemXpath).length > 0;
 }
 
 async function* playMultiTracks(xpathGenerator) {
-  let snapShot = xpathGenerator(xpQueries.soundListItem);
+  let snapShot = xpathGenerator(selectors.soundListItemXpath);
   let soundItem;
   let i, len;
   if (snapShot.length === 0) return;
@@ -33,10 +33,10 @@ async function* playMultiTracks(xpathGenerator) {
         `Played track #${totalTracks}`
       );
     }
-    snapShot = xpathGenerator(xpQueries.soundListItem);
+    snapShot = xpathGenerator(selectors.soundListItemXpath);
     if (snapShot.length === 0) {
       await lib.delay();
-      snapShot = xpathGenerator(xpQueries.soundListItem);
+      snapShot = xpathGenerator(selectors.soundListItemXpath);
     }
   } while (snapShot.length > 0);
 }

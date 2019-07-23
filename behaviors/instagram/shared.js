@@ -333,18 +333,15 @@ export function userLoadingInfo() {
     ok: false,
     allLoaded: false,
     state: {
-      viewed: 0,
       viewedFully: 0,
       total: 0,
       viewedStories: false,
       viewedSelectedStories: false,
     },
     viewingPost(postId) {
-      this.state.viewed++;
       return lib.stateWithMsgNoWait(`Viewing ${postId}`, this.state);
     },
     viewedPostRow() {
-      this.state.viewed += 3;
       this.state.viewedFully += 3;
       return lib.stateWithMsgNoWait('Viewed three posts', this.state);
     },
@@ -435,8 +432,9 @@ export function userLoadingInfo() {
     const postCount = (
       lib.elemInnerText(lib.qs(selectors.userPostInfo)) || ''
     ).trim();
-    if (postCount && !isNaN(postCount)) {
-      info.state.total = Number(postCount);
+    const pcNumber = Number(postCount);
+    if (postCount && !isNaN(pcNumber)) {
+      info.state.total = pcNumber;
     }
   }
   info.ok = typeof info.state.total === 'number';

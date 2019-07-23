@@ -10,6 +10,32 @@ const { prettierOpts } = require('./defaultOpts');
 const { makeInputOutputConfig } = require('./buildInfo');
 const Utils = require('./utils');
 
+async function serializeMetadata(opts, behaviorMetadata) {
+  const buildMetadataStartTime = process.hrtime();
+  const mdataFPJs = opts.metadata.endsWith('.js')
+    ? opts.metadata
+    : Path.join(opts.metadata, 'behaviorMetadata.js');
+  const mdataFPJson = mdataFPJs.replace('.js', '.json');
+  const safeString = Utils.inspect(behaviorMetadata, {
+    depth: null,
+    compact: false,
+  });
+  await fs.writeFile(mdataFPJs, `module.exports = ${safeString};`);
+  await fs.writeJson(mdataFPJson, behaviorMetadata, {
+    replacer(key, value) {
+      if (value instanceof RegExp) {
+        return value.source;
+      }
+      return value;
+    },
+  });
+  ColorPrinter.info(
+    `Metadata created in ${Utils.timeDiff(
+      buildMetadataStartTime
+    )} and can be found at ${mdataFPJs}`
+  );
+}
+
 /**
  * Removes the .js extension from the supplied behavior path
  * if the path ends with it
@@ -227,20 +253,7 @@ async function createRunnableBehaviorsFromDir(opts, dirPath) {
       numBehaviors
     )} in ${Utils.timeDiff(createBuildStartTime)}`
   );
-  const buildMetadataStartTime = process.hrtime();
-  let metadataFilePath;
-  if (opts.metadata.endsWith('.js')) {
-    metadataFilePath = opts.metadata;
-  } else {
-    metadataFilePath = Path.join(opts.metadata, 'behaviorMetadata.js');
-  }
-  const safeString = Utils.inspect(behaviorMetadata);
-  await fs.writeFile(metadataFilePath, `module.exports = ${safeString};`);
-  ColorPrinter.info(
-    `Metadata created in ${Utils.timeDiff(
-      buildMetadataStartTime
-    )} and can be found at ${metadataFilePath}`
-  );
+  await serializeMetadata(opts, behaviorMetadata);
   return behaviors;
 }
 
@@ -460,23 +473,7 @@ async function generateMetdataFile(opts) {
   for (var i = 0; i < behaviors.length; ++i) {
     updateBehaviorMetadata(behaviors[i], behaviorMetadata);
   }
-  const buildMetadataStartTime = process.hrtime();
-  let metadataFilePath;
-  if (opts.metadata.endsWith('.js')) {
-    metadataFilePath = opts.metadata;
-  } else {
-    metadataFilePath = Path.join(opts.metadata, 'behaviorMetadata.js');
-  }
-  const safeString = Utils.inspect(behaviorMetadata, {
-    depth: null,
-    compact: false,
-  });
-  await fs.writeFile(metadataFilePath, `module.exports = ${safeString};`);
-  ColorPrinter.info(
-    `Metadata created in ${Utils.timeDiff(
-      buildMetadataStartTime
-    )} and can be found at ${metadataFilePath}`
-  );
+  await serializeMetadata(opts, behaviorMetadata);
 }
 
 module.exports = {

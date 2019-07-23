@@ -149,7 +149,7 @@ export default function hashTagIterator(cliAPI) {
     },
     postTraversal(failure) {
       const msg = failure
-        ? 'Behavior finished due to failure to find tweet container, reverting to auto scroll'
+        ? 'Failed to find tweet container, falling back'
         : 'Behavior finished';
       return lib.stateWithMsgNoWait(msg, reporter.counts);
     },

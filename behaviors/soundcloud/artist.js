@@ -1,5 +1,6 @@
 import * as lib from '../../lib';
-import { selectors } from './shared';
+import * as selectors from './selectors';
+import * as shared from './shared';
 
 let behaviorStyle;
 if (debug) {
@@ -16,9 +17,34 @@ function needToLoadMoreTracks(elem) {
   return false;
 }
 
-async function* handleMultipleTrackItem(playable) {
+const Reporter = {
+  state: {
+    tracksPlayed: 0,
+    trackListsPlayed: 0,
+  },
+  playingTrack(wait, track, parentTrack) {
+    this.state.tracksPlayed += 1;
+    const specifics = parentTrack
+      ? `"${track}" of "${parentTrack}"`
+      : `"${track}"`;
+    return lib.createState(wait, `Playing ${specifics}`, this.state);
+  },
+  playingMultiTrack(wait, msg) {
+    return lib.createState(wait, `Playing mutli-track "${msg}"`, this.state);
+  },
+  playedMultiTrackList(multiTrack) {
+    this.state.trackListsPlayed += 1;
+    return lib.stateWithMsgNoWait(
+      `Played all tracks of "${multiTrack}"`,
+      this.state
+    );
+  },
+};
+
+async function handleMultipleTrackItem(playable, parentTrack) {
   lib.markElemAsVisited(playable);
   if (debug) lib.addClass(playable, behaviorStyle.wrDebugVisited);
+  const whichTrack = shared.trackTitle(playable, 'A track');
   // this element used to be somewhere deeper in the markup
   let subTrackItem = playable.firstElementChild;
   let clicked;
@@ -32,16 +58,13 @@ async function* handleMultipleTrackItem(playable) {
     await lib.scrollIntoViewWithDelay(subTrackItem);
     clicked = await lib.clickWithDelay(subTrackItem);
   }
-  const subTrackTitle = lib.qs(selectors.playMultiTrackTrackAlt, playable);
   if (!subTrackItem) {
+    const subTrackTitle = lib.qs(selectors.playMultiTrackTrackAlt, playable);
     // last try lets click the span containing the sub tracks title?
     await lib.scrollIntoViewWithDelay(subTrackTitle);
     clicked = await lib.clickWithDelay(subTrackTitle);
   }
-  yield lib.createState(
-    clicked,
-    `Played sub track - ${subTrackTitle.innerText || 'no description'}`
-  );
+  return Reporter.playingTrack(clicked, whichTrack, parentTrack);
 }
 
 async function* handleSoundItem(soundListItem) {
@@ -51,55 +74,74 @@ async function* handleSoundItem(soundListItem) {
   lib.collectOutlinksFrom(soundListItem);
   const soundItem = soundListItem.firstElementChild;
   if (debug) lib.addClass(soundItem, behaviorStyle.wrDebugVisited);
-  await lib.scrollIntoViewWithDelay(soundItem);
-  const whichTrack = soundItem.firstElementChild
-    ? soundItem.firstElementChild.getAttribute('aria-label')
-    : 'track';
-  yield lib.stateWithMsgWaitFromAwaitable(
-    lib.selectElemFromAndClickWithDelay(soundItem, selectors.playSingleTrack),
-    `Played ${whichTrack}`
+  await lib.scrollIntoViewWithDelay(soundListItem);
+  // console.log('soundItem', soundItem);
+  const whichTrack = shared.trackTitle(soundItem, 'A track');
+  const played = await lib.selectElemFromAndClickWithDelay(
+    soundItem,
+    selectors.playSingleTrack
   );
   const trackList = lib.qs(selectors.trackList, soundItem);
-  if (trackList) {
-    // load more tracks before traversal
-    if (needToLoadMoreTracks(soundItem)) {
-      await lib.selectElemFromAndClickWithDelay(
-        soundItem,
-        selectors.loadMoreTracks
-      );
-    }
-    // use a very guarded child element traversal
-    // if there are a TON of tracks the load more
-    // button *should* still state we need to
-    // otherwise we just need to walk the loader parents
-    // children once
-    yield* lib.traverseChildrenOfLoaderParentGenFn(
-      trackList,
-      handleMultipleTrackItem,
-      async () => {
-        const loadMore = needToLoadMoreTracks(soundItem);
-        if (loadMore) {
-          await lib.selectElemFromAndClickWithDelay(
-            soundItem,
-            selectors.loadMoreTracks
-          );
-        }
-        return loadMore;
-      }
+  if (!trackList) {
+    yield Reporter.playingTrack(played, whichTrack);
+    return;
+  }
+  yield Reporter.playingMultiTrack(played, whichTrack);
+  // load more tracks before traversal
+  if (needToLoadMoreTracks(soundItem)) {
+    await lib.selectElemFromAndClickWithDelay(
+      soundItem,
+      selectors.loadMoreTracks
     );
   }
+  // use a very guarded child element traversal
+  // if there are a TON of tracks the load more
+  // button *should* still state we need to
+  // otherwise we just need to walk the loader parents
+  // children once
+  yield* lib.traverseChildrenOfLoaderParentGenFn(
+    trackList,
+    handleMultipleTrackItem,
+    async () => {
+      const loadMore = needToLoadMoreTracks(soundItem);
+      if (loadMore) {
+        await lib.selectElemFromAndClickWithDelay(
+          soundItem,
+          selectors.loadMoreTracks
+        );
+      }
+      return loadMore;
+    },
+    whichTrack
+  );
+  yield Reporter.playedMultiTrackList(whichTrack);
 }
 
 export default async function* visitSoundItems(cliAPI) {
+  if (lib.selectorExists(selectors.popupAnnouncementMsg)) {
+    const msg = lib.qs(selectors.popupAnnouncementMsg);
+    if (lib.elementTextContains(msg, 'cookies')) {
+      lib.click(msg.nextElementSibling);
+    }
+  }
+  const place = (lib.innerTextOfSelected(selectors.artistActiveTab) || '')
+    .trim()
+    .toLowerCase();
+  if (place === 'tracks') {
+    const trackList = lib.qs(selectors.lazyLoadingList);
+    if (lib.elemHasChildren(trackList)) {
+      yield* lib.traverseChildrenOf(trackList, handleSoundItem);
+    }
+  }
   // there are two unique lists of tracks so lets just visit all their kiddies
   // the first is the tracks the artist want's to be spot lighted
-  const spotLightList = lib.qs('ul.spotlight__list');
-  if (spotLightList.hasChildNodes()) {
+  const spotLightList = lib.qs(selectors.spotlightList);
+  if (lib.elemHasChildren(spotLightList)) {
     yield* lib.traverseChildrenOf(spotLightList, handleSoundItem);
   }
   // the second are the tracks the artist tracks / mix tapes / splits etc
-  const userStream = lib.qs('div.userStream__list > ul');
-  if (userStream.hasChildNodes()) {
+  const userStream = lib.qs(selectors.userTrackStream);
+  if (lib.elemHasChildren(userStream)) {
     yield* lib.traverseChildrenOfLoaderParent(userStream, handleSoundItem);
   }
 }
