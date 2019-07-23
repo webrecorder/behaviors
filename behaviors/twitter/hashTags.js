@@ -44,7 +44,7 @@ async function* handleTweetStreamItem(
   lib.collectOutlinksFrom(tweetStreamLI);
 
   if (lib.hasClass(tweetStreamLI, selectors.userProfileInStream)) {
-    return lib.stateWithMsgNoWait('Encountered a non-tweet');
+    return lib.stateWithMsgNoWait('Encountered a non-tweet', reporter);
   }
   const streamTweetDiv = tweetStreamLI.firstElementChild;
   const tweetContent = lib.qs(selectors.tweetInStreamContent, streamTweetDiv);
@@ -96,7 +96,7 @@ async function* handleTweetStreamItem(
             nextElemSetQS
           )
       ),
-      shared.createThreadReplyVisitor(baseMsg)
+      shared.createThreadReplyVisitor(baseMsg, reporter)
     );
   }
   yield reporter.fullyViewedTweet(permalink);
@@ -146,6 +146,12 @@ export default function hashTagIterator(cliAPI) {
         lib.collectOutlinksFrom(tweetLi);
       }
       return !shouldSkip;
+    },
+    postTraversal(failure) {
+      const msg = failure
+        ? 'Behavior finished due to failure to find tweet container, reverting to auto scroll'
+        : 'Behavior finished';
+      return lib.stateWithMsgNoWait(msg, reporter.counts);
     },
   });
 }

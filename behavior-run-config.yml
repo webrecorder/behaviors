@@ -1,6 +1,6 @@
 buildConfig: ./behavior-config.yml
-behavior: ./behaviors/instagram/user.js
-url: 'https://www.instagram.com/rhizomedotorg/'
+behavior: ./behaviors/soundcloud/artist.js
+url: 'https://soundcloud.com/kot_68'
 
 # path to chrome executable or command
 # chromeEXE: google-chrome-unstable

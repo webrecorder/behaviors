@@ -16,10 +16,19 @@ function getPostMain() {
 export default async function* instagramPostBehavior(cliAPI) {
   lib.collectOutlinksFromDoc();
   const postMain = getPostMain();
+  const info = {
+    state: {
+      total: 0,
+      viewed: 0,
+      viewedFully: 0,
+    },
+  };
   if (postMain == null) {
-    yield lib.stateWithMsgNoWait('There was no post');
-    return;
+    return lib.stateWithMsgNoWait('There was no post', info.state);
   }
+  info.state.total = 1;
+  info.state.viewed = 1;
+  const postId = shared.postId(location);
   let result;
   try {
     result = await shared.handlePostContent({
@@ -27,16 +36,22 @@ export default async function* instagramPostBehavior(cliAPI) {
       multiImgElem: postMain,
       videoElem: postMain,
       viewing: shared.ViewingSinglePost,
+      info,
+      postId,
     });
   } catch (e) {
-    result = lib.stateWithMsgNoWait('An error occurred while handling a post');
+    result = lib.stateWithMsgNoWait(
+      `An error occurred while viewing the contents of ${postId}`,
+      info.state
+    );
   }
   yield result;
   const commentList = lib.qs('ul', postMain);
   if (commentList) {
-    yield* shared.loadAllComments(commentList);
-    yield* lib.traverseChildrenOf(commentList, shared.commentViewer());
+    yield* shared.viewComments({ commentList, info, postId, $x: cliAPI.$x });
   }
+  info.state.viewedFully = 1;
+  return lib.stateWithMsgNoWait(`Viewed ${postId}`, info.state);
 }
 
 export const metadata = {

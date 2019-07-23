@@ -11,6 +11,19 @@ export const ViewingOwnTimeline = Symbol('$$instagram-viewing-own-timeline');
 export const ViewingUser = Symbol('$$instagram-viewing-user$$');
 export const ViewingSinglePost = Symbol('$$instagram-viewing-single-post$$');
 
+export function postId(maybePostA) {
+  if (maybePostA) {
+    /** @type {string} */
+    const postPath = maybePostA.pathname;
+    const slashBehindId = postPath.indexOf('/', 1);
+    return `post ${postPath.substring(
+      slashBehindId + 1,
+      postPath.lastIndexOf('/')
+    )}`;
+  }
+  return 'post';
+}
+
 /**
  * @param {Element | Node | HTMLElement} post
  * @param {symbol} [viewing]
@@ -104,7 +117,7 @@ export async function* loadAllComments(commentList) {
   yield lib.stateWithMsgNoWait('All comments loaded');
 }
 
-export function commentViewer() {
+export function commentViewer(info, thePost, $x) {
   let consumedDummy = false;
   let numComments = 0;
   return async function* viewComment(comment) {
@@ -114,31 +127,53 @@ export function commentViewer() {
     if (!consumedDummy && comment.matches(selectors.postersOwnComment)) {
       consumedDummy = true;
       lib.scrollIntoView(comment);
-      yield lib.stateWithMsgNoWait('View posters own comment');
-      return;
+      return lib.stateWithMsgNoWait(
+        `View posters own comment to the ${thePost}`,
+        info.state
+      );
     }
     // these children are li's with ul child
     numComments += 1;
-    yield lib.stateWithMsgNoWait(`Viewed comment ${numComments}`);
-    let replies = lib.qs(selectors.moreRepliesSpan, comment);
-    // some comments do not need more replies loaded
-    if (replies && !lib.elementTextContains(replies, 'hide', true)) {
-      let numReplies = 0;
-      while (replies) {
-        if (!replies.isConnected) break;
-        await lib.scrollIntoViewAndClickWithDelay(replies);
-        if (lib.elementTextContains(replies, 'hide', true)) {
-          break;
-        }
-        numReplies += 1;
-        yield lib.stateWithMsgNoWait(
-          `Clicked loaded more replies for comment ${numComments} (#${numReplies} times)`
-        );
-        replies = lib.qs(selectors.moreRepliesSpan, comment);
-      }
-      lib.collectOutlinksFrom(comment);
+    yield lib.stateWithMsgNoWait(
+      `Viewed comment #${numComments} of ${thePost}`,
+      info.state
+    );
+
+    let replies = $x(selectors.moreRepliesXpath, comment);
+    let numReplies = 0;
+    while (replies.length) {
+      await lib.scrollIntoViewAndClickWithDelay(replies[0]);
+      numReplies += 1;
+      replies = $x(selectors.moreRepliesXpath, comment);
     }
+    if (numReplies) {
+      yield lib.stateWithMsgNoWait(
+        `Loaded replies for comment #${numComments} of ${thePost} ${numReplies} times`,
+        info.state
+      );
+    }
+    lib.collectOutlinksFrom(comment);
   };
+}
+
+export async function* viewComments({ commentList, info, postId, $x }) {
+  let total = 0;
+  let moreSpan = lib.qs(selectors.moreCommentsSpanSelector, commentList);
+  while (moreSpan) {
+    if (!moreSpan.isConnected) break;
+    await lib.scrollIntoViewAndClickWithDelay(moreSpan);
+    total += 1;
+    yield lib.stateWithMsgNoWait(
+      `Loaded additional comments for the ${postId} #${total} times`,
+      info.state
+    );
+    moreSpan = lib.qs(selectors.moreCommentsSpanSelector, commentList);
+  }
+  yield lib.stateWithMsgNoWait(
+    `All comments loaded for ${postId}`,
+    info.state
+  );
+  yield* lib.traverseChildrenOf(commentList, commentViewer(info, postId, $x));
 }
 
 /**
@@ -182,13 +217,15 @@ export async function handlePostContent({
   multiImgElem,
   videoElem,
   viewing,
+  info,
+  postId,
 }) {
-  const baseMsg = 'Viewed post';
-  const result = { msg: null, wait: false };
+  const baseMsg = `Viewed the contents of ${postId}`;
+  const result = { msg: null, wait: false, state: info.state };
   switch (determinePostType(thePost, viewing)) {
     case postTypes.multiImage:
       const n = await viewMultiPost(multiImgElem, viewing);
-      result.msg = `${baseMsg} with ${n} images or videos`;
+      result.msg = `${baseMsg} that had #${n} images or videos`;
       break;
     case postTypes.video:
       // select and play the video. The video is maybe an mp4 that is already loaded
@@ -208,7 +245,7 @@ export async function handlePostContent({
       if (playthroughp) {
         await playthroughp;
       }
-      result.msg = `${baseMsg} with video`;
+      result.msg = `${baseMsg} that had a video`;
       result.wait = true;
       break;
     default:
@@ -220,28 +257,33 @@ export async function handlePostContent({
   return result;
 }
 
-export async function* viewStories(startStoriesElem) {
+export async function* viewStories(startStoriesElem, info, selected) {
+  const typeOfStory = selected ? 'selected stories' : 'stories';
   // get the original full URI of the browser
   const originalLoc = window.location.href;
   // ensure we can start the stories
-  if (!lib.click(startStoriesElem)) return;
+  if (!lib.click(startStoriesElem)) {
+    return lib.stateWithMsgNoWait(
+      `Failed to start the viewing of ${typeOfStory}`,
+      info.state
+    );
+  }
   // history manipulation will change the browser URI so
   // we must wait for that to happen
   await lib.waitForHistoryManipToChangeLocation(originalLoc);
   let wasClicked;
   let videoButton;
+  let msg;
   // stories are sorta on autoplay but we should speed things up
   let toBeClicked = lib.qs(selectors.userNextStory);
   // we will continue to speed up autoplay untill the next story
   // button does not exist or we are done (window.location.href === originalLoc)
   lib.collectOutlinksFromDoc();
-  let totalStories = 0;
   while (!lib.locationEquals(originalLoc) && toBeClicked != null) {
     wasClicked = await lib.clickWithDelay(toBeClicked);
     // if the next story part button was not clicked
     // or autoplay is finished we are done
     if (!wasClicked || lib.locationEquals(originalLoc)) break;
-    totalStories += 1;
     videoButton = lib.qs(selectors.userStoryVideo);
     if (videoButton) {
       // this part of a story is video content
@@ -256,14 +298,16 @@ export async function* viewStories(startStoriesElem) {
       if (maybeVideo && maybeVideo.paused) {
         await lib.noExceptPlayMediaElement(maybeVideo);
       }
-      yield lib.stateWithMsgNoWait(`Viewed video of story #${totalStories}`);
+      msg = `Viewed a video included in the ${typeOfStory}`;
     } else {
-      yield lib.stateWithMsgNoWait(`Viewed story #${totalStories}`);
+      msg = `Viewed a post of the ${typeOfStory}`;
     }
+    yield lib.stateWithMsgNoWait(msg, info.state);
     // safety check due to autoplay
     if (lib.locationEquals(originalLoc)) break;
     toBeClicked = lib.qs(selectors.userNextStory);
   }
+  return info.viewedStories(selected);
 }
 
 export async function* viewCommentsAndReplies(xpg, cntx) {
@@ -281,99 +325,56 @@ export async function* viewCommentsAndReplies(xpg, cntx) {
   }
 }
 
-/**
- * Attempts to create an object that will indicate if the
- * behavior has viewed all the posts by hooking into the
- * underlying react application.
- *
- * An null value is returned if the redux store can not be
- * retrieved or the viewed profile data is not existent
- * @return {?Object}
- */
-export function loadingInfoFromStore() {
-  const store = (() => {
-    const root = lib.getViaPath(
-      lib.id('react-root'),
-      '_reactRootContainer',
-      '_internalRoot'
-    );
-    if (root) return lib.findReduxStore(root.current);
-    return null;
-  })();
-  if (!store) return null;
-  let postsByUserId = lib.getViaPath(
-    store.getState(),
-    'profilePosts',
-    'byUserId'
-  );
-  if (!postsByUserId) return null;
-  const userId = Object.keys(postsByUserId.toJS())[0];
-  const info = {
-    ok: true,
-    counts: {
-      viewed: 0,
-      viewedFully: 0,
-      total: postsByUserId.get(userId).count,
-    },
-    haveStore: true,
-    // pagination info is not added to the information if there are no posts
-    allLoaded: !(
-      lib.getViaPath(postsByUserId.get(userId), 'pagination', 'hasNextPage') ||
-      false
-    ),
-    viewingPost() {
-      this.counts.viewed++;
-      return lib.stateWithMsgNoWait('Viewing post', this.counts);
-    },
-    viewedPostRow() {
-      this.counts.viewed += 3;
-    },
-    fullyViewedPost() {
-      this.counts.viewedFully++;
-      return lib.stateWithMsgNoWait('Viewed post', this.counts);
-    },
-    hasMorePosts() {
-      if (this.allLoaded) return false;
-      return postsByUserId.get(userId).pagination.hasNextPage;
-    },
-  };
-  if (typeof window.$____$UNSUB$____$ === 'function') {
-    window.$____$UNSUB$____$();
-  }
-  window.$____$UNSUB$____$ = store.subscribe(() => {
-    const nextState = store.getState();
-    if (postsByUserId !== nextState.profilePosts.byUserId) {
-      postsByUserId = nextState.profilePosts.byUserId;
-    }
-  });
-  return info;
-}
-
 export function userLoadingInfo() {
-  let info = loadingInfoFromStore();
-  if (info != null) return info;
-  // fallback to a simple counting strategy
-  info = {
+  const info = {
+    postsByUserId: null,
+    userId: null,
+    store: null,
     ok: false,
-    haveStore: false,
-    counts: {
+    allLoaded: false,
+    state: {
       viewed: 0,
       viewedFully: 0,
       total: 0,
+      viewedStories: false,
+      viewedSelectedStories: false,
     },
-    hasMorePosts() {
-      return this.counts.viewed < this.total;
-    },
-    viewingPost() {
-      this.counts.viewed++;
-      return lib.stateWithMsgNoWait('Viewing post', this.counts);
+    viewingPost(postId) {
+      this.state.viewed++;
+      return lib.stateWithMsgNoWait(`Viewing ${postId}`, this.state);
     },
     viewedPostRow() {
-      this.counts.viewed += 3;
+      this.state.viewed += 3;
+      this.state.viewedFully += 3;
+      return lib.stateWithMsgNoWait('Viewed three posts', this.state);
     },
-    fullyViewedPost() {
-      this.counts.viewedFully++;
-      return lib.stateWithMsgNoWait('Viewed post', this.counts);
+    fullyViewedPost(postId) {
+      this.state.viewedFully++;
+      return lib.stateWithMsgNoWait(`Viewed ${postId}`, this.state);
+    },
+    viewedStories(selected) {
+      if (selected) {
+        this.state.viewedStories = true;
+      } else {
+        this.state.viewedSelectedStories = true;
+      }
+      return lib.stateWithMsgNoWait(
+        selected ? 'Viewed selected stories' : 'Viewed stories',
+        this.state
+      );
+    },
+    hasMorePosts() {
+      if (this.store) {
+        if (this.allLoaded) return false;
+        return this.postsByUserId.get(this.userId).pagination.hasNextPage;
+      }
+      return this.state.viewed < this.total;
+    },
+    storeUpdate() {
+      const nextState = this.store.getState();
+      if (this.postsByUserId !== nextState.profilePosts.byUserId) {
+        this.postsByUserId = nextState.profilePosts.byUserId;
+      }
     },
   };
   const user = lib.getViaPath(
@@ -385,20 +386,60 @@ export function userLoadingInfo() {
     'graphql',
     'user'
   );
-  info.counts.total = lib.getViaPath(
+  const initFromStore = (() => {
+    const root = lib.getViaPath(
+      lib.id('react-root'),
+      '_reactRootContainer',
+      '_internalRoot'
+    );
+    if (!root) return false;
+    const store = lib.findReduxStore(root.current);
+    if (!store) return false;
+    const postsByUserId = lib.getViaPath(
+      store.getState(),
+      'profilePosts',
+      'byUserId'
+    );
+    if (!postsByUserId) return false;
+    let userId = Object.keys(postsByUserId.toJS())[0];
+    if (!userId || !postsByUserId.get(userId)) {
+      if (user && postsByUserId.get(user.id)) {
+        userId = user.id;
+      } else {
+        return false;
+      }
+    }
+    info.store = store;
+    info.userId = userId;
+    info.postsByUserId = postsByUserId;
+    info.state.total = postsByUserId.get(userId).count;
+    info.ok = true;
+    // pagination info is not added to the information if there are no posts
+    info.allLoaded = !(
+      lib.getViaPath(postsByUserId.get(userId), 'pagination', 'hasNextPage') ||
+      false
+    );
+    if (typeof window.$____$UNSUB$____$ === 'function') {
+      window.$____$UNSUB$____$();
+    }
+    window.$____$UNSUB$____$ = store.subscribe(info.storeUpdate.bind(info));
+    return true;
+  })();
+  if (initFromStore) return info;
+  info.state.total = lib.getViaPath(
     user,
     'edge_owner_to_timeline_media',
     'count'
   );
-  if (typeof info.counts.total !== 'number') {
+  if (typeof info.state.total !== 'number') {
     const postCount = (
       lib.elemInnerText(lib.qs(selectors.userPostInfo)) || ''
     ).trim();
     if (postCount && !isNaN(postCount)) {
-      info.counts.total = Number(postCount);
+      info.state.total = Number(postCount);
     }
   }
-  info.ok = typeof info.total === 'number';
+  info.ok = typeof info.state.total === 'number';
   return info;
 }
 

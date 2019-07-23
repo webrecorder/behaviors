@@ -46,6 +46,7 @@ export const postersOwnComment = 'li[role="menuitem"]';
 export const moreCommentsSpanSelector =
   '* > span[aria-label*="more comments" i]';
 export const nextImageIconDiv = 'button > div[class*="RightChevron" i]';
+export const moreRepliesXpath = '//span[contains(text(), "View replies")]';
 
 export const postPopupCloseXpath = [
   '//body/div/div/button[contains(text(), "Close")]',

@@ -60,7 +60,8 @@ async function* handleTweet(tweetLi, { originalBaseURI, reporter }) {
           )
       ),
       shared.createThreadReplyVisitor(
-        `Viewed tweet's (${permalink}) reply or thread part`
+        `Viewed tweet's (${permalink}) reply or thread part`,
+        reporter
       )
     );
   }
@@ -140,6 +141,12 @@ export default function timelineIterator(cliApi) {
         lib.collectOutlinksFrom(tweetLi);
       }
       return !shouldSkip;
+    },
+    postTraversal(failure) {
+      const msg = failure
+        ? 'Behavior finished due to failure to find tweet container, reverting to auto scroll'
+        : 'Behavior finished';
+      return lib.stateWithMsgNoWait(msg, reporter.counts);
     },
     additionalArgs: {
       xpg: cliApi.$x,
