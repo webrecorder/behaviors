@@ -39,6 +39,15 @@ const Reporter = {
       this.state
     );
   },
+  done(tracksWerePlayed, place) {
+    const specifics = tracksWerePlayed
+      ? `every "${place}" tracks played`
+      : `there were no "${place}" tracks to be played`;
+    return lib.stateWithMsgNoWait(
+      `Behavior finished, ${specifics}`,
+      this.state
+    );
+  },
 };
 
 async function handleMultipleTrackItem(playable, parentTrack) {
@@ -117,6 +126,24 @@ async function* handleSoundItem(soundListItem) {
   yield Reporter.playedMultiTrackList(whichTrack);
 }
 
+/**
+ * Handles capturing of all tracks for an artist's profile
+ *
+ * The profile is broken up into different sections
+ *  - All (default)
+ *  - Tracks
+ *  - Albums
+ *  - Playlists
+ *  - Reposts
+ *
+ *  The All tab can have two parts, an optional spotlight track list and then
+ *  all tracks contained in the other sections.
+ *  The other sections only have one list.
+ *  Each sections markup is unique.
+ *
+ * @param cliAPI
+ * @return {AsyncIterableIterator<{msg: *, state: *, wait: boolean}>}
+ */
 export default async function* visitSoundItems(cliAPI) {
   if (lib.selectorExists(selectors.popupAnnouncementMsg)) {
     const msg = lib.qs(selectors.popupAnnouncementMsg);
@@ -124,32 +151,49 @@ export default async function* visitSoundItems(cliAPI) {
       lib.click(msg.nextElementSibling);
     }
   }
-  const place = (lib.innerTextOfSelected(selectors.artistActiveTab) || '')
-    .trim()
-    .toLowerCase();
-  if (place === 'tracks') {
-    const trackList = lib.qs(selectors.lazyLoadingList);
-    if (lib.elemHasChildren(trackList)) {
-      yield* lib.traverseChildrenOf(trackList, handleSoundItem);
-    }
+  // first check to see if we viewing an artists
+  // tracks, albums, or playlists
+  let tracksWerePlayed = false;
+  const tracksAlbumsPlayLists = lib.qs(
+    selectors.tracksAlbumsPlaylistsTrackList
+  );
+  if (lib.elemHasChildren(tracksAlbumsPlayLists)) {
+    tracksWerePlayed = true;
+    yield* lib.traverseChildrenOfLoaderParent(
+      tracksAlbumsPlayLists,
+      handleSoundItem
+    );
   }
+  // next check for viewing an artists reposts
+  const reposts = lib.qs(selectors.repostsTrackList);
+  if (lib.elemHasChildren(reposts)) {
+    tracksWerePlayed = true;
+    yield* lib.traverseChildrenOfLoaderParent(reposts, handleSoundItem);
+  }
+
   // there are two unique lists of tracks so lets just visit all their kiddies
   // the first is the tracks the artist want's to be spot lighted
   const spotLightList = lib.qs(selectors.spotlightList);
   if (lib.elemHasChildren(spotLightList)) {
+    tracksWerePlayed = true;
     yield* lib.traverseChildrenOf(spotLightList, handleSoundItem);
   }
   // the second are the tracks the artist tracks / mix tapes / splits etc
   const userStream = lib.qs(selectors.userTrackStream);
   if (lib.elemHasChildren(userStream)) {
+    tracksWerePlayed = true;
     yield* lib.traverseChildrenOfLoaderParent(userStream, handleSoundItem);
   }
+  return Reporter.done(
+    tracksWerePlayed,
+    (lib.innerTextOfSelected(selectors.artistActiveTab) || '').trim()
+  );
 }
 
 export const metadata = {
   name: 'soundCloudArtistBehavior',
   match: {
-    regex: /^(?:https:\/\/(?:www\.)?)?soundcloud\.com\/[^/]+(\/)?$/,
+    regex: /^(?:https:\/\/(?:www\.)?)?soundcloud\.com\/(?!(?:discover|stream))[^/]+(?:\/(?:tracks|albums|sets|reposts))?(?:\/)?$/,
   },
   description: 'Capture every track on Soundcloud profile.',
   updated: '2019-06-24T15:09:02',

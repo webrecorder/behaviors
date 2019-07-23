@@ -84,6 +84,12 @@ export default async function* initFBUserFeedBehaviorIterator(cliAPI) {
   let replies;
   let i;
   let length;
+  let playVideo;
+  const state = {
+    videos: 0,
+    posts: 0,
+  };
+  let wait = false;
   do {
     length = timelineItems.length;
     for (i = 0; i < length; i++) {
@@ -93,11 +99,15 @@ export default async function* initFBUserFeedBehaviorIterator(cliAPI) {
       await lib.scrollIntoViewWithDelay(tlItem, delayTime);
       lib.markElemAsVisited(tlItem);
       lib.collectOutlinksFrom(tlItem);
-      yield lib.stateWithMsgNoWait(`viewed feed item ${totalFeedItems}`);
-      replies = await clickLoadMoreReplies(tlItem);
-      if (replies) {
-        yield* clickRepliesToReplies(tlItem);
+      playVideo = lib.qs('i > input[aria-label="Play video"]', tlItem);
+      if (playVideo) {
+        wait = true;
+        state.videos++;
+        await lib.clickWithDelay(playVideo);
       }
+      state.posts++;
+      yield lib.createState(wait,`viewed feed item ${totalFeedItems}`, state);
+      wait = false;
     }
     timelineItems = cliAPI.$x(xpathQueries.userTimelineItem);
     if (timelineItems.length === 0) {
@@ -105,6 +115,7 @@ export default async function* initFBUserFeedBehaviorIterator(cliAPI) {
       timelineItems = cliAPI.$x(xpathQueries.userTimelineItem);
     }
   } while (timelineItems.length > 0 && lib.canScrollDownMore());
+  yield lib.stateWithMsgNoWait('Behavior done', state);
 }
 
 export const postStep = lib.buildCustomPostStepFn(() => {

@@ -32,6 +32,12 @@ export default async function* initFBNewsFeedBehaviorIterator(cliAPI) {
   let i;
   let length;
   let totalFeedItems = 0;
+  let playVideo;
+  const state = {
+    videos: 0,
+    posts: 0,
+  };
+  let wait = false;
   do {
     length = feedItems.length;
     for (i = 0; i < length; i++) {
@@ -43,7 +49,14 @@ export default async function* initFBNewsFeedBehaviorIterator(cliAPI) {
       await lib.scrollToElemOffsetWithDelay(feedItem, scrollDelay);
       lib.markElemAsVisited(feedItem);
       lib.collectOutlinksFrom(feedItem);
-      yield lib.stateWithMsgNoWait(`Viewed feed item ${totalFeedItems}`);
+      playVideo = lib.qs('i > input[aria-label="Play video"]', feedItem);
+      if (playVideo) {
+        wait = true;
+        state.videos++;
+        await lib.clickWithDelay(playVideo);
+      }
+      yield lib.stateWithMsgNoWait(`Viewed feed item ${totalFeedItems}`, state);
+      wait = false;
     }
     feedItems = getFeedItems(xpathQueries.feedItem);
     if (feedItems.length === 0) {
@@ -51,6 +64,7 @@ export default async function* initFBNewsFeedBehaviorIterator(cliAPI) {
       feedItems = getFeedItems(xpathQueries.feedItem);
     }
   } while (feedItems.length > 0 && lib.canScrollDownMore());
+  yield lib.stateWithMsgNoWait('Behavior done', state);
 }
 
 let removedAnnoying = lib.maybeRemoveElemById(annoyingElements.pageletGrowthId);

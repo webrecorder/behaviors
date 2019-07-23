@@ -22,13 +22,33 @@ function loadMoreComments(cRenderer, selector) {
   return false;
 }
 
-let totalComments = 0;
+const Reporter = {
+  state: {
+    loadedVideoInfo: false,
+    playedVideo: false,
+    viewedComments: 0,
+  },
+  loadedInfo() {
+    this.state.loadedVideoInfo = true;
+    return lib.stateWithMsgNoWait('Loaded videos info', this.state);
+  },
+  playedVideo() {
+    this.state.playedVideo = true;
+    return lib.stateWithMsgNoWait('Played video', this.state);
+  },
+  viewedComment() {
+    this.state.viewedComments += 1;
+    return lib.stateWithMsgNoWait(
+      `Viewing video comment #${this.state.viewedComments}`,
+      this.state
+    );
+  },
+};
 
 async function* handleComment(comment, mStream) {
-  totalComments += 1;
   lib.markElemAsVisited(comment);
   await lib.scrollIntoViewWithDelay(comment);
-  yield lib.stateWithMsgNoWait(`Viewing video comment #${totalComments}`);
+  yield Reporter.viewedComment();
   const replies = lib.qs(selectors.loadedReplies, comment);
   if (
     replies != null &&
@@ -71,10 +91,10 @@ export default async function* playVideoAndLoadComments(cliAPI) {
   if (moreInfo != null) {
     await lib.scrollIntoViewAndClick(moreInfo);
     lib.collectOutlinksFromDoc();
-    yield lib.stateWithMsgNoWait('Loaded videos info');
+    yield Reporter.loadedInfo();
   }
   await lib.selectAndPlay('video');
-  yield lib.stateWithMsgNoWait('Played video');
+  yield Reporter.loadedInfo();
   await lib.scrollIntoViewAndWaitFor(
     lib.id(selectors.commentsContainerId),
     () => lib.selectorExists(selectors.commentRenderer)

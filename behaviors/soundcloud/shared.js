@@ -4,20 +4,10 @@ import * as selectors from './selectors';
 export const UserStreamItemClzz = 'userStreamItem';
 export const CompactTrackListItemClzz = 'compactTrackList__item';
 
+const TrackItem = 'div.sound.streamContext';
+
 export function trackTitle(soundItem, fallback) {
-  if (lib.hasClass(soundItem, UserStreamItemClzz)) {
-    let title = lib.attr(soundItem.firstElementChild, 'aria-label');
-    if (title) return title;
-    title = (
-      lib.innerTextOfSelected(selectors.soundItemTitle, soundItem) || 'A track'
-    ).trim();
-    const user = (
-      lib.innerTextOfSelected(selectors.soundItemUser, soundItem) || ''
-    ).trim();
-    if (title && user) {
-      return `${title} by ${user}`
-    }
-  } else if (lib.hasClass(soundItem, CompactTrackListItemClzz)) {
+  if (lib.hasClass(soundItem, CompactTrackListItemClzz)) {
     const trackNumber = (
       lib.innerTextOfSelected(
         selectors.compactTrackListItemTrackNumber,
@@ -38,6 +28,21 @@ export function trackTitle(soundItem, fallback) {
       return `(${trackNumber}) ${trackTitle}`;
     } else if (trackTitle) {
       return trackTitle;
+    }
+  } else if (
+    lib.elemMatchesSelector(soundItem, TrackItem) ||
+    lib.hasClass(soundItem, UserStreamItemClzz)
+  ) {
+    let title = lib.attr(soundItem.firstElementChild, 'aria-label');
+    if (title) return title;
+    title = (
+      lib.innerTextOfSelected(selectors.soundItemTitle, soundItem) || 'A track'
+    ).trim();
+    const user = (
+      lib.innerTextOfSelected(selectors.soundItemUser, soundItem) || ''
+    ).trim();
+    if (title && user) {
+      return `${title} by ${user}`;
     }
   }
   return fallback;

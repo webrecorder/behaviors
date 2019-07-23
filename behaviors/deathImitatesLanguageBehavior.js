@@ -12,16 +12,19 @@ const moreInfoButtonSelector = 'button.btn.btn-more-info';
 export default async function* deathImitatesLanguageBehavior(cliAPI) {
   const rootContainer = document.body.firstElementChild;
   let child = rootContainer.firstElementChild;
-  let totalItems = 0;
+  const  state = {
+    items: 0
+  };
   while (child) {
     if (debug) lib.addClass(child, behaviorStyle.wrDebugVisited);
     await lib.scrollIntoViewWithDelay(child);
     lib.collectOutlinksFrom(child);
     await lib.selectElemFromAndClickWithDelay(child, moreInfoButtonSelector);
-    totalItems += 1;
-    yield lib.stateWithMsgNoWait(`Viewed item #${totalItems}`);
+    state.items += 1;
+    yield lib.stateWithMsgNoWait(`Viewed item`, state);
     child = lib.getElemSibling(child);
   }
+  yield lib.stateWithMsgNoWait('Behavior done', state);
 }
 
 export const metadata = {

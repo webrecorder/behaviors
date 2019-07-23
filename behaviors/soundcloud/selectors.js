@@ -18,6 +18,10 @@ export const compactTrackListItemTitle = '.compactTrackListItem__trackTitle';
 
 export const artistActiveTab = '.g-tabs-link.active';
 export const lazyLoadingList = '.lazyLoadingList__list';
+export const tracksAlbumsPlaylistsTrackList =
+  '.userMain__content > .soundList.lazyLoadingList > .lazyLoadingList__list';
+export const repostsTrackList =
+  '.userMain__content > .userReposts > ul.soundList';
 
 export const soundItemXpath =
   '//div[@class="userStreamItem" and not(contains(@class, "wrvistited"))]';

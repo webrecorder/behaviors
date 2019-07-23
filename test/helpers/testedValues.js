@@ -226,7 +226,7 @@ module.exports = {
         name: 'soundCloudArtistBehavior',
         match: {
           regex:
-            '^(?:https:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/[^\\/]+(\\/)?$',
+            '^(?:https:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/(?!(?:discover|stream))[^\\/]+(?:\\/(?:tracks|albums|sets|reposts))?(?:\\/)?$',
         },
         description: 'Capture every track on Soundcloud profile.',
         updated: '2019-06-24T15:09:02',
@@ -442,7 +442,7 @@ module.exports = {
           name: 'soundCloudArtistBehavior',
           match: {
             regex:
-              '^(?:https:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/[^\\/]+(\\/)?$',
+              '^(?:https:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/(?!(?:discover|stream))[^\\/]+(?:\\/(?:tracks|albums|sets|reposts))?(?:\\/)?$',
           },
           description: 'Capture every track on Soundcloud profile.',
           updated: '2019-06-24T15:09:02',
