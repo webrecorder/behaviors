@@ -133,6 +133,7 @@ export default async function* playVideoAndLoadComments(cliAPI) {
 
 export const metadata = {
   name: 'youtubeVideoBehavior',
+  displayName: 'Youtube',
   match: {
     regex: /^(?:https:\/\/(?:www\.)?)?youtube\.com\/watch[?]v=.+/,
   },

@@ -126,6 +126,7 @@ export const postStep = lib.buildCustomPostStepFn(() => {
 
 export const metadata = {
   name: 'facebookUserFeed',
+  displayName: 'Facebook page',
   match: {
     regex: /^https:\/\/(www\.)?facebook\.com\/[^/]+\/?$/,
   },

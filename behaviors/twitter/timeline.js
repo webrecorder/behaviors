@@ -158,6 +158,7 @@ export default function timelineIterator(cliApi) {
 
 export const metadata = {
   name: 'twitterTimelineBehavior',
+  displayName: 'Twitter timeline',
   match: {
     regex: /^(?:https:[/]{2}(?:www[.])?)?twitter[.]com[/]?(?:[^/]+[/]?)?$/,
   },

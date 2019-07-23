@@ -169,6 +169,7 @@ export default function instagramUserBehavior(cliAPI) {
 
 export const metadata = {
   name: 'instagramUserBehavior',
+  displayName: 'Instagram user page',
   match: {
     regex: /^https:\/\/(www\.)?instagram\.com\/[^/]+(?:\/(?:[?].+)?(?:tagged(?:\/)?)?)?$/,
   },
