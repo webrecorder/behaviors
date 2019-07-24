@@ -129,7 +129,7 @@ export const metadata = {
     regex: /^(?:https:\/\/(?:www\.)?)?youtube\.com\/watch[?]v=.+/,
   },
   description: 'Capture the YouTube video and all comments.',
-  updated: '2019-06-24T15:09:02',
+  updated: '2019-07-24T15:42:03-04:00',
 };
 
 // playVideoAndLoadComments().then(() => console.log('done'));

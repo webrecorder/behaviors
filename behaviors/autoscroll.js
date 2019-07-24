@@ -35,7 +35,7 @@ export const metadata = {
   defaultBehavior: true,
   description:
     'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
-  updated: '2019-07-10T10:32:26',
+  updated: '2019-07-22T20:26:06-04:00',
 };
 
 export const isBehavior = true;

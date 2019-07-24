@@ -50,7 +50,8 @@
     "generate-test-helper-values": "node ./internal/generateTestHelperValues.js",
     "publish-docs": "gh-pages -d docs",
     "test": "ava --verbose",
-    "format": "prettier --write test/**/*.js lib/**/*.js internal/**/*.js api/**/*.js behaviors/**/*.js"
+    "format": "prettier --write test/**/*.js lib/**/*.js internal/**/*.js api/**/*.js behaviors/**/*.js",
+    "updateBehaviorUpdatedDates": "node ./internal/updateBehaviorUpdatedTimes.js"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.12",

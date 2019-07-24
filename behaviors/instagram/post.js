@@ -61,7 +61,7 @@ export const metadata = {
   },
   description:
     'Capture every image and/or video, retrieve all comments, and scroll down to load more.',
-  updated: '2019-07-15T22:29:05',
+  updated: '2019-07-22T20:26:06-04:00',
 };
 
 export const isBehavior = true;
