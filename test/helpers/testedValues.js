@@ -333,7 +333,7 @@ module.exports = {
   },
   allResult: {
     url: 'http://localhost:3030/info-all',
-    count: 13,
+    count: 12,
     value: {
       defaultBehavior: {
         name: 'autoScrollBehavior',
@@ -354,17 +354,6 @@ module.exports = {
             'Scrolls the page clicking all the images rendered at the current scroll level',
           updated: '2019-06-06T12:55:43',
           fileName: 'deathImitatesLanguageBehavior.js',
-        },
-        pinterestBehavior: {
-          name: 'pinterestBehavior',
-          match: {
-            regex:
-              '^(?:https:\\/\\/(:?www\\.)?)pintrest\\.com\\/[a-zA-Z]+[?].+',
-          },
-          description:
-            'After login, automatically capture all pins on page and scroll down to load more if possible.',
-          updated: '2019-06-24T15:09:02',
-          fileName: 'pinterestBehavior.js',
         },
         slideShareBehavior: {
           name: 'slideShareBehavior',

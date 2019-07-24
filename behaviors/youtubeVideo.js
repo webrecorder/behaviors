@@ -2,7 +2,7 @@ import * as lib from '../lib';
 
 const selectors = {
   videoInfoMoreId: 'more',
-  loadMoreComments: 'div[slot="more-button"] > paper-button',
+  loadMoreComments: '#more-replies > a > paper-button',
   showMoreReplies: 'yt-next-continuation > paper-button',
   commentRenderer: 'ytd-comment-thread-renderer',
   commentsContainerId: 'comments',
@@ -43,6 +43,15 @@ const Reporter = {
       this.state
     );
   },
+  loadedRepliesToComment(times) {
+    return lib.stateWithMsgNoWait(
+      `Loaded additional replies ${times} times to video comment #${this.state.viewedComments}`,
+      this.state
+    );
+  },
+  done() {
+    return lib.stateWithMsgNoWait('Behavior done', this.state);
+  },
 };
 
 async function* handleComment(comment, mStream) {
@@ -52,17 +61,19 @@ async function* handleComment(comment, mStream) {
   const replies = lib.qs(selectors.loadedReplies, comment);
   if (
     replies != null &&
-    lib.selectorExists('#more > div.more-button', comment)
+    lib.selectorExists(selectors.loadMoreComments, comment)
   ) {
     let totalReplies = 0;
     let next;
     const mutationIter = mStream.predicatedStream(
       replies,
       mutationConf,
-      () => loadMoreComments(comment, '#more > div.more-button'),
+      () => loadMoreComments(comment, selectors.loadMoreComments),
       () => !lib.selectorExists(selectors.showMoreReplies, comment)
     );
+    totalReplies += 1;
     next = await mutationIter.next();
+    yield Reporter.loadedRepliesToComment(totalReplies);
     while (!next.done) {
       totalReplies += 1;
       await lib.scrollIntoViewWithDelay(replies.lastChild, 750);
@@ -71,9 +82,7 @@ async function* handleComment(comment, mStream) {
         break;
       }
       next = await mutationIter.next();
-      yield lib.stateWithMsgNoWait(
-        `Viewed reply #${totalReplies} of comment #${totalComments}`
-      );
+      yield Reporter.loadedRepliesToComment(totalReplies);
     }
   }
 }
@@ -94,7 +103,7 @@ export default async function* playVideoAndLoadComments(cliAPI) {
     yield Reporter.loadedInfo();
   }
   await lib.selectAndPlay('video');
-  yield Reporter.loadedInfo();
+  yield Reporter.playedVideo();
   await lib.scrollIntoViewAndWaitFor(
     lib.id(selectors.commentsContainerId),
     () => lib.selectorExists(selectors.commentRenderer)
@@ -111,6 +120,7 @@ export default async function* playVideoAndLoadComments(cliAPI) {
     handleComment,
     mStream
   );
+  return Reporter.done();
 }
 
 export const metadata = {

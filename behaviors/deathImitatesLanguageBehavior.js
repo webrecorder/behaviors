@@ -24,7 +24,7 @@ export default async function* deathImitatesLanguageBehavior(cliAPI) {
     yield lib.stateWithMsgNoWait(`Viewed item`, state);
     child = lib.getElemSibling(child);
   }
-  yield lib.stateWithMsgNoWait('Behavior done', state);
+  return lib.stateWithMsgNoWait('Behavior done', state);
 }
 
 export const metadata = {

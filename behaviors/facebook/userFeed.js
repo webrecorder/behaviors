@@ -115,7 +115,7 @@ export default async function* initFBUserFeedBehaviorIterator(cliAPI) {
       timelineItems = cliAPI.$x(xpathQueries.userTimelineItem);
     }
   } while (timelineItems.length > 0 && lib.canScrollDownMore());
-  yield lib.stateWithMsgNoWait('Behavior done', state);
+  return lib.stateWithMsgNoWait('Behavior done', state);
 }
 
 export const postStep = lib.buildCustomPostStepFn(() => {
