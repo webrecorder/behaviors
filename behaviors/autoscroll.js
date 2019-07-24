@@ -1,7 +1,8 @@
 import * as lib from '../lib';
 
 export default async function* autoScrollBehavior() {
-  yield lib.stateWithMsgNoWait('Beginning scroll');
+  const state = { timesScrolled: 0, timesWaited: 0 };
+  yield lib.stateWithMsgNoWait('Beginning scroll', state);
   const maxScroll = 50;
   const scroller = lib.createScroller();
   await lib.domCompletePromise();
@@ -12,9 +13,10 @@ export default async function* autoScrollBehavior() {
     while (scroller.canScrollDownMore() && localTimesScrolled < maxScroll) {
       scroller.scrollDown();
       if (await lib.findAllMediaElementsAndPlay()) {
-        yield lib.createState(true, 'Played some media');
+        yield lib.stateWithMsgWait('Auto scroll played some media', state);
       }
       localTimesScrolled += 1;
+      state.timesScrolled += localTimesScrolled;
       lib.autoFetchFromDoc();
       // ensure we do not go way way to fast in order to allow
       // time for additional content to be loaded
@@ -22,8 +24,10 @@ export default async function* autoScrollBehavior() {
     }
     lib.autoFetchFromDoc();
     lib.collectOutlinksFromDoc();
-    yield lib.stateWithMsgWait('Waiting for network idle');
+    state.timesWaited += 1;
+    yield lib.stateWithMsgWait('Auto scroll waiting for network idle', state);
   }
+  return lib.stateWithMsgNoWait('Auto scroll finished', state);
 }
 
 export const metadata = {
@@ -31,7 +35,7 @@ export const metadata = {
   defaultBehavior: true,
   description:
     'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
-  updated: '2019-07-10T10:32:26',
+  updated: '2019-07-22T20:26:06-04:00',
 };
 
 export const isBehavior = true;

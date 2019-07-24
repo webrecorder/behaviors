@@ -68,10 +68,10 @@ for (const aTest of tests) {
       json: true,
     });
     const expectedInfo = aTest.metadata;
-    if (response.length === 1) {
-      t.deepEqual(response, [expectedInfo]);
+    if (response.behaviors.length === 1) {
+      t.deepEqual(response.behaviors, [expectedInfo]);
     } else {
-      t.deepEqual(response, [expectedInfo, defaultBMD]);
+      t.deepEqual(response.behaviors, [expectedInfo, defaultBMD]);
     }
   });
 
@@ -84,10 +84,10 @@ for (const aTest of tests) {
       json: true,
     });
     const expectedInfo = aTest.metadata;
-    if (response.length === 1) {
-      t.deepEqual(response, [expectedInfo]);
+    if (response.behaviors.length === 1) {
+      t.deepEqual(response.behaviors, [expectedInfo]);
     } else {
-      t.deepEqual(response, [expectedInfo, defaultBMD]);
+      t.deepEqual(response.behaviors, [expectedInfo, defaultBMD]);
     }
   });
 }

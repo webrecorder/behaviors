@@ -1,7 +1,5 @@
 import * as lib from '../lib';
 
-let totalSlideDecks = 0;
-
 const selectors = {
   iframeLoader: 'iframe.ssIframeLoader',
   nextSlide: 'btnNext',
@@ -12,9 +10,43 @@ const selectors = {
   slideImg: 'img.slide_image',
   relatedDecks: 'div.tab.related-tab',
   moreComments: 'a.j-more-comments',
+  deckTitle: '.slideshowMetaData > a[title]',
 };
 
 const isSlideShelfIF = _if => _if.src.endsWith('/slideshelf');
+
+const Reporter = {
+  state: {
+    slides: 0,
+    decks: 0,
+  },
+  viewingSlideDeck(deckTitle, numSlides) {
+    const specifics = deckTitle ? `"${deckTitle}"` : `#${this.state.decks + 1}`;
+    return lib.stateWithMsgNoWait(
+      `Viewing slide deck ${specifics} with #${numSlides} slides`,
+      this.state
+    );
+  },
+  viewedSlideDeck(deckTitle, numSlides) {
+    const specifics = deckTitle ? `"${deckTitle}"` : `#${this.state.decks + 1}`;
+    this.state.decks += 1;
+    return lib.stateWithMsgNoWait(
+      `Viewed slide deck ${specifics} that had #${numSlides} slides`,
+      this.state
+    );
+  },
+  viewedSlide(deckTitle, totalSlides, slideN) {
+    const specifics = deckTitle ? `"${deckTitle}"` : `#${this.state.decks + 1}`;
+    this.state.slides += 1;
+    return lib.stateWithMsgNoWait(
+      `Viewing slide #${slideN} of #${totalSlides} from deck ${specifics}`,
+      this.state
+    );
+  },
+  done() {
+    return lib.stateWithMsgNoWait('Behavior done: Viewed all slide deck(s)', this.state);
+  },
+};
 
 /**
  * @param {Document | Element} doc
@@ -36,9 +68,8 @@ function extracAndPreserveSlideImgs(doc) {
   const imgs = lib.qsa(selectors.slideImg, doc);
   const len = imgs.length;
   const toFetch = [];
-  let i = 0;
   let imgDset;
-  for (; i < len; ++i) {
+  for (let i = 0; i < len; ++i) {
     imgDset = imgs[i].dataset;
     if (imgDset) {
       toFetch.push(imgDset.full);
@@ -53,27 +84,23 @@ function extracAndPreserveSlideImgs(doc) {
  * @param {Window} win
  * @param {Document} doc
  * @param {string} slideSelector
+ * @param {?string} deckTitle
  * @return {AsyncIterableIterator<*>}
  */
-async function* consumeSlides(win, doc, slideSelector) {
-  totalSlideDecks += 1;
-  yield lib.stateWithMsgNoWait(`Viewing slide deck #${totalSlideDecks}`);
-  extracAndPreserveSlideImgs(doc);
+async function* consumeSlides(win, doc, slideSelector, deckTitle) {
   const numSlides = getNumSlides(doc, slideSelector);
+  yield Reporter.viewingSlideDeck(deckTitle, numSlides);
+  extracAndPreserveSlideImgs(doc);
   for (var i = 0; i < numSlides; ++i) {
     await lib.clickInContextWithDelay(
       lib.id(selectors.nextSlide, doc),
       win,
       500
     );
-    yield lib.stateWithMsgNoWait(
-      `Viewed slide #${i + 1} of deck #${totalSlideDecks}`
-    );
+    yield Reporter.viewedSlide(deckTitle, numSlides, i + 1);
   }
   await lib.clickInContextWithDelay(lib.id(selectors.nextSlide, doc), win);
-  yield lib.stateWithMsgNoWait(
-    `Viewed final slide #${numSlides} of deck #${totalSlideDecks}`
-  );
+  yield Reporter.viewedSlideDeck(deckTitle, numSlides);
 }
 
 /**
@@ -83,6 +110,7 @@ async function* handleSlideDeck() {
   lib.collectOutlinksFromDoc();
   yield* consumeSlides(window, document, selectors.sectionSlide);
   lib.collectOutlinksFromDoc();
+  return Reporter.done();
 }
 
 /**
@@ -91,24 +119,30 @@ async function* handleSlideDeck() {
  * @return {AsyncIterableIterator<*>}
  */
 async function* doSlideShowInFrame(win, doc) {
+  await lib.domCompletePromise();
   const decks = lib.qsa('li', lib.qs(selectors.relatedDecks, doc));
   const numDecks = decks.length;
   const deckIF = lib.qs(selectors.iframeLoader, doc);
   yield* consumeSlides(
     deckIF.contentWindow,
     deckIF.contentDocument,
-    selectors.divSlide
+    selectors.divSlide,
+    lib.attr(lib.qs(selectors.deckTitle, doc), 'title')
   );
-  for (var i = 0; i < numDecks; ++i) {
-    await lib.waitForEventTargetToFireEvent(deckIF, 'load');
+  for (var i = 1; i < numDecks; ++i) {
     lib.addOutlink(decks[i].firstElementChild);
-    lib.clickInContext(decks[i].firstElementChild, win);
+    await Promise.all([
+      lib.clickInContextWithDelay(decks[i].firstElementChild, win),
+      lib.waitForEventTargetToFireEvent(deckIF, 'load')
+    ]);
     yield* consumeSlides(
       deckIF.contentWindow,
       deckIF.contentDocument,
-      selectors.divSlide
+      selectors.divSlide,
+      lib.attr(lib.qs(selectors.deckTitle, doc), 'title')
     );
   }
+  return Reporter.done();
 }
 
 /**
@@ -135,7 +169,7 @@ export const metadata = {
   },
   description:
     'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',
-  updated: '2019-06-24T15:09:02',
+  updated: '2019-07-24T15:42:03-04:00',
 };
 
 export const isBehavior = true;

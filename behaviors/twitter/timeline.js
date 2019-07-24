@@ -60,7 +60,8 @@ async function* handleTweet(tweetLi, { originalBaseURI, reporter }) {
           )
       ),
       shared.createThreadReplyVisitor(
-        `Viewed tweet's (${permalink}) reply or thread part`
+        `Viewed tweet's (${permalink}) reply or thread part`,
+        reporter
       )
     );
   }
@@ -141,6 +142,12 @@ export default function timelineIterator(cliApi) {
       }
       return !shouldSkip;
     },
+    postTraversal(failure) {
+      const msg = failure
+        ? 'Failed to find tweet container, falling back to auto scroll'
+        : 'Behavior finished';
+      return lib.stateWithMsgNoWait(msg, reporter.counts);
+    },
     additionalArgs: {
       xpg: cliApi.$x,
       originalBaseURI: document.baseURI,
@@ -156,7 +163,7 @@ export const metadata = {
   },
   description:
     'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.',
-  updated: '2019-07-10T10:32:26',
+  updated: '2019-07-23T17:13:14-04:00',
 };
 
 export const isBehavior = true;

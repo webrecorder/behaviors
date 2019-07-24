@@ -71,4 +71,4 @@ export const metadata = {
   updated: '2019-06-24T15:09:02',
 };
 
-export const isBehavior = true;
+// export const isBehavior = true;

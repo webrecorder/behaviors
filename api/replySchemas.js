@@ -17,8 +17,17 @@ module.exports = function addSchemas(server) {
     },
   });
   server.addSchema({
-    $id: 'behavior-info-list',
+    $id: 'behavior-list',
     type: 'array',
-    items: { $ref: 'behavior-info#' },
+    items: {
+      $ref: 'behavior-info#'
+    }
+  });
+  server.addSchema({
+    $id: 'behavior-info-list',
+    type: 'object',
+    properties: {
+      behaviors: 'behavior-list#',
+    },
   });
 };

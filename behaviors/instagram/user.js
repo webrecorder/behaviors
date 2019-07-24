@@ -3,7 +3,7 @@ import * as shared from './shared';
 import * as selectors from './selectors';
 import autoScrollBehavior from '../autoscroll';
 
-async function* handlePost(post, { cliAPI, loadingInfo }) {
+async function* handlePost(post, { cliAPI, info }) {
   // open the post (displayed in a separate part of the dom)
   // click the first child of the post div (a tag)
   lib.autoFetchFromDoc();
@@ -14,9 +14,9 @@ async function* handlePost(post, { cliAPI, loadingInfo }) {
   if (!maybeA) {
     // we got nothing halp!!!
     lib.collectOutlinksFrom(post);
-    yield lib.stateWithMsgNoWait('Encountered a non-post');
-    return;
+    return lib.stateWithMsgNoWait('Encountered a non-post', info.state);
   }
+  const postId = shared.postId(maybeA);
   await lib.clickWithDelay(maybeA);
   // wait for the post dialog to open and get a reference to that dom element
   const popupDialog = await lib.waitForAndSelectElement(
@@ -24,10 +24,12 @@ async function* handlePost(post, { cliAPI, loadingInfo }) {
     selectors.userDivDialog
   );
   if (!popupDialog) {
-    yield lib.stateWithMsgNoWait('Failed to open the post for viewing');
-    return;
+    return lib.stateWithMsgNoWait(
+      `Failed to open ${postId} for viewing`,
+      info.state
+    );
   }
-  yield loadingInfo.viewingPost();
+  yield info.viewingPost(postId);
   lib.collectOutlinksFrom(popupDialog);
   // get the next inner div.dialog because its next sibling is the close button
   // until instagram decides to change things
@@ -49,17 +51,21 @@ async function* handlePost(post, { cliAPI, loadingInfo }) {
       multiImgElem: content,
       videoElem: displayDiv,
       viewing: shared.ViewingUser,
+      info,
+      postId,
     });
   } catch (e) {
-    result = lib.stateWithMsgNoWait('An error occurred while handling a post');
+    result = lib.stateWithMsgNoWait(
+      `An error occurred while viewing the contents of the post (${postId})`,
+      info.state
+    );
   }
   yield result;
   const commentList = lib.qs('ul', content);
   if (commentList) {
-    yield* shared.loadAllComments(commentList);
-    yield* lib.traverseChildrenOf(commentList, shared.commentViewer());
+    yield* shared.viewComments({ commentList, info, postId, $x: cliAPI.$x });
   }
-  yield loadingInfo.fullyViewedPost();
+  yield info.fullyViewedPost(postId);
   // The load more comments button, depending on the number of comments,
   // will contain two variations of text (see xpathQ for those two variations).
   // getMoreComments handles getting that button for the two variations
@@ -76,6 +82,7 @@ async function* handlePost(post, { cliAPI, loadingInfo }) {
 }
 
 export default function instagramUserBehavior(cliAPI) {
+  const info = shared.userLoadingInfo();
   let preTraversal;
   // view all stories when logged in
   if (shared.loggedIn(cliAPI.$x)) {
@@ -94,20 +101,19 @@ export default function instagramUserBehavior(cliAPI) {
     }
     if (canViewNormalStories && hasSelectedStories) {
       preTraversal = async function*() {
-        yield* shared.viewStories(profilePic);
-        yield* shared.viewStories(lib.qs(selectors.userOpenStories));
+        yield* shared.viewStories(profilePic, info, true);
+        yield* shared.viewStories(lib.qs(selectors.userOpenStories), info);
       };
     } else if (hasSelectedStories) {
-      preTraversal = () => shared.viewStories(profilePic);
+      preTraversal = () => shared.viewStories(profilePic, info, true);
     } else if (canViewNormalStories) {
       preTraversal = () =>
-        shared.viewStories(lib.qs(selectors.userOpenStories));
+        shared.viewStories(lib.qs(selectors.userOpenStories), info);
     }
   }
-  const loadingInfo = shared.userLoadingInfo();
   return lib.traverseChildrenOfCustom({
     preTraversal,
-    additionalArgs: { cliAPI, loadingInfo },
+    additionalArgs: { cliAPI, info },
     async setup() {
       const parent = lib.chainFistChildElemOf(
         lib.qs(selectors.userPostTopMostContainer),
@@ -127,19 +133,19 @@ export default function instagramUserBehavior(cliAPI) {
     },
     shouldWait(parentElement, currentRow) {
       if (currentRow.nextElementSibling != null) return false;
-      if (loadingInfo) return loadingInfo.hasMorePosts();
+      if (info) return info.hasMorePosts();
       return true;
     },
     wait(parentElement, currentRow) {
       const previousChildCount = parentElement.childElementCount;
       return lib.waitForAdditionalElemChildrenMO(parentElement, {
-        max: loadingInfo.ok ? -1 : lib.secondsToDelayAmount(60),
+        max: info.ok ? -1 : lib.secondsToDelayAmount(60),
         pollRate: lib.secondsToDelayAmount(2.5),
         guard() {
           const childTest =
             previousChildCount !== parentElement.childElementCount;
-          if (!loadingInfo.ok) return childTest;
-          return !loadingInfo.hasMorePosts() || childTest;
+          if (!info.ok) return childTest;
+          return !info.hasMorePosts() || childTest;
         },
       });
     },
@@ -152,6 +158,12 @@ export default function instagramUserBehavior(cliAPI) {
       lib.autoFetchFromDoc();
       return autoScrollBehavior();
     },
+    postTraversal(failure) {
+      const msg = failure
+        ? 'Behavior finished due to failure to find users posts container, reverting to auto scroll'
+        : 'Viewed all posts of the user being viewed';
+      return lib.stateWithMsgNoWait(msg, info.state);
+    },
   });
 }
 
@@ -162,7 +174,7 @@ export const metadata = {
   },
   description:
     'Capture all stories, images, videos and comments on user’s page.',
-  updated: '2019-07-15T22:29:05',
+  updated: '2019-07-22T20:26:06-04:00',
 };
 
 export const isBehavior = true;

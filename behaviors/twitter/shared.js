@@ -1,6 +1,19 @@
 import * as lib from '../../lib';
 import * as selectors from './selectors';
 
+/**
+ * @typedef {Object} Reporter
+ * @property {{threadsOrReplies: number, total: number, viewedFully: number, videos: number}} counts
+ * @property {function(permalink: string): Object} viewingTweetWithRepliesOrInThread
+ * @property {function(msg: string, wait: boolean): Object} viewedTweetWithRepliesOrInThreadParts
+ * @property {function(permalink: string): Object} fullyViewedTweet
+ * @property {function(permalink: string): Object} viewingTweetWithVideo
+ * @property {function(permalink: string): Object} viewingTweet
+ */
+
+/**
+ * @return {Reporter}
+ */
 export function makeReporter() {
   const total = (() => {
     const tweetCountSpan = lib.qs(
@@ -17,19 +30,14 @@ export function makeReporter() {
     counts: {
       total,
       videos: 0,
-      viewed: 0,
       threadsOrReplies: 0,
       viewedFully: 0,
     },
     fullyViewedTweet(permalink) {
       this.counts.viewedFully++;
-      return lib.stateWithMsgNoWait(
-        `Viewed tweet (${permalink})`,
-        this.counts
-      );
+      return lib.stateWithMsgNoWait(`Viewed tweet (${permalink})`, this.counts);
     },
     viewingTweetWithVideo(permalink) {
-      this.counts.viewed++;
       this.counts.videos++;
       return lib.stateWithMsgWait(
         `Viewing tweet (${permalink}) with video`,
@@ -37,8 +45,10 @@ export function makeReporter() {
       );
     },
     viewingTweet(permalink) {
-      this.counts.viewed++;
-      return lib.stateWithMsgNoWait(`Viewing tweet (${permalink})`, this.counts);
+      return lib.stateWithMsgNoWait(
+        `Viewing tweet (${permalink})`,
+        this.counts
+      );
     },
     viewingTweetWithRepliesOrInThread(permalink) {
       this.counts.threadsOrReplies++;
@@ -46,6 +56,9 @@ export function makeReporter() {
         `Viewing tweet (${permalink}) in thread or with replies`,
         this.counts
       );
+    },
+    viewedTweetWithRepliesOrInThreadParts(msg, wait) {
+      return lib.createState(wait, msg, this.counts);
     },
   };
 }
@@ -120,7 +133,13 @@ export async function postOpenTweet(tweetOverlay, timelineVideo) {
   lib.collectOutlinksFrom(tweetOverlay);
 }
 
-export function createThreadReplyVisitor(baseMsg) {
+/**
+ *
+ * @param {string} baseMsg
+ * @param {Reporter} reporter
+ * @return {function(*=): {msg: *, state: *, wait: boolean}}
+ */
+export function createThreadReplyVisitor(baseMsg, reporter) {
   let totalRepliesThreads = 1;
   return async function handleThreadReplyTweets(subTweet) {
     if (isSensitiveTweet(subTweet)) {
@@ -134,7 +153,11 @@ export function createThreadReplyVisitor(baseMsg) {
     if (subTweetVideo) {
       mediaPlayed = await lib.noExceptPlayMediaElement(subTweetVideo);
     }
-    return lib.createState(mediaPlayed, `${baseMsg} #${totalRepliesThreads++}`);
+    return reporter.viewedTweetWithRepliesOrInThreadParts(
+      `${baseMsg} #${totalRepliesThreads++}`,
+      mediaPlayed
+    );
+    // return lib.createState(mediaPlayed, `${baseMsg} #${totalRepliesThreads++}`);
   };
 }
 

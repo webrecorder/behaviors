@@ -12,9 +12,21 @@ export default function instagramOwnFeedBehavior(cliAPI) {
   if (firstPost) {
     postContainer = firstPost.parentElement;
   }
+  const info = {
+    state: {
+      viewed: 0,
+      viewedFully: 0,
+      viewedStories: false,
+    },
+    viewedStories() {
+      return lib.stateWithMsgNoWait('Viewed stories', this.state);
+    },
+  };
   return lib.traverseChildrenOfCustom({
     preTraversal:
-      startStories != null ? () => shared.viewStories(startStories) : null,
+      startStories != null
+        ? () => shared.viewStories(startStories, info)
+        : null,
     parentElement: postContainer,
     loader: true,
     async nextChild(parentElement, currentRow) {
@@ -49,10 +61,13 @@ export default function instagramOwnFeedBehavior(cliAPI) {
           thePost: post,
           multiImgElem: post,
           videoElem: post,
+          info,
+          postId: 'a post'
         });
       } catch (e) {
         result = lib.stateWithMsgNoWait(
-          'An error occurred while handling a post'
+          'An error occurred while handling a post',
+          info.state
         );
       }
       return result;
@@ -62,6 +77,12 @@ export default function instagramOwnFeedBehavior(cliAPI) {
       lib.collectOutlinksFromDoc();
       lib.autoFetchFromDoc();
       return autoScrollBehavior();
+    },
+    postTraversal(failure) {
+      const msg = failure
+        ? 'Behavior finished due to failure to find posts container, reverting to auto scroll'
+        : 'Viewed all posts in the timeline';
+      return lib.stateWithMsgNoWait(msg, info.state);
     },
   });
 }
@@ -73,7 +94,7 @@ export const metadata = {
   },
   description:
     'Capture all stories, images, videos and comments on the logged in users feed.',
-  updated: '2019-07-15T22:29:05',
+  updated: '2019-07-22T20:26:06-04:00',
 };
 
 export const isBehavior = true;

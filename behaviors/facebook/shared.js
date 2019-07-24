@@ -41,6 +41,7 @@ export const xpathQueries = {
     '//a[@role="button" and contains(@class, "UFICommentLink") and not(contains(@class, "wrvistited")) and not(contains(text(), "Write a comment"))]',
   subReplies:
     '//span[contains(@class, "UFIReplySocialSentenceLinkText") and not(contains(@class, "wrvistited")) and contains(text(), "Reply")] | //span[contains(@class, "UFIReplySocialSentenceLinkText") and not(contains(@class, "wrvistited")) and contains(text(), "Replies")]',
+  genericReplies: '//a/div/span[contains(text(), "Replies")]',
 };
 
 // hyperfeed_story_id_5c4f8af9e0bd66660400368

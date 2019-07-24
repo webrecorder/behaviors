@@ -2,7 +2,7 @@ import * as lib from '../lib';
 
 const selectors = {
   videoInfoMoreId: 'more',
-  loadMoreComments: 'div[slot="more-button"] > paper-button',
+  loadMoreComments: '#more-replies > a > paper-button',
   showMoreReplies: 'yt-next-continuation > paper-button',
   commentRenderer: 'ytd-comment-thread-renderer',
   commentsContainerId: 'comments',
@@ -22,27 +22,58 @@ function loadMoreComments(cRenderer, selector) {
   return false;
 }
 
-let totalComments = 0;
+const Reporter = {
+  state: {
+    loadedVideoInfo: false,
+    playedVideo: false,
+    viewedComments: 0,
+  },
+  loadedInfo() {
+    this.state.loadedVideoInfo = true;
+    return lib.stateWithMsgNoWait('Loaded videos info', this.state);
+  },
+  playedVideo() {
+    this.state.playedVideo = true;
+    return lib.stateWithMsgNoWait('Played video', this.state);
+  },
+  viewedComment() {
+    this.state.viewedComments += 1;
+    return lib.stateWithMsgNoWait(
+      `Viewing video comment #${this.state.viewedComments}`,
+      this.state
+    );
+  },
+  loadedRepliesToComment(times) {
+    return lib.stateWithMsgNoWait(
+      `Loaded additional replies ${times} times to video comment #${this.state.viewedComments}`,
+      this.state
+    );
+  },
+  done() {
+    return lib.stateWithMsgNoWait('Behavior done', this.state);
+  },
+};
 
 async function* handleComment(comment, mStream) {
-  totalComments += 1;
   lib.markElemAsVisited(comment);
   await lib.scrollIntoViewWithDelay(comment);
-  yield lib.stateWithMsgNoWait(`Viewing video comment #${totalComments}`);
+  yield Reporter.viewedComment();
   const replies = lib.qs(selectors.loadedReplies, comment);
   if (
     replies != null &&
-    lib.selectorExists('#more > div.more-button', comment)
+    lib.selectorExists(selectors.loadMoreComments, comment)
   ) {
     let totalReplies = 0;
     let next;
     const mutationIter = mStream.predicatedStream(
       replies,
       mutationConf,
-      () => loadMoreComments(comment, '#more > div.more-button'),
+      () => loadMoreComments(comment, selectors.loadMoreComments),
       () => !lib.selectorExists(selectors.showMoreReplies, comment)
     );
+    totalReplies += 1;
     next = await mutationIter.next();
+    yield Reporter.loadedRepliesToComment(totalReplies);
     while (!next.done) {
       totalReplies += 1;
       await lib.scrollIntoViewWithDelay(replies.lastChild, 750);
@@ -51,9 +82,7 @@ async function* handleComment(comment, mStream) {
         break;
       }
       next = await mutationIter.next();
-      yield lib.stateWithMsgNoWait(
-        `Viewed reply #${totalReplies} of comment #${totalComments}`
-      );
+      yield Reporter.loadedRepliesToComment(totalReplies);
     }
   }
 }
@@ -71,10 +100,10 @@ export default async function* playVideoAndLoadComments(cliAPI) {
   if (moreInfo != null) {
     await lib.scrollIntoViewAndClick(moreInfo);
     lib.collectOutlinksFromDoc();
-    yield lib.stateWithMsgNoWait('Loaded videos info');
+    yield Reporter.loadedInfo();
   }
   await lib.selectAndPlay('video');
-  yield lib.stateWithMsgNoWait('Played video');
+  yield Reporter.playedVideo();
   await lib.scrollIntoViewAndWaitFor(
     lib.id(selectors.commentsContainerId),
     () => lib.selectorExists(selectors.commentRenderer)
@@ -91,6 +120,7 @@ export default async function* playVideoAndLoadComments(cliAPI) {
     handleComment,
     mStream
   );
+  return Reporter.done();
 }
 
 export const metadata = {
@@ -99,7 +129,7 @@ export const metadata = {
     regex: /^(?:https:\/\/(?:www\.)?)?youtube\.com\/watch[?]v=.+/,
   },
   description: 'Capture the YouTube video and all comments.',
-  updated: '2019-06-24T15:09:02',
+  updated: '2019-07-24T15:42:03-04:00',
 };
 
 // playVideoAndLoadComments().then(() => console.log('done'));

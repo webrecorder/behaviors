@@ -57,8 +57,9 @@ module.exports = function initRoutes(server, behaviorLookUp) {
         200: 'behavior-info-list#',
       },
     },
-    handler(request, reply) {
-      return behaviorLookUp.infoList(request);
+    async handler(request, reply) {
+      const infoList = await behaviorLookUp.infoList(request);
+      return { behaviors: infoList };
     },
   });
   server.route({
@@ -70,10 +71,7 @@ module.exports = function initRoutes(server, behaviorLookUp) {
           type: 'object',
           properties: {
             defaultBehavior: 'behavior-info#',
-            behaviors: {
-              type: 'array',
-              items: { $ref: 'behavior-info#' },
-            },
+            behaviors: 'behavior-list#',
           },
         },
       },

@@ -44,7 +44,7 @@ async function* handleTweetStreamItem(
   lib.collectOutlinksFrom(tweetStreamLI);
 
   if (lib.hasClass(tweetStreamLI, selectors.userProfileInStream)) {
-    return lib.stateWithMsgNoWait('Encountered a non-tweet');
+    return lib.stateWithMsgNoWait('Encountered a non-tweet', reporter);
   }
   const streamTweetDiv = tweetStreamLI.firstElementChild;
   const tweetContent = lib.qs(selectors.tweetInStreamContent, streamTweetDiv);
@@ -96,7 +96,7 @@ async function* handleTweetStreamItem(
             nextElemSetQS
           )
       ),
-      shared.createThreadReplyVisitor(baseMsg)
+      shared.createThreadReplyVisitor(baseMsg, reporter)
     );
   }
   yield reporter.fullyViewedTweet(permalink);
@@ -147,6 +147,12 @@ export default function hashTagIterator(cliAPI) {
       }
       return !shouldSkip;
     },
+    postTraversal(failure) {
+      const msg = failure
+        ? 'Failed to find tweet container, falling back'
+        : 'Behavior finished';
+      return lib.stateWithMsgNoWait(msg, reporter.counts);
+    },
   });
 }
 
@@ -157,7 +163,7 @@ export const metadata = {
   },
   description:
     'Capture every tweet in hashtag search, including embedded videos, images and replies.',
-  updated: '2019-07-10T10:32:26',
+  updated: '2019-07-23T17:13:14-04:00',
 };
 
 export const isBehavior = true;

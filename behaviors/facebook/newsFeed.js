@@ -32,6 +32,12 @@ export default async function* initFBNewsFeedBehaviorIterator(cliAPI) {
   let i;
   let length;
   let totalFeedItems = 0;
+  let playVideo;
+  const state = {
+    videos: 0,
+    posts: 0,
+  };
+  let wait = false;
   do {
     length = feedItems.length;
     for (i = 0; i < length; i++) {
@@ -43,7 +49,14 @@ export default async function* initFBNewsFeedBehaviorIterator(cliAPI) {
       await lib.scrollToElemOffsetWithDelay(feedItem, scrollDelay);
       lib.markElemAsVisited(feedItem);
       lib.collectOutlinksFrom(feedItem);
-      yield lib.stateWithMsgNoWait(`Viewed feed item ${totalFeedItems}`);
+      playVideo = lib.qs('i > input[aria-label="Play video"]', feedItem);
+      if (playVideo) {
+        wait = true;
+        state.videos++;
+        await lib.clickWithDelay(playVideo);
+      }
+      yield lib.stateWithMsgNoWait(`Viewed feed item ${totalFeedItems}`, state);
+      wait = false;
     }
     feedItems = getFeedItems(xpathQueries.feedItem);
     if (feedItems.length === 0) {
@@ -51,6 +64,7 @@ export default async function* initFBNewsFeedBehaviorIterator(cliAPI) {
       feedItems = getFeedItems(xpathQueries.feedItem);
     }
   } while (feedItems.length > 0 && lib.canScrollDownMore());
+  return lib.stateWithMsgNoWait('Behavior done', state);
 }
 
 let removedAnnoying = lib.maybeRemoveElemById(annoyingElements.pageletGrowthId);
@@ -68,7 +82,7 @@ export const metadata = {
   },
   description:
     'Capture all items and comments in the Facebook timeline and scroll down to load more.',
-  updated: '2019-06-25T16:16:14',
+  updated: '2019-07-24T15:42:03-04:00',
 };
 
 export const isBehavior = true;
