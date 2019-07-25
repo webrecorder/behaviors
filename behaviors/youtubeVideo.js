@@ -91,6 +91,7 @@ async function* handleComment(comment, mStream) {
  * @return {AsyncIterableIterator<*>}
  */
 export default async function* playVideoAndLoadComments(cliAPI) {
+  await lib.domCompletePromise();
   await lib.scrollWindowByWithDelay(0, 500);
   const moreInfo = lib.chainQs(
     document,
@@ -113,13 +114,20 @@ export default async function* playVideoAndLoadComments(cliAPI) {
     lib.addOutLinks(lib.qsa(selectors.outlinks, relatedVideos));
   }
   lib.autoFetchFromDoc();
-  const commentsContainer = lib.qs('#comments > #sections > #contents');
-  const mStream = new lib.MutationStream();
-  yield* lib.traverseChildrenOfLoaderParentRemovingPrevious(
-    commentsContainer,
-    handleComment,
-    mStream
-  );
+  // if comments are disabled for a video we do not want to attempt to view them
+  const commentsDisabled =
+    lib.xpathSnapShot(
+      '//*[@id ="message" and contains(text(), "Comments are disabled for this video")]'
+    ).snapshotLength === 1;
+  if (!commentsDisabled) {
+    const commentsContainer = lib.qs('#comments > #sections > #contents');
+    const mStream = new lib.MutationStream();
+    yield* lib.traverseChildrenOfLoaderParentRemovingPrevious(
+      commentsContainer,
+      handleComment,
+      mStream
+    );
+  }
   return Reporter.done();
 }
 
@@ -129,7 +137,7 @@ export const metadata = {
     regex: /^(?:https:\/\/(?:www\.)?)?youtube\.com\/watch[?]v=.+/,
   },
   description: 'Capture the YouTube video and all comments.',
-  updated: '2019-07-24T15:42:03-04:00',
+  updated: '2019-07-24T20:14:43-04:00',
 };
 
 // playVideoAndLoadComments().then(() => console.log('done'));
