@@ -7,7 +7,7 @@ module.exports = {
         defaultBehavior: true,
         description:
           'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
-        updated: '2019-07-22T20:26:06-04:00',
+        updated: '2019-07-24T20:14:43-04:00',
         fileName: 'autoscrollBehavior.js',
       },
       url: 'https://example.com',
@@ -56,7 +56,7 @@ module.exports = {
         },
         description:
           'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',
-        updated: '2019-07-24T15:42:03-04:00',
+        updated: '2019-07-24T20:14:43-04:00',
         fileName: 'slideShareBehavior.js',
       },
       url:
@@ -81,7 +81,7 @@ module.exports = {
           regex: '^(?:https:\\/\\/(?:www\\.)?)?youtube\\.com\\/watch[?]v=.+',
         },
         description: 'Capture the YouTube video and all comments.',
-        updated: '2019-07-24T15:42:03-04:00',
+        updated: '2019-07-24T20:14:43-04:00',
         fileName: 'youtubeVideoBehavior.js',
       },
       url: 'https://www.youtube.com/watch?v=MfH0oirdHLs',
@@ -327,7 +327,7 @@ module.exports = {
     defaultBehavior: true,
     description:
       'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
-    updated: '2019-07-22T20:26:06-04:00',
+    updated: '2019-07-24T20:14:43-04:00',
     fileName: 'autoscrollBehavior.js',
   },
   allResult: {
@@ -339,7 +339,7 @@ module.exports = {
         defaultBehavior: true,
         description:
           'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
-        updated: '2019-07-22T20:26:06-04:00',
+        updated: '2019-07-24T20:14:43-04:00',
         fileName: 'autoscrollBehavior.js',
       },
       behaviors: {
@@ -361,7 +361,7 @@ module.exports = {
           },
           description:
             'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',
-          updated: '2019-07-24T15:42:03-04:00',
+          updated: '2019-07-24T20:14:43-04:00',
           fileName: 'slideShareBehavior.js',
         },
         youtubeVideoBehavior: {
@@ -370,7 +370,7 @@ module.exports = {
             regex: '^(?:https:\\/\\/(?:www\\.)?)?youtube\\.com\\/watch[?]v=.+',
           },
           description: 'Capture the YouTube video and all comments.',
-          updated: '2019-07-24T15:42:03-04:00',
+          updated: '2019-07-24T20:14:43-04:00',
           fileName: 'youtubeVideoBehavior.js',
         },
         facebookNewsFeed: {
