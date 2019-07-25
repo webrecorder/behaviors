@@ -52,8 +52,7 @@ module.exports = {
       metadata: {
         name: 'slideShareBehavior',
         match: {
-          regex:
-            '^(?:https:\\/\\/(?:www\\.)?)slideshare\\.net\\/[a-zA-Z]+[?].+',
+          regex: '^(?:https:\\/\\/(?:www\\.)?)slideshare\\.net\\/.+',
         },
         description:
           'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',
@@ -358,8 +357,7 @@ module.exports = {
         slideShareBehavior: {
           name: 'slideShareBehavior',
           match: {
-            regex:
-              '^(?:https:\\/\\/(?:www\\.)?)slideshare\\.net\\/[a-zA-Z]+[?].+',
+            regex: '^(?:https:\\/\\/(?:www\\.)?)slideshare\\.net\\/.+',
           },
           description:
             'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',

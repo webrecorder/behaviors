@@ -1,8 +1,13 @@
 import * as lib from '../lib';
 
-export default async function* autoScrollBehavior() {
+export default async function* autoScrollBehavior(init) {
   const state = { timesScrolled: 0, timesWaited: 0 };
-  yield lib.stateWithMsgNoWait('Beginning scroll', state);
+  if (init && typeof init.fallbackMsg === 'string') {
+    // for when we fall back to this behavior
+    yield lib.stateWithMsgNoWait(init.fallbackMsg, state);
+  } else {
+    yield lib.stateWithMsgNoWait('Beginning scroll', state);
+  }
   const maxScroll = 50;
   const scroller = lib.createScroller();
   await lib.domCompletePromise();
@@ -35,7 +40,7 @@ export const metadata = {
   defaultBehavior: true,
   description:
     'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
-  updated: '2019-07-22T20:26:06-04:00',
+  updated: '2019-07-24T20:14:43-04:00',
 };
 
 export const isBehavior = true;

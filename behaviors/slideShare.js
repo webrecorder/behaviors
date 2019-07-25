@@ -1,16 +1,19 @@
 import * as lib from '../lib';
+import autoScrollBehavior from './autoscroll';
 
 const selectors = {
   iframeLoader: 'iframe.ssIframeLoader',
   nextSlide: 'btnNext',
   slideContainer: 'div.slide_container',
-  showingSlide: 'div.slide.show',
+  showingSlide: '.slide.show',
   divSlide: 'div.slide',
   sectionSlide: 'section.slide',
   slideImg: 'img.slide_image',
   relatedDecks: 'div.tab.related-tab',
   moreComments: 'a.j-more-comments',
   deckTitle: '.slideshowMetaData > a[title]',
+  currentSlideNum: 'span#current-slide',
+  totalSlidesNum: 'span#total-slide',
 };
 
 const isSlideShelfIF = _if => _if.src.endsWith('/slideshelf');
@@ -21,6 +24,7 @@ const Reporter = {
     decks: 0,
   },
   viewingSlideDeck(deckTitle, numSlides) {
+    this.state.slides += 1;
     const specifics = deckTitle ? `"${deckTitle}"` : `#${this.state.decks + 1}`;
     return lib.stateWithMsgNoWait(
       `Viewing slide deck ${specifics} with #${numSlides} slides`,
@@ -39,27 +43,17 @@ const Reporter = {
     const specifics = deckTitle ? `"${deckTitle}"` : `#${this.state.decks + 1}`;
     this.state.slides += 1;
     return lib.stateWithMsgNoWait(
-      `Viewing slide #${slideN} of #${totalSlides} from deck ${specifics}`,
+      `Viewing slide ${slideN} of ${totalSlides} from deck ${specifics}`,
       this.state
     );
   },
   done() {
-    return lib.stateWithMsgNoWait('Behavior done: Viewed all slide deck(s)', this.state);
+    return lib.stateWithMsgNoWait(
+      'Behavior done: Viewed all slide deck(s)',
+      this.state
+    );
   },
 };
-
-/**
- * @param {Document | Element} doc
- * @param {string} slideSelector
- * @return {number}
- */
-function getNumSlides(doc, slideSelector) {
-  const slideContainer = lib.qs(selectors.slideContainer, doc);
-  if (slideContainer) {
-    return lib.qsa(slideSelector, doc).length;
-  }
-  return -1;
-}
 
 /**
  * @param {Document} doc
@@ -80,6 +74,40 @@ function extracAndPreserveSlideImgs(doc) {
   lib.sendAutoFetchWorkerURLs(toFetch);
 }
 
+function totalNumberOfSlides(doc, slideSelector) {
+  // attempt to get the total number of slides from the information displayed
+  // in between the previous and next slide buttons
+  const totalSlidesText = (
+    lib.innerTextOfSelected(selectors.totalSlidesNum, doc) || ''
+  ).trim();
+  if (totalSlidesText) {
+    const totalSlides = Number(totalSlidesText);
+    if (!isNaN(totalSlides)) return totalSlides;
+  }
+  // fallback to determining the total number of slides from the rendered
+  // slide sections
+  const slideContainer = lib.qs(selectors.slideContainer, doc);
+  if (slideContainer) {
+    return lib.qsa(slideSelector, doc).length;
+  }
+  return -1;
+}
+
+function startingSlideNumber(doc) {
+  // if the current slide number selector changes check the showing slide
+  let startingSlideText = (
+    lib.innerTextOfSelected(selectors.currentSlideNum, doc) ||
+    lib.innerTextOfSelected(selectors.showingSlide, doc) ||
+    ''
+  ).trim();
+  if (startingSlideText) {
+    const startingSlideNum = Number(startingSlideText);
+    if (!isNaN(startingSlideNum)) return startingSlideNum;
+  }
+  // fallback to starting at 1
+  return 1;
+}
+
 /**
  * @param {Window} win
  * @param {Document} doc
@@ -88,10 +116,13 @@ function extracAndPreserveSlideImgs(doc) {
  * @return {AsyncIterableIterator<*>}
  */
 async function* consumeSlides(win, doc, slideSelector, deckTitle) {
-  const numSlides = getNumSlides(doc, slideSelector);
+  // Note that the slide counter is 1 based and the deck always displays
+  // the first slide (#1) when starting a deck at the beginning.
+  // otherwise we gotta pick up where we are at
+  const numSlides = totalNumberOfSlides(doc, slideSelector);
   yield Reporter.viewingSlideDeck(deckTitle, numSlides);
   extracAndPreserveSlideImgs(doc);
-  for (var i = 0; i < numSlides; ++i) {
+  for (var i = startingSlideNumber(doc); i < numSlides; ++i) {
     await lib.clickInContextWithDelay(
       lib.id(selectors.nextSlide, doc),
       win,
@@ -99,7 +130,6 @@ async function* consumeSlides(win, doc, slideSelector, deckTitle) {
     );
     yield Reporter.viewedSlide(deckTitle, numSlides, i + 1);
   }
-  await lib.clickInContextWithDelay(lib.id(selectors.nextSlide, doc), win);
   yield Reporter.viewedSlideDeck(deckTitle, numSlides);
 }
 
@@ -107,8 +137,14 @@ async function* consumeSlides(win, doc, slideSelector, deckTitle) {
  * @return {AsyncIterableIterator<*>}
  */
 async function* handleSlideDeck() {
+  await lib.domCompletePromise();
   lib.collectOutlinksFromDoc();
-  yield* consumeSlides(window, document, selectors.sectionSlide);
+  yield* consumeSlides(
+    window,
+    document,
+    selectors.sectionSlide,
+    (lib.innerTextOfSelected('.slideshow-title-text') || '').trim()
+  );
   lib.collectOutlinksFromDoc();
   return Reporter.done();
 }
@@ -133,7 +169,7 @@ async function* doSlideShowInFrame(win, doc) {
     lib.addOutlink(decks[i].firstElementChild);
     await Promise.all([
       lib.clickInContextWithDelay(decks[i].firstElementChild, win),
-      lib.waitForEventTargetToFireEvent(deckIF, 'load')
+      lib.waitForEventTargetToFireEvent(deckIF, 'load'),
     ]);
     yield* consumeSlides(
       deckIF.contentWindow,
@@ -158,18 +194,25 @@ export default function init(cliAPI) {
     // have slideself loader in top
     return doSlideShowInFrame(maybeIF.contentWindow, maybeIF.contentDocument);
   }
-  // have slides in top
-  return handleSlideDeck();
+  if (lib.selectorExists(selectors.sectionSlide, document)) {
+    // have slides in top
+    return handleSlideDeck();
+  }
+  // fallback
+  return autoScrollBehavior({
+    fallbackMsg:
+      'There were not slide decks to be viewed, falling back to auto scroll',
+  });
 }
 
 export const metadata = {
   name: 'slideShareBehavior',
   match: {
-    regex: /^(?:https:\/\/(?:www\.)?)slideshare\.net\/[a-zA-Z]+[?].+/,
+    regex: /^(?:https:\/\/(?:www\.)?)slideshare\.net\/.+/,
   },
   description:
     'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',
-  updated: '2019-07-24T15:42:03-04:00',
+  updated: '2019-07-24T20:14:43-04:00',
 };
 
 export const isBehavior = true;
