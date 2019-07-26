@@ -91,7 +91,7 @@ export const metadata = {
   name: 'instagramOwnFeedBehavior',
   displayName: 'Instagram User Feed',
   match: {
-    regex: /^https:\/\/(www\.)?instagram\.com(?:\/)?$/,
+    regex: /^https?:\/\/(www\.)?instagram\.com(?:\/)?$/,
   },
   description:
     'Capture all stories, images, videos and comments on the logged in users feed.',

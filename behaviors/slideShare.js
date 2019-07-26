@@ -209,7 +209,7 @@ export const metadata = {
   name: 'slideShareBehavior',
   displayName: 'SlideShare',
   match: {
-    regex: /^(?:https:\/\/(?:www\.)?)slideshare\.net\/.+/,
+    regex: /^(?:https?:\/\/(?:www\.)?)slideshare\.net\/.+/,
   },
   description:
     'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',

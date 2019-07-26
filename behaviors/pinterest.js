@@ -65,7 +65,7 @@ export const metadata = {
   name: 'pinterestBehavior',
   displayName: 'Pinterest',
   match: {
-    regex: /^(?:https:\/\/(:?www\.)?)pintrest\.com\/[a-zA-Z]+[?].+/,
+    regex: /^(?:https?:\/\/(:?www\.)?)pintrest\.com\/[a-zA-Z]+[?].+/,
   },
   description:
     'After login, automatically capture all pins on page and scroll down to load more if possible.',

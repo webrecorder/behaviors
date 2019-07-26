@@ -160,7 +160,7 @@ export const metadata = {
   name: 'twitterTimelineBehavior',
   displayName: 'Twitter Timeline',
   match: {
-    regex: /^(?:https:[/]{2}(?:www[.])?)?twitter[.]com[/]?(?:[^/]+[/]?)?$/,
+    regex: /^(?:https?:[/]{2}(?:www[.])?)?twitter[.]com[/]?(?:[^/]+[/]?)?$/,
   },
   description:
     'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.',
