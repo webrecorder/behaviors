@@ -63,6 +63,7 @@ export default async function* iteratePins(cliAPI) {
 
 export const metadata = {
   name: 'pinterestBehavior',
+  displayName: 'Pinterest',
   match: {
     regex: /^(?:https:\/\/(:?www\.)?)pintrest\.com\/[a-zA-Z]+[?].+/,
   },
