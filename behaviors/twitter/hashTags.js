@@ -159,7 +159,7 @@ export default function hashTagIterator(cliAPI) {
 export const metadata = {
   name: 'twitterHashTagsBehavior',
   match: {
-    regex: /^(?:https:\/\/(?:www\.)?)?twitter\.com\/hashtag\/[^?]+.*/,
+    regex: /^(?:https?:\/\/(?:www\.)?)?twitter\.com\/hashtag\/[^?]+.*/,
   },
   description:
     'Capture every tweet in hashtag search, including embedded videos, images and replies.',

@@ -90,7 +90,7 @@ export default function instagramOwnFeedBehavior(cliAPI) {
 export const metadata = {
   name: 'instagramOwnFeedBehavior',
   match: {
-    regex: /^https:\/\/(www\.)?instagram\.com(?:\/)?$/,
+    regex: /^https?:\/\/(www\.)?instagram\.com(?:\/)?$/,
   },
   description:
     'Capture all stories, images, videos and comments on the logged in users feed.',

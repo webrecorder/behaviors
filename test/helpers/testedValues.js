@@ -52,7 +52,7 @@ module.exports = {
       metadata: {
         name: 'slideShareBehavior',
         match: {
-          regex: '^(?:https:\\/\\/(?:www\\.)?)slideshare\\.net\\/.+',
+          regex: '^(?:https?:\\/\\/(?:www\\.)?)slideshare\\.net\\/.+',
         },
         description:
           'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',
@@ -78,7 +78,7 @@ module.exports = {
       metadata: {
         name: 'youtubeVideoBehavior',
         match: {
-          regex: '^(?:https:\\/\\/(?:www\\.)?)?youtube\\.com\\/watch[?]v=.+',
+          regex: '^(?:https?:\\/\\/(?:www\\.)?)?youtube\\.com\\/watch[?]v=.+',
         },
         description: 'Capture the YouTube video and all comments.',
         updated: '2019-07-24T20:14:43-04:00',
@@ -102,7 +102,7 @@ module.exports = {
       metadata: {
         name: 'facebookNewsFeed',
         match: {
-          regex: '^https:\\/\\/(www\\.)?facebook\\.com(\\/)?([?]sk=nf)?$',
+          regex: '^https?:\\/\\/(www\\.)?facebook\\.com(\\/)?([?]sk=nf)?$',
         },
         description:
           'Capture all items and comments in the Facebook timeline and scroll down to load more.',
@@ -125,7 +125,7 @@ module.exports = {
       metadata: {
         name: 'facebookUserFeed',
         match: {
-          regex: '^https:\\/\\/(www\\.)?facebook\\.com\\/[^\\/]+\\/?$',
+          regex: '^https?:\\/\\/(www\\.)?facebook\\.com\\/[^\\/]+\\/?$',
         },
         description:
           'Capture all items and comments in the Facebook page and scroll down to load more content where possible.',
@@ -149,7 +149,7 @@ module.exports = {
       metadata: {
         name: 'instagramOwnFeedBehavior',
         match: {
-          regex: '^https:\\/\\/(www\\.)?instagram\\.com(?:\\/)?$',
+          regex: '^https?:\\/\\/(www\\.)?instagram\\.com(?:\\/)?$',
         },
         description:
           'Capture all stories, images, videos and comments on the logged in users feed.',
@@ -173,7 +173,7 @@ module.exports = {
       metadata: {
         name: 'instagramPostBehavior',
         match: {
-          regex: '^https:\\/\\/(www\\.)?instagram\\.com\\/p\\/[^\\/]+(?:\\/)?$',
+          regex: '^https?:\\/\\/(www\\.)?instagram\\.com\\/p\\/[^\\/]+(?:\\/)?$',
         },
         description:
           'Capture every image and/or video, retrieve all comments, and scroll down to load more.',
@@ -199,7 +199,7 @@ module.exports = {
         name: 'instagramUserBehavior',
         match: {
           regex:
-            '^https:\\/\\/(www\\.)?instagram\\.com\\/[^\\/]+(?:\\/(?:[?].+)?(?:tagged(?:\\/)?)?)?$',
+            '^https?:\\/\\/(www\\.)?instagram\\.com\\/[^\\/]+(?:\\/(?:[?].+)?(?:tagged(?:\\/)?)?)?$',
         },
         description:
           'Capture all stories, images, videos and comments on user’s page.',
@@ -225,7 +225,7 @@ module.exports = {
         name: 'soundCloudArtistBehavior',
         match: {
           regex:
-            '^(?:https:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/(?!(?:discover|stream))[^\\/]+(?:\\/(?:tracks|albums|sets|reposts))?(?:\\/)?$',
+            '^(?:https?:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/(?!(?:discover|stream))[^\\/]+(?:\\/(?:tracks|albums|sets|reposts))?(?:\\/)?$',
         },
         description: 'Capture every track on Soundcloud profile.',
         updated: '2019-07-23T19:39:46-04:00',
@@ -249,7 +249,7 @@ module.exports = {
       metadata: {
         name: 'soundCloudEmbedBehavior',
         match: {
-          regex: '^https:\\/\\/w\\.soundcloud\\.com\\/player\\/.+',
+          regex: '^https?:\\/\\/w\\.soundcloud\\.com\\/player\\/.+',
         },
         description: 'Capture every track in the Soundcloud embed.',
         updated: '2019-07-23T17:13:14-04:00',
@@ -275,7 +275,7 @@ module.exports = {
         name: 'twitterHashTagsBehavior',
         match: {
           regex:
-            '^(?:https:\\/\\/(?:www\\.)?)?twitter\\.com\\/hashtag\\/[^?]+.*',
+            '^(?:https?:\\/\\/(?:www\\.)?)?twitter\\.com\\/hashtag\\/[^?]+.*',
         },
         description:
           'Capture every tweet in hashtag search, including embedded videos, images and replies.',
@@ -301,7 +301,7 @@ module.exports = {
         name: 'twitterTimelineBehavior',
         match: {
           regex:
-            '^(?:https:[\\/]{2}(?:www[.])?)?twitter[.]com[\\/]?(?:[^\\/]+[\\/]?)?$',
+            '^(?:https?:[\\/]{2}(?:www[.])?)?twitter[.]com[\\/]?(?:[^\\/]+[\\/]?)?$',
         },
         description:
           'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.',
@@ -357,7 +357,7 @@ module.exports = {
         slideShareBehavior: {
           name: 'slideShareBehavior',
           match: {
-            regex: '^(?:https:\\/\\/(?:www\\.)?)slideshare\\.net\\/.+',
+            regex: '^(?:https?:\\/\\/(?:www\\.)?)slideshare\\.net\\/.+',
           },
           description:
             'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',
@@ -367,7 +367,7 @@ module.exports = {
         youtubeVideoBehavior: {
           name: 'youtubeVideoBehavior',
           match: {
-            regex: '^(?:https:\\/\\/(?:www\\.)?)?youtube\\.com\\/watch[?]v=.+',
+            regex: '^(?:https?:\\/\\/(?:www\\.)?)?youtube\\.com\\/watch[?]v=.+',
           },
           description: 'Capture the YouTube video and all comments.',
           updated: '2019-07-24T20:14:43-04:00',
@@ -376,7 +376,7 @@ module.exports = {
         facebookNewsFeed: {
           name: 'facebookNewsFeed',
           match: {
-            regex: '^https:\\/\\/(www\\.)?facebook\\.com(\\/)?([?]sk=nf)?$',
+            regex: '^https?:\\/\\/(www\\.)?facebook\\.com(\\/)?([?]sk=nf)?$',
           },
           description:
             'Capture all items and comments in the Facebook timeline and scroll down to load more.',
@@ -386,7 +386,7 @@ module.exports = {
         facebookUserFeed: {
           name: 'facebookUserFeed',
           match: {
-            regex: '^https:\\/\\/(www\\.)?facebook\\.com\\/[^\\/]+\\/?$',
+            regex: '^https?:\\/\\/(www\\.)?facebook\\.com\\/[^\\/]+\\/?$',
           },
           description:
             'Capture all items and comments in the Facebook page and scroll down to load more content where possible.',
@@ -396,7 +396,7 @@ module.exports = {
         instagramOwnFeedBehavior: {
           name: 'instagramOwnFeedBehavior',
           match: {
-            regex: '^https:\\/\\/(www\\.)?instagram\\.com(?:\\/)?$',
+            regex: '^https?:\\/\\/(www\\.)?instagram\\.com(?:\\/)?$',
           },
           description:
             'Capture all stories, images, videos and comments on the logged in users feed.',
@@ -407,7 +407,7 @@ module.exports = {
           name: 'instagramPostBehavior',
           match: {
             regex:
-              '^https:\\/\\/(www\\.)?instagram\\.com\\/p\\/[^\\/]+(?:\\/)?$',
+              '^https?:\\/\\/(www\\.)?instagram\\.com\\/p\\/[^\\/]+(?:\\/)?$',
           },
           description:
             'Capture every image and/or video, retrieve all comments, and scroll down to load more.',
@@ -418,7 +418,7 @@ module.exports = {
           name: 'instagramUserBehavior',
           match: {
             regex:
-              '^https:\\/\\/(www\\.)?instagram\\.com\\/[^\\/]+(?:\\/(?:[?].+)?(?:tagged(?:\\/)?)?)?$',
+              '^https?:\\/\\/(www\\.)?instagram\\.com\\/[^\\/]+(?:\\/(?:[?].+)?(?:tagged(?:\\/)?)?)?$',
           },
           description:
             'Capture all stories, images, videos and comments on user’s page.',
@@ -429,7 +429,7 @@ module.exports = {
           name: 'soundCloudArtistBehavior',
           match: {
             regex:
-              '^(?:https:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/(?!(?:discover|stream))[^\\/]+(?:\\/(?:tracks|albums|sets|reposts))?(?:\\/)?$',
+              '^(?:https?:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/(?!(?:discover|stream))[^\\/]+(?:\\/(?:tracks|albums|sets|reposts))?(?:\\/)?$',
           },
           description: 'Capture every track on Soundcloud profile.',
           updated: '2019-07-23T19:39:46-04:00',
@@ -438,7 +438,7 @@ module.exports = {
         soundCloudEmbedBehavior: {
           name: 'soundCloudEmbedBehavior',
           match: {
-            regex: '^https:\\/\\/w\\.soundcloud\\.com\\/player\\/.+',
+            regex: '^https?:\\/\\/w\\.soundcloud\\.com\\/player\\/.+',
           },
           description: 'Capture every track in the Soundcloud embed.',
           updated: '2019-07-23T17:13:14-04:00',
@@ -448,7 +448,7 @@ module.exports = {
           name: 'twitterHashTagsBehavior',
           match: {
             regex:
-              '^(?:https:\\/\\/(?:www\\.)?)?twitter\\.com\\/hashtag\\/[^?]+.*',
+              '^(?:https?:\\/\\/(?:www\\.)?)?twitter\\.com\\/hashtag\\/[^?]+.*',
           },
           description:
             'Capture every tweet in hashtag search, including embedded videos, images and replies.',
@@ -459,7 +459,7 @@ module.exports = {
           name: 'twitterTimelineBehavior',
           match: {
             regex:
-              '^(?:https:[\\/]{2}(?:www[.])?)?twitter[.]com[\\/]?(?:[^\\/]+[\\/]?)?$',
+              '^(?:https?:[\\/]{2}(?:www[.])?)?twitter[.]com[\\/]?(?:[^\\/]+[\\/]?)?$',
           },
           description:
             'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.',

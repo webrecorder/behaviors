@@ -193,7 +193,7 @@ export default async function* visitSoundItems(cliAPI) {
 export const metadata = {
   name: 'soundCloudArtistBehavior',
   match: {
-    regex: /^(?:https:\/\/(?:www\.)?)?soundcloud\.com\/(?!(?:discover|stream))[^/]+(?:\/(?:tracks|albums|sets|reposts))?(?:\/)?$/,
+    regex: /^(?:https?:\/\/(?:www\.)?)?soundcloud\.com\/(?!(?:discover|stream))[^/]+(?:\/(?:tracks|albums|sets|reposts))?(?:\/)?$/,
   },
   description: 'Capture every track on Soundcloud profile.',
   updated: '2019-07-23T19:39:46-04:00',

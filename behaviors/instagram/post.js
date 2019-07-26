@@ -57,7 +57,7 @@ export default async function* instagramPostBehavior(cliAPI) {
 export const metadata = {
   name: 'instagramPostBehavior',
   match: {
-    regex: /^https:\/\/(www\.)?instagram\.com\/p\/[^/]+(?:\/)?$/,
+    regex: /^https?:\/\/(www\.)?instagram\.com\/p\/[^/]+(?:\/)?$/,
   },
   description:
     'Capture every image and/or video, retrieve all comments, and scroll down to load more.',

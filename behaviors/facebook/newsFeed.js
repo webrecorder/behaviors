@@ -78,7 +78,7 @@ export const postStep = lib.buildCustomPostStepFn(() => {
 export const metadata = {
   name: 'facebookNewsFeed',
   match: {
-    regex: /^https:\/\/(www\.)?facebook\.com(\/)?([?]sk=nf)?$/,
+    regex: /^https?:\/\/(www\.)?facebook\.com(\/)?([?]sk=nf)?$/,
   },
   description:
     'Capture all items and comments in the Facebook timeline and scroll down to load more.',
