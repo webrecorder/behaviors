@@ -158,6 +158,7 @@ export default function hashTagIterator(cliAPI) {
 
 export const metadata = {
   name: 'twitterHashTagsBehavior',
+  displayName: 'Twitter Hashtag',
   match: {
     regex: /^(?:https:\/\/(?:www\.)?)?twitter\.com\/hashtag\/[^?]+.*/,
   },

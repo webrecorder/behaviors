@@ -207,6 +207,7 @@ export default function init(cliAPI) {
 
 export const metadata = {
   name: 'slideShareBehavior',
+  displayName: 'SlideShare',
   match: {
     regex: /^(?:https:\/\/(?:www\.)?)slideshare\.net\/.+/,
   },

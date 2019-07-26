@@ -37,6 +37,7 @@ export default async function* autoScrollBehavior(init) {
 
 export const metadata = {
   name: 'autoScrollBehavior',
+  displayName: 'Autoscroll',
   defaultBehavior: true,
   description:
     'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
