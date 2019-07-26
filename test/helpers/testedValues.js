@@ -4,6 +4,7 @@ module.exports = {
       name: 'Autoscroll',
       metadata: {
         name: 'autoScrollBehavior',
+        displayName: 'Autoscroll',
         defaultBehavior: true,
         description:
           'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
@@ -51,6 +52,7 @@ module.exports = {
       name: 'Slideshare',
       metadata: {
         name: 'slideShareBehavior',
+        displayName: 'SlideShare',
         match: {
           regex: '^(?:https?:\\/\\/(?:www\\.)?)slideshare\\.net\\/.+',
         },
@@ -77,6 +79,7 @@ module.exports = {
       name: 'Youtube',
       metadata: {
         name: 'youtubeVideoBehavior',
+        displayName: 'Youtube',
         match: {
           regex: '^(?:https?:\\/\\/(?:www\\.)?)?youtube\\.com\\/watch[?]v=.+',
         },
@@ -101,6 +104,7 @@ module.exports = {
       name: 'Facebook Newsfeed',
       metadata: {
         name: 'facebookNewsFeed',
+        displayName: 'Facebook Timeline',
         match: {
           regex: '^https?:\\/\\/(www\\.)?facebook\\.com(\\/)?([?]sk=nf)?$',
         },
@@ -124,6 +128,7 @@ module.exports = {
       name: 'Facebook Userfeed',
       metadata: {
         name: 'facebookUserFeed',
+        displayName: 'Facebook Page',
         match: {
           regex: '^https?:\\/\\/(www\\.)?facebook\\.com\\/[^\\/]+\\/?$',
         },
@@ -148,6 +153,7 @@ module.exports = {
       name: 'Instagram Own',
       metadata: {
         name: 'instagramOwnFeedBehavior',
+        displayName: 'Instagram User Feed',
         match: {
           regex: '^https?:\\/\\/(www\\.)?instagram\\.com(?:\\/)?$',
         },
@@ -172,8 +178,10 @@ module.exports = {
       name: 'Instagram Post',
       metadata: {
         name: 'instagramPostBehavior',
+        displayName: 'Instagram Post',
         match: {
-          regex: '^https?:\\/\\/(www\\.)?instagram\\.com\\/p\\/[^\\/]+(?:\\/)?$',
+          regex:
+            '^https?:\\/\\/(www\\.)?instagram\\.com\\/p\\/[^\\/]+(?:\\/)?$',
         },
         description:
           'Capture every image and/or video, retrieve all comments, and scroll down to load more.',
@@ -197,6 +205,7 @@ module.exports = {
       name: 'Instagram User',
       metadata: {
         name: 'instagramUserBehavior',
+        displayName: 'Instagram User Page',
         match: {
           regex:
             '^https?:\\/\\/(www\\.)?instagram\\.com\\/[^\\/]+(?:\\/(?:[?].+)?(?:tagged(?:\\/)?)?)?$',
@@ -223,6 +232,7 @@ module.exports = {
       name: 'Soundcloud Artist',
       metadata: {
         name: 'soundCloudArtistBehavior',
+        displayName: 'Soundcloud Profile',
         match: {
           regex:
             '^(?:https?:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/(?!(?:discover|stream))[^\\/]+(?:\\/(?:tracks|albums|sets|reposts))?(?:\\/)?$',
@@ -248,6 +258,7 @@ module.exports = {
       name: 'Soundcloud Embed',
       metadata: {
         name: 'soundCloudEmbedBehavior',
+        displayName: 'Soundcloud Embed',
         match: {
           regex: '^https?:\\/\\/w\\.soundcloud\\.com\\/player\\/.+',
         },
@@ -273,6 +284,7 @@ module.exports = {
       name: 'Twitter Hashtags',
       metadata: {
         name: 'twitterHashTagsBehavior',
+        displayName: 'Twitter Hashtag',
         match: {
           regex:
             '^(?:https?:\\/\\/(?:www\\.)?)?twitter\\.com\\/hashtag\\/[^?]+.*',
@@ -299,6 +311,7 @@ module.exports = {
       name: 'Twitter Timeline',
       metadata: {
         name: 'twitterTimelineBehavior',
+        displayName: 'Twitter Timeline',
         match: {
           regex:
             '^(?:https?:[\\/]{2}(?:www[.])?)?twitter[.]com[\\/]?(?:[^\\/]+[\\/]?)?$',
@@ -324,6 +337,7 @@ module.exports = {
   ],
   defaultBMD: {
     name: 'autoScrollBehavior',
+    displayName: 'Autoscroll',
     defaultBehavior: true,
     description:
       'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
@@ -336,6 +350,7 @@ module.exports = {
     value: {
       defaultBehavior: {
         name: 'autoScrollBehavior',
+        displayName: 'Autoscroll',
         defaultBehavior: true,
         description:
           'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
@@ -356,6 +371,7 @@ module.exports = {
         },
         slideShareBehavior: {
           name: 'slideShareBehavior',
+          displayName: 'SlideShare',
           match: {
             regex: '^(?:https?:\\/\\/(?:www\\.)?)slideshare\\.net\\/.+',
           },
@@ -366,6 +382,7 @@ module.exports = {
         },
         youtubeVideoBehavior: {
           name: 'youtubeVideoBehavior',
+          displayName: 'Youtube',
           match: {
             regex: '^(?:https?:\\/\\/(?:www\\.)?)?youtube\\.com\\/watch[?]v=.+',
           },
@@ -375,6 +392,7 @@ module.exports = {
         },
         facebookNewsFeed: {
           name: 'facebookNewsFeed',
+          displayName: 'Facebook Timeline',
           match: {
             regex: '^https?:\\/\\/(www\\.)?facebook\\.com(\\/)?([?]sk=nf)?$',
           },
@@ -385,6 +403,7 @@ module.exports = {
         },
         facebookUserFeed: {
           name: 'facebookUserFeed',
+          displayName: 'Facebook Page',
           match: {
             regex: '^https?:\\/\\/(www\\.)?facebook\\.com\\/[^\\/]+\\/?$',
           },
@@ -395,6 +414,7 @@ module.exports = {
         },
         instagramOwnFeedBehavior: {
           name: 'instagramOwnFeedBehavior',
+          displayName: 'Instagram User Feed',
           match: {
             regex: '^https?:\\/\\/(www\\.)?instagram\\.com(?:\\/)?$',
           },
@@ -405,6 +425,7 @@ module.exports = {
         },
         instagramPostBehavior: {
           name: 'instagramPostBehavior',
+          displayName: 'Instagram Post',
           match: {
             regex:
               '^https?:\\/\\/(www\\.)?instagram\\.com\\/p\\/[^\\/]+(?:\\/)?$',
@@ -416,6 +437,7 @@ module.exports = {
         },
         instagramUserBehavior: {
           name: 'instagramUserBehavior',
+          displayName: 'Instagram User Page',
           match: {
             regex:
               '^https?:\\/\\/(www\\.)?instagram\\.com\\/[^\\/]+(?:\\/(?:[?].+)?(?:tagged(?:\\/)?)?)?$',
@@ -427,6 +449,7 @@ module.exports = {
         },
         soundCloudArtistBehavior: {
           name: 'soundCloudArtistBehavior',
+          displayName: 'Soundcloud Profile',
           match: {
             regex:
               '^(?:https?:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/(?!(?:discover|stream))[^\\/]+(?:\\/(?:tracks|albums|sets|reposts))?(?:\\/)?$',
@@ -437,6 +460,7 @@ module.exports = {
         },
         soundCloudEmbedBehavior: {
           name: 'soundCloudEmbedBehavior',
+          displayName: 'Soundcloud Embed',
           match: {
             regex: '^https?:\\/\\/w\\.soundcloud\\.com\\/player\\/.+',
           },
@@ -446,6 +470,7 @@ module.exports = {
         },
         twitterHashTagsBehavior: {
           name: 'twitterHashTagsBehavior',
+          displayName: 'Twitter Hashtag',
           match: {
             regex:
               '^(?:https?:\\/\\/(?:www\\.)?)?twitter\\.com\\/hashtag\\/[^?]+.*',
@@ -457,6 +482,7 @@ module.exports = {
         },
         twitterTimelineBehavior: {
           name: 'twitterTimelineBehavior',
+          displayName: 'Twitter Timeline',
           match: {
             regex:
               '^(?:https?:[\\/]{2}(?:www[.])?)?twitter[.]com[\\/]?(?:[^\\/]+[\\/]?)?$',
