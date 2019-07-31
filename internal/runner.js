@@ -137,10 +137,17 @@ async function autorun({ browser, stopEE, runConfig }) {
     ColorPrinter.info(`Console msg: ${msg.text()}`);
     ColorPrinter.blankLine();
   });
-
-  const runnerHandle = await page.evaluateHandle(() => $WBBehaviorRunner$);
+  let pageClosedUnexpectidly = false;
   let run = true;
   let to;
+
+  page.on(Events.Page.Close, () => {
+    run = false;
+    pageClosedUnexpectidly = true;
+    console.log(ColorPrinter.chalk.redBright('Page closed unexpectedly'));
+  });
+
+  const runnerHandle = await page.evaluateHandle(() => $WBBehaviorRunner$);
 
   if (runConfig.timeout) {
     to = setTimeout(() => {
@@ -171,10 +178,12 @@ async function autorun({ browser, stopEE, runConfig }) {
     console.log(e);
   }
   if (to) clearTimeout(to);
-  await runnerHandle.dispose();
   if (runConfig.openDevTools) await delay(6000);
-  await page.close({ runBeforeUnload: true });
   page.removeAllListeners();
+  if (!pageClosedUnexpectidly) {
+    await runnerHandle.dispose();
+    await page.close({ runBeforeUnload: true });
+  }
 }
 
 async function launchBrowser(runConfig) {

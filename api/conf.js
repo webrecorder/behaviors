@@ -182,7 +182,7 @@ program
     getDefaultBuildBehaviorsFlag()
   )
   .option(
-    '-w, --workers [_numWorkers]',
+    '-w, --workers [numWorkers]',
     'How many behavior lookup workers should be spawned',
     ensureNumWorkers,
     defaultNumWorkers()

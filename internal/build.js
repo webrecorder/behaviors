@@ -83,11 +83,8 @@ initRunnableBehavior({ win: window, ${init}, metadata: ${behavior.rawMetadata} }
  * @return {Promise<string>}
  */
 async function resolveWhatPath(opts, operation) {
-  let exists;
-
   if (Utils.isBoolean(opts.what)) {
-    exists = await fs.pathExists(opts.behaviorDir);
-    if (!exists) {
+    if (!(await fs.pathExists(opts.behaviorDir))) {
       throw new Error(
         `${operation} failed because the behavior directory does not exist: ${opts.behaviorDir}`
       );
@@ -96,8 +93,7 @@ async function resolveWhatPath(opts, operation) {
   }
 
   if (Path.isAbsolute(opts.what)) {
-    exists = await fs.pathExists(opts.what);
-    if (!exists) {
+    if (!(await fs.pathExists(opts.what))) {
       throw new Error(
         `${operation} failed because the behavior(s) path ${opts.what} does not exist`
       );
@@ -106,27 +102,24 @@ async function resolveWhatPath(opts, operation) {
   }
 
   const relResolvedWhat = Path.resolve(opts.what);
-  exists = await fs.pathExists(relResolvedWhat);
-  if (exists) return relResolvedWhat;
+  if (await fs.pathExists(relResolvedWhat)) return relResolvedWhat;
 
   const behaviorDirPlusWhat = Path.join(opts.behaviorDir, opts.what);
-  exists = await fs.pathExists(behaviorDirPlusWhat);
-  if (exists) return behaviorDirPlusWhat;
+  if (await fs.pathExists(behaviorDirPlusWhat)) return behaviorDirPlusWhat;
 
   const cwdPlusWhat = Path.join(process.cwd(), opts.what);
-  exists = await fs.pathExists(cwdPlusWhat);
-  if (exists) return cwdPlusWhat;
+  if (await fs.pathExists(cwdPlusWhat)) return cwdPlusWhat;
 
   const behaviorDirPlusRelResolvedWhat = Path.join(
     opts.behaviorDir,
     relResolvedWhat
   );
-  exists = await fs.pathExists(behaviorDirPlusRelResolvedWhat);
-  if (exists) return behaviorDirPlusRelResolvedWhat;
+  if (await fs.pathExists(behaviorDirPlusRelResolvedWhat))
+    return behaviorDirPlusRelResolvedWhat;
 
   const cwdPlusRelResolvedWhat = Path.join(process.cwd(), relResolvedWhat);
-  exists = await fs.pathExists(cwdPlusRelResolvedWhat);
-  if (exists) return cwdPlusRelResolvedWhat;
+  if (await fs.pathExists(cwdPlusRelResolvedWhat))
+    return cwdPlusRelResolvedWhat;
 
   throw new Error(
     Utils.joinStrings(
@@ -218,10 +211,10 @@ async function createRunnerConfig(opts) {
  * @return {Promise<Array<Behavior>>}
  */
 async function createRunnableBehaviorsFromDir(opts, dirPath) {
-  const project = new Project({ tsConfigFilePath: opts.tsConfigFilePath });
   ColorPrinter.info(
     `Creating runnable behaviors for all behaviors found in the directory located at ${dirPath}`
   );
+  const project = new Project({ tsConfigFilePath: opts.tsConfigFilePath });
   ColorPrinter.blankLine();
   const finalOpts = Object.assign(
     {
@@ -242,7 +235,7 @@ async function createRunnableBehaviorsFromDir(opts, dirPath) {
   );
   ColorPrinter.blankLine();
   const createBuildStartTime = process.hrtime();
-  for (var i = 0; i < behaviors.length; ++i) {
+  for (var i = 0; i < numBehaviors; ++i) {
     await createRunnableBehavior(behaviors[i], finalOpts);
     updateBehaviorMetadata(behaviors[i], behaviorMetadata);
     ColorPrinter.blankLine();
@@ -309,7 +302,7 @@ async function createRunnableBehaviors(opts) {
  * Creates a runnable behavior for the supplied behavior
  * @param {Behavior} behavior - The behavior to create a runnable file for
  * @param {Config} opts - The behavior config
- * @return {Promise<{ buildFileName: string, runnableDistPath: string }>}
+ * @return {Promise<{buildFileName: string, runnableDistPath: string}|null>}
  */
 async function createRunnableBehavior(behavior, opts) {
   const startTime = process.hrtime();
@@ -356,7 +349,7 @@ async function createRunnableBehavior(behavior, opts) {
 async function watch(config) {
   let watcher;
   const resolvedWhat = await buildingWhat(
-    opts,
+    config,
     'Watching behaviors for changes'
   );
   if (resolvedWhat.isDir) {

@@ -1,6 +1,6 @@
 buildConfig: ./behavior-config.yml
-behavior: ./behaviors/soundcloud/artist.js
-url: 'https://soundcloud.com/kot_68/tracks'
+behavior: ./behaviors/twitter/newTwitterTimeline.js
+url: 'https://twitter.com/webrecorder_io'
 
 # path to chrome executable or command
 # chromeEXE: google-chrome-unstable
