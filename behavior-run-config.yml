@@ -1,6 +1,6 @@
 buildConfig: ./behavior-config.yml
 behavior: ./behaviors/twitter/newTwitterTimeline.js
-url: 'https://twitter.com/webrecorder_io'
+url: 'https://twitter.com/IlyaKreymer'
 
 # path to chrome executable or command
 # chromeEXE: google-chrome-unstable
