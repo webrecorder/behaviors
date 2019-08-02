@@ -564,7 +564,7 @@ async function* viewMainTimelineTweet(tweetInfo, tlLocation) {
   yield Reporter.viewedMsg(`Viewed tweet by ${tInfo.byInfo}`);
 }
 
-export default async function* newTwitterTimeline(cliApi) {
+export async function* newTwitterTimeline(cliApi) {
   await lib.domCompletePromise();
   const info = initInfo();
   Reporter.state.totalTweets = info.numTweets;
@@ -653,4 +653,4 @@ export const metadata = {
   updated: '2019-07-23T17:13:14-04:00',
 };
 
-export const isBehavior = true;
+// export const isBehavior = true;
