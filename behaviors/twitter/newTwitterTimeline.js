@@ -136,22 +136,6 @@ main[role="main"].class > div.class
     div[data-testid="sidebarColumn"].class
  */
 
-const mainRoleMain = 'main[role="main"]';
-const ProfileTimelineNav =
-  'nav[aria-label="profile timelines" i][role="navigation"]';
-export const TimelineStart = 'div[aria-label*="Timeline: "]';
-const TweetHeading = 'h2[role="heading"]';
-const WhoToFollowHeaderText = 'who to follow';
-const PromotedTweetHeaderText = 'promoted tweet';
-const ShowThisThreadText = 'show this thread';
-const H2ElemName = 'h2';
-const TweetConvoThreadTimelineStart =
-  'div[aria-label="timeline: conversation" i]';
-const BackToPreviousTimelinePart = 'div[aria-label="Back"][role="button"]';
-const repliesElem = 'div[aria-label*="reply" i][role="button"]';
-const likesElem = 'div[aria-label*="like" i][role="button"]';
-const rewteetsElem = 'div[aria-label*="retweet" i][role="button"]';
-const ImagePopupCloser = 'div[aria-label="close" i][role="button"]';
 const StatusExtractorRE = /(\/[^/]+\/status\/.+)/;
 
 const TwitterTimelineTypes = {
@@ -173,14 +157,14 @@ const WalkEndedReasons = {
 };
 
 function initInfo() {
-  const timelineStart = lib.qs(TimelineStart);
+  const timelineStart = lib.qs(selectors.TimelineStart);
   const whoesTweets = lib.elemInnerText(
     lib.firstChildElemOfParent(timelineStart),
     true
   );
   const betterTimelineStartSelector = timelineStart
     ? `div[aria-label="${lib.attr(timelineStart, 'aria-label')}"]`
-    : TimelineStart;
+    : selectors.TimelineStart;
   const info = {
     ownTL: true,
     numTweets: -1,
@@ -190,16 +174,18 @@ function initInfo() {
   };
   if (!whoesTweets.includes('Your')) {
     info.ownTL = false;
+    const primaryColumn = lib.qs(selectors.PrimaryColumn);
     const whoElem = lib.qs(
-      'h2',
-      lib.getElemsParentsSibling(lib.qs(BackToPreviousTimelinePart))
+      selectors.ViewingWhatHeader,
+      primaryColumn // lib.getElemsParentsSibling(lib.qs(selectors.BackToPreviousTimelinePart))
     );
     info.whom = lib.elemInnerText(whoElem, true);
     // h2 > whoesTlDiv;
     // div > text([0-9]+ Tweets)
     const howManyTweets = lib.elemInnerText(lib.getElemSibling(whoElem), true);
     info.numTweets =
-      (howManyTweets && Number(howManyTweets.split(' ')[0])) || -1;
+      (howManyTweets && howManyTweets.split(' ')[0]) ||
+      'Unknown number of tweets';
   }
   return info;
 }
@@ -224,32 +210,38 @@ function determineTimelineItemType(tweetContainer) {
 
   // check for the cases when the current timeline item is a promoted tweet
   // or twitter indicating to the user it is about to suggest users to follow
-  const maybeHeading = lib.qs(TweetHeading, tweetContainer);
+  const maybeHeading = lib.qs(selectors.TweetHeading, tweetContainer);
   if (maybeHeading) {
     if (
       lib.elemInnerTextEqsInsensitive(
         maybeHeading,
-        PromotedTweetHeaderText,
+        selectors.PromotedTweetHeaderText,
         true
       )
     ) {
       return TwitterTimelineTypes.promotedTweet;
     }
     if (
-      lib.elemInnerTextEqsInsensitive(maybeHeading, WhoToFollowHeaderText, true)
+      lib.elemInnerTextEqsInsensitive(
+        maybeHeading,
+        selectors.WhoToFollowHeaderText,
+        true
+      )
     ) {
       return TwitterTimelineTypes.whoToFollowHeading;
     }
   }
 
-  const secondChild = tweetContainer.firstElementChild.firstElementChild;
   // quick check for third child being an article and thus a tweet
   if (
-    secondChild.firstElementChild &&
-    secondChild.firstElementChild.localName === 'article'
+    lib.selectorExists(
+      selectors.TestIdTweetDiv,
+      lib.qs('article', tweetContainer)
+    )
   ) {
     return TwitterTimelineTypes.tweet;
   }
+  const secondChild = tweetContainer.firstElementChild.firstElementChild;
   // check for either a use to be followed or the show more users to follow link
   if (
     lib.elemMatchesSelector(secondChild, 'div[role="button"]') &&
@@ -310,6 +302,30 @@ function getLikeReplyReTweetsNum(elem, selector) {
   return 0;
 }
 
+function isPrimaryViewedTweetInSubTimeline(tweetOrContainer) {
+  return lib.elemDataValueEqs(
+    lib.elementsNameEquals(tweetOrContainer, 'article')
+      ? tweetOrContainer
+      : lib.qs('article', tweetOrContainer),
+    'testid',
+    'tweetDetail'
+  );
+}
+
+function findTweetImage(container) {
+  // explicitly labeled as an image
+  let tweetImg = lib.qs('div[aria-label="image" i]', container);
+  if (tweetImg) return tweetImg;
+  // no clue what twitter might put in its tweets but if there is an alt on
+  // the image and the last check failed the images direct parent
+  // has its aria-label set to the images alt
+  let img = lib.qs('img[alt]', container);
+  if (img && lib.attrEq(img.parentElement, 'aria-label', img.alt)) {
+    return img;
+  }
+  return null;
+}
+
 /**
  *
  * @param {Element} tweetContainer
@@ -343,7 +359,7 @@ function extractTweetInfo(tweetContainer, subTl) {
 
   if (subTl) {
     // look for indicator that we are viewing the primary tweet in a reply chain or thread
-    if (lib.elemDataValue(tinfo.body, 'testid') === 'tweetDetail') {
+    if (isPrimaryViewedTweetInSubTimeline(tinfo.body)) {
       tinfo.primarySubTlTweet = true;
       tinfo.quotedTweet = lib.qs('div[role="blockquote"]', tinfo.body);
     }
@@ -364,13 +380,16 @@ function extractTweetInfo(tweetContainer, subTl) {
     };
   }
   // view tweet images when viewing some tweet in the main or sub timeline
-  tinfo.tweetImg = lib.qs('div[aria-label="image" i]', tinfo.body);
+  tinfo.tweetImg = findTweetImage(tinfo.body);
 
   const isSubTlAndPrimarySub = subTl && tinfo.primarySubTlTweet;
   if (!subTl || !isSubTlAndPrimarySub) {
-    tinfo.replies = getLikeReplyReTweetsNum(tinfo.body, repliesElem);
-    tinfo.likes = getLikeReplyReTweetsNum(tinfo.body, likesElem);
-    tinfo.retweets = getLikeReplyReTweetsNum(tinfo.body, rewteetsElem);
+    tinfo.replies = getLikeReplyReTweetsNum(tinfo.body, selectors.RepliesElem);
+    tinfo.likes = getLikeReplyReTweetsNum(tinfo.body, selectors.LikesElem);
+    tinfo.retweets = getLikeReplyReTweetsNum(
+      tinfo.body,
+      selectors.RewteetsElem
+    );
   }
 
   // tweet by information
@@ -396,9 +415,18 @@ function extractTweetInfo(tweetContainer, subTl) {
   return tinfo;
 }
 
-function getConvoRoot() {
-  const tweetConvoStart = lib.qs(TweetConvoThreadTimelineStart);
-  return lib.chainFistChildElemOf(tweetConvoStart, 2);
+function subTimelineRoot() {
+  const timelineStart = lib.qs(selectors.SubTimelineConversationStart);
+  return lib.chainFistChildElemOf(timelineStart, 2);
+}
+
+/**
+ *
+ * @return {?string}
+ */
+function subTimelineFor() {
+  const timelineStart = lib.qs(selectors.SubTimelineConversationStart);
+  return lib.elemInnerText(timelineStart.previousElementSibling);
 }
 
 function findCovoPartChildNum(convoRoot, convoPart) {
@@ -425,14 +453,16 @@ function refindConvoPositionByIdx(convoRoot, prevIdx) {
 
 async function subTimelineBack() {
   const curLoc = lib.browserLocation();
-  const backDivButton = lib.qs(BackToPreviousTimelinePart);
+  const backDivButton = lib.qs(selectors.BackToPreviousTimelinePart);
   if (backDivButton) {
     const results = await lib.clickAndWaitForHistoryChange(backDivButton);
-    if (results.ok) return;
+    if (results.ok) {
+      return waitUntilSubTimelineLoaded(true);
+    }
   }
   history.go(-1);
   await lib.waitForHistoryManipToChangeLocation(curLoc);
-  await lib.delay(1500);
+  await waitUntilSubTimelineLoaded(true);
 }
 
 async function gobackTo(toURL) {
@@ -495,15 +525,67 @@ const Reporter = {
   },
 };
 
-async function* viewMainTimelineTweet(tweetInfo, tlLocation) {
+async function waitForTwitterProgressBarToGoAway(selectFrom) {
+  const progressBar = lib.qs(selectors.ProgressBar, selectFrom);
+  if (progressBar) {
+    await lib.waitUntilElementIsRemovedFromDom(progressBar);
+    return true;
+  }
+  return false;
+}
+
+async function waitUntilSubTimelineLoaded(noDefaultDelay) {
+  const wasProgressBar = await waitForTwitterProgressBarToGoAway();
+  if (wasProgressBar && noDefaultDelay) return;
   await lib.delay(1500);
-  let currentSubTlRoot = getConvoRoot();
+}
+
+const MoreRepliesRe = /more\srepl(y|ies)/i;
+
+async function* waitForImageLoaded(imageModal) {
+  yield lib.stateWithMsgNoWait(
+    'Waiting for tweet image(s) to load',
+    Reporter.state
+  );
+  const delayTime = 1500;
+  let times = 0;
+  while (true) {
+    const imageProgress = lib.qs(selectors.ImageProgressBar, imageModal);
+    if (
+      !imageProgress ||
+      !imageProgress.isConnected ||
+      !imageModal.isConnected
+    ) {
+      break;
+    }
+    await lib.delay(delayTime);
+    yield lib.stateWithMsgNoWait(
+      `Tweet image(s) still not loaded after ${(delayTime * ++times) / 1000} seconds`,
+      Reporter.state
+    );
+  }
+  yield lib.stateWithMsgNoWait('Tweets image(s) have loaded', Reporter.state);
+}
+
+async function* viewMainTimelineTweet(tweetInfo, tlLocation) {
+  await waitUntilSubTimelineLoaded();
+  let currentSubTlRoot = subTimelineRoot();
   if (!currentSubTlRoot) {
     await gobackTo(tlLocation);
     yield Reporter.msgWithState(`Failed to view tweet by ${tweetInfo.byInfo}`);
     return;
   }
   let currentSubTlPart = currentSubTlRoot.firstElementChild;
+  // TODO(N0taN3rd): ensure we start from viewed tweet in a thread or convo
+  // if (isPrimaryViewedTweetInSubTimeline(currentSubTlRoot.firstElementChild)) {
+  //   currentSubTlPart = currentSubTlRoot.firstElementChild;
+  // } else {
+  //   currentSubTlPart =
+  //     lib.findDirectChildElement(
+  //       currentSubTlRoot,
+  //       isPrimaryViewedTweetInSubTimeline
+  //     ) || currentSubTlRoot.firstElementChild;
+  // }
   let tInfo;
   while (currentSubTlPart != null) {
     tInfo = extractTweetInfo(currentSubTlPart, true);
@@ -523,9 +605,25 @@ async function* viewMainTimelineTweet(tweetInfo, tlLocation) {
         );
         if (imageViewingResults.clicked) {
           if (imageViewingResults.historyChanged) {
-            yield Reporter.msgWithState(`Viewing an tweets image`);
-            await lib.delay(1500);
-            const closeDiv = lib.qs(ImagePopupCloser);
+            yield Reporter.msgWithState(
+              `Viewing tweet image - ${tInfo.byInfo}`
+            );
+            const imageModal = lib.qs(selectors.ImageModalRoot);
+            let imageNext = null;
+            do {
+              if (lib.selectorExists(selectors.ImageProgressBar, imageModal)) {
+                yield* waitForImageLoaded(imageModal);
+              }
+              imageNext = lib.qs(selectors.NextImage, imageModal);
+              if (imageNext != null) {
+                yield Reporter.msgWithState(
+                  `Viewing next tweet image - ${tInfo.byInfo}`
+                );
+                await lib.clickAndWaitForHistoryChange(imageNext);
+              }
+            } while (imageNext != null);
+
+            const closeDiv = lib.qs(selectors.ImagePopupCloser);
             const closeResults = await lib.clickAndWaitForHistoryChange(
               closeDiv
             );
@@ -545,15 +643,35 @@ async function* viewMainTimelineTweet(tweetInfo, tlLocation) {
         const viewQuotedResults = await lib.clickAndWaitForHistoryChange(
           tInfo.quotedTweet
         );
+        await waitUntilSubTimelineLoaded();
         if (viewQuotedResults.clicked) {
           if (viewQuotedResults.historyChanged) {
             yield Reporter.msgWithState('Viewed quoted tweet');
-            await lib.delay(1500);
             await subTimelineBack();
           }
         }
-        currentSubTlRoot = getConvoRoot();
+        currentSubTlRoot = subTimelineRoot();
         currentSubTlPart = refindConvoPositionByIdx(currentSubTlRoot, convoPos);
+      }
+    } else {
+      const viewMoreReplies = lib.qs(
+        'div[aria-haspopup="false"][role="button"]',
+        currentSubTlPart
+      );
+      if (
+        viewMoreReplies &&
+        lib.elemInnerTextMatchesRegex(viewMoreReplies, MoreRepliesRe)
+      ) {
+        yield Reporter.msgWithState('Loading more replies');
+        // the more replies "button" is replaced with the reply in-place
+        // for swapping it with the current timeline item
+        // due to this we need to hold onto the previous timeline item
+        const lastTLItem = currentSubTlPart.previousElementSibling;
+        lib.click(viewMoreReplies);
+        await waitForTwitterProgressBarToGoAway(currentSubTlRoot);
+        if (!currentSubTlPart.isConnected && lastTLItem.isConnected) {
+          currentSubTlPart = lastTLItem;
+        }
       }
     }
     if (currentSubTlPart) {
@@ -561,10 +679,10 @@ async function* viewMainTimelineTweet(tweetInfo, tlLocation) {
     }
   }
   await gobackTo(tlLocation);
-  yield Reporter.viewedMsg(`Viewed tweet by ${tInfo.byInfo}`);
+  yield Reporter.viewedMsg(`Viewed tweet by ${tweetInfo.byInfo}`);
 }
 
-export async function* newTwitterTimeline(cliApi) {
+export default async function* newTwitterTimeline(cliApi) {
   await lib.domCompletePromise();
   const info = initInfo();
   Reporter.state.totalTweets = info.numTweets;
@@ -592,6 +710,10 @@ export async function* newTwitterTimeline(cliApi) {
       return currentTimelineItem.nextElementSibling == null;
     },
     wait(currentTimelineRoot, currentTimelineItem) {
+      const progressBar = lib.qs(selectors.ProgressBar, currentTimelineRoot);
+      if (progressBar) {
+        return lib.waitUntilElementIsRemovedFromDom(progressBar);
+      }
       return lib.waitForAdditionalElemChildren(
         currentTimelineRoot,
         currentTimelineRoot.childElementCount

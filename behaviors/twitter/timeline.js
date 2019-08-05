@@ -2,7 +2,7 @@ import * as lib from '../../lib';
 import * as selectors from './selectors';
 import * as shared from './shared';
 import autoScrollBehavior from '../autoscroll';
-import {newTwitterTimeline, TimelineStart} from './newTwitterTimeline'
+import newTwitterTimeline from './newTwitterTimeline';
 
 let behaviorStyle;
 if (debug) {
@@ -100,8 +100,8 @@ async function* handleTweet(tweetLi, { originalBaseURI, reporter }) {
  * @return {AsyncIterator<*>}
  */
 export default function timelineIterator(cliApi) {
-  if (lib.selectorExists(TimelineStart)) {
-    return newTwitterTimeline(cliApi)
+  if (lib.selectorExists(selectors.TimelineStart)) {
+    return newTwitterTimeline(cliApi);
   }
   const { streamEnd, streamFail } = shared.getStreamIndicatorElems();
   const reporter = shared.makeReporter();
