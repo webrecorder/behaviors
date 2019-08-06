@@ -18,6 +18,16 @@ Build.createRunnerConfig(workerData)
     });
     watcher.on('event', event => {
       switch (event.code) {
+        case 'FATAL':
+          ColorPrinter.error('Behavior Fatal Build Error');
+          ColorPrinter.error(
+            `${event.error.toString()} \n ${event.error.frame}`
+          );
+          ColorPrinter.blankLine();
+          parentPort.postMessage({
+            type: 'fatal',
+          });
+          break;
         case 'BUNDLE_START':
           parentPort.postMessage({
             type: 'building',
@@ -40,5 +50,11 @@ Build.createRunnerConfig(workerData)
     });
   })
   .catch(error => {
+    ColorPrinter.error('Behavior Fatal Build Error');
+    ColorPrinter.error(error);
+    ColorPrinter.blankLine();
     console.error(error);
+    parentPort.postMessage({
+      type: 'fatal',
+    });
   });

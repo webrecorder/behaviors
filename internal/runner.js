@@ -27,22 +27,6 @@ async function buildWatchRun(runConfig) {
     runConfig,
   };
   let prr;
-  buildWorker.on('message', msg => {
-    switch (msg.type) {
-      case 'building':
-        stopEE.emit('stop');
-        ColorPrinter.info('Rebuilding behavior');
-        ColorPrinter.blankLine();
-        if (prr == null) prr = promiseResolveReject();
-        break;
-      case 'built':
-        ColorPrinter.info('Behavior built');
-        ColorPrinter.blankLine();
-        if (!prr) console.log('warning no prr');
-        prr.resolve();
-        break;
-    }
-  });
   while (run) {
     try {
       await autorun(autoRunConfig);
