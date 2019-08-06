@@ -1,5 +1,6 @@
 const getConfigIfExistsOrDefault = require('./behaviorConfig');
 const Build = require('./build');
+const ColorPrinter = require('./colorPrinter');
 
 /**
  * The implementation of the behavior CLI
@@ -15,6 +16,7 @@ async function behaviorCLI(program) {
     program.outputHelp();
     return Promise.resolve();
   }
+  ColorPrinter.info('Initializing');
   const config = await getConfigIfExistsOrDefault(program);
   if (program.build) {
     await Build.createRunnableBehaviors(config);
@@ -24,7 +26,6 @@ async function behaviorCLI(program) {
   } else if (program.watch) {
     return Build.watch(config);
   }
-  return Promise.resolve();
 }
 
 module.exports = behaviorCLI;
