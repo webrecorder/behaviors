@@ -8,7 +8,7 @@ const Utils = require('./utils');
 
 class Behavior {
   /**
-   * @param {{file: SourceFile, typeChecker: TypeChecker, opts: Object}}
+   * @param {{file: SourceFile, typeChecker: TypeChecker, opts: Object}} init
    */
   constructor({ file, typeChecker, opts }) {
     /**

@@ -157,23 +157,54 @@ export function commentViewer(info, thePost, $x) {
 }
 
 export async function* viewComments({ commentList, info, postId, $x }) {
-  let total = 0;
-  let moreSpan = lib.qs(selectors.moreCommentsSpanSelector, commentList);
-  while (moreSpan) {
-    if (!moreSpan.isConnected) break;
-    await lib.scrollIntoViewAndClickWithDelay(moreSpan);
-    total += 1;
+  if (lib.selectorExists(selectors.moreCommentsSpanSelector, commentList)) {
     yield lib.stateWithMsgNoWait(
-      `Loaded additional comments for the ${postId} #${total} times`,
+      `Loading additional comments for the ${postId}`,
       info.state
     );
-    moreSpan = lib.qs(selectors.moreCommentsSpanSelector, commentList);
+    await lib.selectScrollIntoViewAndClickWithDelayWhileSelectedConnected(
+      selectors.moreCommentsSpanSelector,
+      { cntx: commentList }
+    );
+    yield lib.stateWithMsgNoWait(
+      `Additional comments loaded for the ${postId}, loading comment replies`,
+      info.state
+    );
+  } else {
+    yield lib.stateWithMsgNoWait(
+      `Loading ${postId} comment replies`,
+      info.state
+    );
+  }
+  let viewedPostersOwnComment = false;
+  let numComments = 0;
+  let numReplies = 0;
+  for (const comment of lib.childElementIterator(commentList)) {
+    // the first child of the comment list is an li with a div child
+    // this is the posters comment
+    lib.collectOutlinksFrom(comment);
+    await lib.scrollIntoViewWithDelay(comment, 250);
+    if (
+      !viewedPostersOwnComment &&
+      lib.elemMatchesSelector(comment, selectors.postersOwnComment)
+    ) {
+      viewedPostersOwnComment = true;
+    } else {
+      // these children are li's with ul child
+      numComments++;
+      for (const loadMoreReplies of lib.repeatedXpathQueryIterator(
+        selectors.moreRepliesXpath,
+        comment
+      )) {
+        numReplies++;
+        await lib.scrollIntoViewAndClickWithDelay(loadMoreReplies);
+      }
+    }
   }
   yield lib.stateWithMsgNoWait(
-    `All comments loaded for ${postId}`,
+    `Loaded ${numReplies} additional comment replies for ${postId}`,
     info.state
   );
-  yield* lib.traverseChildrenOf(commentList, commentViewer(info, postId, $x));
 }
 
 /**

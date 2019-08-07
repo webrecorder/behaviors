@@ -55,7 +55,6 @@ const Reporter = {
 };
 
 async function* handleComment(comment, mStream) {
-  lib.markElemAsVisited(comment);
   await lib.scrollIntoViewWithDelay(comment);
   yield Reporter.viewedComment();
   const replies = lib.qs(selectors.loadedReplies, comment);
@@ -109,7 +108,7 @@ export default async function* playVideoAndLoadComments(cliAPI) {
     lib.id(selectors.commentsContainerId),
     () => lib.selectorExists(selectors.commentRenderer)
   );
-  const relatedVideos = lib.nthChildElemOf(lib.id('related'), 2);
+  const relatedVideos = lib.nthChildElementOf(lib.id('related'), 2);
   if (relatedVideos) {
     lib.addOutLinks(lib.qsa(selectors.outlinks, relatedVideos));
   }
@@ -138,7 +137,7 @@ export const metadata = {
     regex: /^(?:https?:\/\/(?:www\.)?)?youtube\.com\/watch[?]v=.+/,
   },
   description: 'Capture the YouTube video and all comments.',
-  updated: '2019-07-24T20:14:43-04:00',
+  updated: '2019-08-13T11:58:10-04:00',
 };
 
 // playVideoAndLoadComments().then(() => console.log('done'));

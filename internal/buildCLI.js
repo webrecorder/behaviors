@@ -7,14 +7,14 @@ const ColorPrinter = require('./colorPrinter');
  * @param {Object} program
  * @return {Promise<void>}
  */
-async function behaviorCLI(program) {
+async function buildCLI(program) {
   if (
     [program.validate, program.build, program.metadata, program.watch].every(
       value => !value
     )
   ) {
     program.outputHelp();
-    return Promise.resolve();
+    return;
   }
   ColorPrinter.info('Initializing');
   const config = await getConfigIfExistsOrDefault(program);
@@ -28,7 +28,7 @@ async function behaviorCLI(program) {
   }
 }
 
-module.exports = behaviorCLI;
+module.exports = buildCLI;
 
 /**
  * @typedef {Object} Config

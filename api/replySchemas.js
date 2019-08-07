@@ -1,4 +1,4 @@
-module.exports = function addSchemas(server) {
+function addSchemas(server) {
   server.addSchema({
     $id: 'behavior-info',
     type: 'object',
@@ -21,8 +21,8 @@ module.exports = function addSchemas(server) {
     $id: 'behavior-list',
     type: 'array',
     items: {
-      $ref: 'behavior-info#'
-    }
+      $ref: 'behavior-info#',
+    },
   });
   server.addSchema({
     $id: 'behavior-info-list',
@@ -31,4 +31,6 @@ module.exports = function addSchemas(server) {
       behaviors: 'behavior-list#',
     },
   });
-};
+}
+
+module.exports = addSchemas;

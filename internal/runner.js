@@ -1,4 +1,5 @@
 const path = require('path');
+const util = require('util');
 const { Worker } = require('worker_threads');
 const fs = require('fs-extra');
 const EventEmitter = require('eventemitter3');
@@ -10,6 +11,7 @@ const Build = require('./build');
 const ColorPrinter = require('./colorPrinter');
 
 async function buildWatchRun(runConfig) {
+  const browser = await launchBrowser(runConfig);
   const buildWorker = new Worker(path.join(__dirname, 'runnerBuildWorker.js'), {
     workerData: runConfig.buildConfig,
   });
@@ -17,9 +19,7 @@ async function buildWatchRun(runConfig) {
   buildWorker.on('exit', () => {
     run = false;
   });
-  const readyPromise = waitForBuilt(buildWorker);
-  const browser = await launchBrowser(runConfig);
-  runConfig.builtPath = await readyPromise;
+  runConfig.builtPath = await waitForBuilt(buildWorker);
   const stopEE = new EventEmitter();
   const autoRunConfig = {
     browser,
@@ -27,6 +27,22 @@ async function buildWatchRun(runConfig) {
     runConfig,
   };
   let prr;
+  buildWorker.on('message', msg => {
+    switch (msg.type) {
+      case 'building':
+        stopEE.emit('stop');
+        ColorPrinter.info('Rebuilding behavior');
+        ColorPrinter.blankLine();
+        if (prr == null) prr = promiseResolveReject();
+        break;
+      case 'built':
+        ColorPrinter.info('Behavior built');
+        ColorPrinter.blankLine();
+        if (!prr) console.log('warning no prr');
+        prr.resolve();
+        break;
+    }
+  });
   while (run) {
     try {
       await autorun(autoRunConfig);
@@ -71,6 +87,12 @@ async function runBuilt(runConfig) {
   }
   await browser.close();
 }
+const stateInspectOpts = {
+  depth: null,
+  compact: false,
+  breakLength: Infinity,
+  colors: true,
+};
 
 /**
  *
@@ -97,7 +119,10 @@ async function performNextStep(runnerHandle, stopEE) {
       `Performed step\n  - done = ${result.done}\n  - wait = ${result.wait}\n  - msg = ${result.msg}`
     );
     if (result.state) {
-      console.log(ColorPrinter.chalk.blue('  - state = '), result.state);
+      console.log(
+        ColorPrinter.chalk.blue('  - state = '),
+        util.inspect(result.state, stateInspectOpts)
+      );
     }
     ColorPrinter.blankLine();
     return result.done;
@@ -188,7 +213,7 @@ async function launchBrowser(runConfig) {
     '--disable-sync',
     '--disable-domain-reliability',
     '--disable-infobars',
-    '--disable-features=site-per-process,TranslateUI',
+    '--disable-features=site-per-process,TranslateUI,BlinkGenPropertyTrees',
     '--disable-breakpad',
     '--disable-backing-store-limit',
     '--enable-features=NetworkService,NetworkServiceInProcess,brotli-encoding,AwaitOptimization',
@@ -201,13 +226,16 @@ async function launchBrowser(runConfig) {
   if (runConfig.openDevTools) {
     args.push('--auto-open-devtools-for-tabs');
   }
-  const { closeBrowser, browserWSEndpoint } = await launch({
+  const { closeBrowser, browserWSEndpoint, chromeProcess } = await launch({
     executable: runConfig.chromeEXE,
     args,
   });
-  return Browser.connect(browserWSEndpoint, {
+  const b = await Browser.connect(browserWSEndpoint, {
     closeCallback: closeBrowser,
+    process: chromeProcess,
   });
+  await b.waitForTarget(t => t.type() === 'page');
+  return b;
 }
 
 function delay(delayTime) {

@@ -107,11 +107,11 @@ export function isSensitiveProfile() {
   return window.getComputedStyle(profileWarning).display !== 'none';
 }
 
-export async function revealSensitiveMedia(tweet, delayTime) {
+export async function revealSensitiveMedia(tweet, delay) {
   await lib.selectAllAndClickWithDelay({
     selector: selectors.sensativeReveal,
-    context: tweet,
-    delayTime,
+    cntx: tweet,
+    delay,
   });
 }
 

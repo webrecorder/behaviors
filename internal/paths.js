@@ -44,7 +44,7 @@ const defaultBehaviorMetadataPath = path.join(distDir, 'behaviorMetadata.js');
 /**
  * @type {string}
  */
-const behaviorCLIPath = path.join(rootDir, 'bin', 'cli-behaviors');
+const behaviorCLIPath = path.join(rootDir, 'bin', 'cli-build');
 
 /**
  * @type {string}

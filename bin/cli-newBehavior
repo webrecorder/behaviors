@@ -1,0 +1,60 @@
+#!/usr/bin/env node
+'use strict';
+const path = require('path');
+const fs = require('fs-extra');
+const program = require('commander');
+const pkg = require('../package');
+const chalk = require('chalk').default;
+const { behaviorDir, libDir } = require('../internal/paths');
+
+program
+  .version(pkg.version)
+  .usage('[options] <behavior file name>')
+  .option(
+    '-d, --dir <directory name>',
+    'The new behavior will be created in the supplied directory name within the behaviors directory'
+  )
+  .parse(process.argv);
+
+if (program.args.length === 0 || !program.args[0]) {
+  program.outputHelp();
+  process.exit(1);
+}
+
+const behaviorDirPath = path.join(behaviorDir, program.dir || '');
+const newBehaviorPath = path.join(
+  behaviorDirPath,
+  program.args[0].endsWith('.js') ? program.args[0] : `${program.args[0]}.js`
+);
+
+if (fs.pathExistsSync(newBehaviorPath)) {
+  console.log(chalk.red('Behavior already exists'));
+  console.log(chalk.red(newBehaviorPath));
+  process.exit(1);
+}
+
+fs.ensureFileSync(newBehaviorPath);
+
+fs.writeFileSync(
+  newBehaviorPath,
+  `import * as lib from '${path.relative(behaviorDirPath, libDir)}';
+
+export default async function* behavior(cliAPI) {
+  // your behaviors implementation goes here
+}
+
+export const isBehavior = true;
+ 
+export const metadata = {
+  name: 'myAwesomeBehavior',
+  match: {
+    regex: /https?:\/\/(?:www\.)?example\.com/;
+  },
+  description: '',
+}; 
+`,
+  'utf-8'
+);
+
+console.log(chalk.greenBright('Behavior created!'));
+console.log(chalk.greenBright(newBehaviorPath));

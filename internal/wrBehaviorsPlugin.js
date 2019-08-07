@@ -105,4 +105,4 @@ class WrBehaviorsPlugin {
   }
 }
 
-module.exports = new WrBehaviorsPlugin();
+// module.exports = new WrBehaviorsPlugin();

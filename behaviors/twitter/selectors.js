@@ -82,7 +82,8 @@ export const ViewingWhatHeader = 'h2[dir="auto"][role="heading"]';
 export const TestIdTweetDiv = 'div[data-testid="tweet"]';
 export const TweetTextContainer = 'div[lang]';
 export const ViewTweetImageAnchor = 'a[href*="/photo/"]';
-export const ViewedTweetInSubTimeline = 'article[role="article"][data-testid="tweetDetail"]';
+export const ViewedTweetInSubTimeline =
+  'article[role="article"][data-testid="tweetDetail"]';
 export const ProfileTimelineNav =
   'nav[aria-label="profile timelines" i][role="navigation"]';
 export const TimelineStart = 'div[aria-label*="Timeline: "]';
@@ -100,9 +101,13 @@ export const LikesElem = 'div[aria-label*="like" i][role="button"]';
 export const RewteetsElem = 'div[aria-label*="retweet" i][role="button"]';
 export const ImagePopupCloser = 'div[aria-label="close" i][role="button"]';
 export const ProgressBar = 'div[role="progressbar"]';
-export const ImageProgressBar = 'div[role="progressbar"][aria-valuetext*="loading image" i]';
-export const ImageModalRoot = 'div[aria-labelledby="modal-header"][aria-modal="true"]';
-export const NextImage = 'div[aria-label="Next"][role="button"][aria-disabled="false"]';
+export const ImageProgressBar =
+  'div[role="progressbar"][aria-valuetext*="loading image" i]';
+export const ImageModalRoot =
+  'div[aria-labelledby="modal-header"][aria-modal="true"]';
+export const NextImage =
+  'div[aria-label="Next"][role="button"][aria-disabled="false"]';
 export const AlertDiv = 'div[role="alert"][data-testid="toast"]';
 
-export const LostConnectionXpath = '//div[@dir="auto"]/span[contains(.,"lost your connection")]';
+export const LostConnectionXpath =
+  '//div[@dir="auto"]/span[contains(.,"lost your connection")]';

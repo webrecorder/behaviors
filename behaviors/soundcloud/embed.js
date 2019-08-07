@@ -59,7 +59,7 @@ export const metadata = {
     regex: /^https?:\/\/w\.soundcloud\.com\/player\/.+/,
   },
   description: 'Capture every track in the Soundcloud embed.',
-  updated: '2019-07-23T17:13:14-04:00',
+  updated: '2019-07-26T13:27:59-07:00',
 };
 
 export const isBehavior = true;

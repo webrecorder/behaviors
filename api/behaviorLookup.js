@@ -213,7 +213,7 @@ class BehaviorLookUp {
     this._workersById = new Map();
 
     /**
-     * @type {Map<string, {resolve: function(arg: any), reject: function(arg: Error)}>}
+     * @type {Map<string, {resolve: function, reject: function}>}
      */
     this._msgIdsToPromises = new Map();
 
@@ -392,7 +392,7 @@ class BehaviorLookUp {
 
   /**
    * Listener for lookup worker errors
-   * @param {{id:string, error: Error}}
+   * @param {{id: string, error: Error}} errorDetails
    * @private
    */
   _onLookupWorkerError({ id, error }) {
@@ -401,7 +401,7 @@ class BehaviorLookUp {
 
   /**
    * Listener for lookup worker exiting
-   * @param {{id:string, code: number}}
+   * @param {{id:string, code: number}} exitDetails
    * @private
    */
   _onLookupWorkerExit({ id, code }) {

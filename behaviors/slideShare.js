@@ -213,7 +213,7 @@ export const metadata = {
   },
   description:
     'Capture each slide contained in the slide deck. If there are multiple slide decks, view and capture each deck.',
-  updated: '2019-07-24T20:14:43-04:00',
+  updated: '2019-07-26T13:27:59-07:00',
 };
 
 export const isBehavior = true;

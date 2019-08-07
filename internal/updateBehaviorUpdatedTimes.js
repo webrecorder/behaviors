@@ -1,6 +1,7 @@
 const cp = require('child_process');
 const { makeDefaultBuildCollectOpts } = require('./defaultOpts');
 const { behaviorsFromDirIterator } = require('./collect');
+const { rootDir } = require('./paths');
 
 /**
  * Returns the last commit time for the supplied file path
@@ -8,13 +9,17 @@ const { behaviorsFromDirIterator } = require('./collect');
  * @param {string} [format = '%cI'] - optional git log format string, defaults to strict ISO 8601
  * @return {Promise<string>}
  */
-function gitLastCommitTime(filePath, format='%cI') {
+function gitLastCommitTime(filePath, format = '%cI') {
   return new Promise((resolve, reject) => {
-    cp.exec(`git log -1 --format=${format} ${filePath}`, (error, stdout, stderr) => {
-      if (error) return reject(error);
-      resolve(stdout.trim());
-    })
-  })
+    cp.exec(
+      `git log -1 --format=${format} ${filePath.replace(`${rootDir}/`, '')}`,
+      { cwd: rootDir, env: process.env },
+      (error, stdout, stderr) => {
+        if (error) return reject(error);
+        resolve(stdout.trim());
+      }
+    );
+  });
 }
 
 /**

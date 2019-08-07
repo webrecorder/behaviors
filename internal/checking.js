@@ -178,7 +178,7 @@ class Checking {
    *
    * @param expression
    * @param strict
-   * @return {{wasError: boolean, value: {}, errorMsg: ?string}}
+   * @return {{wasError: boolean, value: *, errorMsg: ?string}}
    */
   static convertArrayLiterExpressionElementExpressions(expression, strict) {
     if (TypeGuards.isObjectLiteralExpression(expression)) {

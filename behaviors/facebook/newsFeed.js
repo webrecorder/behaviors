@@ -83,7 +83,7 @@ export const metadata = {
   },
   description:
     'Capture all items and comments in the Facebook timeline and scroll down to load more.',
-  updated: '2019-07-24T15:42:03-04:00',
+  updated: '2019-07-26T13:27:59-07:00',
 };
 
 export const isBehavior = true;
