@@ -35,6 +35,8 @@
 <li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#metadata" data-ice="link">Metadata</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#behavior-implementation-overview" data-ice="link">Behavior Implementation Overview</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#development-workflow" data-ice="link">Development Workflow</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/behaviors.html"><a href="manual/behaviors.html#automated" data-ice="link">Automated</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/behaviors.html"><a href="manual/behaviors.html#manual" data-ice="link">Manual</a></li>
 </ul>
   </div>
 <div data-ice="manual">
@@ -235,14 +237,32 @@ export const metadata = {
 };
 
 export const isBehavior = true;</code>
-</code></pre><h2>Development Workflow</h2><p>The simplest way to both develop and run a behavior on the target page is to use the provided behavior runner cli and a run configuration file (<a href="./manual/./cli.html#runner-command">more details</a>).</p><p>To help you get started a behavior run configuration file, <code>behavior-run-config.yml</code> found at the root of this project, has been provided for you.</p><p>By using the provided configuration file all that is required is to change two fields:</p><ul>
+</code></pre><h2>Development Workflow</h2><h3>Automated</h3><p>The simplest way to both develop and run a behavior on the target page is to use the provided behavior runner cli and a run configuration file (<a href="./manual/./cli.html#runner-command">more details</a>).</p><p>To help you get started a behavior run configuration file, <code>behavior-run-config.yml</code> found at the root of this project, has been provided for you.</p><p>By using the provided configuration file all that is required is to change two fields:</p><ul>
 <li>behavior: the path to your new behavior in the behavior directory of this project</li>
 <li>url: the url of the page your behavior should be run in</li>
 </ul><p>Once you have changed those two you fields you can start the build and run process by either executing one of the following from the root directory of this project</p><ul>
 <li><code>./bin/cli runner -c behavior-run-config.yml</code></li>
 <li><code>./bin/cli-runner -c behavior-run-config.yml</code></li>
 </ul><p>The command will launch a Chrome/Chromium browser installed on your computer, build the behavior, and then run it until completion.</p><p>While the behavior is being run or the behavior has run to completion and a change has been detected to the behavior 
-or any of the files it includes, it will be rebuilt and re-run automatically.</p></div>
+or any of the files it includes, it will be rebuilt and re-run automatically.</p><h3>Manual</h3><p>To build the behavior execute the following command <code>./bin/cli-behaviors -b ./behaviors/&lt;path to your behavior&gt;</code>.
+Once the command exits the behavior ready to be run can be found at <code>./dist/&lt;behavior name&gt;.js</code> or you can use copy the path displayed
+in the output of the build command.</p><p>The next step is to copy the contents of the generated file into the browser and run it.</p><p>The generated file contains JavaScript that will setup the behavior for running using an utility class exposed on <code>window</code> as <code>$WBBehaviorRunner$</code>.</p><p>Shown below are the ways provided for you to manually run the behavior by the utility class.</p><pre><code class="lang-js"><code class="source-code prettyprint">/* automatic running */
+
+for await (const state of $WBBehaviorRunner$.autoRunIter()) { 
+  console.log(state); 
+}
+
+await $WBBehaviorRunner$.autoRun({logging: true})
+
+await $WBBehaviorRunner$.autoRunWithDelay({logging: true})
+
+/* manually initiate each step of the behavior */
+await $WBBehaviorRunner$.step()</code>
+</code></pre><p>The <code>autoRunIter</code> function accepts a single optional argument delayAmount (number), which is a time value in milliseconds that will be applied after each action (step) of the behavior.</p><p>Both the <code>autoRun</code> and <code>autoRunWithDelay</code> methods accept a single optional argument options (object) with one exception, <code>autoRunWithDelay</code> defaults to applying a one second delay after each action if no delay was specified.</p><p>The full configuration options for these two methods are displayed below </p><ul>
+<li>delayAmount (number, defaults to 1000):  Time value in milliseconds representing how much time should be waited after initiating a behavior&apos;s step</li>
+<li>noOutlinks (boolean, defaults to true): Should the collection of outlinks be disabled when running the behavior</li>
+<li>logging (boolean, defaults to true): Should information the behavior sends be displayed</li>
+</ul><p>If you use one of the three way to &quot;automatically&quot; run the behavior and you wish to pause it while it is running set <code>window.$WBBehaviorPaused</code> to true and to un-pause it set <code>window.$WBBehaviorPaused</code> to false.</p></div>
         <a data-ice="link" href="manual/behaviors.html"></a>
       </div>
     </div>
