@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | wr-behaviors</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/behaviors.html"><a href="manual/behaviors.html" data-ice="link">Behaviors</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#metadata" data-ice="link">Metadata</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#behavior-implementation-overview" data-ice="link">Behavior Implementation Overview</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#development-workflow" data-ice="link">Development Workflow</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/build-system.html"><a href="manual/build-system.html" data-ice="link">Build System</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/build-system.html"><a href="manual/build-system.html#overview" data-ice="link">Overview</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/build-system.html"><a href="manual/build-system.html#initialization" data-ice="link">Initialization</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/build-system.html"><a href="manual/build-system.html#ultimate-build-configuration" data-ice="link">Ultimate build configuration</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/build-system.html"><a href="manual/build-system.html#building-what-resolution" data-ice="link">Building what resolution</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/build-system.html"><a href="manual/build-system.html#ensuring-the-necessary-build-directory-structure-exists" data-ice="link">Ensuring the necessary build directory structure exists</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/build-system.html"><a href="manual/build-system.html#collection" data-ice="link">Collection</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/build-system.html"><a href="manual/build-system.html#building" data-ice="link">Building</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/cli.html"><a href="manual/cli.html" data-ice="link">CLI</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#api-command" data-ice="link">API command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#behaviors-command" data-ice="link">Behaviors command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#runner-command" data-ice="link">Runner command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#stdlib-command" data-ice="link">STDLIB command</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html" data-ice="link">Pre-made Behaviors</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#autoscroll" data-ice="link">Autoscroll</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#specifics" data-ice="link">Specifics</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#instagram" data-ice="link">Instagram</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#gotchas" data-ice="link">Gotchas</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stories" data-ice="link">Stories</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#user--not-own-feed-" data-ice="link">User (not own feed)</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#viewing-stories" data-ice="link">Viewing stories</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#viewing-posts" data-ice="link">Viewing posts</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stopping-condition" data-ice="link">Stopping condition</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#individual-post" data-ice="link">Individual Post</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#own-feed" data-ice="link">Own Feed</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stopping-condition" data-ice="link">Stopping condition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#twitter" data-ice="link">Twitter</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#gotchas" data-ice="link">Gotchas</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#timeline" data-ice="link">Timeline</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stopping-condition" data-ice="link">Stopping condition</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#hashtags" data-ice="link">HashTags</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stopping-condition" data-ice="link">Stopping condition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#youtube-video" data-ice="link">Youtube Video</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="build-system">Build System</h1><h2 id="overview">Overview</h2><p>The behavior build process has three phases</p>
+<ul>
+<li>Initialization </li>
+<li>Collection</li>
+<li>Building</li>
+</ul>
+<h2 id="initialization">Initialization</h2><p>Initialization has three steps</p>
+<ol>
+<li>Ultimate build configuration</li>
+<li>Building what resolution</li>
+<li>Ensuring the necessary build directory structure exists</li>
+</ol>
+<h4 id="ultimate-build-configuration">Ultimate build configuration</h4><p>The ultimate build configuration is created in combination with user supplied cli options using the following steps</p>
+<ol>
+<li>If a config was specified using <code>-c, --config</code> it is used </li>
+<li>If the default config exists in the current working directory of the commands it used </li>
+<li>Otherwise the path to the behavior file or dir (<code>-b, --build [fileOrDir]</code>) is used and the six config values are set to the project defaults </li>
+</ol>
+<p>When a config file is used each of the six values from the config file are resolved as follows </p>
+<ul>
+<li>if the key exists and value is relative, make absolute by resolving it against the directory containing the config file</li>
+<li>if the key exists and is absolute, use key value</li>
+<li>if key does not exist use project default value<ul>
+<li>build, dist: <code>&lt;directory containing config&gt;/&lt;name&gt;</code></li>
+<li>lib, tsconfig: projects default value</li>
+<li>metadata: placed in current working directory </li>
+</ul>
+</li>
+</ul>
+<p>Once the ultimate build configuration has been created, the build process proceeds to the next step.</p>
+<h4 id="building-what-resolution">Building what resolution</h4><p>The determination for what is being built is done using the value for the <code>-b, --build</code> cli option and that value can be one of two types</p>
+<ul>
+<li><code>boolean</code>: build all behaviors found in the value for the <code>behaviors</code> key from the supplied build config </li>
+<li><code>string</code>: path to a directory containing behaviors or a single behavior to be built</li>
+</ul>
+<p>When the value for build is <code>boolean</code></p>
+<ul>
+<li>If the directory supplied via the <code>behaviors</code> config key exists, the what is being built is that directory and the initialization process contains to the next step</li>
+<li>Otherwise the directory supplied via the <code>behaviors</code> config key does not exist the build process is ended</li>
+</ul>
+<p>When the value for build is a <code>string</code> and an absolute path </p>
+<ul>
+<li>If the path exists, the what is being built is that directory or file and the initialization process contains to the next step</li>
+<li>Otherwise the path does not exist the build process is ended</li>
+</ul>
+<p>When the value for build is a <code>string</code> and an relative path, it is resolved in the following order</p>
+<ol>
+<li>the value as is resolved using node&apos;s relative path resolution algorithm. Note this value is used by other steps if previous ones fail and is denoted as <code>resolvedPath</code></li>
+<li>the value as is joined with the supplied configs behavior dir or projects default behavior dir</li>
+<li>the value as is joined with the the current working directory</li>
+<li><code>resolvedPath</code> joined with the supplied configs behavior dir or projects default behavior dir</li>
+<li><code>resolvedPath</code> joined with the current working directory</li>
+</ol>
+<p>If any of the absolute paths described above exist, the what is being built is the resolved path and the initialization process contains to the next step otherwise the build process is ended</p>
+<h4 id="ensuring-the-necessary-build-directory-structure-exists">Ensuring the necessary build directory structure exists</h4><p>The final step in the initialization process is to ensure that the <code>build</code> and <code>dist</code> directories exist.</p>
+<p>These values may differ from the names used previously only when they are supplied by the user in a build config file.</p>
+<p>The <code>build</code> directory is used to hold intermediate files used by the build system in order to setup the behavior for final building and usage by other tools such as our own running system.</p>
+<p>Any setup in order to facilitate running the behavior is done here.</p>
+<p>The <code>dist</code> directory is where the built, bundled, behaviors are placed alongside their metadata if configured to do so.</p>
+<h2 id="collection">Collection</h2><p>The collection phase operates in one of two modes</p>
+<ul>
+<li><code>single behavior</code>: when the <code>what is being built</code> path resolves to file </li>
+<li><code>multi-behavior</code>: when the <code>what is being built</code> path resolves to a directory</li>
+</ul>
+<p>The primary difference between modes is that <code>multi-behavior</code> mode considers every file contained in the directory and its descendant directories.</p>
+<p>Both modes use the same means in determining if a file is indeed a behavior which is as follows</p>
+<ul>
+<li>the file is an es module</li>
+<li>has a <code>metadata</code> or <code>metaData</code> named export </li>
+<li>has a <code>isBehavior</code> named export    </li>
+</ul>
+<p>Once the behavior(s) have been collected a report is printed stating how many behaviors were found and if any of the files considered partially met the requirements for collection. </p>
+<p><strong>Note</strong>: Both the collection and building phases share modes with the mode operating under set by the collection phase. </p>
+<h2 id="building">Building</h2><p>The building phase can be described in the following steps:</p>
+<ol>
+<li>Extract behaviors metadata</li>
+<li>Create the behavior&apos;s intermediate file </li>
+<li>Use build behavior using rollup</li>
+<li>Once all behaviors have been built generate behavior metadata.</li>
+</ol>
+<p>The previous steps are applied to all behaviors returned by the collection phase</p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

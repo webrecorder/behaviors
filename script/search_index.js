@@ -36,16 +36,16 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "wr-behaviors/lib/events.js~htmlelementeventmap",
-    "variable/index.html#static-variable-HTMLElementEventMap",
-    "<span>HTMLElementEventMap</span> <span class=\"search-result-import-path\">wr-behaviors/lib/events.js</span>",
-    "variable"
-  ],
-  [
     "wr-behaviors/lib/mutations.js~mutationstream",
     "class/lib/mutations.js~MutationStream.html",
     "<span>MutationStream</span> <span class=\"search-result-import-path\">wr-behaviors/lib/mutations.js</span>",
     "class"
+  ],
+  [
+    "wr-behaviors/lib/traversals.js~walkendedreasons",
+    "variable/index.html#static-variable-WalkEndedReasons",
+    "<span>WalkEndedReasons</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "variable"
   ],
   [
     "wr-behaviors/lib/dom.js~addbehaviorstyle",
@@ -102,6 +102,18 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/browser.js~browserhistorygoback",
+    "function/index.html#static-function-browserHistoryGoBack",
+    "<span>browserHistoryGoBack</span> <span class=\"search-result-import-path\">wr-behaviors/lib/browser.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/browser.js~browserlocation",
+    "function/index.html#static-function-browserLocation",
+    "<span>browserLocation</span> <span class=\"search-result-import-path\">wr-behaviors/lib/browser.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/poststepfns.js~buildcustompoststepfn",
     "function/index.html#static-function-buildCustomPostStepFn",
     "<span>buildCustomPostStepFn</span> <span class=\"search-result-import-path\">wr-behaviors/lib/postStepFNs.js</span>",
@@ -126,15 +138,21 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~canacessif",
-    "function/index.html#static-function-canAcessIf",
-    "<span>canAcessIf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "wr-behaviors/lib/dom.js~canaccessif",
+    "function/index.html#static-function-canAccessIf",
+    "<span>canAccessIf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~canscrollmore",
-    "function/index.html#static-function-canScrollMore",
-    "<span>canScrollMore</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "wr-behaviors/lib/scrolls.js~canscrolldownmore",
+    "function/index.html#static-function-canScrollDownMore",
+    "<span>canScrollDownMore</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/scrolls.js~canscrollupmore",
+    "function/index.html#static-function-canScrollUpMore",
+    "<span>canScrollUpMore</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
     "function"
   ],
   [
@@ -156,15 +174,33 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~chainnthchildelemof",
-    "function/index.html#static-function-chainNthChildElemOf",
-    "<span>chainNthChildElemOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "wr-behaviors/lib/dom.js~chainnthchildelementof",
+    "function/index.html#static-function-chainNthChildElementOf",
+    "<span>chainNthChildElementOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~chainnthchildnodeof",
+    "function/index.html#static-function-chainNthChildNodeOf",
+    "<span>chainNthChildNodeOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
     "wr-behaviors/lib/dom.js~chainqs",
     "function/index.html#static-function-chainQs",
     "<span>chainQs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~childelementiterator",
+    "function/index.html#static-function-childElementIterator",
+    "<span>childElementIterator</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~childnodeiterator",
+    "function/index.html#static-function-childNodeIterator",
+    "<span>childNodeIterator</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
@@ -180,6 +216,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/clicks.js~clickandwaitforhistorychange",
+    "function/index.html#static-function-clickAndWaitForHistoryChange",
+    "<span>clickAndWaitForHistoryChange</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/clicks.js~clickincontext",
     "function/index.html#static-function-clickInContext",
     "<span>clickInContext</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
@@ -189,12 +231,6 @@ window.esdocSearchIndex = [
     "wr-behaviors/lib/clicks.js~clickincontextwithdelay",
     "function/index.html#static-function-clickInContextWithDelay",
     "<span>clickInContextWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
-    "function"
-  ],
-  [
-    "wr-behaviors/lib/clicks.js~clickwithdelay2",
-    "function/index.html#static-function-clickWithDelay2",
-    "<span>clickWithDelay2</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
@@ -252,9 +288,45 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/scrolls.js~createscrollamount",
+    "function/index.html#static-function-createScrollAmount",
+    "<span>createScrollAmount</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/scrolls.js~createscroller",
+    "function/index.html#static-function-createScroller",
+    "<span>createScroller</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/behaviorstate.js~createstate",
+    "function/index.html#static-function-createState",
+    "<span>createState</span> <span class=\"search-result-import-path\">wr-behaviors/lib/behaviorState.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/delays.js~delay",
     "function/index.html#static-function-delay",
     "<span>delay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/traversals.js~disconnectingwalk",
+    "function/index.html#static-function-disconnectingWalk",
+    "<span>disconnectingWalk</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~docbaseuriendswith",
+    "function/index.html#static-function-docBaseURIEndsWith",
+    "<span>docBaseURIEndsWith</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~docbaseuriequals",
+    "function/index.html#static-function-docBaseURIEquals",
+    "<span>docBaseURIEquals</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
@@ -273,6 +345,24 @@ window.esdocSearchIndex = [
     "wr-behaviors/lib/poststepfns.js~doneorwait",
     "function/index.html#static-function-doneOrWait",
     "<span>doneOrWait</span> <span class=\"search-result-import-path\">wr-behaviors/lib/postStepFNs.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~elemdatavalue",
+    "function/index.html#static-function-elemDataValue",
+    "<span>elemDataValue</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~elemdatavalueeqs",
+    "function/index.html#static-function-elemDataValueEqs",
+    "<span>elemDataValueEqs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~elemhaschildren",
+    "function/index.html#static-function-elemHasChildren",
+    "<span>elemHasChildren</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
@@ -297,6 +387,30 @@ window.esdocSearchIndex = [
     "wr-behaviors/lib/dom.js~eleminnertexteqs",
     "function/index.html#static-function-elemInnerTextEqs",
     "<span>elemInnerTextEqs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~eleminnertexteqsinsensitive",
+    "function/index.html#static-function-elemInnerTextEqsInsensitive",
+    "<span>elemInnerTextEqsInsensitive</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~eleminnertexteqsoneof",
+    "function/index.html#static-function-elemInnerTextEqsOneOf",
+    "<span>elemInnerTextEqsOneOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~eleminnertextmatchesregex",
+    "function/index.html#static-function-elemInnerTextMatchesRegex",
+    "<span>elemInnerTextMatchesRegex</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~elemmatchesselector",
+    "function/index.html#static-function-elemMatchesSelector",
+    "<span>elemMatchesSelector</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
@@ -372,6 +486,18 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/dom.js~finddirectchildelement",
+    "function/index.html#static-function-findDirectChildElement",
+    "<span>findDirectChildElement</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/reactutils.js~findreduxstore",
+    "function/index.html#static-function-findReduxStore",
+    "<span>findReduxStore</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/dom.js~findtag",
     "function/index.html#static-function-findTag",
     "<span>findTag</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
@@ -390,9 +516,21 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/dom.js~firstchildelemofparent",
+    "function/index.html#static-function-firstChildElemOfParent",
+    "<span>firstChildElemOfParent</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/dom.js~firstchildelementof",
     "function/index.html#static-function-firstChildElementOf",
     "<span>firstChildElementOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~firstchildelementofselector",
+    "function/index.html#static-function-firstChildElementOfSelector",
+    "<span>firstChildElementOfSelector</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
@@ -423,6 +561,12 @@ window.esdocSearchIndex = [
     "wr-behaviors/lib/dom.js~getelementpositionwidthheight",
     "function/index.html#static-function-getElementPositionWidthHeight",
     "<span>getElementPositionWidthHeight</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~getelemsparentssibling",
+    "function/index.html#static-function-getElemsParentsSibling",
+    "<span>getElemsParentsSibling</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
@@ -462,9 +606,21 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/dom.js~hasanyclass",
+    "function/index.html#static-function-hasAnyClass",
+    "<span>hasAnyClass</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/dom.js~hasclass",
     "function/index.html#static-function-hasClass",
     "<span>hasClass</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~hasclasses",
+    "function/index.html#static-function-hasClasses",
+    "<span>hasClasses</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
@@ -486,6 +642,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/dom.js~innertextofselected",
+    "function/index.html#static-function-innerTextOfSelected",
+    "<span>innerTextOfSelected</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/strings.js~isalpha",
     "function/index.html#static-function-isAlpha",
     "<span>isAlpha</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
@@ -504,15 +666,27 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~iselemnotvisible",
-    "function/index.html#static-function-isElemNotVisible",
-    "<span>isElemNotVisible</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "wr-behaviors/lib/dom.js~iselemvisible",
+    "function/index.html#static-function-isElemVisible",
+    "<span>isElemVisible</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
     "wr-behaviors/lib/strings.js~isemptystring",
     "function/index.html#static-function-isEmptyString",
     "<span>isEmptyString</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/general.js~isfunction",
+    "function/index.html#static-function-isFunction",
+    "<span>isFunction</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/general.js~isgenerator",
+    "function/index.html#static-function-isGenerator",
+    "<span>isGenerator</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
@@ -528,6 +702,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/general.js~ispromise",
+    "function/index.html#static-function-isPromise",
+    "<span>isPromise</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/strings.js~isupper",
     "function/index.html#static-function-isUpper",
     "<span>isUpper</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
@@ -540,6 +720,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/dom.js~lastchildelementofselector",
+    "function/index.html#static-function-lastChildElementOfSelector",
+    "<span>lastChildElementOfSelector</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/browser.js~locationcontains",
     "function/index.html#static-function-locationContains",
     "<span>locationContains</span> <span class=\"search-result-import-path\">wr-behaviors/lib/browser.js</span>",
@@ -549,6 +735,12 @@ window.esdocSearchIndex = [
     "wr-behaviors/lib/browser.js~locationequals",
     "function/index.html#static-function-locationEquals",
     "<span>locationEquals</span> <span class=\"search-result-import-path\">wr-behaviors/lib/browser.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/general.js~mapasynciterator",
+    "function/index.html#static-function-mapAsyncIterator",
+    "<span>mapAsyncIterator</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
@@ -576,6 +768,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/general.js~noexceptgeneratorwrap",
+    "function/index.html#static-function-noExceptGeneratorWrap",
+    "<span>noExceptGeneratorWrap</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/media.js~noexceptplaymediaelement",
     "function/index.html#static-function-noExceptPlayMediaElement",
     "<span>noExceptPlayMediaElement</span> <span class=\"search-result-import-path\">wr-behaviors/lib/media.js</span>",
@@ -594,9 +792,21 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~nthchildelemof",
-    "function/index.html#static-function-nthChildElemOf",
-    "<span>nthChildElemOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "wr-behaviors/lib/dom.js~nthchildelementof",
+    "function/index.html#static-function-nthChildElementOf",
+    "<span>nthChildElementOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~nthchildnodeof",
+    "function/index.html#static-function-nthChildNodeOf",
+    "<span>nthChildNodeOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/dom.js~nthprevioussibling",
+    "function/index.html#static-function-nthPreviousSibling",
+    "<span>nthPreviousSibling</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
@@ -609,6 +819,24 @@ window.esdocSearchIndex = [
     "wr-behaviors/lib/general.js~objecthasprops",
     "function/index.html#static-function-objectHasProps",
     "<span>objectHasProps</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/general.js~objectinstanceof",
+    "function/index.html#static-function-objectInstanceOf",
+    "<span>objectInstanceOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/general.js~partial",
+    "function/index.html#static-function-partial",
+    "<span>partial</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/general.js~partialright",
+    "function/index.html#static-function-partialRight",
+    "<span>partialRight</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
     "function"
   ],
   [
@@ -654,27 +882,27 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "wr-behaviors/lib/reactutils.js~reactprops",
-    "variable/index.html#static-variable-reactProps",
-    "<span>reactProps</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
-    "variable"
-  ],
-  [
     "wr-behaviors/lib/dom.js~removeclass",
     "function/index.html#static-function-removeClass",
     "<span>removeClass</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/delays.js~resolvewhenbehaviorunpaused",
-    "function/index.html#static-function-resolveWhenBehaviorUnPaused",
-    "<span>resolveWhenBehaviorUnPaused</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "wr-behaviors/lib/dom.js~repeatedxpathqueryiterator",
+    "function/index.html#static-function-repeatedXpathQueryIterator",
+    "<span>repeatedXpathQueryIterator</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~safefetch",
-    "function/index.html#static-function-safeFetch",
-    "<span>safeFetch</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "wr-behaviors/lib/dom.js~repeatedxpathqueryiteratorasync",
+    "function/index.html#static-function-repeatedXpathQueryIteratorAsync",
+    "<span>repeatedXpathQueryIteratorAsync</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/delays.js~resolvewhenbehaviorunpaused",
+    "function/index.html#static-function-resolveWhenBehaviorUnPaused",
+    "<span>resolveWhenBehaviorUnPaused</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
     "function"
   ],
   [
@@ -708,21 +936,9 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~scrollintoviewandclick2",
-    "function/index.html#static-function-scrollIntoViewAndClick2",
-    "<span>scrollIntoViewAndClick2</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
-    "function"
-  ],
-  [
     "wr-behaviors/lib/clicks.js~scrollintoviewandclick",
     "function/index.html#static-function-scrollIntoViewAndClick",
     "<span>scrollIntoViewAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
-    "function"
-  ],
-  [
-    "wr-behaviors/lib/clicks.js~scrollintoviewandclickwithdelay2",
-    "function/index.html#static-function-scrollIntoViewAndClickWithDelay2",
-    "<span>scrollIntoViewAndClickWithDelay2</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
     "function"
   ],
   [
@@ -786,6 +1002,18 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/clicks.js~selectallandclick",
+    "function/index.html#static-function-selectAllAndClick",
+    "<span>selectAllAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/clicks.js~selectallandclickwithdelay",
+    "function/index.html#static-function-selectAllAndClickWithDelay",
+    "<span>selectAllAndClickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/media.js~selectandplay",
     "function/index.html#static-function-selectAndPlay",
     "<span>selectAndPlay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/media.js</span>",
@@ -846,6 +1074,18 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/clicks.js~selectscrollintoviewandclickselectedwhileconnected",
+    "function/index.html#static-function-selectScrollIntoViewAndClickSelectedWhileConnected",
+    "<span>selectScrollIntoViewAndClickSelectedWhileConnected</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/clicks.js~selectscrollintoviewandclickwithdelayselectedwhileconnected",
+    "function/index.html#static-function-selectScrollIntoViewAndClickWithDelaySelectedWhileConnected",
+    "<span>selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/dom.js~selectednextelementsibling",
     "function/index.html#static-function-selectedNextElementSibling",
     "<span>selectedNextElementSibling</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
@@ -876,6 +1116,18 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/scrolls.js~smoothscrollwindowby",
+    "function/index.html#static-function-smoothScrollWindowBy",
+    "<span>smoothScrollWindowBy</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/scrolls.js~smoothscrollwindowdownby",
+    "function/index.html#static-function-smoothScrollWindowDownBy",
+    "<span>smoothScrollWindowDownBy</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/dom.js~spliteleminnertext",
     "function/index.html#static-function-splitElemInnerText",
     "<span>splitElemInnerText</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
@@ -888,9 +1140,45 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/behaviorstate.js~statewithmsgnowait",
+    "function/index.html#static-function-stateWithMsgNoWait",
+    "<span>stateWithMsgNoWait</span> <span class=\"search-result-import-path\">wr-behaviors/lib/behaviorState.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/behaviorstate.js~statewithmsgwait",
+    "function/index.html#static-function-stateWithMsgWait",
+    "<span>stateWithMsgWait</span> <span class=\"search-result-import-path\">wr-behaviors/lib/behaviorState.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/behaviorstate.js~statewithmsgwaitfromawaitable",
+    "function/index.html#static-function-stateWithMsgWaitFromAwaitable",
+    "<span>stateWithMsgWaitFromAwaitable</span> <span class=\"search-result-import-path\">wr-behaviors/lib/behaviorState.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/behaviorstate.js~statewithmsgwaitfromfn",
+    "function/index.html#static-function-stateWithMsgWaitFromFn",
+    "<span>stateWithMsgWaitFromFn</span> <span class=\"search-result-import-path\">wr-behaviors/lib/behaviorState.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/strings.js~stringbetween",
     "function/index.html#static-function-stringBetween",
     "<span>stringBetween</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/strings.js~substringfromindexof",
+    "function/index.html#static-function-substringFromIndexOf",
+    "<span>substringFromIndexOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/strings.js~substringfromlastindexof",
+    "function/index.html#static-function-substringFromLastIndexOf",
+    "<span>substringFromLastIndexOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
     "function"
   ],
   [
@@ -924,15 +1212,57 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "wr-behaviors/lib/traversals.js~traversechildrenofcustom",
+    "function/index.html#static-function-traverseChildrenOfCustom",
+    "<span>traverseChildrenOfCustom</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/traversals.js~traversechildrenofloaderparent",
     "function/index.html#static-function-traverseChildrenOfLoaderParent",
     "<span>traverseChildrenOfLoaderParent</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
     "function"
   ],
   [
+    "wr-behaviors/lib/traversals.js~traversechildrenofloaderparentgenfn",
+    "function/index.html#static-function-traverseChildrenOfLoaderParentGenFn",
+    "<span>traverseChildrenOfLoaderParentGenFn</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/traversals.js~traversechildrenofloaderparentremovingprevious",
+    "function/index.html#static-function-traverseChildrenOfLoaderParentRemovingPrevious",
+    "<span>traverseChildrenOfLoaderParentRemovingPrevious</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/traversals.js~traversechildrenofremovingprevious",
+    "function/index.html#static-function-traverseChildrenOfRemovingPrevious",
+    "<span>traverseChildrenOfRemovingPrevious</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/media.js~uathinksmediaelementcanplayalltheway",
+    "function/index.html#static-function-uaThinksMediaElementCanPlayAllTheWay",
+    "<span>uaThinksMediaElementCanPlayAllTheWay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/media.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/general.js~uuidv4",
+    "function/index.html#static-function-uuidv4",
+    "<span>uuidv4</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "function"
+  ],
+  [
     "wr-behaviors/lib/delays.js~waitforadditionalelemchildren",
     "function/index.html#static-function-waitForAdditionalElemChildren",
     "<span>waitForAdditionalElemChildren</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "function"
+  ],
+  [
+    "wr-behaviors/lib/delays.js~waitforadditionalelemchildrenmo",
+    "function/index.html#static-function-waitForAdditionalElemChildrenMO",
+    "<span>waitForAdditionalElemChildrenMO</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
     "function"
   ],
   [
@@ -960,9 +1290,9 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "wr-behaviors/lib/delays.js~waitforpredicateatmax",
-    "function/index.html#static-function-waitForPredicateAtMax",
-    "<span>waitForPredicateAtMax</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "wr-behaviors/lib/delays.js~waituntilelementisremovedfromdom",
+    "function/index.html#static-function-waitUntilElementIsRemovedFromDom",
+    "<span>waitUntilElementIsRemovedFromDom</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
     "function"
   ],
   [
@@ -1314,76 +1644,16 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "lib/.externs.js~asynciterator",
-    "https://github.com/tc39/proposal-async-iteration",
-    "lib/.externs.js~AsyncIterator",
-    "external"
-  ],
-  [
-    "lib/.externs.js~document",
-    "https://developer.mozilla.org/en-US/docs/Web/API/Document",
-    "lib/.externs.js~Document",
-    "external"
-  ],
-  [
-    "lib/.externs.js~htmlanchorelement",
-    "https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement",
-    "lib/.externs.js~HTMLAnchorElement",
-    "external"
-  ],
-  [
-    "lib/.externs.js~htmlareaelement",
-    "https://developer.mozilla.org/en-US/docs/Web/API/HTMLAreaElement",
-    "lib/.externs.js~HTMLAreaElement",
-    "external"
-  ],
-  [
-    "lib/.externs.js~htmlelement",
-    "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement",
-    "lib/.externs.js~HTMLElement",
-    "external"
-  ],
-  [
-    "lib/.externs.js~htmliframeelement",
-    "https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement",
-    "lib/.externs.js~HTMLIFrameElement",
-    "external"
-  ],
-  [
-    "lib/.externs.js~htmlmediaelement",
-    "https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement",
-    "lib/.externs.js~HTMLMediaElement",
-    "external"
-  ],
-  [
-    "lib/.externs.js~iterator",
-    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator",
-    "lib/.externs.js~Iterator",
-    "external"
-  ],
-  [
-    "lib/.externs.js~symbol",
-    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
-    "lib/.externs.js~Symbol",
-    "external"
-  ],
-  [
-    "lib/.externs.js~window",
-    "https://developer.mozilla.org/en-US/docs/Web/API/Window",
-    "lib/.externs.js~Window",
-    "external"
-  ],
-  [
-    "lib/.externs.js~symbol",
-    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
-    "lib/.externs.js~symbol",
-    "external"
-  ],
-  [
     "lib/behaviorrunner.js",
     "file/lib/behaviorRunner.js.html",
     "lib/behaviorRunner.js",
     "file"
+  ],
+  [
+    "lib/behaviorrunner.js~behaviorrunoptions",
+    "typedef/index.html#static-typedef-BehaviorRunOptions",
+    "lib/behaviorRunner.js~BehaviorRunOptions",
+    "typedef"
   ],
   [
     "lib/behaviorrunner.js~behaviorrunner#[symbol.asynciterator]",
@@ -1404,9 +1674,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/behaviorrunner.js~behaviorrunner#autorunpausable",
-    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-method-autoRunPausable",
-    "lib/behaviorRunner.js~BehaviorRunner#autoRunPausable",
+    "lib/behaviorrunner.js~behaviorrunner#autoruniter",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-method-autoRunIter",
+    "lib/behaviorRunner.js~BehaviorRunner#autoRunIter",
+    "method"
+  ],
+  [
+    "lib/behaviorrunner.js~behaviorrunner#autorunwithdelay",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-method-autoRunWithDelay",
+    "lib/behaviorRunner.js~BehaviorRunner#autoRunWithDelay",
     "method"
   ],
   [
@@ -1419,6 +1695,12 @@ window.esdocSearchIndex = [
     "lib/behaviorrunner.js~behaviorrunner#ispaused",
     "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-get-isPaused",
     "lib/behaviorRunner.js~BehaviorRunner#isPaused",
+    "member"
+  ],
+  [
+    "lib/behaviorrunner.js~behaviorrunner#metadata",
+    "class/lib/behaviorRunner.js~BehaviorRunner.html#instance-member-metadata",
+    "lib/behaviorRunner.js~BehaviorRunner#metadata",
     "member"
   ],
   [
@@ -1482,6 +1764,42 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/behaviorrunner.js~behaviorrunnerasynciterator",
+    "typedef/index.html#static-typedef-BehaviorRunnerAsyncIterator",
+    "lib/behaviorRunner.js~BehaviorRunnerAsyncIterator",
+    "typedef"
+  ],
+  [
+    "lib/behaviorrunner.js~behaviorrunnerinitopts",
+    "typedef/index.html#static-typedef-BehaviorRunnerInitOpts",
+    "lib/behaviorRunner.js~BehaviorRunnerInitOpts",
+    "typedef"
+  ],
+  [
+    "lib/behaviorrunner.js~behaviorrunneropts",
+    "typedef/index.html#static-typedef-BehaviorRunnerOpts",
+    "lib/behaviorRunner.js~BehaviorRunnerOpts",
+    "typedef"
+  ],
+  [
+    "lib/behaviorrunner.js~rawbehavioriterator",
+    "typedef/index.html#static-typedef-RawBehaviorIterator",
+    "lib/behaviorRunner.js~RawBehaviorIterator",
+    "typedef"
+  ],
+  [
+    "lib/behaviorstate.js",
+    "file/lib/behaviorState.js.html",
+    "lib/behaviorState.js",
+    "file"
+  ],
+  [
+    "lib/behaviorstate.js~behaviorstate",
+    "typedef/index.html#static-typedef-BehaviorState",
+    "lib/behaviorState.js~BehaviorState",
+    "typedef"
+  ],
+  [
     "lib/browser.js",
     "file/lib/browser.js.html",
     "lib/browser.js",
@@ -1494,10 +1812,34 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/clicks.js~selectscrollintoviewclickuntilnulloptions",
+    "typedef/index.html#static-typedef-SelectScrollIntoViewClickUntilNullOptions",
+    "lib/clicks.js~SelectScrollIntoViewClickUntilNullOptions",
+    "typedef"
+  ],
+  [
     "lib/delays.js",
     "file/lib/delays.js.html",
     "lib/delays.js",
     "file"
+  ],
+  [
+    "lib/delays.js~guardedwaitforoptions",
+    "typedef/index.html#static-typedef-GuardedWaitForOptions",
+    "lib/delays.js~GuardedWaitForOptions",
+    "typedef"
+  ],
+  [
+    "lib/delays.js~waitforoptions",
+    "typedef/index.html#static-typedef-WaitForOptions",
+    "lib/delays.js~WaitForOptions",
+    "typedef"
+  ],
+  [
+    "lib/delays.js~waitresult",
+    "typedef/index.html#static-typedef-WaitResult",
+    "lib/delays.js~WaitResult",
+    "typedef"
   ],
   [
     "lib/dom.js",
@@ -1512,10 +1854,28 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
+    "lib/dom.js~xpathonofopts",
+    "typedef/index.html#static-typedef-XPathOnOfOpts",
+    "lib/dom.js~XPathOnOfOpts",
+    "typedef"
+  ],
+  [
     "lib/events.js",
     "file/lib/events.js.html",
     "lib/events.js",
     "file"
+  ],
+  [
+    "lib/events.js~createmouseeventoptions",
+    "typedef/index.html#static-typedef-CreateMouseEventOptions",
+    "lib/events.js~CreateMouseEventOptions",
+    "typedef"
+  ],
+  [
+    "lib/events.js~firemouseeventsonoptions",
+    "typedef/index.html#static-typedef-FireMouseEventsOnOptions",
+    "lib/events.js~FireMouseEventsOnOptions",
+    "typedef"
   ],
   [
     "lib/general.js",
@@ -1626,6 +1986,18 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/poststepfns.js~behaviorstepresults",
+    "typedef/index.html#static-typedef-BehaviorStepResults",
+    "lib/postStepFNs.js~BehaviorStepResults",
+    "typedef"
+  ],
+  [
+    "lib/poststepfns.js~rawbehaviorstepresults",
+    "typedef/index.html#static-typedef-RawBehaviorStepResults",
+    "lib/postStepFNs.js~RawBehaviorStepResults",
+    "typedef"
+  ],
+  [
     "lib/reactutils.js",
     "file/lib/reactUtils.js.html",
     "lib/reactUtils.js",
@@ -1638,15 +2010,51 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/scrolls.js~scroller",
+    "typedef/index.html#static-typedef-Scroller",
+    "lib/scrolls.js~Scroller",
+    "typedef"
+  ],
+  [
     "lib/strings.js",
     "file/lib/strings.js.html",
     "lib/strings.js",
     "file"
   ],
   [
+    "lib/strings.js~substringargs",
+    "typedef/index.html#static-typedef-SubstringArgs",
+    "lib/strings.js~SubstringArgs",
+    "typedef"
+  ],
+  [
     "lib/traversals.js",
     "file/lib/traversals.js.html",
     "lib/traversals.js",
     "file"
+  ],
+  [
+    "lib/traversals.js~boolorpromisebool",
+    "typedef/index.html#static-typedef-BoolOrPromiseBool",
+    "lib/traversals.js~BoolOrPromiseBool",
+    "typedef"
+  ],
+  [
+    "lib/traversals.js~disconnectingwalkstate",
+    "typedef/index.html#static-typedef-DisconnectingWalkState",
+    "lib/traversals.js~DisconnectingWalkState",
+    "typedef"
+  ],
+  [
+    "lib/traversals.js~elemorpromiseelem",
+    "typedef/index.html#static-typedef-ElemOrPromiseElem",
+    "lib/traversals.js~ElemOrPromiseElem",
+    "typedef"
+  ],
+  [
+    "lib/traversals.js~traversalopts",
+    "typedef/index.html#static-typedef-TraversalOpts",
+    "lib/traversals.js~TraversalOpts",
+    "typedef"
   ]
 ]

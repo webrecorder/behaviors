@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href>
-  <title data-ice="title">Source | wr-behaviors</title>
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/behaviorState.js | wr-behaviors</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -274,362 +274,92 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1>Source <img data-ice="coverageBadge" src="./badge.svg"><span data-ice="totalCoverageCount" class="total-coverage-count">277/277</span></h1>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/behaviorState.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * Returns a behavior state object with the supplied msg indicating
+ * the behavior runner should not wait for network idle.
+ * The value returned should be yield&apos;d to the behavior
+ * runner
+ * @param {string} msg - A message from the behavior representing a description of the action just performed
+ * @param {*} [state] - Any additional information about the full state of the behavior
+ * @return {BehaviorState}
+ */
+export function stateWithMsgNoWait(msg, state) {
+  return { wait: false, msg, state };
+}
 
-<table class="files-summary" data-ice="files" data-use-coverage="true">
-  <thead>
-    <tr>
-      <td>File</td>
-      <td>Identifier</td>
-      <td class="coverage">Document</td>
-      <td style="display: none;">Size</td>
-      <td style="display: none;">Lines</td>
-      <td style="display: none;">Updated</td>
-    </tr>
-  </thead>
-  <tbody>
-    
-  <tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/behaviorRunner.js.html">lib/behaviorRunner.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="class/lib/behaviorRunner.js~BehaviorRunner.html">BehaviorRunner</a></span>
-<span><a href="function/index.html#static-function-initRunnableBehavior">initRunnableBehavior</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">20/20</span></td>
-      <td style="display: none;" data-ice="size">10187 byte</td>
-      <td style="display: none;" data-ice="lines">313</td>
-      <td style="display: none;" data-ice="updated">2019-08-05 17:50:50 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/behaviorState.js.html">lib/behaviorState.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-createState">createState</a></span>
-<span><a href="function/index.html#static-function-stateWithMsgNoWait">stateWithMsgNoWait</a></span>
-<span><a href="function/index.html#static-function-stateWithMsgWait">stateWithMsgWait</a></span>
-<span><a href="function/index.html#static-function-stateWithMsgWaitFromAwaitable">stateWithMsgWaitFromAwaitable</a></span>
-<span><a href="function/index.html#static-function-stateWithMsgWaitFromFn">stateWithMsgWaitFromFn</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">5/5</span></td>
-      <td style="display: none;" data-ice="size">3177 byte</td>
-      <td style="display: none;" data-ice="lines">83</td>
-      <td style="display: none;" data-ice="updated">2019-08-04 22:27:31 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/browser.js.html">lib/browser.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-browserHistoryGoBack">browserHistoryGoBack</a></span>
-<span><a href="function/index.html#static-function-browserLocation">browserLocation</a></span>
-<span><a href="function/index.html#static-function-locationContains">locationContains</a></span>
-<span><a href="function/index.html#static-function-locationEquals">locationEquals</a></span>
-<span><a href="function/index.html#static-function-waitForHistoryManipToChangeLocation">waitForHistoryManipToChangeLocation</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">5/5</span></td>
-      <td style="display: none;" data-ice="size">2395 byte</td>
-      <td style="display: none;" data-ice="lines">71</td>
-      <td style="display: none;" data-ice="updated">2019-08-05 19:17:23 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/clicks.js.html">lib/clicks.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-click">click</a></span>
-<span><a href="function/index.html#static-function-clickAndWaitFor">clickAndWaitFor</a></span>
-<span><a href="function/index.html#static-function-clickAndWaitForHistoryChange">clickAndWaitForHistoryChange</a></span>
-<span><a href="function/index.html#static-function-clickInContext">clickInContext</a></span>
-<span><a href="function/index.html#static-function-clickInContextWithDelay">clickInContextWithDelay</a></span>
-<span><a href="function/index.html#static-function-clickWithDelay">clickWithDelay</a></span>
-<span><a href="function/index.html#static-function-scrollAllIntoViewAndClick">scrollAllIntoViewAndClick</a></span>
-<span><a href="function/index.html#static-function-scrollAllIntoViewAndClickWithDelay">scrollAllIntoViewAndClickWithDelay</a></span>
-<span><a href="function/index.html#static-function-scrollIntoViewAndClick">scrollIntoViewAndClick</a></span>
-<span><a href="function/index.html#static-function-scrollIntoViewAndClickWithDelay">scrollIntoViewAndClickWithDelay</a></span>
-<span><a href="function/index.html#static-function-selectAllAndClick">selectAllAndClick</a></span>
-<span><a href="function/index.html#static-function-selectAllAndClickWithDelay">selectAllAndClickWithDelay</a></span>
-<span><a href="function/index.html#static-function-selectClickAndWaitFor">selectClickAndWaitFor</a></span>
-<span><a href="function/index.html#static-function-selectElemAndClick">selectElemAndClick</a></span>
-<span><a href="function/index.html#static-function-selectElemAndClickWithDelay">selectElemAndClickWithDelay</a></span>
-<span><a href="function/index.html#static-function-selectElemFromAndClick">selectElemFromAndClick</a></span>
-<span><a href="function/index.html#static-function-selectElemFromAndClickWithDelay">selectElemFromAndClickWithDelay</a></span>
-<span><a href="function/index.html#static-function-selectFromAndClickNTimes">selectFromAndClickNTimes</a></span>
-<span><a href="function/index.html#static-function-selectFromAndClickNTimesWithDelay">selectFromAndClickNTimesWithDelay</a></span>
-<span><a href="function/index.html#static-function-selectFromAndClickUntilNullWithDelay">selectFromAndClickUntilNullWithDelay</a></span>
-<span><a href="function/index.html#static-function-selectScrollIntoViewAndClickSelectedWhileConnected">selectScrollIntoViewAndClickSelectedWhileConnected</a></span>
-<span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelaySelectedWhileConnected">selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">24/24</span></td>
-      <td style="display: none;" data-ice="size">16256 byte</td>
-      <td style="display: none;" data-ice="lines">455</td>
-      <td style="display: none;" data-ice="updated">2019-08-05 22:57:21 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/delays.js.html">lib/delays.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-DelayAmount1Second">DelayAmount1Second</a></span>
-<span><a href="variable/index.html#static-variable-DelayAmount2Seconds">DelayAmount2Seconds</a></span>
-<span><a href="variable/index.html#static-variable-DelayAmount3Seconds">DelayAmount3Seconds</a></span>
-<span><a href="variable/index.html#static-variable-DelayAmount4Seconds">DelayAmount4Seconds</a></span>
-<span><a href="variable/index.html#static-variable-DelayAmount5Seconds">DelayAmount5Seconds</a></span>
-<span><a href="function/index.html#static-function-delay">delay</a></span>
-<span><a href="function/index.html#static-function-domCompletePromise">domCompletePromise</a></span>
-<span><a href="function/index.html#static-function-resolveWhenBehaviorUnPaused">resolveWhenBehaviorUnPaused</a></span>
-<span><a href="function/index.html#static-function-secondsToDelayAmount">secondsToDelayAmount</a></span>
-<span><a href="function/index.html#static-function-setIntervalP">setIntervalP</a></span>
-<span><a href="function/index.html#static-function-setTimeoutP">setTimeoutP</a></span>
-<span><a href="function/index.html#static-function-waitForAdditionalElemChildren">waitForAdditionalElemChildren</a></span>
-<span><a href="function/index.html#static-function-waitForAdditionalElemChildrenMO">waitForAdditionalElemChildrenMO</a></span>
-<span><a href="function/index.html#static-function-waitForAndSelectElement">waitForAndSelectElement</a></span>
-<span><a href="function/index.html#static-function-waitForPredicate">waitForPredicate</a></span>
-<span><a href="function/index.html#static-function-waitUntilElementIsRemovedFromDom">waitUntilElementIsRemovedFromDom</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">16/16</span></td>
-      <td style="display: none;" data-ice="size">10751 byte</td>
-      <td style="display: none;" data-ice="lines">352</td>
-      <td style="display: none;" data-ice="updated">2019-08-05 23:01:06 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/dom.js.html">lib/dom.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-addBehaviorStyle">addBehaviorStyle</a></span>
-<span><a href="function/index.html#static-function-addClass">addClass</a></span>
-<span><a href="function/index.html#static-function-anySelectorExists">anySelectorExists</a></span>
-<span><a href="function/index.html#static-function-attr">attr</a></span>
-<span><a href="function/index.html#static-function-attrEq">attrEq</a></span>
-<span><a href="function/index.html#static-function-canAccessIf">canAccessIf</a></span>
-<span><a href="function/index.html#static-function-chainFistChildElemOf">chainFistChildElemOf</a></span>
-<span><a href="function/index.html#static-function-chainLastChildElemOf">chainLastChildElemOf</a></span>
-<span><a href="function/index.html#static-function-chainNthChildElementOf">chainNthChildElementOf</a></span>
-<span><a href="function/index.html#static-function-chainNthChildNodeOf">chainNthChildNodeOf</a></span>
-<span><a href="function/index.html#static-function-chainQs">chainQs</a></span>
-<span><a href="function/index.html#static-function-childElementIterator">childElementIterator</a></span>
-<span><a href="function/index.html#static-function-childNodeIterator">childNodeIterator</a></span>
-<span><a href="function/index.html#static-function-docBaseURIEndsWith">docBaseURIEndsWith</a></span>
-<span><a href="function/index.html#static-function-docBaseURIEquals">docBaseURIEquals</a></span>
-<span><a href="function/index.html#static-function-documentScrollPosition">documentScrollPosition</a></span>
-<span><a href="function/index.html#static-function-elemDataValue">elemDataValue</a></span>
-<span><a href="function/index.html#static-function-elemDataValueEqs">elemDataValueEqs</a></span>
-<span><a href="function/index.html#static-function-elemHasChildren">elemHasChildren</a></span>
-<span><a href="function/index.html#static-function-elemHasSibling">elemHasSibling</a></span>
-<span><a href="function/index.html#static-function-elemHasZeroBoundingRect">elemHasZeroBoundingRect</a></span>
-<span><a href="function/index.html#static-function-elemInnerText">elemInnerText</a></span>
-<span><a href="function/index.html#static-function-elemInnerTextEqs">elemInnerTextEqs</a></span>
-<span><a href="function/index.html#static-function-elemInnerTextEqsInsensitive">elemInnerTextEqsInsensitive</a></span>
-<span><a href="function/index.html#static-function-elemInnerTextEqsOneOf">elemInnerTextEqsOneOf</a></span>
-<span><a href="function/index.html#static-function-elemInnerTextMatchesRegex">elemInnerTextMatchesRegex</a></span>
-<span><a href="function/index.html#static-function-elemMatchesSelector">elemMatchesSelector</a></span>
-<span><a href="function/index.html#static-function-elemOffsetTopZero">elemOffsetTopZero</a></span>
-<span><a href="function/index.html#static-function-elemTextContent">elemTextContent</a></span>
-<span><a href="function/index.html#static-function-elementTextContains">elementTextContains</a></span>
-<span><a href="function/index.html#static-function-elementTextEndsWith">elementTextEndsWith</a></span>
-<span><a href="function/index.html#static-function-elementTextEqs">elementTextEqs</a></span>
-<span><a href="function/index.html#static-function-elementTextStartsWith">elementTextStartsWith</a></span>
-<span><a href="function/index.html#static-function-elementTextStartsWithAndEndsWith">elementTextStartsWithAndEndsWith</a></span>
-<span><a href="function/index.html#static-function-elementsNameEquals">elementsNameEquals</a></span>
-<span><a href="function/index.html#static-function-filteredQs">filteredQs</a></span>
-<span><a href="function/index.html#static-function-findDirectChildElement">findDirectChildElement</a></span>
-<span><a href="function/index.html#static-function-findTag">findTag</a></span>
-<span><a href="function/index.html#static-function-firstChildElemOfParent">firstChildElemOfParent</a></span>
-<span><a href="function/index.html#static-function-firstChildElementOf">firstChildElementOf</a></span>
-<span><a href="function/index.html#static-function-firstChildElementOfSelector">firstChildElementOfSelector</a></span>
-<span><a href="function/index.html#static-function-getElemSibling">getElemSibling</a></span>
-<span><a href="function/index.html#static-function-getElemSiblingAndRemoveElem">getElemSiblingAndRemoveElem</a></span>
-<span><a href="function/index.html#static-function-getElementClientPageCenter">getElementClientPageCenter</a></span>
-<span><a href="function/index.html#static-function-getElementClientPagePosition">getElementClientPagePosition</a></span>
-<span><a href="function/index.html#static-function-getElementPositionWidthHeight">getElementPositionWidthHeight</a></span>
-<span><a href="function/index.html#static-function-getElemsParentsSibling">getElemsParentsSibling</a></span>
-<span><a href="function/index.html#static-function-getNthParentElement">getNthParentElement</a></span>
-<span><a href="function/index.html#static-function-hasAnyClass">hasAnyClass</a></span>
-<span><a href="function/index.html#static-function-hasClass">hasClass</a></span>
-<span><a href="function/index.html#static-function-hasClasses">hasClasses</a></span>
-<span><a href="function/index.html#static-function-id">id</a></span>
-<span><a href="function/index.html#static-function-idExists">idExists</a></span>
-<span><a href="function/index.html#static-function-innerTextOfSelected">innerTextOfSelected</a></span>
-<span><a href="function/index.html#static-function-isClasslessElem">isClasslessElem</a></span>
-<span><a href="function/index.html#static-function-isElemVisible">isElemVisible</a></span>
-<span><a href="function/index.html#static-function-lastChildElementOf">lastChildElementOf</a></span>
-<span><a href="function/index.html#static-function-lastChildElementOfSelector">lastChildElementOfSelector</a></span>
-<span><a href="function/index.html#static-function-markElemAsVisited">markElemAsVisited</a></span>
-<span><a href="function/index.html#static-function-maybePolyfillXPG">maybePolyfillXPG</a></span>
-<span><a href="function/index.html#static-function-maybeRemoveElem">maybeRemoveElem</a></span>
-<span><a href="function/index.html#static-function-maybeRemoveElemById">maybeRemoveElemById</a></span>
-<span><a href="function/index.html#static-function-nodesNameEquals">nodesNameEquals</a></span>
-<span><a href="function/index.html#static-function-nthChildElementOf">nthChildElementOf</a></span>
-<span><a href="function/index.html#static-function-nthChildNodeOf">nthChildNodeOf</a></span>
-<span><a href="function/index.html#static-function-nthPreviousSibling">nthPreviousSibling</a></span>
-<span><a href="function/index.html#static-function-numElemChildren">numElemChildren</a></span>
-<span><a href="function/index.html#static-function-qs">qs</a></span>
-<span><a href="function/index.html#static-function-qsOneOf">qsOneOf</a></span>
-<span><a href="function/index.html#static-function-qsa">qsa</a></span>
-<span><a href="function/index.html#static-function-qsaOneOf">qsaOneOf</a></span>
-<span><a href="function/index.html#static-function-removeClass">removeClass</a></span>
-<span><a href="function/index.html#static-function-repeatedXpathQueryIterator">repeatedXpathQueryIterator</a></span>
-<span><a href="function/index.html#static-function-repeatedXpathQueryIteratorAsync">repeatedXpathQueryIteratorAsync</a></span>
-<span><a href="function/index.html#static-function-selectedNextElementSibling">selectedNextElementSibling</a></span>
-<span><a href="function/index.html#static-function-selectorExists">selectorExists</a></span>
-<span><a href="function/index.html#static-function-splitElemInnerText">splitElemInnerText</a></span>
-<span><a href="function/index.html#static-function-splitElemTextContents">splitElemTextContents</a></span>
-<span><a href="function/index.html#static-function-xpathOneOf">xpathOneOf</a></span>
-<span><a href="function/index.html#static-function-xpathSnapShot">xpathSnapShot</a></span>
-<span><a href="function/index.html#static-function-xpathSnapShotArray">xpathSnapShotArray</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">81/81</span></td>
-      <td style="display: none;" data-ice="size">43437 byte</td>
-      <td style="display: none;" data-ice="lines">1211</td>
-      <td style="display: none;" data-ice="updated">2019-08-06 20:43:42 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/events.js.html">lib/events.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-createMouseEvent">createMouseEvent</a></span>
-<span><a href="function/index.html#static-function-fireEventOn">fireEventOn</a></span>
-<span><a href="function/index.html#static-function-fireMouseEventsOnElement">fireMouseEventsOnElement</a></span>
-<span><a href="function/index.html#static-function-waitForEventTargetToFireEvent">waitForEventTargetToFireEvent</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">6/6</span></td>
-      <td style="display: none;" data-ice="size">4973 byte</td>
-      <td style="display: none;" data-ice="lines">158</td>
-      <td style="display: none;" data-ice="updated">2019-08-05 20:02:09 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/general.js.html">lib/general.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-autoFetchFromDoc">autoFetchFromDoc</a></span>
-<span><a href="function/index.html#static-function-autobind">autobind</a></span>
-<span><a href="function/index.html#static-function-compose">compose</a></span>
-<span><a href="function/index.html#static-function-composeAsync">composeAsync</a></span>
-<span><a href="function/index.html#static-function-composeAsyncIterators">composeAsyncIterators</a></span>
-<span><a href="function/index.html#static-function-composeIterators">composeIterators</a></span>
-<span><a href="function/index.html#static-function-extractProps">extractProps</a></span>
-<span><a href="function/index.html#static-function-getViaPath">getViaPath</a></span>
-<span><a href="function/index.html#static-function-globalWithPropsExist">globalWithPropsExist</a></span>
-<span><a href="function/index.html#static-function-isFunction">isFunction</a></span>
-<span><a href="function/index.html#static-function-isGenerator">isGenerator</a></span>
-<span><a href="function/index.html#static-function-isPromise">isPromise</a></span>
-<span><a href="function/index.html#static-function-mapAsyncIterator">mapAsyncIterator</a></span>
-<span><a href="function/index.html#static-function-noExceptGeneratorWrap">noExceptGeneratorWrap</a></span>
-<span><a href="function/index.html#static-function-noop">noop</a></span>
-<span><a href="function/index.html#static-function-objectHasProps">objectHasProps</a></span>
-<span><a href="function/index.html#static-function-objectInstanceOf">objectInstanceOf</a></span>
-<span><a href="function/index.html#static-function-partial">partial</a></span>
-<span><a href="function/index.html#static-function-partialRight">partialRight</a></span>
-<span><a href="function/index.html#static-function-promiseResolveReject">promiseResolveReject</a></span>
-<span><a href="function/index.html#static-function-sendAutoFetchWorkerURLs">sendAutoFetchWorkerURLs</a></span>
-<span><a href="function/index.html#static-function-uuidv4">uuidv4</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">22/22</span></td>
-      <td style="display: none;" data-ice="size">16962 byte</td>
-      <td style="display: none;" data-ice="lines">511</td>
-      <td style="display: none;" data-ice="updated">2019-08-05 23:09:48 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/index.js.html">lib/index.js</a></span></td>
-      <td data-ice="identifier" class="identifiers">-</td>
-      <td class="coverage"><span data-ice="coverage">-</span></td>
-      <td style="display: none;" data-ice="size">5362 byte</td>
-      <td style="display: none;" data-ice="lines">243</td>
-      <td style="display: none;" data-ice="updated">2019-08-06 20:16:22 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/media.js.html">lib/media.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-findAllMediaElementsAndPlay">findAllMediaElementsAndPlay</a></span>
-<span><a href="function/index.html#static-function-noExceptPlayMediaElement">noExceptPlayMediaElement</a></span>
-<span><a href="function/index.html#static-function-selectAndPlay">selectAndPlay</a></span>
-<span><a href="function/index.html#static-function-selectIdAndPlay">selectIdAndPlay</a></span>
-<span><a href="function/index.html#static-function-uaThinksMediaElementCanPlayAllTheWay">uaThinksMediaElementCanPlayAllTheWay</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">6/6</span></td>
-      <td style="display: none;" data-ice="size">3639 byte</td>
-      <td style="display: none;" data-ice="lines">111</td>
-      <td style="display: none;" data-ice="updated">2019-08-05 23:09:48 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/mutations.js.html">lib/mutations.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="class/lib/mutations.js~MutationStream.html">MutationStream</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">13/13</span></td>
-      <td style="display: none;" data-ice="size">4777 byte</td>
-      <td style="display: none;" data-ice="lines">161</td>
-      <td style="display: none;" data-ice="updated">2019-08-05 23:09:48 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/outlinkCollector.js.html">lib/outlinkCollector.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-addOutLinks">addOutLinks</a></span>
-<span><a href="function/index.html#static-function-addOutlink">addOutlink</a></span>
-<span><a href="function/index.html#static-function-collectOutlinksFrom">collectOutlinksFrom</a></span>
-<span><a href="function/index.html#static-function-collectOutlinksFromDoc">collectOutlinksFromDoc</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">10/10</span></td>
-      <td style="display: none;" data-ice="size">3125 byte</td>
-      <td style="display: none;" data-ice="lines">129</td>
-      <td style="display: none;" data-ice="updated">2019-08-05 21:38:16 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/postStepFNs.js.html">lib/postStepFNs.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-buildCustomPostStepFn">buildCustomPostStepFn</a></span>
-<span><a href="function/index.html#static-function-doneOrWait">doneOrWait</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">2/2</span></td>
-      <td style="display: none;" data-ice="size">1369 byte</td>
-      <td style="display: none;" data-ice="lines">46</td>
-      <td style="display: none;" data-ice="updated">2019-08-04 22:04:37 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/reactUtils.js.html">lib/reactUtils.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-findChildWithKey">findChildWithKey</a></span>
-<span><a href="function/index.html#static-function-findReduxStore">findReduxStore</a></span>
-<span><a href="function/index.html#static-function-getInternalRootOnElem">getInternalRootOnElem</a></span>
-<span><a href="function/index.html#static-function-getReactRootContainer">getReactRootContainer</a></span>
-<span><a href="function/index.html#static-function-getReactRootHostElem">getReactRootHostElem</a></span>
-<span><a href="function/index.html#static-function-reactInstanceFromDOMElem">reactInstanceFromDOMElem</a></span>
-<span><a href="function/index.html#static-function-reactInstancesFromElements">reactInstancesFromElements</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">8/8</span></td>
-      <td style="display: none;" data-ice="size">4039 byte</td>
-      <td style="display: none;" data-ice="lines">136</td>
-      <td style="display: none;" data-ice="updated">2019-08-05 21:38:16 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/scrolls.js.html">lib/scrolls.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-canScrollDownMore">canScrollDownMore</a></span>
-<span><a href="function/index.html#static-function-canScrollUpMore">canScrollUpMore</a></span>
-<span><a href="function/index.html#static-function-createScrollAmount">createScrollAmount</a></span>
-<span><a href="function/index.html#static-function-createScroller">createScroller</a></span>
-<span><a href="function/index.html#static-function-scrollDownByElemHeight">scrollDownByElemHeight</a></span>
-<span><a href="function/index.html#static-function-scrollDownByElemHeightWithDelay">scrollDownByElemHeightWithDelay</a></span>
-<span><a href="function/index.html#static-function-scrollIntoView">scrollIntoView</a></span>
-<span><a href="function/index.html#static-function-scrollIntoViewAndWaitFor">scrollIntoViewAndWaitFor</a></span>
-<span><a href="function/index.html#static-function-scrollIntoViewWithDelay">scrollIntoViewWithDelay</a></span>
-<span><a href="function/index.html#static-function-scrollToElemOffset">scrollToElemOffset</a></span>
-<span><a href="function/index.html#static-function-scrollToElemOffsetWithDelay">scrollToElemOffsetWithDelay</a></span>
-<span><a href="function/index.html#static-function-scrollWindowBy">scrollWindowBy</a></span>
-<span><a href="function/index.html#static-function-scrollWindowByWithDelay">scrollWindowByWithDelay</a></span>
-<span><a href="function/index.html#static-function-scrollWindowDownBy">scrollWindowDownBy</a></span>
-<span><a href="function/index.html#static-function-scrollWindowDownByWithDelay">scrollWindowDownByWithDelay</a></span>
-<span><a href="function/index.html#static-function-smoothScrollWindowBy">smoothScrollWindowBy</a></span>
-<span><a href="function/index.html#static-function-smoothScrollWindowDownBy">smoothScrollWindowDownBy</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">17/17</span></td>
-      <td style="display: none;" data-ice="size">9942 byte</td>
-      <td style="display: none;" data-ice="lines">305</td>
-      <td style="display: none;" data-ice="updated">2019-08-05 23:09:48 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/strings.js.html">lib/strings.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-camelCase">camelCase</a></span>
-<span><a href="function/index.html#static-function-camelCaseToDashDelim">camelCaseToDashDelim</a></span>
-<span><a href="function/index.html#static-function-camelCaseToUnderscoreDelim">camelCaseToUnderscoreDelim</a></span>
-<span><a href="function/index.html#static-function-capitalize">capitalize</a></span>
-<span><a href="function/index.html#static-function-collapseWhitespace">collapseWhitespace</a></span>
-<span><a href="function/index.html#static-function-isAlpha">isAlpha</a></span>
-<span><a href="function/index.html#static-function-isAlphaNumeric">isAlphaNumeric</a></span>
-<span><a href="function/index.html#static-function-isEmptyString">isEmptyString</a></span>
-<span><a href="function/index.html#static-function-isLower">isLower</a></span>
-<span><a href="function/index.html#static-function-isNumeric">isNumeric</a></span>
-<span><a href="function/index.html#static-function-isUpper">isUpper</a></span>
-<span><a href="function/index.html#static-function-stringBetween">stringBetween</a></span>
-<span><a href="function/index.html#static-function-substringFromIndexOf">substringFromIndexOf</a></span>
-<span><a href="function/index.html#static-function-substringFromLastIndexOf">substringFromLastIndexOf</a></span>
-<span><a href="function/index.html#static-function-titleCase">titleCase</a></span>
-<span><a href="function/index.html#static-function-toBoolean">toBoolean</a></span>
-<span><a href="function/index.html#static-function-toFloat">toFloat</a></span>
-<span><a href="function/index.html#static-function-toInt">toInt</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">34/34</span></td>
-      <td style="display: none;" data-ice="size">6534 byte</td>
-      <td style="display: none;" data-ice="lines">268</td>
-      <td style="display: none;" data-ice="updated">2019-08-05 21:48:08 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/traversals.js.html">lib/traversals.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-WalkEndedReasons">WalkEndedReasons</a></span>
-<span><a href="function/index.html#static-function-disconnectingWalk">disconnectingWalk</a></span>
-<span><a href="function/index.html#static-function-traverseChildrenOf">traverseChildrenOf</a></span>
-<span><a href="function/index.html#static-function-traverseChildrenOfCustom">traverseChildrenOfCustom</a></span>
-<span><a href="function/index.html#static-function-traverseChildrenOfLoaderParent">traverseChildrenOfLoaderParent</a></span>
-<span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentGenFn">traverseChildrenOfLoaderParentGenFn</a></span>
-<span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentRemovingPrevious">traverseChildrenOfLoaderParentRemovingPrevious</a></span>
-<span><a href="function/index.html#static-function-traverseChildrenOfRemovingPrevious">traverseChildrenOfRemovingPrevious</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">8/8</span></td>
-      <td style="display: none;" data-ice="size">15960 byte</td>
-      <td style="display: none;" data-ice="lines">411</td>
-      <td style="display: none;" data-ice="updated">2019-08-06 20:08:21 (UTC)</td>
-    </tr>
-</tbody>
-</table>
+/**
+ * Returns a behavior state object with the supplied msg indicating
+ * the behavior runner should wait for network idle.
+ * The value returned should be yield&apos;d to the behavior
+ * runner
+ * @param {string} msg -  A message from the behavior representing a description of the action just performed
+ * @param {*} [state] - Any additional information about the full state of the behavior
+ * @return {BehaviorState}
+ */
+export function stateWithMsgWait(msg, state) {
+  return { wait: true, msg, state };
+}
+
+/**
+ * Returns a behavior state object with the supplied wait
+ * and msg values. The value returned should be yield&apos;d
+ * to the behavior runner
+ * @param {boolean} wait
+ * @param {*} msg - A message from the behavior representing a description of the action just performed
+ * @param {*} [state] - Any additional information about the full state of the behavior
+ * @return {BehaviorState}
+ */
+export function createState(wait, msg, state) {
+  return { wait, msg, state };
+}
+
+/**
+ * Returns a behavior state object with the supplied msg with the wait
+ * value being set by the return value of the supplied function.
+ * The value returned should be yield&apos;d to the behavior runner
+ * @param {function(): boolean} fn
+ * @param {*} msg - A message from the behavior representing a description of the action just performed
+ * @param {*} [state] - Any additional information about the full state of the behavior
+ * @return {BehaviorState}
+ */
+export function stateWithMsgWaitFromFn(fn, msg, state) {
+  let wait = false;
+  try {
+    wait = fn();
+  } catch (e) {
+    wait = false;
+  }
+  return createState(wait, msg);
+}
+
+/**
+ * Returns a Promise that resolves to an behavior state object with
+ * the supplied msg with the wait value being set by the value resolved Promise.
+ * The value returned should be yield&apos;d to the behavior runner
+ * @param {Promise&lt;boolean&gt;} awaitable
+ * @param {*} msg - A message from the behavior representing a description of the action just performed
+ * @param {*} [state] - Any additional information about the full state of the behavior
+ * @return {Promise&lt;BehaviorState&gt;}
+ */
+export async function stateWithMsgWaitFromAwaitable(awaitable, msg, state) {
+  let wait = false;
+  try {
+    wait = await awaitable;
+  } catch (e) {
+    wait = false;
+  }
+  return createState(wait, msg, state);
+}
+
+/**
+ * @typedef {Object} BehaviorState
+ * @property {string} msg - A message from the behavior representing a description of the action just performed
+ * @property {boolean} wait - Should a wait for network idle be performed if possible by the runner
+ * @property {*} state  - Any additional information about the full state of the behavior
+ */
+</code></pre>
+
 </div>
 
 <footer class="footer">

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | wr-behaviors</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/behaviors.html"><a href="manual/behaviors.html" data-ice="link">Behaviors</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#metadata" data-ice="link">Metadata</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#behavior-implementation-overview" data-ice="link">Behavior Implementation Overview</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#development-workflow" data-ice="link">Development Workflow</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/build-system.html"><a href="manual/build-system.html" data-ice="link">Build System</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/build-system.html"><a href="manual/build-system.html#overview" data-ice="link">Overview</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/build-system.html"><a href="manual/build-system.html#initialization" data-ice="link">Initialization</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/build-system.html"><a href="manual/build-system.html#ultimate-build-configuration" data-ice="link">Ultimate build configuration</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/build-system.html"><a href="manual/build-system.html#building-what-resolution" data-ice="link">Building what resolution</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/build-system.html"><a href="manual/build-system.html#ensuring-the-necessary-build-directory-structure-exists" data-ice="link">Ensuring the necessary build directory structure exists</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/build-system.html"><a href="manual/build-system.html#collection" data-ice="link">Collection</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/build-system.html"><a href="manual/build-system.html#building" data-ice="link">Building</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/cli.html"><a href="manual/cli.html" data-ice="link">CLI</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#api-command" data-ice="link">API command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#behaviors-command" data-ice="link">Behaviors command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#runner-command" data-ice="link">Runner command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#stdlib-command" data-ice="link">STDLIB command</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html" data-ice="link">Pre-made Behaviors</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#autoscroll" data-ice="link">Autoscroll</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#specifics" data-ice="link">Specifics</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#instagram" data-ice="link">Instagram</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#gotchas" data-ice="link">Gotchas</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stories" data-ice="link">Stories</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#user--not-own-feed-" data-ice="link">User (not own feed)</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#viewing-stories" data-ice="link">Viewing stories</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#viewing-posts" data-ice="link">Viewing posts</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stopping-condition" data-ice="link">Stopping condition</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#individual-post" data-ice="link">Individual Post</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#own-feed" data-ice="link">Own Feed</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stopping-condition" data-ice="link">Stopping condition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#twitter" data-ice="link">Twitter</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#gotchas" data-ice="link">Gotchas</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#timeline" data-ice="link">Timeline</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stopping-condition" data-ice="link">Stopping condition</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#hashtags" data-ice="link">HashTags</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stopping-condition" data-ice="link">Stopping condition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#youtube-video" data-ice="link">Youtube Video</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="pre-made-behaviors">Pre-made Behaviors</h1><h2 id="autoscroll">Autoscroll</h2><h3 id="applies-to">Applies to</h3><p>Pages that do not have a predefined behavior for them</p>
+<h3 id="behavior">Behavior</h3><p>Automatically scroll down the page and captures any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.</p>
+<h3 id="specifics">Specifics</h3><p>The discovery of media is done by considering the rendered HTML of page at the current scroll position and the playing of the discovered media is done using <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play">operations</a> defined for HTML media elements. If the page requires a more specific action to be performed in order to play its media, the behavior may fail to play the media and in this case, a more specific behavior should be made in order to handle this condition.</p>
+<h2 id="instagram">Instagram</h2><h3 id="gotchas">Gotchas</h3><p>Instagram changes their CSS class names frequently which can potentially cause the behaviors to not be able to view/play media content until they are updated.</p>
+<p>Video posts require application logic to be played consistently.
+Gifs are shown via the video element and actual videos are streamed. </p>
+<p><em>Note data request politeness (1 img = 4 requests)</em></p>
+<h3 id="stories">Stories</h3><p>Requires the viewer to be logged in</p>
+<p>Logged in state detected if the &#x201C;logged-in&#x201D; CSS class is present or the login/sign-up element are not present </p>
+<h3 id="user--not-own-feed-">User (not own feed)</h3><p>Updated: 2019-07-15T22:29:05</p>
+<h4 id="applies-to">Applies to</h4><ul>
+<li><code>https://(www.)instagram.com/[user name](/)</code></li>
+<li><code>https://(www.)instagram.com/[user name](/?query-string)</code></li>
+<li><code>https://(www.)instagram.com/[user name](/tagged)(/)</code></li>
+</ul>
+<h4 id="behavior">Behavior</h4><ul>
+<li>View stories if able</li>
+<li>View each post currently visible</li>
+<li>If not stopping condition: wait for more rows indefinitely*</li>
+</ul>
+<h4 id="viewing-stories">Viewing stories</h4><p>As previously mentioned, a logged in user. 
+If there are selected stories (profile picture is clickable) they are viewed first 
+If there are normal stories to be viewed they are viewed</p>
+<h4 id="viewing-posts">Viewing posts</h4><p>Video post (gif, traditional video)</p>
+<ul>
+<li>video is played and a wait for the user agent to determine if the video can play through all the way is done</li>
+</ul>
+<p>Photo post</p>
+<ul>
+<li>no &#x201C;special&#x201D; action other than view</li>
+</ul>
+<p>Multiple media post</p>
+<ul>
+<li>each part of the multi-post is viewed </li>
+<li>if video media is contained the video post action is performed before moving to the next part </li>
+<li>otherwise photo post action is performed</li>
+</ul>
+<p>All post types</p>
+<ul>
+<li>all comments and replies to comments are loaded</li>
+</ul>
+<h4 id="stopping-condition">Stopping condition</h4><p>Since instagram is a react application we attempt to extract the &#x201C;redux store&#x201D; in order to determine the number of posts by the user and to listen for application state changes that indicate if there are additional &#x201C;pages&#x201D; (more posts) to be retrieved.</p>
+<p>If extraction of the &#x201C;redux store&#x201D; fails or application internals have changed we fall back to a rudimentary post counting scheme.
+When not using store the wait for more post rows to be rendered is limited to 1 minute</p>
+<p>The completion condition can be expressed as follows
+Store extraction has not failed: There are no more pages to be retrieved and the current row of posts does not have a next sibling
+Store extraction failed: The number of posts viewed is &gt;= number of posts by the user and the current row of posts does not have a next sibling</p>
+<h3 id="individual-post">Individual Post</h3><h4 id="applies-to">Applies to</h4><ul>
+<li><code>https://(www.)instagram.com/p/[post-id](/)</code></li>
+</ul>
+<p>Behavior
+The actions of this behavior are described in the Viewing posts section of the Instagram User behavior</p>
+<h3 id="own-feed">Own Feed</h3><p><strong>Note</strong>: Requires logged in viewer</p>
+<p>Unlike viewing of some other users posts the viewing of own feed posts is limited due to instagram not displaying the viewed post in a popup rather you are taken to post page</p>
+<h4 id="applies-to">Applies to</h4><ul>
+<li><code>https://(www.)instagram.com(/)</code></li>
+</ul>
+<h4 id="behavior">Behavior</h4><p>View stories if any are to be had</p>
+<p>For each rendered post: </p>
+<ul>
+<li>perform actions described in the Viewing posts section of the Instagram User behavior with one exception, comments cannot be viewed
+If stopping condition not met wait for more posts to be loaded at maximum 45 seconds</li>
+</ul>
+<h4 id="stopping-condition">Stopping condition</h4><p>The currently viewed post has no next sibling after 45 seconds</p>
+<h2 id="twitter">Twitter</h2><h3 id="gotchas">Gotchas</h3><p>Tweet embeds although sometimes viewable inline by clicking on them are shown using an iframe that the behavior does not have access to </p>
+<p>Audio video tweets are streamed and if the media is of significant length waiting for them to become fully loaded may take the entire length of the video or a significantly long period of time (5+ minutes)</p>
+<h3 id="timeline">Timeline</h3><p>Applies to</p>
+<ul>
+<li><code>https://(www.)twitter.com(/)</code>  -- Note this requires logged in</li>
+<li><code>https://(www.)twitter.com/[user-name](/)</code></li>
+</ul>
+<h4 id="behavior">Behavior</h4><p>If the viewed page is marked as sensitive, reveal page</p>
+<p>For each rendered tweet</p>
+<ul>
+<li>If tweet marked as sensitive reveal it</li>
+<li>If tweet has video play it</li>
+</ul>
+<p>Open tweet</p>
+<ul>
+<li>If tweet has replies or apart of thread view comments thread parts</li>
+</ul>
+<p>If stopping condition is not met wait for more tweets to be loaded</p>
+<h4 id="stopping-condition">Stopping condition</h4><p>The currently viewed tweet does not have a sibling and the pre-rendered stream end or stream failed are made visible</p>
+<h3 id="hashtags">HashTags</h3><h4 id="applies-to">Applies to</h4><ul>
+<li><code>https://(www.)twitter.com/hashtag/[hash-tag](remaining-URL-parts)*</code></li>
+</ul>
+<h4 id="behavior">Behavior</h4><p>For each rendered tweet</p>
+<ul>
+<li>If tweet marked as sensitive reveal it</li>
+<li>If tweet has video play it</li>
+<li>Open tweet<ul>
+<li>If tweet has replies or apart of thread view comments thread parts</li>
+</ul>
+</li>
+</ul>
+<p>If stopping condition is not met wait for more tweets to be loaded and repeat</p>
+<h4 id="stopping-condition">Stopping condition</h4><p>The currently viewed tweet does not have a sibling and the pre-rendered stream end or stream failed are made visible</p>
+<h2 id="youtube-video">Youtube Video</h2><h3 id="applies-to">Applies to</h3><ul>
+<li>https://(www.)youtube.com/watch?v=[remaining-URL-parts]+  </li>
+</ul>
+<h3 id="behavior">Behavior</h3><p>Loads the videos additional information</p>
+<p>Plays the video</p>
+<p>Clicks show more replies until all replies have been loaded (if there were replies)</p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

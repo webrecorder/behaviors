@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | wr-behaviors</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/behaviors.html"><a href="manual/behaviors.html" data-ice="link">Behaviors</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#metadata" data-ice="link">Metadata</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#behavior-implementation-overview" data-ice="link">Behavior Implementation Overview</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#development-workflow" data-ice="link">Development Workflow</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/build-system.html"><a href="manual/build-system.html" data-ice="link">Build System</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/build-system.html"><a href="manual/build-system.html#overview" data-ice="link">Overview</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/build-system.html"><a href="manual/build-system.html#initialization" data-ice="link">Initialization</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/build-system.html"><a href="manual/build-system.html#ultimate-build-configuration" data-ice="link">Ultimate build configuration</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/build-system.html"><a href="manual/build-system.html#building-what-resolution" data-ice="link">Building what resolution</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/build-system.html"><a href="manual/build-system.html#ensuring-the-necessary-build-directory-structure-exists" data-ice="link">Ensuring the necessary build directory structure exists</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/build-system.html"><a href="manual/build-system.html#collection" data-ice="link">Collection</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/build-system.html"><a href="manual/build-system.html#building" data-ice="link">Building</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/cli.html"><a href="manual/cli.html" data-ice="link">CLI</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#api-command" data-ice="link">API command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#behaviors-command" data-ice="link">Behaviors command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#runner-command" data-ice="link">Runner command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#stdlib-command" data-ice="link">STDLIB command</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html" data-ice="link">Pre-made Behaviors</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#autoscroll" data-ice="link">Autoscroll</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#specifics" data-ice="link">Specifics</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#instagram" data-ice="link">Instagram</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#gotchas" data-ice="link">Gotchas</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stories" data-ice="link">Stories</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#user--not-own-feed-" data-ice="link">User (not own feed)</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#viewing-stories" data-ice="link">Viewing stories</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#viewing-posts" data-ice="link">Viewing posts</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stopping-condition" data-ice="link">Stopping condition</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#individual-post" data-ice="link">Individual Post</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#own-feed" data-ice="link">Own Feed</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stopping-condition" data-ice="link">Stopping condition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#twitter" data-ice="link">Twitter</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#gotchas" data-ice="link">Gotchas</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#timeline" data-ice="link">Timeline</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stopping-condition" data-ice="link">Stopping condition</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#hashtags" data-ice="link">HashTags</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#stopping-condition" data-ice="link">Stopping condition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#youtube-video" data-ice="link">Youtube Video</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#applies-to" data-ice="link">Applies to</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/premade-behaviors.html"><a href="manual/premade-behaviors.html#behavior" data-ice="link">Behavior</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="cli">CLI</h1><p>A cli is provided to help you use this project.</p>
+<p>The commands available to you are displayed below </p>
+<pre><code><code class="source-code prettyprint">$ ./bin/cli --help
+
+Usage: cli [options] [command]
+
+Options:
+  -V, --version                        output the version number
+  -h, --help                           output usage information
+
+Commands:
+  api [options]                        Start the behavior api sever
+  behaviors [options]                  Build and or validate behaviors, or generate their metadata
+  runner [options] &lt;path-to-behavior&gt;  Run and or build a behaviors
+  stdlib [options]                     Commands specific to working with the behavior&apos;s std library
+  help [cmd]                           display help for [cmd]</code>
+</code></pre><p>The cli provides four commands <code>api</code>, <code>behaviors</code>, <code>runner</code>, and <code>stdlib</code> and each command has its own options.</p>
+<h2 id="api-command">API command</h2><p>To run the behavior api server execute <code>./bin/cli api --build-behaviors</code>. </p>
+<p>This will start the api server after all behaviors provided by wr-behaviors have been built. </p>
+<p>If you have already built the behaviors using the <code>behaviors</code> command provided by the cli then you may omit the <code>--build-behaviors</code> flag. </p>
+<p>The full options that available for use with this command are show below.</p>
+<pre><code><code class="source-code prettyprint">$ ./bin/cli api --help
+
+Usage: cli-api [options]
+
+Options:
+  -V, --version                        output the version number
+  -p, --port [port]                    The port the api server is to bind to (default: 3030)
+  -h, --host [host]                    The host address the server is listen on (default: &quot;127.0.0.1&quot;)
+  -b, --behaviorDir [behaviorDir]      The path to the directory containing the build behaviors (default: &quot;&lt;cwd&gt;/dist&quot;)
+  -m, --behaviorMetadata [medataPath]  The path to the behavior metadata (default: &quot;&lt;cwd&gt;/dist/behaviorMetadata.js&quot;)
+  --build-behaviors                    Should the api server build the behaviors for starting up
+  -h, --help                           output usage information</code>
+</code></pre><p>Some configuration of the api server can be done via the environment variables listed below</p>
+<ul>
+<li><code>BEHAVIOR_API_HOST</code>: the host the api server will use (e.g. 127.0.0.1)</li>
+<li><code>BEHAVIOR_API_PORT</code>: the port the api server will listen on (e.g. 3030)</li>
+<li><code>WR_BEHAVIOR_DIR</code>: path to the directory containing the built behaviors</li>
+<li><code>WR_BEHAVIOR_METADATA_PATH</code>: path to the behavior metadata file</li>
+<li><code>BUILD_BEHAVIORS</code>: should the api server build the behaviors before starting</li>
+</ul>
+<h2 id="behaviors-command">Behaviors command</h2><p>To build the behaviors made available by the project execute <code>./bin/cli behaviors -b</code>.</p>
+<p>This will build the behaviors using the behavior config file located in the root of this project.</p>
+<p>The built behaviors, along with a behavior metadata file (<code>behaviorMetadata.js</code>), can be found in the <code>dist</code> directory which will be created for you if it does not exist in the root of this project.</p>
+<p>The full options that available for use with this command are show below.</p>
+<pre><code><code class="source-code prettyprint">$ ./bin/cli behaviors --help
+
+Usage: cli-behaviors [options]
+
+Options:
+  -V, --version                    output the version number
+  -v, --validate [fileOrDir]       
+  -c, --config [configPath]        Path to the behavior config file (default: &quot;&lt;cwd&gt;/dist/behavior-config.yml&quot;)
+  -b, --build [fileOrDir]          Build a behaviors or all behaviors contained within a directory (default: true)
+  -w, --watch [behaviorFileOrDir]  Watch the files, and their imports, in the build directory for re-bundling on changes (placed in dist directory)
+  --metadata [dumpDir]             Generate behavior metadata, optionally supplying a path to directory where metadata is to be placed. Defaults to current working directory
+  -h, --help                       output usage information</code>
+</code></pre><p>The config file has six keys and should specified in the config as <code>key: value</code></p>
+<ul>
+<li><code>behaviors</code>: path to the directory containing the un-built behaviors</li>
+<li><code>lib</code>: path to the directory containing the provided behavior library or own library</li>
+<li><code>build</code>: path to the directory where the intermediate files will be placed (for running using Webrecorders system)</li>
+<li><code>dist</code>: path to directory where the fully built behaviors</li>
+<li><code>tsconfig</code>: path to the typescript configuration file used to provide behavior inspection and validation</li>
+<li><code>metadata</code>: path to where the behaviors metadata will be placed (either full path to file or directory path)</li>
+</ul>
+<p><strong>Note</strong>: Values can be relative path values as long as they are relative to the directory containing the config file. </p>
+<p>A default is provided for you and can be found in the root of the project <code>&lt;path to project&gt;/behavior-config.yml</code> and is the config file this command looks for (in the current working directory) if one is supplied using the <code>-c, --config</code> option.</p>
+<p>When using the default config file this command can be used to build all behaviors using <code>./bin/cli behaviors -b</code>
+otherwise, you will need specify your own config <code>./bin/cli behaviors -c &lt;path to your config&gt; -b</code></p>
+<p>For more details concerning the internals of the build process consult the documentation for the <a href="https://github.com/webrecorder/behaviors/wiki/Build-System">build system</a>.</p>
+<h2 id="runner-command">Runner command</h2><p>The runner command allows you to automatically run a behavior on a specified URL using a Chrome/Chromium browser installed on your machine.</p>
+<p>The full options that are available are displayed below.</p>
+<pre><code><code class="source-code prettyprint">$ ./bin/cli help runner
+
+Usage: cli-runner [options] [path-to-behavior]
+
+Options:
+  -V, --version                                output the version number
+  --build-config [behavior build config path]  Path to the behavior config file (default: &quot;&lt;cwd&gt;/behavior-config.yml&quot;)
+  -c, --config [run config path]               Path to a behavior&apos;s run config file
+  -r, --run                                    Builds and runs the behavior
+  -w, --watch                                  Watches the behavior for changes rebuilding and running the behavior on change
+  --run-built                                  Runs a previously built behavior
+  -s, --slowmo &lt;amount&gt;                        How much slow mo (delay) should be used between behavior steps
+  -t, --run-timeout &lt;amount&gt;                   Maximum amount of time a behavior will run
+  -e, --chromeEXE &lt;chrome executable&gt;          The chrome executable to be launched rather than attempting to discover / choose the best version of chrome installed
+  -u, --url &lt;url&gt;                              URL of the page to run the behavior on
+  -h, --help                                   output usage information</code>
+</code></pre><p>Please note that in order to provide automatic running of behaviors, this command must be able to launch the Chrome/Chromium browser. In other words, an already running instance of Chrome/Chromium can not be used.</p>
+<p>The simplest way to use this command is through the usage of a config file (yaml format) and can be supplied using the <code>-c</code> or <code>--config</code> flags like so <code>./bin/cli runner -c &lt;path to run config.yaml&gt;</code>.</p>
+<p>An example run config is provided for you and can found in the root of this project (behavior-run-config.yml).  </p>
+<p>The config file has seven keys and should specified in the config as <code>key: value</code></p>
+<ul>
+<li><code>buildConfig</code> (required): path to the behavior build config</li>
+<li><code>behavior</code> (required): path to the behavior to be run</li>
+<li><code>url</code> (required): the URL the behavior will be run on</li>
+<li><code>mode</code> (optional): The available modes are<ul>
+<li><code>build-watch</code>: build and run the behavior, rebuilds and restarts the behavior on changes to the behavior</li>
+<li><code>build</code>: build and run the behavior once (default mode)</li>
+<li><code>built</code>: just run the previously built behavior</li>
+</ul>
+</li>
+<li><code>chromeEXE</code> (optional): Chrome/Chromium executable path or command name to be used to launch (defaults to finding acceptable installed executable)</li>
+<li><code>timeout</code> (optional): time value in seconds indicating the maximum length of time the behavior will run</li>
+<li><code>slomo</code> (optional): time value in seconds indicating how long to wait before initiating the next action of the behavior</li>
+</ul>
+<h2 id="stdlib-command">STDLIB command</h2><p>The stdlib command exists as an utility for generating the provided behavior utility library&apos;s <code>index.js</code> file or to create a bundle of all provided library function for debugging.</p>
+<p>The file name of the generated debug script is <code>libOnWindow.js</code> and is placed in root dir of the project.</p>
+<p>The full options that are available are displayed below.</p>
+<pre><code><code class="source-code prettyprint">$ ./bin/cli help stdlib
+
+Usage: cli-stdlib [options]
+
+Options:
+  -V, --version   output the version number
+  --gen-index     Generate the behavior&apos;s standard library&apos;s index file
+  --debug-script  Generate a script that exposes the entirety of the behavior&apos;s standard library on window
+  -h, --help      output usage information</code>
+</code></pre></div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

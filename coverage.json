@@ -1,83 +1,62 @@
 {
-  "coverage": "82.43%",
-  "expectCount": 222,
-  "actualCount": 183,
+  "coverage": "100%",
+  "expectCount": 277,
+  "actualCount": 277,
   "files": {
     "lib/behaviorRunner.js": {
-      "expectCount": 18,
-      "actualCount": 15,
-      "undocumentLines": [
-        55,
-        139,
-        146
-      ]
-    },
-    "lib/browser.js": {
-      "expectCount": 3,
-      "actualCount": 3,
-      "undocumentLines": []
-    },
-    "lib/clicks.js": {
-      "expectCount": 22,
+      "expectCount": 20,
       "actualCount": 20,
-      "undocumentLines": [
-        6,
-        7
-      ]
-    },
-    "lib/delays.js": {
-      "expectCount": 15,
-      "actualCount": 15,
       "undocumentLines": []
     },
-    "lib/dom.js": {
-      "expectCount": 58,
-      "actualCount": 57,
-      "undocumentLines": [
-        498
-      ]
-    },
-    "lib/events.js": {
-      "expectCount": 7,
-      "actualCount": 4,
-      "undocumentLines": [
-        4,
-        17,
-        110
-      ]
-    },
-    "lib/general.js": {
-      "expectCount": 15,
-      "actualCount": 12,
-      "undocumentLines": [
-        22,
-        24,
-        30
-      ]
-    },
-    "lib/media.js": {
+    "lib/behaviorState.js": {
       "expectCount": 5,
       "actualCount": 5,
       "undocumentLines": []
     },
+    "lib/browser.js": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
+    "lib/clicks.js": {
+      "expectCount": 24,
+      "actualCount": 24,
+      "undocumentLines": []
+    },
+    "lib/delays.js": {
+      "expectCount": 16,
+      "actualCount": 16,
+      "undocumentLines": []
+    },
+    "lib/dom.js": {
+      "expectCount": 81,
+      "actualCount": 81,
+      "undocumentLines": []
+    },
+    "lib/events.js": {
+      "expectCount": 6,
+      "actualCount": 6,
+      "undocumentLines": []
+    },
+    "lib/general.js": {
+      "expectCount": 22,
+      "actualCount": 22,
+      "undocumentLines": []
+    },
+    "lib/media.js": {
+      "expectCount": 6,
+      "actualCount": 6,
+      "undocumentLines": []
+    },
     "lib/mutations.js": {
       "expectCount": 13,
-      "actualCount": 12,
-      "undocumentLines": [
-        5
-      ]
+      "actualCount": 13,
+      "undocumentLines": []
     },
     "lib/outlinkCollector.js": {
       "expectCount": 10,
-      "actualCount": 4,
-      "undocumentLines": [
-        2,
-        13,
-        14,
-        16,
-        18,
-        45
-      ]
+      "actualCount": 10,
+      "undocumentLines": []
     },
     "lib/postStepFNs.js": {
       "expectCount": 2,
@@ -85,45 +64,23 @@
       "undocumentLines": []
     },
     "lib/reactUtils.js": {
-      "expectCount": 7,
-      "actualCount": 6,
-      "undocumentLines": [
-        1
-      ]
+      "expectCount": 8,
+      "actualCount": 8,
+      "undocumentLines": []
     },
     "lib/scrolls.js": {
-      "expectCount": 12,
-      "actualCount": 12,
+      "expectCount": 17,
+      "actualCount": 17,
       "undocumentLines": []
     },
     "lib/strings.js": {
-      "expectCount": 33,
-      "actualCount": 14,
-      "undocumentLines": [
-        1,
-        2,
-        4,
-        17,
-        18,
-        19,
-        39,
-        40,
-        41,
-        60,
-        61,
-        75,
-        76,
-        89,
-        100,
-        114,
-        128,
-        148,
-        195
-      ]
+      "expectCount": 34,
+      "actualCount": 34,
+      "undocumentLines": []
     },
     "lib/traversals.js": {
-      "expectCount": 2,
-      "actualCount": 2,
+      "expectCount": 8,
+      "actualCount": 8,
       "undocumentLines": []
     }
   }
