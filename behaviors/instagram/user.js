@@ -81,7 +81,38 @@ async function* handlePost(post, { cliAPI, info }) {
   }
 }
 
-function loadPostView(preTraversal) {
+function viewStoriesAndLoadPostView(cliAPI, info) {
+  return async function* preTraversal() {
+    if (shared.loggedIn(cliAPI.$x)) {
+      // viewing stories change the markup of the page to be stories mode
+      // not timeline mode and reverts back to timeline mode once done #react
+      // thus we can only hold a reference to the element that will start
+      // a story chain we will view now
+      const profilePic = lib.qs('img[alt*="profile picture"]');
+      if (
+        profilePic &&
+        window.getComputedStyle(profilePic).cursor === 'pointer'
+      ) {
+        yield* shared.viewStories(profilePic, info, true);
+      }
+      if (lib.selectorExists(selectors.userOpenStories)) {
+        yield* shared.viewStories(lib.qs(selectors.userOpenStories), info);
+      }
+    }
+
+    yield lib.stateWithMsgNoWait('Loading post view', info.state);
+    const firstPostHref = lib.qs('article a').href;
+    window.history.pushState({}, "", firstPostHref);
+    window.dispatchEvent(new PopStateEvent("popstate", {state: {}}));
+
+    await lib.delay(2000);
+
+    window.history.back();
+
+    await lib.delay(2000);
+    yield lib.stateWithMsgNoWait('Loaded post view', info.state);
+  }
+}
   return async function*() {
     if (typeof preTraversal === 'function') {
       const preValue = preTraversal();
@@ -135,7 +166,7 @@ export default function instagramUserBehavior(cliAPI) {
   preTraversal = loadPostView(preTraversal);
 
   return lib.traverseChildrenOfCustom({
-    preTraversal,
+    preTraversal: viewStoriesAndLoadPostView(cliAPI, info),
     additionalArgs: { cliAPI, info },
     async setup() {
       const parent = lib.chainFistChildElemOf(
