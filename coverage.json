@@ -1,7 +1,7 @@
 {
   "coverage": "100%",
-  "expectCount": 277,
-  "actualCount": 277,
+  "expectCount": 278,
+  "actualCount": 278,
   "files": {
     "lib/behaviorRunner.js": {
       "expectCount": 20,
@@ -24,8 +24,8 @@
       "undocumentLines": []
     },
     "lib/delays.js": {
-      "expectCount": 16,
-      "actualCount": 16,
+      "expectCount": 17,
+      "actualCount": 17,
       "undocumentLines": []
     },
     "lib/dom.js": {

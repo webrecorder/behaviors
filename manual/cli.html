@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../">
-  <title data-ice="title">Manual | wr-behaviors</title>
+  <title data-ice="title">Manual | Behaviors</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-</head>
+<meta name="description" content="this is awesome library"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Behaviors"><meta property="twitter:description" content="this is awesome library"></head>
 <body class="layout-container manual-root" data-ice="rootContainer">
 
 <header>
@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-</header>
+<a style="position:relative; top:3px;" href="https://github.com/webrecorder/behaviors"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div class="manual-toc-root">
   
@@ -32,6 +32,7 @@
     <ul class="manual-toc">
       
     <li data-ice="manualNav" class="indent-h1" data-link="manual/behaviors.html"><a href="manual/behaviors.html" data-ice="link">Behaviors</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#format" data-ice="link">Format</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#metadata" data-ice="link">Metadata</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#behavior-implementation-overview" data-ice="link">Behavior Implementation Overview</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#development-workflow" data-ice="link">Development Workflow</a></li>
@@ -57,7 +58,8 @@
       
     <li data-ice="manualNav" class="indent-h1" data-link="manual/cli.html"><a href="manual/cli.html" data-ice="link">CLI</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#api-command" data-ice="link">API command</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#behaviors-command" data-ice="link">Behaviors command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#build-command" data-ice="link">Build command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#new-behavior-command" data-ice="link">New behavior command</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#runner-command" data-ice="link">Runner command</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#stdlib-command" data-ice="link">STDLIB command</a></li>
 </ul>
@@ -106,7 +108,7 @@
 <p>The commands available to you are displayed below </p>
 <pre><code><code class="source-code prettyprint">$ ./bin/cli --help
 
-Usage: cli [options] [command]
+Usage: cli &lt;command&gt; [options]
 
 Options:
   -V, --version                        output the version number
@@ -115,13 +117,27 @@ Options:
 Commands:
   api [options]                        Start the behavior api sever
   behaviors [options]                  Build and or validate behaviors, or generate their metadata
+  newBehavior [options]                Create a new behavior
   runner [options] &lt;path-to-behavior&gt;  Run and or build a behaviors
   stdlib [options]                     Commands specific to working with the behavior&apos;s std library
   help [cmd]                           display help for [cmd]</code>
 </code></pre><p>The cli provides four commands <code>api</code>, <code>behaviors</code>, <code>runner</code>, and <code>stdlib</code> and each command has its own options.</p>
-<h2 id="api-command">API command</h2><p>To run the behavior api server execute <code>./bin/cli api --build-behaviors</code>. </p>
+<h2 id="api-command">API command</h2><p>The api command allows you to start a server for serving your built behaviors.</p>
+<p>To run the behavior api server execute <code>./bin/cli api --build-behaviors</code>. </p>
 <p>This will start the api server after all behaviors provided by wr-behaviors have been built. </p>
 <p>If you have already built the behaviors using the <code>behaviors</code> command provided by the cli then you may omit the <code>--build-behaviors</code> flag. </p>
+<p>Once the server is started the following endpoints are available</p>
+<ul>
+<li><code>/behavior?&lt;match how&gt;</code>: endpoint for retrieving a behavior&apos;s code</li>
+<li><code>/info?&lt;match how&gt;</code>: endpoint for retrieving a behavior&apos;s metadata</li>
+<li><code>/info-list?&lt;match how&gt;</code>: endpoint for retrieving the metadata for all behavior&apos;s that match</li>
+<li><code>/info-all</code>: endpoint for retrieving the metadata for every behavior</li>
+</ul>
+<p><strong>match how</strong></p>
+<ul>
+<li><code>name=&lt;name of the behavior&gt;</code></li>
+<li><code>url=&lt;URL of page a behavior matches&gt;</code></li>
+</ul>
 <p>The full options that available for use with this command are show below.</p>
 <pre><code><code class="source-code prettyprint">$ ./bin/cli api --help
 
@@ -134,6 +150,7 @@ Options:
   -b, --behaviorDir [behaviorDir]      The path to the directory containing the build behaviors (default: &quot;&lt;cwd&gt;/dist&quot;)
   -m, --behaviorMetadata [medataPath]  The path to the behavior metadata (default: &quot;&lt;cwd&gt;/dist/behaviorMetadata.js&quot;)
   --build-behaviors                    Should the api server build the behaviors for starting up
+  -w, --workers [numWorkers]           How many behavior lookup workers should be spawned (default: 2)
   -h, --help                           output usage information</code>
 </code></pre><p>Some configuration of the api server can be done via the environment variables listed below</p>
 <ul>
@@ -142,14 +159,15 @@ Options:
 <li><code>WR_BEHAVIOR_DIR</code>: path to the directory containing the built behaviors</li>
 <li><code>WR_BEHAVIOR_METADATA_PATH</code>: path to the behavior metadata file</li>
 <li><code>BUILD_BEHAVIORS</code>: should the api server build the behaviors before starting</li>
+<li><code>NUM_WORKERS</code>: how many lookup workers should be spawned</li>
 </ul>
-<h2 id="behaviors-command">Behaviors command</h2><p>To build the behaviors made available by the project execute <code>./bin/cli behaviors -b</code>.</p>
+<h2 id="build-command">Build command</h2><p>To build the behaviors made available by the project execute <code>./bin/cli behaviors -b</code>.</p>
 <p>This will build the behaviors using the behavior config file located in the root of this project.</p>
 <p>The built behaviors, along with a behavior metadata file (<code>behaviorMetadata.js</code>), can be found in the <code>dist</code> directory which will be created for you if it does not exist in the root of this project.</p>
 <p>The full options that available for use with this command are show below.</p>
-<pre><code><code class="source-code prettyprint">$ ./bin/cli behaviors --help
+<pre><code><code class="source-code prettyprint">$ ./bin/cli build --help
 
-Usage: cli-behaviors [options]
+Usage: cli-build [options]
 
 Options:
   -V, --version                    output the version number
@@ -173,7 +191,17 @@ Options:
 <p>When using the default config file this command can be used to build all behaviors using <code>./bin/cli behaviors -b</code>
 otherwise, you will need specify your own config <code>./bin/cli behaviors -c &lt;path to your config&gt; -b</code></p>
 <p>For more details concerning the internals of the build process consult the documentation for the <a href="https://github.com/webrecorder/behaviors/wiki/Build-System">build system</a>.</p>
-<h2 id="runner-command">Runner command</h2><p>The runner command allows you to automatically run a behavior on a specified URL using a Chrome/Chromium browser installed on your machine.</p>
+<h2 id="new-behavior-command">New behavior command</h2><p>The newBehavior command provides a simple way to create a new behavior by generating a new file in the behavior directory containing the required boiler plate. </p>
+<p>Executing <code>./bin/cli newBehavior awesomeBehavior</code> will create a new behavior file <code>awesomeBehavior.js</code> located in the behavior directory.</p>
+<p>The full options that are available are displayed below.</p>
+<pre><code><code class="source-code prettyprint">$ ./bin/cli newBehavior 
+Usage: cli-newBehavior [options] &lt;behavior file name&gt;
+
+Options:
+  -V, --version               output the version number
+  -d, --dir &lt;directory name&gt;  The new behavior will be created in the supplied directory name within the behaviors directory
+  -h, --help                  output usage information</code>
+</code></pre><h2 id="runner-command">Runner command</h2><p>The runner command allows you to automatically run a behavior on a specified URL using a Chrome/Chromium browser installed on your machine.</p>
 <p>The full options that are available are displayed below.</p>
 <pre><code><code class="source-code prettyprint">$ ./bin/cli help runner
 

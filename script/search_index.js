@@ -1,1316 +1,1322 @@
 window.esdocSearchIndex = [
   [
-    "wr-behaviors/lib/behaviorrunner.js~behaviorrunner",
+    "lib/behaviorrunner.js~behaviorrunner",
     "class/lib/behaviorRunner.js~BehaviorRunner.html",
-    "<span>BehaviorRunner</span> <span class=\"search-result-import-path\">wr-behaviors/lib/behaviorRunner.js</span>",
+    "<span>BehaviorRunner</span> <span class=\"search-result-import-path\">lib/behaviorRunner.js</span>",
     "class"
   ],
   [
-    "wr-behaviors/lib/delays.js~delayamount1second",
+    "lib/delays.js~delayamount1second",
     "variable/index.html#static-variable-DelayAmount1Second",
-    "<span>DelayAmount1Second</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>DelayAmount1Second</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "variable"
   ],
   [
-    "wr-behaviors/lib/delays.js~delayamount2seconds",
+    "lib/delays.js~delayamount2seconds",
     "variable/index.html#static-variable-DelayAmount2Seconds",
-    "<span>DelayAmount2Seconds</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>DelayAmount2Seconds</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "variable"
   ],
   [
-    "wr-behaviors/lib/delays.js~delayamount3seconds",
+    "lib/delays.js~delayamount3seconds",
     "variable/index.html#static-variable-DelayAmount3Seconds",
-    "<span>DelayAmount3Seconds</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>DelayAmount3Seconds</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "variable"
   ],
   [
-    "wr-behaviors/lib/delays.js~delayamount4seconds",
+    "lib/delays.js~delayamount4seconds",
     "variable/index.html#static-variable-DelayAmount4Seconds",
-    "<span>DelayAmount4Seconds</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>DelayAmount4Seconds</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "variable"
   ],
   [
-    "wr-behaviors/lib/delays.js~delayamount5seconds",
+    "lib/delays.js~delayamount5seconds",
     "variable/index.html#static-variable-DelayAmount5Seconds",
-    "<span>DelayAmount5Seconds</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>DelayAmount5Seconds</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "variable"
   ],
   [
-    "wr-behaviors/lib/mutations.js~mutationstream",
+    "lib/mutations.js~mutationstream",
     "class/lib/mutations.js~MutationStream.html",
-    "<span>MutationStream</span> <span class=\"search-result-import-path\">wr-behaviors/lib/mutations.js</span>",
+    "<span>MutationStream</span> <span class=\"search-result-import-path\">lib/mutations.js</span>",
     "class"
   ],
   [
-    "wr-behaviors/lib/traversals.js~walkendedreasons",
+    "lib/traversals.js~walkendedreasons",
     "variable/index.html#static-variable-WalkEndedReasons",
-    "<span>WalkEndedReasons</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "<span>WalkEndedReasons</span> <span class=\"search-result-import-path\">lib/traversals.js</span>",
     "variable"
   ],
   [
-    "wr-behaviors/lib/dom.js~addbehaviorstyle",
+    "lib/dom.js~addbehaviorstyle",
     "function/index.html#static-function-addBehaviorStyle",
-    "<span>addBehaviorStyle</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>addBehaviorStyle</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~addclass",
+    "lib/dom.js~addclass",
     "function/index.html#static-function-addClass",
-    "<span>addClass</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>addClass</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/outlinkcollector.js~addoutlinks",
+    "lib/outlinkcollector.js~addoutlinks",
     "function/index.html#static-function-addOutLinks",
-    "<span>addOutLinks</span> <span class=\"search-result-import-path\">wr-behaviors/lib/outlinkCollector.js</span>",
+    "<span>addOutLinks</span> <span class=\"search-result-import-path\">lib/outlinkCollector.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/outlinkcollector.js~addoutlink",
+    "lib/outlinkcollector.js~addoutlink",
     "function/index.html#static-function-addOutlink",
-    "<span>addOutlink</span> <span class=\"search-result-import-path\">wr-behaviors/lib/outlinkCollector.js</span>",
+    "<span>addOutlink</span> <span class=\"search-result-import-path\">lib/outlinkCollector.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~anyselectorexists",
+    "lib/dom.js~anyselectorexists",
     "function/index.html#static-function-anySelectorExists",
-    "<span>anySelectorExists</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>anySelectorExists</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~attr",
+    "lib/dom.js~attr",
     "function/index.html#static-function-attr",
-    "<span>attr</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>attr</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~attreq",
+    "lib/dom.js~attreq",
     "function/index.html#static-function-attrEq",
-    "<span>attrEq</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>attrEq</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~autofetchfromdoc",
+    "lib/general.js~autofetchfromdoc",
     "function/index.html#static-function-autoFetchFromDoc",
-    "<span>autoFetchFromDoc</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>autoFetchFromDoc</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~autobind",
+    "lib/general.js~autobind",
     "function/index.html#static-function-autobind",
-    "<span>autobind</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>autobind</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/browser.js~browserhistorygoback",
+    "lib/browser.js~browserhistorygoback",
     "function/index.html#static-function-browserHistoryGoBack",
-    "<span>browserHistoryGoBack</span> <span class=\"search-result-import-path\">wr-behaviors/lib/browser.js</span>",
+    "<span>browserHistoryGoBack</span> <span class=\"search-result-import-path\">lib/browser.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/browser.js~browserlocation",
+    "lib/browser.js~browserlocation",
     "function/index.html#static-function-browserLocation",
-    "<span>browserLocation</span> <span class=\"search-result-import-path\">wr-behaviors/lib/browser.js</span>",
+    "<span>browserLocation</span> <span class=\"search-result-import-path\">lib/browser.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/poststepfns.js~buildcustompoststepfn",
+    "lib/poststepfns.js~buildcustompoststepfn",
     "function/index.html#static-function-buildCustomPostStepFn",
-    "<span>buildCustomPostStepFn</span> <span class=\"search-result-import-path\">wr-behaviors/lib/postStepFNs.js</span>",
+    "<span>buildCustomPostStepFn</span> <span class=\"search-result-import-path\">lib/postStepFNs.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~camelcase",
+    "lib/strings.js~camelcase",
     "function/index.html#static-function-camelCase",
-    "<span>camelCase</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>camelCase</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~camelcasetodashdelim",
+    "lib/strings.js~camelcasetodashdelim",
     "function/index.html#static-function-camelCaseToDashDelim",
-    "<span>camelCaseToDashDelim</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>camelCaseToDashDelim</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~camelcasetounderscoredelim",
+    "lib/strings.js~camelcasetounderscoredelim",
     "function/index.html#static-function-camelCaseToUnderscoreDelim",
-    "<span>camelCaseToUnderscoreDelim</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>camelCaseToUnderscoreDelim</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~canaccessif",
+    "lib/dom.js~canaccessif",
     "function/index.html#static-function-canAccessIf",
-    "<span>canAccessIf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>canAccessIf</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~canscrolldownmore",
+    "lib/scrolls.js~canscrolldownmore",
     "function/index.html#static-function-canScrollDownMore",
-    "<span>canScrollDownMore</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>canScrollDownMore</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~canscrollupmore",
+    "lib/scrolls.js~canscrollupmore",
     "function/index.html#static-function-canScrollUpMore",
-    "<span>canScrollUpMore</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>canScrollUpMore</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~capitalize",
+    "lib/strings.js~capitalize",
     "function/index.html#static-function-capitalize",
-    "<span>capitalize</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>capitalize</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~chainfistchildelemof",
+    "lib/dom.js~chainfistchildelemof",
     "function/index.html#static-function-chainFistChildElemOf",
-    "<span>chainFistChildElemOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>chainFistChildElemOf</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~chainlastchildelemof",
+    "lib/dom.js~chainlastchildelemof",
     "function/index.html#static-function-chainLastChildElemOf",
-    "<span>chainLastChildElemOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>chainLastChildElemOf</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~chainnthchildelementof",
+    "lib/dom.js~chainnthchildelementof",
     "function/index.html#static-function-chainNthChildElementOf",
-    "<span>chainNthChildElementOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>chainNthChildElementOf</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~chainnthchildnodeof",
+    "lib/dom.js~chainnthchildnodeof",
     "function/index.html#static-function-chainNthChildNodeOf",
-    "<span>chainNthChildNodeOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>chainNthChildNodeOf</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~chainqs",
+    "lib/dom.js~chainqs",
     "function/index.html#static-function-chainQs",
-    "<span>chainQs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>chainQs</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~childelementiterator",
+    "lib/dom.js~childelementiterator",
     "function/index.html#static-function-childElementIterator",
-    "<span>childElementIterator</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>childElementIterator</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~childnodeiterator",
+    "lib/dom.js~childnodeiterator",
     "function/index.html#static-function-childNodeIterator",
-    "<span>childNodeIterator</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>childNodeIterator</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~click",
+    "lib/clicks.js~click",
     "function/index.html#static-function-click",
-    "<span>click</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>click</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~clickandwaitfor",
+    "lib/clicks.js~clickandwaitfor",
     "function/index.html#static-function-clickAndWaitFor",
-    "<span>clickAndWaitFor</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>clickAndWaitFor</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~clickandwaitforhistorychange",
+    "lib/clicks.js~clickandwaitforhistorychange",
     "function/index.html#static-function-clickAndWaitForHistoryChange",
-    "<span>clickAndWaitForHistoryChange</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>clickAndWaitForHistoryChange</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~clickincontext",
+    "lib/clicks.js~clickincontext",
     "function/index.html#static-function-clickInContext",
-    "<span>clickInContext</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>clickInContext</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~clickincontextwithdelay",
+    "lib/clicks.js~clickincontextwithdelay",
     "function/index.html#static-function-clickInContextWithDelay",
-    "<span>clickInContextWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>clickInContextWithDelay</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~clickwithdelay",
+    "lib/clicks.js~clickwithdelay",
     "function/index.html#static-function-clickWithDelay",
-    "<span>clickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>clickWithDelay</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~collapsewhitespace",
+    "lib/strings.js~collapsewhitespace",
     "function/index.html#static-function-collapseWhitespace",
-    "<span>collapseWhitespace</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>collapseWhitespace</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/outlinkcollector.js~collectoutlinksfrom",
+    "lib/outlinkcollector.js~collectoutlinksfrom",
     "function/index.html#static-function-collectOutlinksFrom",
-    "<span>collectOutlinksFrom</span> <span class=\"search-result-import-path\">wr-behaviors/lib/outlinkCollector.js</span>",
+    "<span>collectOutlinksFrom</span> <span class=\"search-result-import-path\">lib/outlinkCollector.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/outlinkcollector.js~collectoutlinksfromdoc",
+    "lib/outlinkcollector.js~collectoutlinksfromdoc",
     "function/index.html#static-function-collectOutlinksFromDoc",
-    "<span>collectOutlinksFromDoc</span> <span class=\"search-result-import-path\">wr-behaviors/lib/outlinkCollector.js</span>",
+    "<span>collectOutlinksFromDoc</span> <span class=\"search-result-import-path\">lib/outlinkCollector.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~compose",
+    "lib/general.js~compose",
     "function/index.html#static-function-compose",
-    "<span>compose</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>compose</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~composeasync",
+    "lib/general.js~composeasync",
     "function/index.html#static-function-composeAsync",
-    "<span>composeAsync</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>composeAsync</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~composeasynciterators",
+    "lib/general.js~composeasynciterators",
     "function/index.html#static-function-composeAsyncIterators",
-    "<span>composeAsyncIterators</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>composeAsyncIterators</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~composeiterators",
+    "lib/general.js~composeiterators",
     "function/index.html#static-function-composeIterators",
-    "<span>composeIterators</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>composeIterators</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/events.js~createmouseevent",
+    "lib/events.js~createmouseevent",
     "function/index.html#static-function-createMouseEvent",
-    "<span>createMouseEvent</span> <span class=\"search-result-import-path\">wr-behaviors/lib/events.js</span>",
+    "<span>createMouseEvent</span> <span class=\"search-result-import-path\">lib/events.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~createscrollamount",
+    "lib/scrolls.js~createscrollamount",
     "function/index.html#static-function-createScrollAmount",
-    "<span>createScrollAmount</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>createScrollAmount</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~createscroller",
+    "lib/scrolls.js~createscroller",
     "function/index.html#static-function-createScroller",
-    "<span>createScroller</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>createScroller</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/behaviorstate.js~createstate",
+    "lib/behaviorstate.js~createstate",
     "function/index.html#static-function-createState",
-    "<span>createState</span> <span class=\"search-result-import-path\">wr-behaviors/lib/behaviorState.js</span>",
+    "<span>createState</span> <span class=\"search-result-import-path\">lib/behaviorState.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/delays.js~delay",
+    "lib/delays.js~delay",
     "function/index.html#static-function-delay",
-    "<span>delay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>delay</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/traversals.js~disconnectingwalk",
+    "lib/traversals.js~disconnectingwalk",
     "function/index.html#static-function-disconnectingWalk",
-    "<span>disconnectingWalk</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "<span>disconnectingWalk</span> <span class=\"search-result-import-path\">lib/traversals.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~docbaseuriendswith",
+    "lib/dom.js~docbaseuriendswith",
     "function/index.html#static-function-docBaseURIEndsWith",
-    "<span>docBaseURIEndsWith</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>docBaseURIEndsWith</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~docbaseuriequals",
+    "lib/dom.js~docbaseuriequals",
     "function/index.html#static-function-docBaseURIEquals",
-    "<span>docBaseURIEquals</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>docBaseURIEquals</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~documentscrollposition",
+    "lib/dom.js~documentscrollposition",
     "function/index.html#static-function-documentScrollPosition",
-    "<span>documentScrollPosition</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>documentScrollPosition</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/delays.js~domcompletepromise",
+    "lib/delays.js~domcompletepromise",
     "function/index.html#static-function-domCompletePromise",
-    "<span>domCompletePromise</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>domCompletePromise</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/poststepfns.js~doneorwait",
+    "lib/poststepfns.js~doneorwait",
     "function/index.html#static-function-doneOrWait",
-    "<span>doneOrWait</span> <span class=\"search-result-import-path\">wr-behaviors/lib/postStepFNs.js</span>",
+    "<span>doneOrWait</span> <span class=\"search-result-import-path\">lib/postStepFNs.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~elemdatavalue",
+    "lib/dom.js~elemdatavalue",
     "function/index.html#static-function-elemDataValue",
-    "<span>elemDataValue</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elemDataValue</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~elemdatavalueeqs",
+    "lib/dom.js~elemdatavalueeqs",
     "function/index.html#static-function-elemDataValueEqs",
-    "<span>elemDataValueEqs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elemDataValueEqs</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~elemhaschildren",
+    "lib/dom.js~elemhaschildren",
     "function/index.html#static-function-elemHasChildren",
-    "<span>elemHasChildren</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elemHasChildren</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~elemhassibling",
+    "lib/dom.js~elemhassibling",
     "function/index.html#static-function-elemHasSibling",
-    "<span>elemHasSibling</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elemHasSibling</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~elemhaszeroboundingrect",
+    "lib/dom.js~elemhaszeroboundingrect",
     "function/index.html#static-function-elemHasZeroBoundingRect",
-    "<span>elemHasZeroBoundingRect</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elemHasZeroBoundingRect</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~eleminnertext",
+    "lib/dom.js~eleminnertext",
     "function/index.html#static-function-elemInnerText",
-    "<span>elemInnerText</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elemInnerText</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~eleminnertexteqs",
+    "lib/dom.js~eleminnertexteqs",
     "function/index.html#static-function-elemInnerTextEqs",
-    "<span>elemInnerTextEqs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elemInnerTextEqs</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~eleminnertexteqsinsensitive",
+    "lib/dom.js~eleminnertexteqsinsensitive",
     "function/index.html#static-function-elemInnerTextEqsInsensitive",
-    "<span>elemInnerTextEqsInsensitive</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elemInnerTextEqsInsensitive</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~eleminnertexteqsoneof",
+    "lib/dom.js~eleminnertexteqsoneof",
     "function/index.html#static-function-elemInnerTextEqsOneOf",
-    "<span>elemInnerTextEqsOneOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elemInnerTextEqsOneOf</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~eleminnertextmatchesregex",
+    "lib/dom.js~eleminnertextmatchesregex",
     "function/index.html#static-function-elemInnerTextMatchesRegex",
-    "<span>elemInnerTextMatchesRegex</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elemInnerTextMatchesRegex</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~elemmatchesselector",
+    "lib/dom.js~elemmatchesselector",
     "function/index.html#static-function-elemMatchesSelector",
-    "<span>elemMatchesSelector</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elemMatchesSelector</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~elemoffsettopzero",
+    "lib/dom.js~elemoffsettopzero",
     "function/index.html#static-function-elemOffsetTopZero",
-    "<span>elemOffsetTopZero</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elemOffsetTopZero</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~elemtextcontent",
+    "lib/dom.js~elemtextcontent",
     "function/index.html#static-function-elemTextContent",
-    "<span>elemTextContent</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elemTextContent</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~elementtextcontains",
+    "lib/dom.js~elementtextcontains",
     "function/index.html#static-function-elementTextContains",
-    "<span>elementTextContains</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elementTextContains</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~elementtextendswith",
+    "lib/dom.js~elementtextendswith",
     "function/index.html#static-function-elementTextEndsWith",
-    "<span>elementTextEndsWith</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elementTextEndsWith</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~elementtexteqs",
+    "lib/dom.js~elementtexteqs",
     "function/index.html#static-function-elementTextEqs",
-    "<span>elementTextEqs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elementTextEqs</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~elementtextstartswith",
+    "lib/dom.js~elementtextstartswith",
     "function/index.html#static-function-elementTextStartsWith",
-    "<span>elementTextStartsWith</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elementTextStartsWith</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~elementtextstartswithandendswith",
+    "lib/dom.js~elementtextstartswithandendswith",
     "function/index.html#static-function-elementTextStartsWithAndEndsWith",
-    "<span>elementTextStartsWithAndEndsWith</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elementTextStartsWithAndEndsWith</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~elementsnameequals",
+    "lib/dom.js~elementsnameequals",
     "function/index.html#static-function-elementsNameEquals",
-    "<span>elementsNameEquals</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>elementsNameEquals</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~extractprops",
+    "lib/general.js~extractprops",
     "function/index.html#static-function-extractProps",
-    "<span>extractProps</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>extractProps</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~filteredqs",
+    "lib/dom.js~filteredqs",
     "function/index.html#static-function-filteredQs",
-    "<span>filteredQs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>filteredQs</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/media.js~findallmediaelementsandplay",
+    "lib/media.js~findallmediaelementsandplay",
     "function/index.html#static-function-findAllMediaElementsAndPlay",
-    "<span>findAllMediaElementsAndPlay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/media.js</span>",
+    "<span>findAllMediaElementsAndPlay</span> <span class=\"search-result-import-path\">lib/media.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/reactutils.js~findchildwithkey",
+    "lib/reactutils.js~findchildwithkey",
     "function/index.html#static-function-findChildWithKey",
-    "<span>findChildWithKey</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
+    "<span>findChildWithKey</span> <span class=\"search-result-import-path\">lib/reactUtils.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~finddirectchildelement",
+    "lib/dom.js~finddirectchildelement",
     "function/index.html#static-function-findDirectChildElement",
-    "<span>findDirectChildElement</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>findDirectChildElement</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/reactutils.js~findreduxstore",
+    "lib/reactutils.js~findreduxstore",
     "function/index.html#static-function-findReduxStore",
-    "<span>findReduxStore</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
+    "<span>findReduxStore</span> <span class=\"search-result-import-path\">lib/reactUtils.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~findtag",
+    "lib/dom.js~findtag",
     "function/index.html#static-function-findTag",
-    "<span>findTag</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>findTag</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/events.js~fireeventon",
+    "lib/events.js~fireeventon",
     "function/index.html#static-function-fireEventOn",
-    "<span>fireEventOn</span> <span class=\"search-result-import-path\">wr-behaviors/lib/events.js</span>",
+    "<span>fireEventOn</span> <span class=\"search-result-import-path\">lib/events.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/events.js~firemouseeventsonelement",
+    "lib/events.js~firemouseeventsonelement",
     "function/index.html#static-function-fireMouseEventsOnElement",
-    "<span>fireMouseEventsOnElement</span> <span class=\"search-result-import-path\">wr-behaviors/lib/events.js</span>",
+    "<span>fireMouseEventsOnElement</span> <span class=\"search-result-import-path\">lib/events.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~firstchildelemofparent",
+    "lib/dom.js~firstchildelemofparent",
     "function/index.html#static-function-firstChildElemOfParent",
-    "<span>firstChildElemOfParent</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>firstChildElemOfParent</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~firstchildelementof",
+    "lib/dom.js~firstchildelementof",
     "function/index.html#static-function-firstChildElementOf",
-    "<span>firstChildElementOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>firstChildElementOf</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~firstchildelementofselector",
+    "lib/dom.js~firstchildelementofselector",
     "function/index.html#static-function-firstChildElementOfSelector",
-    "<span>firstChildElementOfSelector</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>firstChildElementOfSelector</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~getelemsibling",
+    "lib/dom.js~getelemsibling",
     "function/index.html#static-function-getElemSibling",
-    "<span>getElemSibling</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>getElemSibling</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~getelemsiblingandremoveelem",
+    "lib/dom.js~getelemsiblingandremoveelem",
     "function/index.html#static-function-getElemSiblingAndRemoveElem",
-    "<span>getElemSiblingAndRemoveElem</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>getElemSiblingAndRemoveElem</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~getelementclientpagecenter",
+    "lib/dom.js~getelementclientpagecenter",
     "function/index.html#static-function-getElementClientPageCenter",
-    "<span>getElementClientPageCenter</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>getElementClientPageCenter</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~getelementclientpageposition",
+    "lib/dom.js~getelementclientpageposition",
     "function/index.html#static-function-getElementClientPagePosition",
-    "<span>getElementClientPagePosition</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>getElementClientPagePosition</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~getelementpositionwidthheight",
+    "lib/dom.js~getelementpositionwidthheight",
     "function/index.html#static-function-getElementPositionWidthHeight",
-    "<span>getElementPositionWidthHeight</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>getElementPositionWidthHeight</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~getelemsparentssibling",
+    "lib/dom.js~getelemsparentssibling",
     "function/index.html#static-function-getElemsParentsSibling",
-    "<span>getElemsParentsSibling</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>getElemsParentsSibling</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/reactutils.js~getinternalrootonelem",
+    "lib/reactutils.js~getinternalrootonelem",
     "function/index.html#static-function-getInternalRootOnElem",
-    "<span>getInternalRootOnElem</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
+    "<span>getInternalRootOnElem</span> <span class=\"search-result-import-path\">lib/reactUtils.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~getnthparentelement",
+    "lib/dom.js~getnthparentelement",
     "function/index.html#static-function-getNthParentElement",
-    "<span>getNthParentElement</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>getNthParentElement</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/reactutils.js~getreactrootcontainer",
+    "lib/reactutils.js~getreactrootcontainer",
     "function/index.html#static-function-getReactRootContainer",
-    "<span>getReactRootContainer</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
+    "<span>getReactRootContainer</span> <span class=\"search-result-import-path\">lib/reactUtils.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/reactutils.js~getreactroothostelem",
+    "lib/reactutils.js~getreactroothostelem",
     "function/index.html#static-function-getReactRootHostElem",
-    "<span>getReactRootHostElem</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
+    "<span>getReactRootHostElem</span> <span class=\"search-result-import-path\">lib/reactUtils.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~getviapath",
+    "lib/general.js~getviapath",
     "function/index.html#static-function-getViaPath",
-    "<span>getViaPath</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>getViaPath</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~globalwithpropsexist",
+    "lib/general.js~globalwithpropsexist",
     "function/index.html#static-function-globalWithPropsExist",
-    "<span>globalWithPropsExist</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>globalWithPropsExist</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~hasanyclass",
+    "lib/dom.js~hasanyclass",
     "function/index.html#static-function-hasAnyClass",
-    "<span>hasAnyClass</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>hasAnyClass</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~hasclass",
+    "lib/dom.js~hasclass",
     "function/index.html#static-function-hasClass",
-    "<span>hasClass</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>hasClass</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~hasclasses",
+    "lib/dom.js~hasclasses",
     "function/index.html#static-function-hasClasses",
-    "<span>hasClasses</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>hasClasses</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~id",
+    "lib/dom.js~id",
     "function/index.html#static-function-id",
-    "<span>id</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>id</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~idexists",
+    "lib/dom.js~idexists",
     "function/index.html#static-function-idExists",
-    "<span>idExists</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>idExists</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/behaviorrunner.js~initrunnablebehavior",
+    "lib/behaviorrunner.js~initrunnablebehavior",
     "function/index.html#static-function-initRunnableBehavior",
-    "<span>initRunnableBehavior</span> <span class=\"search-result-import-path\">wr-behaviors/lib/behaviorRunner.js</span>",
+    "<span>initRunnableBehavior</span> <span class=\"search-result-import-path\">lib/behaviorRunner.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~innertextofselected",
+    "lib/dom.js~innertextofselected",
     "function/index.html#static-function-innerTextOfSelected",
-    "<span>innerTextOfSelected</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>innerTextOfSelected</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~isalpha",
+    "lib/strings.js~isalpha",
     "function/index.html#static-function-isAlpha",
-    "<span>isAlpha</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>isAlpha</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~isalphanumeric",
+    "lib/strings.js~isalphanumeric",
     "function/index.html#static-function-isAlphaNumeric",
-    "<span>isAlphaNumeric</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>isAlphaNumeric</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~isclasslesselem",
+    "lib/dom.js~isclasslesselem",
     "function/index.html#static-function-isClasslessElem",
-    "<span>isClasslessElem</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>isClasslessElem</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~iselemvisible",
+    "lib/dom.js~iselemvisible",
     "function/index.html#static-function-isElemVisible",
-    "<span>isElemVisible</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>isElemVisible</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~isemptystring",
+    "lib/strings.js~isemptystring",
     "function/index.html#static-function-isEmptyString",
-    "<span>isEmptyString</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>isEmptyString</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~isfunction",
+    "lib/general.js~isfunction",
     "function/index.html#static-function-isFunction",
-    "<span>isFunction</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>isFunction</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~isgenerator",
+    "lib/general.js~isgenerator",
     "function/index.html#static-function-isGenerator",
-    "<span>isGenerator</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>isGenerator</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~islower",
+    "lib/strings.js~islower",
     "function/index.html#static-function-isLower",
-    "<span>isLower</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>isLower</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~isnumeric",
+    "lib/strings.js~isnumeric",
     "function/index.html#static-function-isNumeric",
-    "<span>isNumeric</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>isNumeric</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~ispromise",
+    "lib/general.js~ispromise",
     "function/index.html#static-function-isPromise",
-    "<span>isPromise</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>isPromise</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~isupper",
+    "lib/strings.js~isupper",
     "function/index.html#static-function-isUpper",
-    "<span>isUpper</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>isUpper</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~lastchildelementof",
+    "lib/dom.js~lastchildelementof",
     "function/index.html#static-function-lastChildElementOf",
-    "<span>lastChildElementOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>lastChildElementOf</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~lastchildelementofselector",
+    "lib/dom.js~lastchildelementofselector",
     "function/index.html#static-function-lastChildElementOfSelector",
-    "<span>lastChildElementOfSelector</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>lastChildElementOfSelector</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/browser.js~locationcontains",
+    "lib/browser.js~locationcontains",
     "function/index.html#static-function-locationContains",
-    "<span>locationContains</span> <span class=\"search-result-import-path\">wr-behaviors/lib/browser.js</span>",
+    "<span>locationContains</span> <span class=\"search-result-import-path\">lib/browser.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/browser.js~locationequals",
+    "lib/browser.js~locationequals",
     "function/index.html#static-function-locationEquals",
-    "<span>locationEquals</span> <span class=\"search-result-import-path\">wr-behaviors/lib/browser.js</span>",
+    "<span>locationEquals</span> <span class=\"search-result-import-path\">lib/browser.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~mapasynciterator",
+    "lib/general.js~mapasynciterator",
     "function/index.html#static-function-mapAsyncIterator",
-    "<span>mapAsyncIterator</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>mapAsyncIterator</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~markelemasvisited",
+    "lib/dom.js~markelemasvisited",
     "function/index.html#static-function-markElemAsVisited",
-    "<span>markElemAsVisited</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>markElemAsVisited</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~maybepolyfillxpg",
+    "lib/dom.js~maybepolyfillxpg",
     "function/index.html#static-function-maybePolyfillXPG",
-    "<span>maybePolyfillXPG</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>maybePolyfillXPG</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~mayberemoveelem",
+    "lib/dom.js~mayberemoveelem",
     "function/index.html#static-function-maybeRemoveElem",
-    "<span>maybeRemoveElem</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>maybeRemoveElem</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~mayberemoveelembyid",
+    "lib/dom.js~mayberemoveelembyid",
     "function/index.html#static-function-maybeRemoveElemById",
-    "<span>maybeRemoveElemById</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>maybeRemoveElemById</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~noexceptgeneratorwrap",
+    "lib/general.js~noexceptgeneratorwrap",
     "function/index.html#static-function-noExceptGeneratorWrap",
-    "<span>noExceptGeneratorWrap</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>noExceptGeneratorWrap</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/media.js~noexceptplaymediaelement",
+    "lib/media.js~noexceptplaymediaelement",
     "function/index.html#static-function-noExceptPlayMediaElement",
-    "<span>noExceptPlayMediaElement</span> <span class=\"search-result-import-path\">wr-behaviors/lib/media.js</span>",
+    "<span>noExceptPlayMediaElement</span> <span class=\"search-result-import-path\">lib/media.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~nodesnameequals",
+    "lib/dom.js~nodesnameequals",
     "function/index.html#static-function-nodesNameEquals",
-    "<span>nodesNameEquals</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>nodesNameEquals</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~noop",
+    "lib/general.js~noop",
     "function/index.html#static-function-noop",
-    "<span>noop</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>noop</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~nthchildelementof",
+    "lib/dom.js~nthchildelementof",
     "function/index.html#static-function-nthChildElementOf",
-    "<span>nthChildElementOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>nthChildElementOf</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~nthchildnodeof",
+    "lib/dom.js~nthchildnodeof",
     "function/index.html#static-function-nthChildNodeOf",
-    "<span>nthChildNodeOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>nthChildNodeOf</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~nthprevioussibling",
+    "lib/dom.js~nthprevioussibling",
     "function/index.html#static-function-nthPreviousSibling",
-    "<span>nthPreviousSibling</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>nthPreviousSibling</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~numelemchildren",
+    "lib/dom.js~numelemchildren",
     "function/index.html#static-function-numElemChildren",
-    "<span>numElemChildren</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>numElemChildren</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~objecthasprops",
+    "lib/general.js~objecthasprops",
     "function/index.html#static-function-objectHasProps",
-    "<span>objectHasProps</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>objectHasProps</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~objectinstanceof",
+    "lib/general.js~objectinstanceof",
     "function/index.html#static-function-objectInstanceOf",
-    "<span>objectInstanceOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>objectInstanceOf</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~partial",
+    "lib/general.js~partial",
     "function/index.html#static-function-partial",
-    "<span>partial</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>partial</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~partialright",
+    "lib/general.js~partialright",
     "function/index.html#static-function-partialRight",
-    "<span>partialRight</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>partialRight</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~promiseresolvereject",
+    "lib/general.js~promiseresolvereject",
     "function/index.html#static-function-promiseResolveReject",
-    "<span>promiseResolveReject</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>promiseResolveReject</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~qs",
+    "lib/dom.js~qs",
     "function/index.html#static-function-qs",
-    "<span>qs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>qs</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~qsoneof",
+    "lib/dom.js~qsoneof",
     "function/index.html#static-function-qsOneOf",
-    "<span>qsOneOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>qsOneOf</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~qsa",
+    "lib/dom.js~qsa",
     "function/index.html#static-function-qsa",
-    "<span>qsa</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>qsa</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~qsaoneof",
+    "lib/dom.js~qsaoneof",
     "function/index.html#static-function-qsaOneOf",
-    "<span>qsaOneOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>qsaOneOf</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/reactutils.js~reactinstancefromdomelem",
+    "lib/reactutils.js~reactinstancefromdomelem",
     "function/index.html#static-function-reactInstanceFromDOMElem",
-    "<span>reactInstanceFromDOMElem</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
+    "<span>reactInstanceFromDOMElem</span> <span class=\"search-result-import-path\">lib/reactUtils.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/reactutils.js~reactinstancesfromelements",
+    "lib/reactutils.js~reactinstancesfromelements",
     "function/index.html#static-function-reactInstancesFromElements",
-    "<span>reactInstancesFromElements</span> <span class=\"search-result-import-path\">wr-behaviors/lib/reactUtils.js</span>",
+    "<span>reactInstancesFromElements</span> <span class=\"search-result-import-path\">lib/reactUtils.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~removeclass",
+    "lib/dom.js~removeclass",
     "function/index.html#static-function-removeClass",
-    "<span>removeClass</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>removeClass</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~repeatedxpathqueryiterator",
+    "lib/dom.js~repeatedxpathqueryiterator",
     "function/index.html#static-function-repeatedXpathQueryIterator",
-    "<span>repeatedXpathQueryIterator</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>repeatedXpathQueryIterator</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~repeatedxpathqueryiteratorasync",
+    "lib/dom.js~repeatedxpathqueryiteratorasync",
     "function/index.html#static-function-repeatedXpathQueryIteratorAsync",
-    "<span>repeatedXpathQueryIteratorAsync</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>repeatedXpathQueryIteratorAsync</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/delays.js~resolvewhenbehaviorunpaused",
+    "lib/delays.js~resolvewhenbehaviorunpaused",
     "function/index.html#static-function-resolveWhenBehaviorUnPaused",
-    "<span>resolveWhenBehaviorUnPaused</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>resolveWhenBehaviorUnPaused</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~scrollallintoviewandclick",
+    "lib/clicks.js~scrollallintoviewandclick",
     "function/index.html#static-function-scrollAllIntoViewAndClick",
-    "<span>scrollAllIntoViewAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>scrollAllIntoViewAndClick</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~scrollallintoviewandclickwithdelay",
+    "lib/clicks.js~scrollallintoviewandclickwithdelay",
     "function/index.html#static-function-scrollAllIntoViewAndClickWithDelay",
-    "<span>scrollAllIntoViewAndClickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>scrollAllIntoViewAndClickWithDelay</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~scrolldownbyelemheight",
+    "lib/scrolls.js~scrolldownbyelemheight",
     "function/index.html#static-function-scrollDownByElemHeight",
-    "<span>scrollDownByElemHeight</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>scrollDownByElemHeight</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~scrolldownbyelemheightwithdelay",
+    "lib/scrolls.js~scrolldownbyelemheightwithdelay",
     "function/index.html#static-function-scrollDownByElemHeightWithDelay",
-    "<span>scrollDownByElemHeightWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>scrollDownByElemHeightWithDelay</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~scrollintoview",
+    "lib/scrolls.js~scrollintoview",
     "function/index.html#static-function-scrollIntoView",
-    "<span>scrollIntoView</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>scrollIntoView</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~scrollintoviewandclick",
+    "lib/clicks.js~scrollintoviewandclick",
     "function/index.html#static-function-scrollIntoViewAndClick",
-    "<span>scrollIntoViewAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>scrollIntoViewAndClick</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~scrollintoviewandclickwithdelay",
+    "lib/clicks.js~scrollintoviewandclickwithdelay",
     "function/index.html#static-function-scrollIntoViewAndClickWithDelay",
-    "<span>scrollIntoViewAndClickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>scrollIntoViewAndClickWithDelay</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~scrollintoviewandwaitfor",
+    "lib/scrolls.js~scrollintoviewandwaitfor",
     "function/index.html#static-function-scrollIntoViewAndWaitFor",
-    "<span>scrollIntoViewAndWaitFor</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>scrollIntoViewAndWaitFor</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~scrollintoviewwithdelay",
+    "lib/scrolls.js~scrollintoviewwithdelay",
     "function/index.html#static-function-scrollIntoViewWithDelay",
-    "<span>scrollIntoViewWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>scrollIntoViewWithDelay</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~scrolltoelemoffset",
+    "lib/scrolls.js~scrolltoelemoffset",
     "function/index.html#static-function-scrollToElemOffset",
-    "<span>scrollToElemOffset</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>scrollToElemOffset</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~scrolltoelemoffsetwithdelay",
+    "lib/scrolls.js~scrolltoelemoffsetwithdelay",
     "function/index.html#static-function-scrollToElemOffsetWithDelay",
-    "<span>scrollToElemOffsetWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>scrollToElemOffsetWithDelay</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~scrollwindowby",
+    "lib/scrolls.js~scrollwindowby",
     "function/index.html#static-function-scrollWindowBy",
-    "<span>scrollWindowBy</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>scrollWindowBy</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~scrollwindowbywithdelay",
+    "lib/scrolls.js~scrollwindowbywithdelay",
     "function/index.html#static-function-scrollWindowByWithDelay",
-    "<span>scrollWindowByWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>scrollWindowByWithDelay</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~scrollwindowdownby",
+    "lib/scrolls.js~scrollwindowdownby",
     "function/index.html#static-function-scrollWindowDownBy",
-    "<span>scrollWindowDownBy</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>scrollWindowDownBy</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~scrollwindowdownbywithdelay",
+    "lib/scrolls.js~scrollwindowdownbywithdelay",
     "function/index.html#static-function-scrollWindowDownByWithDelay",
-    "<span>scrollWindowDownByWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>scrollWindowDownByWithDelay</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/delays.js~secondstodelayamount",
+    "lib/delays.js~secondstodelayamount",
     "function/index.html#static-function-secondsToDelayAmount",
-    "<span>secondsToDelayAmount</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>secondsToDelayAmount</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~selectallandclick",
+    "lib/clicks.js~selectallandclick",
     "function/index.html#static-function-selectAllAndClick",
-    "<span>selectAllAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>selectAllAndClick</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~selectallandclickwithdelay",
+    "lib/clicks.js~selectallandclickwithdelay",
     "function/index.html#static-function-selectAllAndClickWithDelay",
-    "<span>selectAllAndClickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>selectAllAndClickWithDelay</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/media.js~selectandplay",
+    "lib/media.js~selectandplay",
     "function/index.html#static-function-selectAndPlay",
-    "<span>selectAndPlay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/media.js</span>",
+    "<span>selectAndPlay</span> <span class=\"search-result-import-path\">lib/media.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~selectclickandwaitfor",
+    "lib/clicks.js~selectclickandwaitfor",
     "function/index.html#static-function-selectClickAndWaitFor",
-    "<span>selectClickAndWaitFor</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>selectClickAndWaitFor</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~selectelemandclick",
+    "lib/clicks.js~selectelemandclick",
     "function/index.html#static-function-selectElemAndClick",
-    "<span>selectElemAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>selectElemAndClick</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~selectelemandclickwithdelay",
+    "lib/clicks.js~selectelemandclickwithdelay",
     "function/index.html#static-function-selectElemAndClickWithDelay",
-    "<span>selectElemAndClickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>selectElemAndClickWithDelay</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~selectelemfromandclick",
+    "lib/clicks.js~selectelemfromandclick",
     "function/index.html#static-function-selectElemFromAndClick",
-    "<span>selectElemFromAndClick</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>selectElemFromAndClick</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~selectelemfromandclickwithdelay",
+    "lib/clicks.js~selectelemfromandclickwithdelay",
     "function/index.html#static-function-selectElemFromAndClickWithDelay",
-    "<span>selectElemFromAndClickWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>selectElemFromAndClickWithDelay</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~selectfromandclickntimes",
+    "lib/clicks.js~selectfromandclickntimes",
     "function/index.html#static-function-selectFromAndClickNTimes",
-    "<span>selectFromAndClickNTimes</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>selectFromAndClickNTimes</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~selectfromandclickntimeswithdelay",
+    "lib/clicks.js~selectfromandclickntimeswithdelay",
     "function/index.html#static-function-selectFromAndClickNTimesWithDelay",
-    "<span>selectFromAndClickNTimesWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>selectFromAndClickNTimesWithDelay</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~selectfromandclickuntilnullwithdelay",
+    "lib/clicks.js~selectfromandclickuntilnullwithdelay",
     "function/index.html#static-function-selectFromAndClickUntilNullWithDelay",
-    "<span>selectFromAndClickUntilNullWithDelay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>selectFromAndClickUntilNullWithDelay</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/media.js~selectidandplay",
+    "lib/media.js~selectidandplay",
     "function/index.html#static-function-selectIdAndPlay",
-    "<span>selectIdAndPlay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/media.js</span>",
+    "<span>selectIdAndPlay</span> <span class=\"search-result-import-path\">lib/media.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~selectscrollintoviewandclickselectedwhileconnected",
+    "lib/clicks.js~selectscrollintoviewandclickselectedwhileconnected",
     "function/index.html#static-function-selectScrollIntoViewAndClickSelectedWhileConnected",
-    "<span>selectScrollIntoViewAndClickSelectedWhileConnected</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>selectScrollIntoViewAndClickSelectedWhileConnected</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/clicks.js~selectscrollintoviewandclickwithdelayselectedwhileconnected",
+    "lib/clicks.js~selectscrollintoviewandclickwithdelayselectedwhileconnected",
     "function/index.html#static-function-selectScrollIntoViewAndClickWithDelaySelectedWhileConnected",
-    "<span>selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</span> <span class=\"search-result-import-path\">wr-behaviors/lib/clicks.js</span>",
+    "<span>selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~selectednextelementsibling",
+    "lib/dom.js~selectednextelementsibling",
     "function/index.html#static-function-selectedNextElementSibling",
-    "<span>selectedNextElementSibling</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>selectedNextElementSibling</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~selectorexists",
+    "lib/dom.js~selectorexists",
     "function/index.html#static-function-selectorExists",
-    "<span>selectorExists</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>selectorExists</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~sendautofetchworkerurls",
+    "lib/general.js~sendautofetchworkerurls",
     "function/index.html#static-function-sendAutoFetchWorkerURLs",
-    "<span>sendAutoFetchWorkerURLs</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>sendAutoFetchWorkerURLs</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/delays.js~setintervalp",
+    "lib/delays.js~setintervalp",
     "function/index.html#static-function-setIntervalP",
-    "<span>setIntervalP</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>setIntervalP</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/delays.js~settimeoutp",
+    "lib/delays.js~settimeoutp",
     "function/index.html#static-function-setTimeoutP",
-    "<span>setTimeoutP</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>setTimeoutP</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~smoothscrollwindowby",
+    "lib/scrolls.js~smoothscrollwindowby",
     "function/index.html#static-function-smoothScrollWindowBy",
-    "<span>smoothScrollWindowBy</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>smoothScrollWindowBy</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/scrolls.js~smoothscrollwindowdownby",
+    "lib/scrolls.js~smoothscrollwindowdownby",
     "function/index.html#static-function-smoothScrollWindowDownBy",
-    "<span>smoothScrollWindowDownBy</span> <span class=\"search-result-import-path\">wr-behaviors/lib/scrolls.js</span>",
+    "<span>smoothScrollWindowDownBy</span> <span class=\"search-result-import-path\">lib/scrolls.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~spliteleminnertext",
+    "lib/dom.js~spliteleminnertext",
     "function/index.html#static-function-splitElemInnerText",
-    "<span>splitElemInnerText</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>splitElemInnerText</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~splitelemtextcontents",
+    "lib/dom.js~splitelemtextcontents",
     "function/index.html#static-function-splitElemTextContents",
-    "<span>splitElemTextContents</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>splitElemTextContents</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/behaviorstate.js~statewithmsgnowait",
+    "lib/behaviorstate.js~statewithmsgnowait",
     "function/index.html#static-function-stateWithMsgNoWait",
-    "<span>stateWithMsgNoWait</span> <span class=\"search-result-import-path\">wr-behaviors/lib/behaviorState.js</span>",
+    "<span>stateWithMsgNoWait</span> <span class=\"search-result-import-path\">lib/behaviorState.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/behaviorstate.js~statewithmsgwait",
+    "lib/behaviorstate.js~statewithmsgwait",
     "function/index.html#static-function-stateWithMsgWait",
-    "<span>stateWithMsgWait</span> <span class=\"search-result-import-path\">wr-behaviors/lib/behaviorState.js</span>",
+    "<span>stateWithMsgWait</span> <span class=\"search-result-import-path\">lib/behaviorState.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/behaviorstate.js~statewithmsgwaitfromawaitable",
+    "lib/behaviorstate.js~statewithmsgwaitfromawaitable",
     "function/index.html#static-function-stateWithMsgWaitFromAwaitable",
-    "<span>stateWithMsgWaitFromAwaitable</span> <span class=\"search-result-import-path\">wr-behaviors/lib/behaviorState.js</span>",
+    "<span>stateWithMsgWaitFromAwaitable</span> <span class=\"search-result-import-path\">lib/behaviorState.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/behaviorstate.js~statewithmsgwaitfromfn",
+    "lib/behaviorstate.js~statewithmsgwaitfromfn",
     "function/index.html#static-function-stateWithMsgWaitFromFn",
-    "<span>stateWithMsgWaitFromFn</span> <span class=\"search-result-import-path\">wr-behaviors/lib/behaviorState.js</span>",
+    "<span>stateWithMsgWaitFromFn</span> <span class=\"search-result-import-path\">lib/behaviorState.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~stringbetween",
+    "lib/strings.js~stringbetween",
     "function/index.html#static-function-stringBetween",
-    "<span>stringBetween</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>stringBetween</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~substringfromindexof",
+    "lib/strings.js~substringfromindexof",
     "function/index.html#static-function-substringFromIndexOf",
-    "<span>substringFromIndexOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>substringFromIndexOf</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~substringfromlastindexof",
+    "lib/strings.js~substringfromlastindexof",
     "function/index.html#static-function-substringFromLastIndexOf",
-    "<span>substringFromLastIndexOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>substringFromLastIndexOf</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~titlecase",
+    "lib/strings.js~titlecase",
     "function/index.html#static-function-titleCase",
-    "<span>titleCase</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>titleCase</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~toboolean",
+    "lib/strings.js~toboolean",
     "function/index.html#static-function-toBoolean",
-    "<span>toBoolean</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>toBoolean</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~tofloat",
+    "lib/strings.js~tofloat",
     "function/index.html#static-function-toFloat",
-    "<span>toFloat</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>toFloat</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/strings.js~toint",
+    "lib/strings.js~toint",
     "function/index.html#static-function-toInt",
-    "<span>toInt</span> <span class=\"search-result-import-path\">wr-behaviors/lib/strings.js</span>",
+    "<span>toInt</span> <span class=\"search-result-import-path\">lib/strings.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/traversals.js~traversechildrenof",
+    "lib/traversals.js~traversechildrenof",
     "function/index.html#static-function-traverseChildrenOf",
-    "<span>traverseChildrenOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "<span>traverseChildrenOf</span> <span class=\"search-result-import-path\">lib/traversals.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/traversals.js~traversechildrenofcustom",
+    "lib/traversals.js~traversechildrenofcustom",
     "function/index.html#static-function-traverseChildrenOfCustom",
-    "<span>traverseChildrenOfCustom</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "<span>traverseChildrenOfCustom</span> <span class=\"search-result-import-path\">lib/traversals.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/traversals.js~traversechildrenofloaderparent",
+    "lib/traversals.js~traversechildrenofloaderparent",
     "function/index.html#static-function-traverseChildrenOfLoaderParent",
-    "<span>traverseChildrenOfLoaderParent</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "<span>traverseChildrenOfLoaderParent</span> <span class=\"search-result-import-path\">lib/traversals.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/traversals.js~traversechildrenofloaderparentgenfn",
+    "lib/traversals.js~traversechildrenofloaderparentgenfn",
     "function/index.html#static-function-traverseChildrenOfLoaderParentGenFn",
-    "<span>traverseChildrenOfLoaderParentGenFn</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "<span>traverseChildrenOfLoaderParentGenFn</span> <span class=\"search-result-import-path\">lib/traversals.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/traversals.js~traversechildrenofloaderparentremovingprevious",
+    "lib/traversals.js~traversechildrenofloaderparentremovingprevious",
     "function/index.html#static-function-traverseChildrenOfLoaderParentRemovingPrevious",
-    "<span>traverseChildrenOfLoaderParentRemovingPrevious</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "<span>traverseChildrenOfLoaderParentRemovingPrevious</span> <span class=\"search-result-import-path\">lib/traversals.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/traversals.js~traversechildrenofremovingprevious",
+    "lib/traversals.js~traversechildrenofremovingprevious",
     "function/index.html#static-function-traverseChildrenOfRemovingPrevious",
-    "<span>traverseChildrenOfRemovingPrevious</span> <span class=\"search-result-import-path\">wr-behaviors/lib/traversals.js</span>",
+    "<span>traverseChildrenOfRemovingPrevious</span> <span class=\"search-result-import-path\">lib/traversals.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/media.js~uathinksmediaelementcanplayalltheway",
+    "lib/media.js~uathinksmediaelementcanplayalltheway",
     "function/index.html#static-function-uaThinksMediaElementCanPlayAllTheWay",
-    "<span>uaThinksMediaElementCanPlayAllTheWay</span> <span class=\"search-result-import-path\">wr-behaviors/lib/media.js</span>",
+    "<span>uaThinksMediaElementCanPlayAllTheWay</span> <span class=\"search-result-import-path\">lib/media.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/general.js~uuidv4",
+    "lib/general.js~uuidv4",
     "function/index.html#static-function-uuidv4",
-    "<span>uuidv4</span> <span class=\"search-result-import-path\">wr-behaviors/lib/general.js</span>",
+    "<span>uuidv4</span> <span class=\"search-result-import-path\">lib/general.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/delays.js~waitforadditionalelemchildren",
+    "lib/delays.js~waitforadditionalelemchildren",
     "function/index.html#static-function-waitForAdditionalElemChildren",
-    "<span>waitForAdditionalElemChildren</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>waitForAdditionalElemChildren</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/delays.js~waitforadditionalelemchildrenmo",
+    "lib/delays.js~waitforadditionalelemchildrenmo",
     "function/index.html#static-function-waitForAdditionalElemChildrenMO",
-    "<span>waitForAdditionalElemChildrenMO</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>waitForAdditionalElemChildrenMO</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/delays.js~waitforandselectelement",
+    "lib/delays.js~waitforandselectelement",
     "function/index.html#static-function-waitForAndSelectElement",
-    "<span>waitForAndSelectElement</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>waitForAndSelectElement</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/events.js~waitforeventtargettofireevent",
+    "lib/events.js~waitforeventtargettofireevent",
     "function/index.html#static-function-waitForEventTargetToFireEvent",
-    "<span>waitForEventTargetToFireEvent</span> <span class=\"search-result-import-path\">wr-behaviors/lib/events.js</span>",
+    "<span>waitForEventTargetToFireEvent</span> <span class=\"search-result-import-path\">lib/events.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/browser.js~waitforhistorymaniptochangelocation",
+    "lib/browser.js~waitforhistorymaniptochangelocation",
     "function/index.html#static-function-waitForHistoryManipToChangeLocation",
-    "<span>waitForHistoryManipToChangeLocation</span> <span class=\"search-result-import-path\">wr-behaviors/lib/browser.js</span>",
+    "<span>waitForHistoryManipToChangeLocation</span> <span class=\"search-result-import-path\">lib/browser.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/delays.js~waitforpredicate",
+    "lib/delays.js~waitforpredicate",
     "function/index.html#static-function-waitForPredicate",
-    "<span>waitForPredicate</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>waitForPredicate</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/delays.js~waituntilelementisremovedfromdom",
+    "lib/delays.js~waitforselector",
+    "function/index.html#static-function-waitForSelector",
+    "<span>waitForSelector</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
+    "function"
+  ],
+  [
+    "lib/delays.js~waituntilelementisremovedfromdom",
     "function/index.html#static-function-waitUntilElementIsRemovedFromDom",
-    "<span>waitUntilElementIsRemovedFromDom</span> <span class=\"search-result-import-path\">wr-behaviors/lib/delays.js</span>",
+    "<span>waitUntilElementIsRemovedFromDom</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~xpathoneof",
+    "lib/dom.js~xpathoneof",
     "function/index.html#static-function-xpathOneOf",
-    "<span>xpathOneOf</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>xpathOneOf</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~xpathsnapshot",
+    "lib/dom.js~xpathsnapshot",
     "function/index.html#static-function-xpathSnapShot",
-    "<span>xpathSnapShot</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>xpathSnapShot</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
-    "wr-behaviors/lib/dom.js~xpathsnapshotarray",
+    "lib/dom.js~xpathsnapshotarray",
     "function/index.html#static-function-xpathSnapShotArray",
-    "<span>xpathSnapShotArray</span> <span class=\"search-result-import-path\">wr-behaviors/lib/dom.js</span>",
+    "<span>xpathSnapShotArray</span> <span class=\"search-result-import-path\">lib/dom.js</span>",
     "function"
   ],
   [
@@ -1833,6 +1839,12 @@ window.esdocSearchIndex = [
     "lib/delays.js~waitforoptions",
     "typedef/index.html#static-typedef-WaitForOptions",
     "lib/delays.js~WaitForOptions",
+    "typedef"
+  ],
+  [
+    "lib/delays.js~waitforselectoroptions",
+    "typedef/index.html#static-typedef-WaitForSelectorOptions",
+    "lib/delays.js~WaitForSelectorOptions",
     "typedef"
   ],
   [

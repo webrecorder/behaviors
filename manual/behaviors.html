@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../">
-  <title data-ice="title">Manual | wr-behaviors</title>
+  <title data-ice="title">Manual | Behaviors</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-</head>
+<meta name="description" content="this is awesome library"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Behaviors"><meta property="twitter:description" content="this is awesome library"></head>
 <body class="layout-container manual-root" data-ice="rootContainer">
 
 <header>
@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-</header>
+<a style="position:relative; top:3px;" href="https://github.com/webrecorder/behaviors"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div class="manual-toc-root">
   
@@ -32,6 +32,7 @@
     <ul class="manual-toc">
       
     <li data-ice="manualNav" class="indent-h1" data-link="manual/behaviors.html"><a href="manual/behaviors.html" data-ice="link">Behaviors</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#format" data-ice="link">Format</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#metadata" data-ice="link">Metadata</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#behavior-implementation-overview" data-ice="link">Behavior Implementation Overview</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#development-workflow" data-ice="link">Development Workflow</a></li>
@@ -57,7 +58,8 @@
       
     <li data-ice="manualNav" class="indent-h1" data-link="manual/cli.html"><a href="manual/cli.html" data-ice="link">CLI</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#api-command" data-ice="link">API command</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#behaviors-command" data-ice="link">Behaviors command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#build-command" data-ice="link">Build command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#new-behavior-command" data-ice="link">New behavior command</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#runner-command" data-ice="link">Runner command</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#stdlib-command" data-ice="link">STDLIB command</a></li>
 </ul>
@@ -102,7 +104,7 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="behaviors">Behaviors</h1><p>A behavior is simply a JavaScript file that exposes the means to perform its series of actions in a page and some information (metadata) about itself.</p>
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="behaviors">Behaviors</h1><h2 id="format">Format</h2><p>A behavior is simply a JavaScript file that exposes the means to perform its series of actions in a page and some information (metadata) about itself.</p>
 <p>With this in mind, every behavior is expected to be <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">JavaScript module</a> that</p>
 <ul>
 <li>has a <strong>default export</strong> that is an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_generators">async generator function</a> or a function returning an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/asyncIterator">async iterator</a></li>
@@ -111,13 +113,16 @@
 </ul>
 <p>The an example of the expected format behavior is shown below</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">// means to perform the series of  actions
-export default async function* myBehavior() { ... }
+export default async function* myBehavior(cliAPI) { ... }
 
 // information about the behavior
 export const metadata = { ... };
 
 // flag indicating this file is a behavior ready to be used
-export const isBehavior = true;</code>
+export const isBehavior = true;
+
+// optional function to be called after each step of the behavior
+export function postStep(rawBehaviorStepResults) { ... }</code>
 </code></pre>
 <p>In the example above, the behavior exposes the means to perform its actions using the <code>export default</code> keywords.</p>
 <p>The <code>export default</code> keywords indicate that whatever follows is the primary export of the module and what ever is default export of a behavior is used to run the behavior.</p>
@@ -125,7 +130,10 @@ export const isBehavior = true;</code>
 <p>Please note that <strong>isBehavior</strong> named export is used to indicate that this behavior is ready to be used.</p>
 <p>If the <strong>isBehavior</strong> export is missing then the provided tools will not recognize the behavior as being ready and will not use the behavior.</p>
 <p>Likewise, if the behavior does not have a default export and does not export <strong>metadata</strong> and <strong>isBehavior</strong>, the tools will not consider the behavior as valid.</p>
-<p>The optional export <code>postStep</code> must be function and is called after each action (step) of the behavior.</p>
+<p>The optional export <code>postStep</code> is a function called after each action (step) of the behavior to convert the yielded results into the <a href="./manual/../typedef/index.html#static-typedef-BehaviorStepResults">expected format</a>.</p>
+<p>It is recommended that you use the library function <a href="./manual/../function/index.html#static-function-buildCustomPostStepFn">lib.buildCustomPostStepFn</a> if you want to perform some kind of action after each behavior step that is not directly tied to the running of the behavior.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">export const postStep = lib.buildCustomPostStepFn(() =&gt; { ... });</code>
+</code></pre>
 <h2 id="metadata">Metadata</h2><p>A behaviors exported metadata is used to</p>
 <ul>
 <li>describe how it should be matched to the pages it is written for</li>
@@ -177,9 +185,10 @@ export const metadata = {
 <p>However we understand this requirement, namely behaviors as async generators, may be a new JavaScript idiom for some and for the remaining portion of this section give a high level overview on how to write a behavior under this requirement.</p>
 <p>Now consider the following example shown below which is a behavior living in the in the &quot;behaviors&quot; directory of this project for all pages of myAwesomeWebSite.com.</p>
 <p>Please note that there is no code in the body of the <code>myBehavior</code> function, this is ok as all the remaining code examples should be assumed to be inside function where the comment &quot;behavior code&quot; is currently.</p>
+<p>Also note that their exists a cli command for <a href="./manual/./cli.html#new-behavior-command">new behavior creation</a> that will fill out much of the boiler plate shown in the code section below</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">import * as lib from &apos;../lib&apos;;
 
-export default async function* myBehavior() {
+export default async function* myBehavior(cliAPI) {
   // behavior code
 }
 
@@ -193,7 +202,7 @@ export const metadata = {
 
 export const isBehavior = true;</code>
 </code></pre>
-<p>As you will have already noticed by looking over the documentation for the <a href="https://webrecorder.github.io/behaviors/">behaviors standard library</a> that many of the functions returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promises</a>.</p>
+<p>As you will have already noticed by looking over the documentation for the <a href="./manual/../identifiers.html">behaviors standard library</a> that many of the functions returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promises</a>.</p>
 <p>Now without turning into a JavaScript tutorial the only thing you need to know about promises is that they can be awaited, that is to say you can await for their completion.</p>
 <p>This comes in handy when you want to wait for the the documents state to become ready since the pages of myAwesomeWebSite.com take a long time to load and can be done as easily as shown in <code>step 1</code></p>
 <pre><code class="lang-js"><code class="source-code prettyprint">// step 1
@@ -223,15 +232,24 @@ yield lib.stateWithMsgNoWait(&apos;Document ready!&apos;, state);
 for (const videoListItem of lib.childElementIterator(lib.id(&apos;videos&apos;))) {
   // videoListItem is a child of the element with id == &apos;videos&apos;
   // that has a video as child element
-  await lib.selectAndPlay(&apos;video&apos;, videoListItem);
-  // increment our states counter for number of videos played
-  state.videosPlayed += 1;
-  // let ourselves know we played a video
-  yield lib.stateWithMsgNoWait(&apos;Played a video!&apos;, state);
+  const videoWasPlayed = await lib.selectAndPlay(&apos;video&apos;, videoListItem);
+  if (videoWasPlayed) {
+    // increment our states counter for number of videos played
+    state.videosPlayed += 1;
+    // let ourselves know we played a video
+    yield lib.stateWithMsgNoWait(&apos;Played a video!&apos;, state);
+  } else {
+    yield lib.stateWithMsgNoWait(&apos;Failed to play a video using the standard DOM methods&apos;, state);
+  }
 }
 return lib.stateWithMsgNoWait(&apos;Done!&apos;, state);</code>
 </code></pre>
-<p>In step three we use the function <code>traverseChildrenOf</code> which will apply the supplied function to all child elements of the first argument.</p>
+<p>In step three we use the function <code>childElementIterator</code> that returns an iterator over the child elements of the supplied parent element and then for each child of the element with `id=&quot;videos&quot; we</p>
+<ul>
+<li>select the video element that is a descendant of the <code>videoListItem</code>s and play the video</li>
+<li>increment the number of videos played in our behaviors state</li>
+<li>let ourselves know that we played a video</li>
+</ul>
 <p>Also seen in step 3 is the usage keyword <code>yield</code> in combination with <code>*</code> or <code>yield *</code>.</p>
 <p><code>yield *</code> means that we are yielding another generator, that is to say all actions of the generator are to be treated as if we yielded them ourselves.</p>
 <p>In short step 3 can be described as playing a video contained in every child of the element with id == video and once we have played all the videos on the page return a message with our final state from the behavior.</p>
@@ -239,7 +257,7 @@ return lib.stateWithMsgNoWait(&apos;Done!&apos;, state);</code>
 <p>The full behavior is shown below</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">import * as lib from &apos;../lib&apos;;
 
-export default async function* myBehavior() {
+export default async function* myBehavior(cliAPI) {
   // behavior code
   // step 1
   await lib.domCompletePromise();
@@ -250,11 +268,15 @@ export default async function* myBehavior() {
   for (const videoListItem of lib.childElementIterator(lib.id(&apos;videos&apos;))) {
     // videoListItem is a child of the element with id == &apos;videos&apos;
     // that has a video as child element
-    await lib.selectAndPlay(&apos;video&apos;, videoListItem);
-    // increment our states counter for number of videos played
-    state.videosPlayed += 1;
-    // let ourselves know we played a video
-    yield lib.stateWithMsgNoWait(&apos;Played a video!&apos;, state);
+    const videoWasPlayed = await lib.selectAndPlay(&apos;video&apos;, videoListItem);
+    if (videoWasPlayed) {
+      // increment our states counter for number of videos played
+      state.videosPlayed += 1;
+      // let ourselves know we played a video
+      yield lib.stateWithMsgNoWait(&apos;Played a video!&apos;, state);
+    } else {
+      yield lib.stateWithMsgNoWait(&apos;Failed to play a video using the standard DOM methods&apos;, state);
+    }
   }
   return lib.stateWithMsgNoWait(&apos;Done!&apos;, state);
 }
@@ -290,18 +312,27 @@ in the output of the build command.</p>
 <p>The next step is to copy the contents of the generated file into the browser and run it.</p>
 <p>The generated file contains JavaScript that will setup the behavior for running using an utility class exposed on <code>window</code> as <code>$WBBehaviorRunner$</code>.</p>
 <p>Shown below are the ways provided for you to manually run the behavior by the utility class.</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">/* automatic running */
+<pre><code class="lang-js"><code class="source-code prettyprint">/* automatic running, chose 1 method */
+(async () =&gt; {
+  for await (const state of $WBBehaviorRunner$.autoRunIter()) { 
+    console.log(state); 
+  }
 
-for await (const state of $WBBehaviorRunner$.autoRunIter()) { 
-  console.log(state); 
-}
+  /* or */ 
+  await $WBBehaviorRunner$.autoRun({logging: true});
 
-await $WBBehaviorRunner$.autoRun({logging: true})
-
-await $WBBehaviorRunner$.autoRunWithDelay({logging: true})
+  /* or */ 
+  await $WBBehaviorRunner$.autoRunWithDelay({logging: true});
+})();
 
 /* manually initiate each step of the behavior */
-await $WBBehaviorRunner$.step()</code>
+(async () =&gt; {
+  while (true) {
+    const state  = await $WBBehaviorRunner$.step();
+    console.log(state);
+    if (state.done) break;
+  }
+})();</code>
 </code></pre>
 <p>The <code>autoRunIter</code> function accepts a single optional argument delayAmount (number), which is a time value in milliseconds that will be applied after each action (step) of the behavior.</p>
 <p>Both the <code>autoRun</code> and <code>autoRunWithDelay</code> methods accept a single optional argument options (object) with one exception, <code>autoRunWithDelay</code> defaults to applying a one second delay after each action if no delay was specified.</p>

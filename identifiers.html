@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl">
-  <title data-ice="title">Reference | wr-behaviors</title>
+  <title data-ice="title">Reference | Behaviors</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-</head>
+<meta name="description" content="this is awesome library"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Behaviors"><meta property="twitter:description" content="this is awesome library"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-</header>
+<a style="position:relative; top:3px;" href="https://github.com/webrecorder/behaviors"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -74,6 +74,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForAdditionalElemChildrenMO">waitForAdditionalElemChildrenMO</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForAndSelectElement">waitForAndSelectElement</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForPredicate">waitForPredicate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForSelector">waitForSelector</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitUntilElementIsRemovedFromDom">waitUntilElementIsRemovedFromDom</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addBehaviorStyle">addBehaviorStyle</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addClass">addClass</a></span></span></li>
@@ -257,6 +258,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SelectScrollIntoViewClickUntilNullOptions">SelectScrollIntoViewClickUntilNullOptions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-GuardedWaitForOptions">GuardedWaitForOptions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-WaitForOptions">WaitForOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-WaitForSelectorOptions">WaitForSelectorOptions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-WaitResult">WaitResult</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-XPathOnOfOpts">XPathOnOfOpts</a></span></span></li>
@@ -1635,6 +1637,35 @@ using a mutation observer.</p>
         
         <div data-ice="description"><p>Returns a promise that resolves once the supplied predicate function
 returns a truthy value.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          <span data-ice="kind-icon" class="kind-function">F</span>
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-waitForSelector">waitForSelector</a></span></span><span class="code" data-ice="signature">(config: <span><a href="typedef/index.html#static-typedef-WaitForSelectorOptions">WaitForSelectorOptions</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="typedef/index.html#static-typedef-WaitResult">WaitResult</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Waits for the supplied selector to exist</p>
 </div>
       </div>
     </td>
@@ -5094,13 +5125,15 @@ is fired from the supplied media element</p>
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-buildCustomPostStepFn">buildCustomPostStepFn</a></span></span><span class="code" data-ice="signature">(customFN: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(rawResults: <span><a href="typedef/index.html#static-typedef-RawBehaviorStepResults">RawBehaviorStepResults</a></span>)</span></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(state: <span><a href="typedef/index.html#static-typedef-RawBehaviorStepResults">RawBehaviorStepResults</a></span>)</span>: <span><a href="typedef/index.html#static-typedef-BehaviorStepResults">BehaviorStepResults</a></span></span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-buildCustomPostStepFn">buildCustomPostStepFn</a></span></span><span class="code" data-ice="signature">(customFN: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(rawResults: <span><a href="typedef/index.html#static-typedef-RawBehaviorStepResults">RawBehaviorStepResults</a></span>)</span>: <span>void</span></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(state: <span><a href="typedef/index.html#static-typedef-RawBehaviorStepResults">RawBehaviorStepResults</a></span>)</span>: <span><a href="typedef/index.html#static-typedef-BehaviorStepResults">BehaviorStepResults</a></span></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Creates and returns a function wrapping the provided post step function
+will call the supplied function and return the expected output.</p>
+</div>
       </div>
     </td>
     <td>
@@ -5122,13 +5155,14 @@ is fired from the supplied media element</p>
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-doneOrWait">doneOrWait</a></span></span><span class="code" data-ice="signature">(state: <span><a href="typedef/index.html#static-typedef-RawBehaviorStepResults">RawBehaviorStepResults</a></span>): <span><a href="typedef/index.html#static-typedef-BehaviorStepResults">BehaviorStepResults</a></span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-doneOrWait">doneOrWait</a></span></span><span class="code" data-ice="signature">(rawResults: <span><a href="typedef/index.html#static-typedef-RawBehaviorStepResults">RawBehaviorStepResults</a></span>): <span><a href="typedef/index.html#static-typedef-BehaviorStepResults">BehaviorStepResults</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>The default post step function used for all behaviors that do not provide one.</p>
+</div>
       </div>
     </td>
     <td>
@@ -6979,6 +7013,34 @@ and then removing the previously considered child element from the DOM.</p>
           
           
           <span class="code" data-ice="name"><span><a href="typedef/index.html#static-typedef-WaitForOptions">WaitForOptions</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          <span data-ice="kind-icon" class="kind-typedef">T</span>
+          
+          
+          <span class="code" data-ice="name"><span><a href="typedef/index.html#static-typedef-WaitForSelectorOptions">WaitForSelectorOptions</a></span></span><span class="code" data-ice="signature">(cntx: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span> | <span>Document</span>, options: <span><a href="typedef/index.html#static-typedef-WaitForOptions">WaitForOptions</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>

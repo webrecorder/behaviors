@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../">
-  <title data-ice="title">Manual | wr-behaviors</title>
+  <title data-ice="title">Manual | Behaviors</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-</head>
+<meta name="description" content="this is awesome library"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Behaviors"><meta property="twitter:description" content="this is awesome library"></head>
 <body class="layout-container manual-root manual-index" data-ice="rootContainer">
 
 <header>
@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-</header>
+<a style="position:relative; top:3px;" href="https://github.com/webrecorder/behaviors"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div class="manual-toc-root">
   
@@ -32,6 +32,7 @@
     <ul class="manual-toc">
       
     <li data-ice="manualNav" class="indent-h1" data-link="manual/behaviors.html"><a href="manual/behaviors.html" data-ice="link">Behaviors</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#format" data-ice="link">Format</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#metadata" data-ice="link">Metadata</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#behavior-implementation-overview" data-ice="link">Behavior Implementation Overview</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/behaviors.html"><a href="manual/behaviors.html#development-workflow" data-ice="link">Development Workflow</a></li>
@@ -57,7 +58,8 @@
       
     <li data-ice="manualNav" class="indent-h1" data-link="manual/cli.html"><a href="manual/cli.html" data-ice="link">CLI</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#api-command" data-ice="link">API command</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#behaviors-command" data-ice="link">Behaviors command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#build-command" data-ice="link">Build command</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#new-behavior-command" data-ice="link">New behavior command</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#runner-command" data-ice="link">Runner command</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#stdlib-command" data-ice="link">STDLIB command</a></li>
 </ul>
@@ -109,8 +111,14 @@
 # or &quot;npm install&quot;</code>
 </code></pre>
 <p>Once you have installed the dependencies you are ready to start using the project</p>
-<h2 id="via-docker">Via Docker</h2><p>To build the behaviors docker image (<code>webrecorder/behaviors:latest</code>) execute <code>docker-compose build</code>.</p>
-<p>The image created is suitable for building behaviors and running the behavior api server.</p>
+<ul>
+<li><a href="./manual/behaviors.html">Overview on behaviors</a></li>
+<li><a href="./manual/cli.html">Provided cli commands</a></li>
+<li><a href="./identifiers.html">Behavior standard library reference</a></li>
+</ul>
+<p><strong>Via Docker</strong></p>
+<p>To build the behaviors docker image (<code>webrecorder/behaviors:latest</code>) execute <code>docker-compose build</code>.</p>
+<p>The image created is suitable for building behaviors and running the behavior <a href="https://webrecorder.github.io/behaviors/manual/cli.html#api-command">api server</a>.</p>
 <p>The default configuration of the image is to run the api server, however you can substitute the default command
 with any of the cli commands listed previously.</p>
 <p>For more information please consult the provided <code>Dockerfile</code> and <code>docker-compose.yml</code> files.</p>
@@ -122,19 +130,23 @@ with any of the cli commands listed previously.</p>
     
   <div class="manual-card-wrap" data-ice="cards">
       <div class="manual-card">
-        <div data-ice="card"><h1>Behaviors</h1><p>A behavior is simply a JavaScript file that exposes the means to perform its series of actions in a page and some information (metadata) about itself.</p><p>With this in mind, every behavior is expected to be <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">JavaScript module</a> that</p><ul>
+        <div data-ice="card"><h1>Behaviors</h1><h2>Format</h2><p>A behavior is simply a JavaScript file that exposes the means to perform its series of actions in a page and some information (metadata) about itself.</p><p>With this in mind, every behavior is expected to be <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">JavaScript module</a> that</p><ul>
 <li>has a <strong>default export</strong> that is an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_generators">async generator function</a> or a function returning an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/asyncIterator">async iterator</a></li>
 <li>has named export <strong>metadata</strong> that is an object</li>
 <li>has named export <strong>isBehavior</strong></li>
 </ul><p>The an example of the expected format behavior is shown below</p><pre><code class="lang-js"><code class="source-code prettyprint">// means to perform the series of  actions
-export default async function* myBehavior() { ... }
+export default async function* myBehavior(cliAPI) { ... }
 
 // information about the behavior
 export const metadata = { ... };
 
 // flag indicating this file is a behavior ready to be used
-export const isBehavior = true;</code>
-</code></pre><p>In the example above, the behavior exposes the means to perform its actions using the <code>export default</code> keywords.</p><p>The <code>export default</code> keywords indicate that whatever follows is the primary export of the module and what ever is default export of a behavior is used to run the behavior.</p><p>Any additional information that the behavior wishes to be expose using the <code>export</code> keyword and is shown in the example above with the final two required named exports <strong>metadata</strong> and <strong>isBehavior</strong>.</p><p>Please note that <strong>isBehavior</strong> named export is used to indicate that this behavior is ready to be used.</p><p>If the <strong>isBehavior</strong> export is missing then the provided tools will not recognize the behavior as being ready and will not use the behavior.</p><p>Likewise, if the behavior does not have a default export and does not export <strong>metadata</strong> and <strong>isBehavior</strong>, the tools will not consider the behavior as valid.</p><p>The optional export <code>postStep</code> must be function and is called after each action (step) of the behavior.</p><h2>Metadata</h2><p>A behaviors exported metadata is used to</p><ul>
+export const isBehavior = true;
+
+// optional function to be called after each step of the behavior
+export function postStep(rawBehaviorStepResults) { ... }</code>
+</code></pre><p>In the example above, the behavior exposes the means to perform its actions using the <code>export default</code> keywords.</p><p>The <code>export default</code> keywords indicate that whatever follows is the primary export of the module and what ever is default export of a behavior is used to run the behavior.</p><p>Any additional information that the behavior wishes to be expose using the <code>export</code> keyword and is shown in the example above with the final two required named exports <strong>metadata</strong> and <strong>isBehavior</strong>.</p><p>Please note that <strong>isBehavior</strong> named export is used to indicate that this behavior is ready to be used.</p><p>If the <strong>isBehavior</strong> export is missing then the provided tools will not recognize the behavior as being ready and will not use the behavior.</p><p>Likewise, if the behavior does not have a default export and does not export <strong>metadata</strong> and <strong>isBehavior</strong>, the tools will not consider the behavior as valid.</p><p>The optional export <code>postStep</code> is a function called after each action (step) of the behavior to convert the yielded results into the <a href="./manual/../typedef/index.html#static-typedef-BehaviorStepResults">expected format</a>.</p><p>It is recommended that you use the library function <a href="./manual/../function/index.html#static-function-buildCustomPostStepFn">lib.buildCustomPostStepFn</a> if you want to perform some kind of action after each behavior step that is not directly tied to the running of the behavior.</p><pre><code class="lang-js"><code class="source-code prettyprint">export const postStep = lib.buildCustomPostStepFn(() =&gt; { ... });</code>
+</code></pre><h2>Metadata</h2><p>A behaviors exported metadata is used to</p><ul>
 <li>describe how it should be matched to the pages it is written for</li>
 <li>provide an overview of what it does</li>
 <li>have a more specific name associated with it when querying for it using the behavior api</li>
@@ -168,9 +180,9 @@ export const metadata = {
 <li>Async generators are a native JavaScript feature cross the major browser</li>
 <li>They provide a simple way to run the behavior via in the browser and via <a href="https://github.com/webrecorder/browsertrix">browsertrix</a></li>
 <li>Allow information about the behavior, its state, to be easily reported to behavior runners</li>
-</ul><p>However we understand this requirement, namely behaviors as async generators, may be a new JavaScript idiom for some and for the remaining portion of this section give a high level overview on how to write a behavior under this requirement.</p><p>Now consider the following example shown below which is a behavior living in the in the &quot;behaviors&quot; directory of this project for all pages of myAwesomeWebSite.com.</p><p>Please note that there is no code in the body of the <code>myBehavior</code> function, this is ok as all the remaining code examples should be assumed to be inside function where the comment &quot;behavior code&quot; is currently.</p><pre><code class="lang-js"><code class="source-code prettyprint">import * as lib from &apos;../lib&apos;;
+</ul><p>However we understand this requirement, namely behaviors as async generators, may be a new JavaScript idiom for some and for the remaining portion of this section give a high level overview on how to write a behavior under this requirement.</p><p>Now consider the following example shown below which is a behavior living in the in the &quot;behaviors&quot; directory of this project for all pages of myAwesomeWebSite.com.</p><p>Please note that there is no code in the body of the <code>myBehavior</code> function, this is ok as all the remaining code examples should be assumed to be inside function where the comment &quot;behavior code&quot; is currently.</p><p>Also note that their exists a cli command for <a href="./manual/./cli.html#new-behavior-command">new behavior creation</a> that will fill out much of the boiler plate shown in the code section below</p><pre><code class="lang-js"><code class="source-code prettyprint">import * as lib from &apos;../lib&apos;;
 
-export default async function* myBehavior() {
+export default async function* myBehavior(cliAPI) {
   // behavior code
 }
 
@@ -183,7 +195,7 @@ export const metadata = {
 };
 
 export const isBehavior = true;</code>
-</code></pre><p>As you will have already noticed by looking over the documentation for the <a href="https://webrecorder.github.io/behaviors/">behaviors standard library</a> that many of the functions returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promises</a>.</p><p>Now without turning into a JavaScript tutorial the only thing you need to know about promises is that they can be awaited, that is to say you can await for their completion.</p><p>This comes in handy when you want to wait for the the documents state to become ready since the pages of myAwesomeWebSite.com take a long time to load and can be done as easily as shown in <code>step 1</code></p><pre><code class="lang-js"><code class="source-code prettyprint">// step 1
+</code></pre><p>As you will have already noticed by looking over the documentation for the <a href="./manual/../identifiers.html">behaviors standard library</a> that many of the functions returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promises</a>.</p><p>Now without turning into a JavaScript tutorial the only thing you need to know about promises is that they can be awaited, that is to say you can await for their completion.</p><p>This comes in handy when you want to wait for the the documents state to become ready since the pages of myAwesomeWebSite.com take a long time to load and can be done as easily as shown in <code>step 1</code></p><pre><code class="lang-js"><code class="source-code prettyprint">// step 1
 await lib.domCompletePromise();</code>
 </code></pre><p>Now we know that the browser has fully parsed the page and we can safely start operating on the page.</p><p>But first we should let ourselves know that we are good to go by reporting some state and is done by yielding a value as shown in <code>step 2</code></p><pre><code class="lang-js"><code class="source-code prettyprint">// step 1
 await lib.domCompletePromise();
@@ -199,16 +211,24 @@ yield lib.stateWithMsgNoWait(&apos;Document ready!&apos;, state);
 for (const videoListItem of lib.childElementIterator(lib.id(&apos;videos&apos;))) {
   // videoListItem is a child of the element with id == &apos;videos&apos;
   // that has a video as child element
-  await lib.selectAndPlay(&apos;video&apos;, videoListItem);
-  // increment our states counter for number of videos played
-  state.videosPlayed += 1;
-  // let ourselves know we played a video
-  yield lib.stateWithMsgNoWait(&apos;Played a video!&apos;, state);
+  const videoWasPlayed = await lib.selectAndPlay(&apos;video&apos;, videoListItem);
+  if (videoWasPlayed) {
+    // increment our states counter for number of videos played
+    state.videosPlayed += 1;
+    // let ourselves know we played a video
+    yield lib.stateWithMsgNoWait(&apos;Played a video!&apos;, state);
+  } else {
+    yield lib.stateWithMsgNoWait(&apos;Failed to play a video using the standard DOM methods&apos;, state);
+  }
 }
 return lib.stateWithMsgNoWait(&apos;Done!&apos;, state);</code>
-</code></pre><p>In step three we use the function <code>traverseChildrenOf</code> which will apply the supplied function to all child elements of the first argument.</p><p>Also seen in step 3 is the usage keyword <code>yield</code> in combination with <code>*</code> or <code>yield *</code>.</p><p><code>yield *</code> means that we are yielding another generator, that is to say all actions of the generator are to be treated as if we yielded them ourselves.</p><p>In short step 3 can be described as playing a video contained in every child of the element with id == video and once we have played all the videos on the page return a message with our final state from the behavior.</p><p>This completes the mini-tutorial on how to create behaviors.</p><p>The full behavior is shown below</p><pre><code class="lang-js"><code class="source-code prettyprint">import * as lib from &apos;../lib&apos;;
+</code></pre><p>In step three we use the function <code>childElementIterator</code> that returns an iterator over the child elements of the supplied parent element and then for each child of the element with `id=&quot;videos&quot; we</p><ul>
+<li>select the video element that is a descendant of the <code>videoListItem</code>s and play the video</li>
+<li>increment the number of videos played in our behaviors state</li>
+<li>let ourselves know that we played a video</li>
+</ul><p>Also seen in step 3 is the usage keyword <code>yield</code> in combination with <code>*</code> or <code>yield *</code>.</p><p><code>yield *</code> means that we are yielding another generator, that is to say all actions of the generator are to be treated as if we yielded them ourselves.</p><p>In short step 3 can be described as playing a video contained in every child of the element with id == video and once we have played all the videos on the page return a message with our final state from the behavior.</p><p>This completes the mini-tutorial on how to create behaviors.</p><p>The full behavior is shown below</p><pre><code class="lang-js"><code class="source-code prettyprint">import * as lib from &apos;../lib&apos;;
 
-export default async function* myBehavior() {
+export default async function* myBehavior(cliAPI) {
   // behavior code
   // step 1
   await lib.domCompletePromise();
@@ -219,11 +239,15 @@ export default async function* myBehavior() {
   for (const videoListItem of lib.childElementIterator(lib.id(&apos;videos&apos;))) {
     // videoListItem is a child of the element with id == &apos;videos&apos;
     // that has a video as child element
-    await lib.selectAndPlay(&apos;video&apos;, videoListItem);
-    // increment our states counter for number of videos played
-    state.videosPlayed += 1;
-    // let ourselves know we played a video
-    yield lib.stateWithMsgNoWait(&apos;Played a video!&apos;, state);
+    const videoWasPlayed = await lib.selectAndPlay(&apos;video&apos;, videoListItem);
+    if (videoWasPlayed) {
+      // increment our states counter for number of videos played
+      state.videosPlayed += 1;
+      // let ourselves know we played a video
+      yield lib.stateWithMsgNoWait(&apos;Played a video!&apos;, state);
+    } else {
+      yield lib.stateWithMsgNoWait(&apos;Failed to play a video using the standard DOM methods&apos;, state);
+    }
   }
   return lib.stateWithMsgNoWait(&apos;Done!&apos;, state);
 }
@@ -246,18 +270,27 @@ export const isBehavior = true;</code>
 </ul><p>The command will launch a Chrome/Chromium browser installed on your computer, build the behavior, and then run it until completion.</p><p>While the behavior is being run or the behavior has run to completion and a change has been detected to the behavior 
 or any of the files it includes, it will be rebuilt and re-run automatically.</p><h3>Manual</h3><p>To build the behavior execute the following command <code>./bin/cli-behaviors -b ./behaviors/&lt;path to your behavior&gt;</code>.
 Once the command exits the behavior ready to be run can be found at <code>./dist/&lt;behavior name&gt;.js</code> or you can use copy the path displayed
-in the output of the build command.</p><p>The next step is to copy the contents of the generated file into the browser and run it.</p><p>The generated file contains JavaScript that will setup the behavior for running using an utility class exposed on <code>window</code> as <code>$WBBehaviorRunner$</code>.</p><p>Shown below are the ways provided for you to manually run the behavior by the utility class.</p><pre><code class="lang-js"><code class="source-code prettyprint">/* automatic running */
+in the output of the build command.</p><p>The next step is to copy the contents of the generated file into the browser and run it.</p><p>The generated file contains JavaScript that will setup the behavior for running using an utility class exposed on <code>window</code> as <code>$WBBehaviorRunner$</code>.</p><p>Shown below are the ways provided for you to manually run the behavior by the utility class.</p><pre><code class="lang-js"><code class="source-code prettyprint">/* automatic running, chose 1 method */
+(async () =&gt; {
+  for await (const state of $WBBehaviorRunner$.autoRunIter()) { 
+    console.log(state); 
+  }
 
-for await (const state of $WBBehaviorRunner$.autoRunIter()) { 
-  console.log(state); 
-}
+  /* or */ 
+  await $WBBehaviorRunner$.autoRun({logging: true});
 
-await $WBBehaviorRunner$.autoRun({logging: true})
-
-await $WBBehaviorRunner$.autoRunWithDelay({logging: true})
+  /* or */ 
+  await $WBBehaviorRunner$.autoRunWithDelay({logging: true});
+})();
 
 /* manually initiate each step of the behavior */
-await $WBBehaviorRunner$.step()</code>
+(async () =&gt; {
+  while (true) {
+    const state  = await $WBBehaviorRunner$.step();
+    console.log(state);
+    if (state.done) break;
+  }
+})();</code>
 </code></pre><p>The <code>autoRunIter</code> function accepts a single optional argument delayAmount (number), which is a time value in milliseconds that will be applied after each action (step) of the behavior.</p><p>Both the <code>autoRun</code> and <code>autoRunWithDelay</code> methods accept a single optional argument options (object) with one exception, <code>autoRunWithDelay</code> defaults to applying a one second delay after each action if no delay was specified.</p><p>The full configuration options for these two methods are displayed below </p><ul>
 <li>delayAmount (number, defaults to 1000):  Time value in milliseconds representing how much time should be waited after initiating a behavior&apos;s step</li>
 <li>noOutlinks (boolean, defaults to true): Should the collection of outlinks be disabled when running the behavior</li>
@@ -313,8 +346,8 @@ await $WBBehaviorRunner$.step()</code>
 <li>has a <code>isBehavior</code> named export    </li>
 </ul><p>Once the behavior(s) have been collected a report is printed stating how many behaviors were found and if any of the files considered partially met the requirements for collection. </p><p><strong>Note</strong>: Both the collection and building phases share modes with the mode operating under set by the collection phase. </p><h2>Building</h2><p>The building phase can be described in the following steps:</p><ol>
 <li>Extract behaviors metadata</li>
-<li>Create the behavior&apos;s intermediate file </li>
-<li>Use build behavior using rollup</li>
+<li>Create the behavior&apos;s intermediate file in the configured <code>build</code> directory</li>
+<li>Use build behavior using rollup, built behavior placed in configured <code>dist</code> directory</li>
 <li>Once all behaviors have been built generate behavior metadata.</li>
 </ol><p>The previous steps are applied to all behaviors returned by the collection phase</p></div>
         <a data-ice="link" href="manual/build-system.html"></a>
@@ -324,7 +357,7 @@ await $WBBehaviorRunner$.step()</code>
       <div class="manual-card">
         <div data-ice="card"><h1>CLI</h1><p>A cli is provided to help you use this project.</p><p>The commands available to you are displayed below </p><pre><code><code class="source-code prettyprint">$ ./bin/cli --help
 
-Usage: cli [options] [command]
+Usage: cli &lt;command&gt; [options]
 
 Options:
   -V, --version                        output the version number
@@ -333,10 +366,19 @@ Options:
 Commands:
   api [options]                        Start the behavior api sever
   behaviors [options]                  Build and or validate behaviors, or generate their metadata
+  newBehavior [options]                Create a new behavior
   runner [options] &lt;path-to-behavior&gt;  Run and or build a behaviors
   stdlib [options]                     Commands specific to working with the behavior&apos;s std library
   help [cmd]                           display help for [cmd]</code>
-</code></pre><p>The cli provides four commands <code>api</code>, <code>behaviors</code>, <code>runner</code>, and <code>stdlib</code> and each command has its own options.</p><h2>API command</h2><p>To run the behavior api server execute <code>./bin/cli api --build-behaviors</code>. </p><p>This will start the api server after all behaviors provided by wr-behaviors have been built. </p><p>If you have already built the behaviors using the <code>behaviors</code> command provided by the cli then you may omit the <code>--build-behaviors</code> flag. </p><p>The full options that available for use with this command are show below.</p><pre><code><code class="source-code prettyprint">$ ./bin/cli api --help
+</code></pre><p>The cli provides four commands <code>api</code>, <code>behaviors</code>, <code>runner</code>, and <code>stdlib</code> and each command has its own options.</p><h2>API command</h2><p>The api command allows you to start a server for serving your built behaviors.</p><p>To run the behavior api server execute <code>./bin/cli api --build-behaviors</code>. </p><p>This will start the api server after all behaviors provided by wr-behaviors have been built. </p><p>If you have already built the behaviors using the <code>behaviors</code> command provided by the cli then you may omit the <code>--build-behaviors</code> flag. </p><p>Once the server is started the following endpoints are available</p><ul>
+<li><code>/behavior?&lt;match how&gt;</code>: endpoint for retrieving a behavior&apos;s code</li>
+<li><code>/info?&lt;match how&gt;</code>: endpoint for retrieving a behavior&apos;s metadata</li>
+<li><code>/info-list?&lt;match how&gt;</code>: endpoint for retrieving the metadata for all behavior&apos;s that match</li>
+<li><code>/info-all</code>: endpoint for retrieving the metadata for every behavior</li>
+</ul><p><strong>match how</strong></p><ul>
+<li><code>name=&lt;name of the behavior&gt;</code></li>
+<li><code>url=&lt;URL of page a behavior matches&gt;</code></li>
+</ul><p>The full options that available for use with this command are show below.</p><pre><code><code class="source-code prettyprint">$ ./bin/cli api --help
 
 Usage: cli-api [options]
 
@@ -347,6 +389,7 @@ Options:
   -b, --behaviorDir [behaviorDir]      The path to the directory containing the build behaviors (default: &quot;&lt;cwd&gt;/dist&quot;)
   -m, --behaviorMetadata [medataPath]  The path to the behavior metadata (default: &quot;&lt;cwd&gt;/dist/behaviorMetadata.js&quot;)
   --build-behaviors                    Should the api server build the behaviors for starting up
+  -w, --workers [numWorkers]           How many behavior lookup workers should be spawned (default: 2)
   -h, --help                           output usage information</code>
 </code></pre><p>Some configuration of the api server can be done via the environment variables listed below</p><ul>
 <li><code>BEHAVIOR_API_HOST</code>: the host the api server will use (e.g. 127.0.0.1)</li>
@@ -354,9 +397,10 @@ Options:
 <li><code>WR_BEHAVIOR_DIR</code>: path to the directory containing the built behaviors</li>
 <li><code>WR_BEHAVIOR_METADATA_PATH</code>: path to the behavior metadata file</li>
 <li><code>BUILD_BEHAVIORS</code>: should the api server build the behaviors before starting</li>
-</ul><h2>Behaviors command</h2><p>To build the behaviors made available by the project execute <code>./bin/cli behaviors -b</code>.</p><p>This will build the behaviors using the behavior config file located in the root of this project.</p><p>The built behaviors, along with a behavior metadata file (<code>behaviorMetadata.js</code>), can be found in the <code>dist</code> directory which will be created for you if it does not exist in the root of this project.</p><p>The full options that available for use with this command are show below.</p><pre><code><code class="source-code prettyprint">$ ./bin/cli behaviors --help
+<li><code>NUM_WORKERS</code>: how many lookup workers should be spawned</li>
+</ul><h2>Build command</h2><p>To build the behaviors made available by the project execute <code>./bin/cli behaviors -b</code>.</p><p>This will build the behaviors using the behavior config file located in the root of this project.</p><p>The built behaviors, along with a behavior metadata file (<code>behaviorMetadata.js</code>), can be found in the <code>dist</code> directory which will be created for you if it does not exist in the root of this project.</p><p>The full options that available for use with this command are show below.</p><pre><code><code class="source-code prettyprint">$ ./bin/cli build --help
 
-Usage: cli-behaviors [options]
+Usage: cli-build [options]
 
 Options:
   -V, --version                    output the version number
@@ -374,7 +418,14 @@ Options:
 <li><code>tsconfig</code>: path to the typescript configuration file used to provide behavior inspection and validation</li>
 <li><code>metadata</code>: path to where the behaviors metadata will be placed (either full path to file or directory path)</li>
 </ul><p><strong>Note</strong>: Values can be relative path values as long as they are relative to the directory containing the config file. </p><p>A default is provided for you and can be found in the root of the project <code>&lt;path to project&gt;/behavior-config.yml</code> and is the config file this command looks for (in the current working directory) if one is supplied using the <code>-c, --config</code> option.</p><p>When using the default config file this command can be used to build all behaviors using <code>./bin/cli behaviors -b</code>
-otherwise, you will need specify your own config <code>./bin/cli behaviors -c &lt;path to your config&gt; -b</code></p><p>For more details concerning the internals of the build process consult the documentation for the <a href="https://github.com/webrecorder/behaviors/wiki/Build-System">build system</a>.</p><h2>Runner command</h2><p>The runner command allows you to automatically run a behavior on a specified URL using a Chrome/Chromium browser installed on your machine.</p><p>The full options that are available are displayed below.</p><pre><code><code class="source-code prettyprint">$ ./bin/cli help runner
+otherwise, you will need specify your own config <code>./bin/cli behaviors -c &lt;path to your config&gt; -b</code></p><p>For more details concerning the internals of the build process consult the documentation for the <a href="https://github.com/webrecorder/behaviors/wiki/Build-System">build system</a>.</p><h2>New behavior command</h2><p>The newBehavior command provides a simple way to create a new behavior by generating a new file in the behavior directory containing the required boiler plate. </p><p>Executing <code>./bin/cli newBehavior awesomeBehavior</code> will create a new behavior file <code>awesomeBehavior.js</code> located in the behavior directory.</p><p>The full options that are available are displayed below.</p><pre><code><code class="source-code prettyprint">$ ./bin/cli newBehavior 
+Usage: cli-newBehavior [options] &lt;behavior file name&gt;
+
+Options:
+  -V, --version               output the version number
+  -d, --dir &lt;directory name&gt;  The new behavior will be created in the supplied directory name within the behaviors directory
+  -h, --help                  output usage information</code>
+</code></pre><h2>Runner command</h2><p>The runner command allows you to automatically run a behavior on a specified URL using a Chrome/Chromium browser installed on your machine.</p><p>The full options that are available are displayed below.</p><pre><code><code class="source-code prettyprint">$ ./bin/cli help runner
 
 Usage: cli-runner [options] [path-to-behavior]
 
