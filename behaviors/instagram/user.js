@@ -81,6 +81,26 @@ async function* handlePost(post, { cliAPI, info }) {
   }
 }
 
+function loadPostView(preTraversal) {
+  return async function*() {
+    if (typeof preTraversal === 'function') {
+      const preValue = preTraversal();
+      if (lib.isGenerator(preValue)) yield* preValue;
+      else if (lib.isPromise(preValue)) await preValue;
+    }
+
+    const firstPostHref = lib.qs('article a').href;
+    window.history.pushState({}, "", firstPostHref);
+    window.dispatchEvent(new PopStateEvent("popstate", {state: {}}));
+
+    await lib.delay(2000);
+
+    window.history.back();
+
+    await lib.delay(2000);
+  };
+}
+
 export default function instagramUserBehavior(cliAPI) {
   const info = shared.userLoadingInfo();
   let preTraversal;
@@ -111,6 +131,9 @@ export default function instagramUserBehavior(cliAPI) {
         shared.viewStories(lib.qs(selectors.userOpenStories), info);
     }
   }
+
+  preTraversal = loadPostView(preTraversal);
+
   return lib.traverseChildrenOfCustom({
     preTraversal,
     additionalArgs: { cliAPI, info },
