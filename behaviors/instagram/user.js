@@ -100,6 +100,8 @@ function viewStoriesAndLoadPostView(cliAPI, info) {
       }
     }
 
+    // load the 'single post view' assets by manipulating history
+    // to load it for the first post, then going back to starting page
     yield lib.stateWithMsgNoWait('Loading post view', info.state);
     const firstPostHref = lib.qs('article a').href;
     window.history.pushState({}, "", firstPostHref);
@@ -113,57 +115,9 @@ function viewStoriesAndLoadPostView(cliAPI, info) {
     yield lib.stateWithMsgNoWait('Loaded post view', info.state);
   }
 }
-  return async function*() {
-    if (typeof preTraversal === 'function') {
-      const preValue = preTraversal();
-      if (lib.isGenerator(preValue)) yield* preValue;
-      else if (lib.isPromise(preValue)) await preValue;
-    }
-
-    const firstPostHref = lib.qs('article a').href;
-    window.history.pushState({}, "", firstPostHref);
-    window.dispatchEvent(new PopStateEvent("popstate", {state: {}}));
-
-    await lib.delay(2000);
-
-    window.history.back();
-
-    await lib.delay(2000);
-  };
-}
 
 export default function instagramUserBehavior(cliAPI) {
   const info = shared.userLoadingInfo();
-  let preTraversal;
-  // view all stories when logged in
-  if (shared.loggedIn(cliAPI.$x)) {
-    // viewing stories change the markup of the page to be stories mode
-    // not timeline mode and reverts back to timeline mode once done #react
-    // thus we can only hold a reference to the element that will start
-    // a story chain we will view now
-    const canViewNormalStories = lib.selectorExists(selectors.userOpenStories);
-    const profilePic = lib.qs('img[alt*="profile picture"]');
-    let hasSelectedStories = false;
-    if (
-      profilePic &&
-      window.getComputedStyle(profilePic).cursor === 'pointer'
-    ) {
-      hasSelectedStories = true;
-    }
-    if (canViewNormalStories && hasSelectedStories) {
-      preTraversal = async function*() {
-        yield* shared.viewStories(profilePic, info, true);
-        yield* shared.viewStories(lib.qs(selectors.userOpenStories), info);
-      };
-    } else if (hasSelectedStories) {
-      preTraversal = () => shared.viewStories(profilePic, info, true);
-    } else if (canViewNormalStories) {
-      preTraversal = () =>
-        shared.viewStories(lib.qs(selectors.userOpenStories), info);
-    }
-  }
-
-  preTraversal = loadPostView(preTraversal);
 
   return lib.traverseChildrenOfCustom({
     preTraversal: viewStoriesAndLoadPostView(cliAPI, info),
