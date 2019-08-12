@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="this is awesome library"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Behaviors"><meta property="twitter:description" content="this is awesome library"></head>
+<meta name="description" content="Webrecorder&apos;s Automated In-Page Behavior Framework"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Behaviors"><meta property="twitter:description" content="Webrecorder&apos;s Automated In-Page Behavior Framework"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -284,7 +284,7 @@
  */
 export function doneOrWait(rawResults) {
   const result = {
-    done: state.done,
+    done: rawResults.done,
     wait: false,
     msg: &apos;No message&apos;,
     state: null,

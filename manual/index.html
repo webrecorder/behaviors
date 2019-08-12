@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="this is awesome library"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Behaviors"><meta property="twitter:description" content="this is awesome library"></head>
+<meta name="description" content="Webrecorder&apos;s Automated In-Page Behavior Framework"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Behaviors"><meta property="twitter:description" content="Webrecorder&apos;s Automated In-Page Behavior Framework"></head>
 <body class="layout-container manual-root manual-index" data-ice="rootContainer">
 
 <header>
@@ -269,7 +269,7 @@ export const isBehavior = true;</code>
 <li><code>./bin/cli-runner -c behavior-run-config.yml</code></li>
 </ul><p>The command will launch a Chrome/Chromium browser installed on your computer, build the behavior, and then run it until completion.</p><p>While the behavior is being run or the behavior has run to completion and a change has been detected to the behavior 
 or any of the files it includes, it will be rebuilt and re-run automatically.</p><h3>Manual</h3><p>To build the behavior execute the following command <code>./bin/cli-behaviors -b ./behaviors/&lt;path to your behavior&gt;</code>.
-Once the command exits the behavior ready to be run can be found at <code>./dist/&lt;behavior name&gt;.js</code> or you can use copy the path displayed
+Once the command exits the behavior ready to be run can be found at <code>./dist/&lt;behavior name&gt;.js</code> or you can copy the path displayed
 in the output of the build command.</p><p>The next step is to copy the contents of the generated file into the browser and run it.</p><p>The generated file contains JavaScript that will setup the behavior for running using an utility class exposed on <code>window</code> as <code>$WBBehaviorRunner$</code>.</p><p>Shown below are the ways provided for you to manually run the behavior by the utility class.</p><pre><code class="lang-js"><code class="source-code prettyprint">/* automatic running, chose 1 method */
 (async () =&gt; {
   for await (const state of $WBBehaviorRunner$.autoRunIter()) { 
