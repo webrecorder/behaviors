@@ -102,17 +102,35 @@ function viewStoriesAndLoadPostView(cliAPI, info) {
 
     // load the 'single post view' assets by manipulating history
     // to load it for the first post, then going back to starting page
-    yield lib.stateWithMsgNoWait('Loading post view', info.state);
-    const firstPostHref = lib.qs('article a').href;
-    window.history.pushState({}, "", firstPostHref);
+    yield lib.stateWithMsgNoWait('Loading single post view', info.state);
+
+    const initialArticle = lib.qs('article');
+
+    const firstPostHref = lib.qs('a', initialArticle).href;
+
+    const origLoc = window.location.href;
+
+    window.history.replaceState({}, "", firstPostHref);
     window.dispatchEvent(new PopStateEvent("popstate", {state: {}}));
 
-    await lib.delay(2000);
+    let postArticle = null;
 
-    window.history.back();
+    await lib.waitForPredicate(() => {
+      postArticle = lib.qs('article');
+      return (postArticle !== initialArticle);
+    });
 
-    await lib.delay(2000);
-    yield lib.stateWithMsgNoWait('Loaded post view', info.state);
+    window.history.replaceState({}, "", origLoc);
+    window.dispatchEvent(new PopStateEvent("popstate", {state: {}}));
+
+    let initialAgainArticle = null;
+
+    await lib.waitForPredicate(() => {
+      initialAgainArticle = lib.qs('article');
+      return (initialAgainArticle !== postArticle);
+    });
+
+    yield lib.stateWithMsgNoWait('Done loading single post view', info.state);
   }
 }
 
