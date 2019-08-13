@@ -114,7 +114,6 @@ exports.behaviorFromFile = function behaviorFromFile(opts) {
   if (isBehaviorCheckResults === Utils.behaviorKinds.behavior) {
     return new Behavior({ file: sourceFile, typeChecker, opts });
   }
-
   return null;
 };
 

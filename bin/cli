@@ -5,8 +5,10 @@ const pkg = require('../package');
 
 program
   .version(pkg.version)
+  .usage('<command> [options]')
   .command('api [options]', 'Start the behavior api sever')
-  .command('behaviors [options]', 'Build and or validate behaviors, or generate their metadata')
+  .command('build [options]', 'Build and or validate behaviors, or generate their metadata')
+  .command('newBehavior [options]', 'Create a new behavior')
   .command('runner [options] <path-to-behavior>', 'Run and or build a behaviors')
   .command('stdlib [options]', `Commands specific to working with the behavior's std library`)
   .parse(process.argv);

@@ -106,7 +106,7 @@ export default async function* initFBUserFeedBehaviorIterator(cliAPI) {
         await lib.clickWithDelay(playVideo);
       }
       state.posts++;
-      yield lib.createState(wait,`viewed feed item ${totalFeedItems}`, state);
+      yield lib.createState(wait, `viewed feed item ${totalFeedItems}`, state);
       wait = false;
     }
     timelineItems = cliAPI.$x(xpathQueries.userTimelineItem);
@@ -132,7 +132,7 @@ export const metadata = {
   },
   description:
     'Capture all items and comments in the Facebook page and scroll down to load more content where possible.',
-  updated: '2019-07-24T15:42:03-04:00',
+  updated: '2019-07-26T13:27:59-07:00',
 };
 
 export const isBehavior = true;

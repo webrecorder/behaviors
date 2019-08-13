@@ -5,13 +5,6 @@ import autoScrollBehavior from '../autoscroll';
 export default function instagramOwnFeedBehavior(cliAPI) {
   if (!shared.loggedIn(cliAPI.$x)) return autoScrollBehavior();
   // the main feed and latest stories are sibling elements
-  const main = lib.qs('main > section');
-  const firstPost = lib.qs('article', main.firstElementChild);
-  const startStories = lib.qs('a[href="#"]', main.lastElementChild);
-  let postContainer;
-  if (firstPost) {
-    postContainer = firstPost.parentElement;
-  }
   const info = {
     state: {
       viewed: 0,
@@ -23,11 +16,27 @@ export default function instagramOwnFeedBehavior(cliAPI) {
     },
   };
   return lib.traverseChildrenOfCustom({
-    preTraversal:
-      startStories != null
-        ? () => shared.viewStories(startStories, info)
-        : null,
-    parentElement: postContainer,
+    preTraversal() {
+      const startStories = lib.qs(
+        'a[href="#"]',
+        lib.lastChildElementOfSelector('main > section')
+      );
+      if (startStories) {
+        return shared.viewStories(startStories, info);
+      }
+    },
+    setup() {
+      // if stories were played we can not hold a reference to the first post
+      // since the DOM has changed thus we need perform the setup here
+      const firstPost = lib.qs(
+        'article',
+        lib.firstChildElementOfSelector('main > section')
+      );
+      if (firstPost) {
+        return firstPost.parentElement;
+      }
+      return null;
+    },
     loader: true,
     async nextChild(parentElement, currentRow) {
       const nextRow = lib.getElemSibling(currentRow);
@@ -62,7 +71,7 @@ export default function instagramOwnFeedBehavior(cliAPI) {
           multiImgElem: post,
           videoElem: post,
           info,
-          postId: 'a post'
+          postId: 'a post',
         });
       } catch (e) {
         result = lib.stateWithMsgNoWait(
@@ -95,7 +104,7 @@ export const metadata = {
   },
   description:
     'Capture all stories, images, videos and comments on the logged in users feed.',
-  updated: '2019-07-22T20:26:06-04:00',
+  updated: '2019-07-26T13:27:59-07:00',
 };
 
 export const isBehavior = true;

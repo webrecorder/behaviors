@@ -14,7 +14,7 @@ const spawnArgs = ['-c', defaultBehaviorConfigPath, '-b'];
  * @param {Object} config - The behavior API server config
  * @return {Promise<any>}
  */
-module.exports = function prepareBehaviors(config) {
+function prepareBehaviors(config) {
   return new Promise((resolve, reject) => {
     if (!config.behaviorInfo.build) return resolve();
     console.log('Building behaviors');
@@ -43,4 +43,6 @@ module.exports = function prepareBehaviors(config) {
       resolve();
     });
   });
-};
+}
+
+module.exports = prepareBehaviors;

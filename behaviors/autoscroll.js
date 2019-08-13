@@ -17,11 +17,11 @@ export default async function* autoScrollBehavior(init) {
     let localTimesScrolled = 0;
     while (scroller.canScrollDownMore() && localTimesScrolled < maxScroll) {
       scroller.scrollDown();
+      state.timesScrolled++;
       if (await lib.findAllMediaElementsAndPlay()) {
         yield lib.stateWithMsgWait('Auto scroll played some media', state);
       }
-      localTimesScrolled += 1;
-      state.timesScrolled += localTimesScrolled;
+      localTimesScrolled++;
       lib.autoFetchFromDoc();
       // ensure we do not go way way to fast in order to allow
       // time for additional content to be loaded
@@ -41,7 +41,7 @@ export const metadata = {
   defaultBehavior: true,
   description:
     'Automatically scroll down the page and capture any embedded content. If more content loads, scrolling will continue until autopilot is stopped by user.',
-  updated: '2019-07-24T20:14:43-04:00',
+  updated: '2019-07-26T13:27:29-07:00',
 };
 
 export const isBehavior = true;

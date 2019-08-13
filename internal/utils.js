@@ -2,7 +2,7 @@ const util = require('util');
 const prettyTime = require('pretty-time');
 
 const behaviorKinds = {
-  behavior: Symbol('source-_file-behavior'),
+  behavior: Symbol('source-file-behavior'),
   notABehavior: Symbol('source-not-a-behavior'),
   maybeBehaviorMetaDataOnly: Symbol('source-maybe-behavior-metadata-only'),
   maybeBehaviorSentinelOnly: Symbol('source-maybe-behavior-sentinel-only'),

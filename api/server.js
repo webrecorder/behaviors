@@ -10,7 +10,7 @@ const Utils = require('../internal/utils');
  * @param {Object} config
  * @return {Promise<fastify.FastifyInstance>}
  */
-module.exports = async function initServer(config) {
+async function initServer(config) {
   await prepareBehaviors(config);
   if (config.behaviorInfo.build) console.log();
   console.log('Starting behavior api server with configuration');
@@ -35,4 +35,6 @@ module.exports = async function initServer(config) {
   );
   console.log(server.printRoutes());
   return server;
-};
+}
+
+module.exports = initServer;

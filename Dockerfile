@@ -1,4 +1,4 @@
-ARG NODE=node:12.5.0
+ARG NODE=node:12.8.0
 FROM $NODE
 
 EXPOSE 3030
@@ -9,7 +9,7 @@ WORKDIR /app
 
 COPY . ./
 
-RUN yarn install && ./bin/cli behaviors -c ./behavior-config.yml -b
+RUN yarn install && ./bin/cli build -c ./behavior-config.yml -b
 
 VOLUME ["/app/behaviors", "/app/build", "/app/dist", "/app/lib"]
 

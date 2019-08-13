@@ -11,18 +11,16 @@ const moreInfoButtonSelector = 'button.btn.btn-more-info';
 
 export default async function* deathImitatesLanguageBehavior(cliAPI) {
   const rootContainer = document.body.firstElementChild;
-  let child = rootContainer.firstElementChild;
-  const  state = {
-    items: 0
+  const state = {
+    items: 0,
   };
-  while (child) {
+  for (const child of lib.childElementIterator(rootContainer)) {
     if (debug) lib.addClass(child, behaviorStyle.wrDebugVisited);
     await lib.scrollIntoViewWithDelay(child);
     lib.collectOutlinksFrom(child);
     await lib.selectElemFromAndClickWithDelay(child, moreInfoButtonSelector);
     state.items += 1;
     yield lib.stateWithMsgNoWait(`Viewed item`, state);
-    child = lib.getElemSibling(child);
   }
   return lib.stateWithMsgNoWait('Behavior done', state);
 }
@@ -34,7 +32,7 @@ export const metadata = {
   },
   description:
     'Scrolls the page clicking all the images rendered at the current scroll level',
-  updated: '2019-07-24T15:42:03-04:00',
+  updated: '2019-07-24T14:14:51-07:00',
 };
 
 export const isBehavior = true;

@@ -3,7 +3,7 @@
 const program = require('commander');
 const pkg = require('../package');
 const { defaultBehaviorConfigPath } = require('../internal/paths');
-const behaviorCLI = require('../internal/behaviorCLI');
+const behaviorCLI = require('../internal/buildCLI');
 
 program
   .version(pkg.version)
@@ -15,7 +15,7 @@ program
   )
   .option(
     '-b, --build [fileOrDir]',
-    'Build a behaviors or all behaviors contained within a directory',
+    'Build a behaviors or all behaviors contained within a directory'
   )
   .option(
     '-w, --watch [behaviorFileOrDir]',

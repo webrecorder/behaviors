@@ -7,7 +7,7 @@ const addSchemas = require('./replySchemas');
  * @param {fastify.FastifyInstance} server
  * @param {BehaviorLookUp} behaviorLookUp
  */
-module.exports = function initRoutes(server, behaviorLookUp) {
+function initRoutes(server, behaviorLookUp) {
   addSchemas(server);
   server.route({
     method: 'GET',
@@ -80,4 +80,6 @@ module.exports = function initRoutes(server, behaviorLookUp) {
       return behaviorLookUp.allInfo();
     },
   });
-};
+}
+
+module.exports = initRoutes;

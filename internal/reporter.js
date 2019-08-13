@@ -29,7 +29,7 @@ const metadataFormat2 = `export const metadata = {
 class Reporter {
   /**
    * @desc Displays the results of collecting behaviors from a directory
-   * @param {{time: number, numBehaviors: number, numNonBehaviors: number, numOnlyMetadata: number, numOnlySentinel: number}}
+   * @param {{time: number, numBehaviors: number, numNonBehaviors: number, numOnlyMetadata: number, numOnlySentinel: number}} reportOn
    */
   static collectedBehaviorsFromDirReport({
     time,
@@ -105,7 +105,7 @@ class Reporter {
 
   /**
    * @desc Displays the results of collecting a behavior from a file
-   * @param {{result: symbol, time: string, fileName: string}}
+   * @param {{result: symbol, time: string, fileName: string}} reportOn
    */
   static collectedBehaviorFromFileReport({ result, time, fileName }) {
     if (result === behaviorKinds.behavior) {

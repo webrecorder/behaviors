@@ -13,11 +13,34 @@
         },
         "undocumentIdentifier": { "enable": true },
         "unexportedIdentifier": { "enable": false },
-        "typeInference": { "enable": true }
+        "typeInference": { "enable": true },
+        "brand": {
+          "title": "Behaviors",
+          "description": "Webrecorder's Automated In-Page Behavior Framework",
+          "repository": "https://github.com/webrecorder/behaviors",
+          "site": "https://webrecorder.github.io/behaviors/",
+          "author": "https://twitter.com/johnaberlin"
+        },
+        "manual": {
+          "index": "./manual/index.md",
+          "globalIndex": true,
+          "files": [
+            "./manual/behaviors.md",
+            "./manual/build-system.md",
+            "./manual/cli.md",
+            "./manual/premade-behaviors.md"
+          ]
+        }
       }
     },
     { "name": "esdoc-ecmascript-proposal-plugin", "option": { "all": true } },
     { "name": "esdoc-external-webapi-plugin", "option": { "enable": true } },
-    { "name": "./internal/wrBehaviorsPlugin.js" }
+    {
+      "name": "esdoc-importpath-plugin",
+      "option": {
+        "stripPackageName": true,
+        "replaces": []
+      }
+    }
   ]
 }

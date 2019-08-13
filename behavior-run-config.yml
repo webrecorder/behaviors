@@ -1,9 +1,9 @@
 buildConfig: ./behavior-config.yml
-behavior: ./behaviors/twitter/newTwitterTimeline.js
-url: 'https://twitter.com/webrecorder_io'
+behavior: ./behaviors/instagram/user.js
+url: 'https://www.instagram.com/rhizomedotorg/'
 
 # path to chrome executable or command
-# chromeEXE: google-chrome-unstable
+chromeEXE: google-chrome-beta
 openDevTools: true
 
 mode: build-watch

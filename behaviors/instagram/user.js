@@ -63,7 +63,14 @@ async function* handlePost(post, { cliAPI, info }) {
   yield result;
   const commentList = lib.qs('ul', content);
   if (commentList) {
-    yield* shared.viewComments({ commentList, info, postId, $x: cliAPI.$x });
+    for await (const commentInfo of shared.viewComments({
+      commentList,
+      info,
+      postId,
+      $x: cliAPI.$x,
+    })) {
+      yield commentInfo;
+    }
   }
   yield info.fullyViewedPost(postId);
   // The load more comments button, depending on the number of comments,
@@ -72,12 +79,11 @@ async function* handlePost(post, { cliAPI, info }) {
   if (closeButton != null) {
     await lib.clickWithDelay(closeButton);
   } else {
-    await lib.clickWithDelay(
-      lib.xpathOneOf({
-        xpg: cliAPI.$x,
-        queries: selectors.postPopupCloseXpath,
-      })
-    );
+    const found = lib.xpathOneOf({
+      xpg: cliAPI.$x,
+      queries: selectors.postPopupCloseXpath,
+    });
+    await lib.clickWithDelay(found.length ? found[0] : found.snapshotItem(0));
   }
 }
 
@@ -110,33 +116,32 @@ function viewStoriesAndLoadPostView(cliAPI, info) {
 
     const origLoc = window.location.href;
 
-    window.history.replaceState({}, "", firstPostHref);
-    window.dispatchEvent(new PopStateEvent("popstate", {state: {}}));
+    window.history.replaceState({}, '', firstPostHref);
+    window.dispatchEvent(new PopStateEvent('popstate', { state: {} }));
 
     let postArticle = null;
 
     await lib.waitForPredicate(() => {
       postArticle = lib.qs('article');
-      return (postArticle !== initialArticle);
+      return postArticle !== initialArticle;
     });
 
-    window.history.replaceState({}, "", origLoc);
-    window.dispatchEvent(new PopStateEvent("popstate", {state: {}}));
+    window.history.replaceState({}, '', origLoc);
+    window.dispatchEvent(new PopStateEvent('popstate', { state: {} }));
 
     let initialAgainArticle = null;
 
     await lib.waitForPredicate(() => {
       initialAgainArticle = lib.qs('article');
-      return (initialAgainArticle !== postArticle);
+      return initialAgainArticle !== postArticle;
     });
 
     yield lib.stateWithMsgNoWait('Done loading single post view', info.state);
-  }
+  };
 }
 
 export default function instagramUserBehavior(cliAPI) {
   const info = shared.userLoadingInfo();
-
   return lib.traverseChildrenOfCustom({
     preTraversal: viewStoriesAndLoadPostView(cliAPI, info),
     additionalArgs: { cliAPI, info },
@@ -201,7 +206,7 @@ export const metadata = {
   },
   description:
     'Capture all stories, images, videos and comments on user’s page.',
-  updated: '2019-07-22T20:26:06-04:00',
+  updated: '2019-08-13T08:50:12-07:00',
 };
 
 export const isBehavior = true;

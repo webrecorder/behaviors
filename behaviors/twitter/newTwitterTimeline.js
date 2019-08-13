@@ -191,7 +191,7 @@ function initInfo() {
 }
 
 /**
- * @param {?HTMLElement} tweetContainer
+ * @param {?SomeElement} tweetContainer
  * @return {symbol}
  */
 function determineTimelineItemType(tweetContainer) {
@@ -724,10 +724,7 @@ export default async function* newTwitterTimeline(cliApi) {
         await lib.waitUntilElementIsRemovedFromDom(progressBar);
       }
       if (previousChildCount !== currentTLRoot.childElementCount) {
-        await lib.waitForAdditionalElemChildren(
-          currentTLRoot,
-          currentTLRoot.childElementCount
-        );
+        await lib.waitForAdditionalElemChildren(currentTLRoot);
       }
     }
     currentTLItem = currentTLItem.nextElementSibling;

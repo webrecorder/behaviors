@@ -197,9 +197,19 @@ const qsOpts = {
   charsetSentinel: true,
 };
 
+// {fastifyOpts: {trustProxy: boolean, maxParamLength: number, logger: boolean, querystringParser: (function(...args: *): *)}, port: number, host: string, numLookupWorkers: number, behaviorInfo: {build: boolean, mdataPath: string, behaviorDir: string}}
+/**
+ * @typedef {Object} APIConfig
+ * @property {string} host
+ * @property {number} port
+ * @property {number} numLookupWorkers
+ * @property {{trustProxy: boolean, maxParamLength: number, logger: boolean, querystringParser: *}} fastifyOpts
+ * @property {{build: boolean, mdataPath: string, behaviorDir: string}} behaviorInfo
+ */
+
 /**
  * The behavior API server config object
- * @type {{fastifyOpts: {trustProxy: boolean, maxParamLength: number, logger: boolean, querystringParser: (function(*=): any)}, port: number, host: string, numLookupWorkers: number, behaviorInfo: {build: boolean, mdataPath: string, behaviorDir: string}}}
+ * @type {APIConfig}
  */
 const config = {
   host: program.host,
