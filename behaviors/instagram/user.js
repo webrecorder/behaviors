@@ -81,38 +81,64 @@ async function* handlePost(post, { cliAPI, info }) {
   }
 }
 
+function viewStoriesAndLoadPostView(cliAPI, info) {
+  return async function* preTraversal() {
+    if (shared.loggedIn(cliAPI.$x)) {
+      // viewing stories change the markup of the page to be stories mode
+      // not timeline mode and reverts back to timeline mode once done #react
+      // thus we can only hold a reference to the element that will start
+      // a story chain we will view now
+      const profilePic = lib.qs('img[alt*="profile picture"]');
+      if (
+        profilePic &&
+        window.getComputedStyle(profilePic).cursor === 'pointer'
+      ) {
+        yield* shared.viewStories(profilePic, info, true);
+      }
+      if (lib.selectorExists(selectors.userOpenStories)) {
+        yield* shared.viewStories(lib.qs(selectors.userOpenStories), info);
+      }
+    }
+
+    // load the 'single post view' assets by manipulating history
+    // to load it for the first post, then going back to starting page
+    yield lib.stateWithMsgNoWait('Loading single post view', info.state);
+
+    const initialArticle = lib.qs('article');
+
+    const firstPostHref = lib.qs('a', initialArticle).href;
+
+    const origLoc = window.location.href;
+
+    window.history.replaceState({}, "", firstPostHref);
+    window.dispatchEvent(new PopStateEvent("popstate", {state: {}}));
+
+    let postArticle = null;
+
+    await lib.waitForPredicate(() => {
+      postArticle = lib.qs('article');
+      return (postArticle !== initialArticle);
+    });
+
+    window.history.replaceState({}, "", origLoc);
+    window.dispatchEvent(new PopStateEvent("popstate", {state: {}}));
+
+    let initialAgainArticle = null;
+
+    await lib.waitForPredicate(() => {
+      initialAgainArticle = lib.qs('article');
+      return (initialAgainArticle !== postArticle);
+    });
+
+    yield lib.stateWithMsgNoWait('Done loading single post view', info.state);
+  }
+}
+
 export default function instagramUserBehavior(cliAPI) {
   const info = shared.userLoadingInfo();
-  let preTraversal;
-  // view all stories when logged in
-  if (shared.loggedIn(cliAPI.$x)) {
-    // viewing stories change the markup of the page to be stories mode
-    // not timeline mode and reverts back to timeline mode once done #react
-    // thus we can only hold a reference to the element that will start
-    // a story chain we will view now
-    const canViewNormalStories = lib.selectorExists(selectors.userOpenStories);
-    const profilePic = lib.qs('img[alt*="profile picture"]');
-    let hasSelectedStories = false;
-    if (
-      profilePic &&
-      window.getComputedStyle(profilePic).cursor === 'pointer'
-    ) {
-      hasSelectedStories = true;
-    }
-    if (canViewNormalStories && hasSelectedStories) {
-      preTraversal = async function*() {
-        yield* shared.viewStories(profilePic, info, true);
-        yield* shared.viewStories(lib.qs(selectors.userOpenStories), info);
-      };
-    } else if (hasSelectedStories) {
-      preTraversal = () => shared.viewStories(profilePic, info, true);
-    } else if (canViewNormalStories) {
-      preTraversal = () =>
-        shared.viewStories(lib.qs(selectors.userOpenStories), info);
-    }
-  }
+
   return lib.traverseChildrenOfCustom({
-    preTraversal,
+    preTraversal: viewStoriesAndLoadPostView(cliAPI, info),
     additionalArgs: { cliAPI, info },
     async setup() {
       const parent = lib.chainFistChildElemOf(
