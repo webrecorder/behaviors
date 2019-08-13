@@ -111,7 +111,7 @@
 <li>has named export <strong>metadata</strong> that is an object</li>
 <li>has named export <strong>isBehavior</strong></li>
 </ul>
-<p>The an example of the expected format behavior is shown below</p>
+<p>An example of the expected format behavior is shown below</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">// means to perform the series of  actions
 export default async function* myBehavior(cliAPI) { ... }
 
@@ -161,7 +161,7 @@ export const metadata = {
 <p>The behavior using variation one is considered matched to an URL when the regular expression, defined in the <code>regex</code> property of <code>match</code>, matches the URL.</p>
 <p>The second variation, shown below, has two properties <code>base</code> (RegExp) and <code>sub</code> (Array&lt;RegExp&gt;).</p>
 <p>The <code>base</code> regular expression is used as a generic test and if it matches a URL the regular expressions in the <code>sub</code> array will be tested against the same URL.</p>
-<p>The behavior is considered matched to a URL when the <code>base</code> regular expression matches the URL and one of the <code>sub</code> regular expressions matches the URL.</p>
+<p>The behavior is considered matched to a URL when the <code>base</code> regular expression matches the URL and one of the <code>sub</code> regular expressions also matches the URL.</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">// variation 2
 export const metadata = {
   name: &apos;the name of your behavior&apos;,

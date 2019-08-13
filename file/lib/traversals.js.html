@@ -63,7 +63,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickNTimesWithDelay">selectFromAndClickNTimesWithDelay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickUntilNullWithDelay">selectFromAndClickUntilNullWithDelay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickSelectedWhileConnected">selectScrollIntoViewAndClickSelectedWhileConnected</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelaySelectedWhileConnected">selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelayWhileSelectedConnected">selectScrollIntoViewAndClickWithDelayWhileSelectedConnected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-delay">delay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-domCompletePromise">domCompletePromise</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-resolveWhenBehaviorUnPaused">resolveWhenBehaviorUnPaused</a></span></span></li>
@@ -243,6 +243,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentGenFn">traverseChildrenOfLoaderParentGenFn</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentRemovingPrevious">traverseChildrenOfLoaderParentRemovingPrevious</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfRemovingPrevious">traverseChildrenOfRemovingPrevious</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-walkChildrenOfCustom">walkChildrenOfCustom</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount1Second">DelayAmount1Second</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount2Seconds">DelayAmount2Seconds</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount3Seconds">DelayAmount3Seconds</a></span></span></li>
@@ -272,14 +273,20 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DisconnectingWalkState">DisconnectingWalkState</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ElemOrPromiseElem">ElemOrPromiseElem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TraversalOpts">TraversalOpts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-WalkChildrenOfCustomOpts">WalkChildrenOfCustomOpts</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/traversals.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { waitForAdditionalElemChildren } from &apos;./delays&apos;;
-import { getElemSiblingAndRemoveElem } from &apos;./dom&apos;;
-import { isGenerator, isPromise } from &apos;./general&apos;;
+import { getElemSiblingAndRemoveElem, childElementIterator } from &apos;./dom&apos;;
+import {
+  isGenerator,
+  isPromise,
+  isFunction,
+  noExceptGeneratorWrap,
+} from &apos;./general&apos;;
 
 /**
  * Applies a function to the children of the supplied parent element yielding the return value of the function.
@@ -299,19 +306,18 @@ export async function* traverseChildrenOfLoaderParent(
   additionalArgs
 ) {
   if (parentElement == null) return;
-  let nextChild = parentElement.firstElementChild;
-  let nextValue;
-  while (nextChild != null) {
-    nextValue = fn(nextChild, additionalArgs);
+  for await (const child of walkChildrenOfCustom({
+    parentElement,
+    loader: true,
+  })) {
+    const nextValue = fn(child, additionalArgs);
     if (isGenerator(nextValue)) {
-      yield* nextValue;
+      for await (const next of noExceptGeneratorWrap(nextValue)) {
+        yield next;
+      }
     } else {
       yield isPromise(nextValue) ? await nextValue : nextValue;
     }
-    if (nextChild.nextElementSibling == null) {
-      await waitForAdditionalElemChildren(parentElement);
-    }
-    nextChild = nextChild.nextElementSibling;
   }
 }
 
@@ -334,19 +340,21 @@ export async function* traverseChildrenOfLoaderParentRemovingPrevious(
   additionalArgs
 ) {
   if (parentElement == null) return;
-  let nextChild = parentElement.firstElementChild;
-  let nextValue;
-  while (nextChild != null) {
-    nextValue = fn(nextChild, additionalArgs);
+  for await (const child of walkChildrenOfCustom({
+    parentElement,
+    loader: true,
+    nextChild(parent, currentChild) {
+      return getElemSiblingAndRemoveElem(currentChild);
+    },
+  })) {
+    const nextValue = fn(child, additionalArgs);
     if (isGenerator(nextValue)) {
-      yield* nextValue;
+      for await (const next of noExceptGeneratorWrap(nextValue)) {
+        yield next;
+      }
     } else {
       yield isPromise(nextValue) ? await nextValue : nextValue;
     }
-    if (nextChild.nextElementSibling == null) {
-      await waitForAdditionalElemChildren(parentElement);
-    }
-    nextChild = getElemSiblingAndRemoveElem(nextChild);
   }
 }
 
@@ -362,16 +370,15 @@ export async function* traverseChildrenOfLoaderParentRemovingPrevious(
  */
 export async function* traverseChildrenOf(parentElement, fn, additionalArgs) {
   if (parentElement == null) return;
-  let nextChild = parentElement.firstElementChild;
-  let nextValue;
-  while (nextChild != null) {
-    nextValue = fn(nextChild, additionalArgs);
+  for (const child of childElementIterator(parentElement)) {
+    const nextValue = fn(child, additionalArgs);
     if (isGenerator(nextValue)) {
-      yield* nextValue;
+      for await (const next of noExceptGeneratorWrap(nextValue)) {
+        yield next;
+      }
     } else {
       yield isPromise(nextValue) ? await nextValue : nextValue;
     }
-    nextChild = nextChild.nextElementSibling;
   }
 }
 
@@ -392,16 +399,21 @@ export async function* traverseChildrenOfRemovingPrevious(
   additionalArgs
 ) {
   if (parentElement == null) return;
-  let nextChild = parentElement.firstElementChild;
-  let nextValue;
-  while (nextChild != null) {
-    nextValue = fn(nextChild, additionalArgs);
+  for await (const child of walkChildrenOfCustom({
+    parentElement,
+    loader: false,
+    nextChild(parent, currentChild) {
+      return getElemSiblingAndRemoveElem(currentChild);
+    },
+  })) {
+    const nextValue = fn(child, additionalArgs);
     if (isGenerator(nextValue)) {
-      yield* nextValue;
+      for await (const next of noExceptGeneratorWrap(nextValue)) {
+        yield next;
+      }
     } else {
       yield isPromise(nextValue) ? await nextValue : nextValue;
     }
-    nextChild = getElemSiblingAndRemoveElem(nextChild);
   }
 }
 
@@ -413,7 +425,8 @@ export async function* traverseChildrenOfRemovingPrevious(
  * After the wait ends and if the current child element still does not have a next element sibling the generator ends.
  *
  * @param {SomeElement} parentElement - The parent element who&apos;s children are to be traversed
- * @param {function(): *} genFn - Function used to generator more elements
+ * @param {function(): BoolOrPromiseBool} genFn - Function used to generator more elements returning T/F indicating if
+ * a wait should be done
  * @param {function(element: SomeElement, additionalArgs: *): *} fn - The function to be applied to each child element
  * @param {*} [additionalArgs] - Any additional arguments to be supplied to the function applied to each child element
  * @return {AsyncIterableIterator&lt;*&gt;}
@@ -425,19 +438,85 @@ export async function* traverseChildrenOfLoaderParentGenFn(
   additionalArgs
 ) {
   if (parentElement == null) return;
-  let nextChild = parentElement.firstElementChild;
-  let nextValue;
-  while (nextChild != null) {
-    nextValue = fn(nextChild, additionalArgs);
+  for await (const child of walkChildrenOfCustom({
+    parentElement,
+    loader: true,
+    async shouldWait(parent, currentChild) {
+      if (currentChild.nextElementSibling != null) return false;
+      const fromGen = genFn();
+      return isPromise(fromGen) ? await fromGen : fromGen;
+    },
+  })) {
+    const nextValue = fn(child, additionalArgs);
     if (isGenerator(nextValue)) {
-      yield* nextValue;
+      for await (const next of noExceptGeneratorWrap(nextValue)) {
+        yield next;
+      }
     } else {
       yield isPromise(nextValue) ? await nextValue : nextValue;
     }
-    if (nextChild.nextElementSibling == null &amp;&amp; (await genFn())) {
-      await waitForAdditionalElemChildren(parentElement);
+  }
+}
+
+/**
+ * Walks the children of the supplied parent element yielding its children.
+ *
+ * If the loader option is true or shouldWait and or wait function(s) are supplied then the walk
+ * behaves as if the loader was set to true.
+ *
+ * When operating in loader mode and a child of the parent element does not have a next element sibling, a wait
+ * for additional child elements to be added is done, if no custom wait function was supplied the wait happens for a maximum of 15 seconds.
+ * After the wait ends and if the current child element still does not have a next element sibling the generator ends.
+ *
+ * When not operating in loader mode and the current child element does not have a next element sibling the traversal ends.
+ *
+ * See the documentation for {@link WalkChildrenOfCustomOpts} for the customization options available
+ * @param {WalkChildrenOfCustomOpts} opts - Options for configuring the walk
+ * @return {AsyncIterableIterator&lt;SomeElement&gt;}
+ */
+export async function* walkChildrenOfCustom(opts) {
+  if (!opts) return;
+  const {
+    parentElement,
+    waitOptions,
+    selector,
+    filter,
+    nextChild = (parent, child) =&gt; child.nextElementSibling,
+  } = opts;
+  let isLoader = !!opts.loader;
+  if (!isLoader &amp;&amp; (isFunction(opts.shouldWait) || isFunction(opts.wait))) {
+    isLoader = true;
+  }
+  let shouldWait;
+  let wait;
+  if (isLoader) {
+    shouldWait = isFunction(opts.shouldWait)
+      ? opts.shouldWait
+      : (parent, child) =&gt; child.nextElementSibling == null;
+    wait = isFunction(opts.wait)
+      ? opts.wait
+      : (parent, child) =&gt; waitForAdditionalElemChildren(parent, waitOptions);
+  }
+  let curChild = parentElement.firstElementChild;
+  let useChild;
+  let nextChildValue;
+  while (curChild != null) {
+    useChild = filter ? filter(curChild) : true;
+    if (isPromise(useChild) ? await useChild : useChild) {
+      yield selector ? selector(curChild) : curChild;
     }
-    nextChild = nextChild.nextElementSibling;
+    if (isLoader) {
+      const shouldWaitValue = shouldWait(parentElement, curChild);
+      if (
+        isPromise(shouldWaitValue) ? await shouldWaitValue : shouldWaitValue
+      ) {
+        await wait(parentElement, curChild);
+      }
+    }
+    nextChildValue = nextChild(parentElement, curChild);
+    curChild = isPromise(nextChildValue)
+      ? await nextChildValue
+      : nextChildValue;
   }
 }
 
@@ -445,35 +524,33 @@ export async function* traverseChildrenOfLoaderParentGenFn(
  * Traverses the children of the supplied element applying the supplied function to each child and yielding
  * the return value of the function.
  *
- * When a child of the parent element does not have a next element sibling, a wait
- * for additional child elements to be added is done for a maximum of 15 seconds.
+ * If the loader option is true or shouldWait and or wait function(s) are supplied then the walk
+ * behaves as if the loader was set to true.
+ *
+ * When operating in loader mode and a child of the parent element does not have a next element sibling, a wait
+ * for additional child elements to be added is done, if no custom wait function was supplied the wait happens for a maximum of 15 seconds.
  * After the wait ends and if the current child element still does not have a next element sibling the generator ends.
  *
- * See the documenation for {@link TraversalOpts} for the customization options available
+ * When not operating in loader mode and the current child element does not have a next element sibling the traversal ends.
+ *
+ * See the documentation for {@link TraversalOpts} for the customization options available.
  * @param {TraversalOpts} opts - Options for configuring the traversal
  * @return {AsyncIterableIterator&lt;*&gt;}
  */
 export async function* traverseChildrenOfCustom(opts) {
   if (!opts) return;
-  const {
-    handler,
-    additionalArgs,
-    waitOptions,
-    selector,
-    filter,
-    shouldWait = (parent, child) =&gt; child.nextElementSibling == null,
-    nextChild = (parent, child) =&gt; child.nextElementSibling,
-    wait = (parent, child) =&gt;
-      waitForAdditionalElemChildren(parent, waitOptions),
-    loader = false,
-  } = opts;
-  if (typeof opts.preTraversal === &apos;function&apos;) {
+  if (isFunction(opts.preTraversal)) {
     const preValue = opts.preTraversal();
-    if (isGenerator(preValue)) yield* preValue;
-    else if (isPromise(preValue)) await preValue;
+    if (isGenerator(preValue)) {
+      for await (const preNext of noExceptGeneratorWrap(preValue)) {
+        yield preNext;
+      }
+    } else if (isPromise(preValue)) {
+      await preValue;
+    }
   }
   let parentElement;
-  if (typeof opts.setup === &apos;function&apos;) {
+  if (isFunction(opts.setup)) {
     const parentElemOrPromise = opts.setup();
     parentElement = isPromise(parentElemOrPromise)
       ? await parentElemOrPromise
@@ -483,14 +560,20 @@ export async function* traverseChildrenOfCustom(opts) {
   }
   if (!parentElement) {
     if (opts.setupFailure) {
-      const handlingFailure =
-        typeof opts.setupFailure === &apos;function&apos;
-          ? opts.setupFailure()
-          : opts.setupFailure;
-      if (isGenerator(handlingFailure)) yield* handlingFailure;
-      else yield handlingFailure;
+      const handlingFailure = isFunction(opts.setupFailure)
+        ? opts.setupFailure()
+        : opts.setupFailure;
+      if (isGenerator(handlingFailure)) {
+        for await (const failureNext of noExceptGeneratorWrap(
+          handlingFailure
+        )) {
+          yield failureNext;
+        }
+      } else {
+        yield handlingFailure;
+      }
     }
-    if (typeof opts.postTraversal === &apos;function&apos;) {
+    if (isFunction(opts.postTraversal)) {
       const postValue = opts.postTraversal(true);
       if (isGenerator(postValue)) {
         try {
@@ -513,51 +596,26 @@ export async function* traverseChildrenOfCustom(opts) {
     }
     return;
   }
-  let curChild = parentElement.firstElementChild;
-  let useChild;
-  let nextValue;
-  let nextChildValue;
-  let shouldWaitValue;
-  while (curChild != null) {
-    useChild = filter ? filter(curChild) : true;
-    if (isPromise(useChild) ? await useChild : useChild) {
-      nextValue = handler(
-        selector ? selector(curChild) : curChild,
-        additionalArgs
-      );
-      if (isGenerator(nextValue)) {
-        try {
-          let next;
-          let nv;
-          while (true) {
-            next = nextValue.next();
-            nv = isPromise(next) ? await next : next;
-            if (nv.done) {
-              if (nv.value) yield nv.value;
-              break;
-            } else {
-              yield nv.value;
-            }
-          }
-        } catch (e) {}
-      } else if (nextValue) {
-        yield nextValue;
+  for await (const child of walkChildrenOfCustom({
+    parentElement,
+    loader: opts.loader,
+    nextChild: opts.nextChild,
+    shouldWait: opts.shouldWait,
+    wait: opts.wait,
+    waitOptions: opts.waitOptions,
+    filter: opts.filter,
+    selector: opts.selector,
+  })) {
+    const nextValue = opts.handler(child, opts.additionalArgs);
+    if (isGenerator(nextValue)) {
+      for await (const next of noExceptGeneratorWrap(nextValue)) {
+        yield next;
       }
+    } else if (nextValue) {
+      yield nextValue;
     }
-    if (loader) {
-      shouldWaitValue = shouldWait(parentElement, curChild);
-      if (
-        isPromise(shouldWaitValue) ? await shouldWaitValue : shouldWaitValue
-      ) {
-        await wait(parentElement, curChild);
-      }
-    }
-    nextChildValue = nextChild(parentElement, curChild);
-    curChild = isPromise(nextChildValue)
-      ? await nextChildValue
-      : nextChildValue;
   }
-  if (typeof opts.postTraversal === &apos;function&apos;) {
+  if (isFunction(opts.postTraversal)) {
     const postValue = opts.postTraversal(false);
     if (isGenerator(postValue)) {
       try {
@@ -567,7 +625,7 @@ export async function* traverseChildrenOfCustom(opts) {
           next = postValue.next();
           nv = isPromise(next) ? await next : next;
           if (nv.done) {
-            return nv.value;
+            if (nv.value) return nv.value;
           } else {
             yield nv.value;
           }
@@ -590,7 +648,6 @@ export const WalkEndedReasons = {
   failedToRefindChild: 4,
   noMoreChildren: 0,
 };
-
 
 /**
  * Yields the child elements of the found parent element.
@@ -641,9 +698,28 @@ export async function* disconnectingWalk(walkState) {
  */
 
 /**
+ * @typedef {Object} WalkChildrenOfCustomOpts
+ * @property {SomeElement} parentElement - The element who&apos;s children are to
+ * be visited, if not supplied it is expected that a setup function is
+ * @property {function(parent: SomeElement, child: SomeElement): ElemOrPromiseElem} [nextChild] - Function used to get the next child to be visited
+ * @property {function(child: SomeElement): Element} [selector] - Function used to select a more specific element to be used
+ * @property {function(child: SomeElement): BoolOrPromiseBool} [filter] - Function used to determine if a specific child is to be handled
+ * @property {function(parent: SomeElement, child: SomeElement): BoolOrPromiseBool} [shouldWait] -
+ * Function used to determine if a wait for additional children should be done
+ * @property {function(parent: SomeElement, child: SomeElement): Promise&lt;*&gt;} [wait] - Function used
+ * to perform the wait for additional children
+ * @property {boolean} [loader = false] - Should the walk expect that the parent element
+ * could have additional child elements added e.g. infinite loading.
+ * If loader is falsy and either or both shouldWait and wait function(s) are supplied then the walk
+ * behaves as if the loader was set to true
+ * @property {WaitForOptions} [waitOptions] - Options controlling
+ * the wait for more children {@link waitForAdditionalElemChildren} when no custom
+ * wait function is supplied
+ */
+
+/**
  * @typedef {Object} TraversalOpts
- * @property {function(element: SomeElement, additionalArgs: *): *} handler -
- * The function to be called for each child
+ * @property {function(element: SomeElement, additionalArgs: *): *} handler - The function to be called for each child
  * @property {?SomeElement} [parentElement] - The element who&apos;s children are to
  * be visited, if not supplied it is expected that a setup function is
  * @property {function(): ElemOrPromiseElem} [setup] - Function
@@ -671,13 +747,13 @@ export async function* disconnectingWalk(walkState) {
  * The value of this function yield&apos;d if it is truthy
  * @property {*} [additionalArgs] - Optional additional arguments to be supplied
  * to the handler function
- * @property {boolean} [loader = false] - Should the traversal expect
- * that the parent element could have additional child elements added?
- * e.g. infinite loading
+ * @property {boolean} [loader = false] - Should the traversal expect that the parent element
+ * could have additional child elements added e.g. infinite loading.
+ * If loader is falsy and either or both shouldWait and wait function(s) are supplied then the walk
+ * behaves as if the loader was set to true
  * @property {WaitForOptions} [waitOptions] - Options controlling
  * the wait for more children
  */
-
 
 /**
  * @typedef {Object} DisconnectingWalkState

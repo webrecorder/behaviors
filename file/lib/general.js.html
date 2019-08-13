@@ -63,7 +63,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickNTimesWithDelay">selectFromAndClickNTimesWithDelay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickUntilNullWithDelay">selectFromAndClickUntilNullWithDelay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickSelectedWhileConnected">selectScrollIntoViewAndClickSelectedWhileConnected</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelaySelectedWhileConnected">selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelayWhileSelectedConnected">selectScrollIntoViewAndClickWithDelayWhileSelectedConnected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-delay">delay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-domCompletePromise">domCompletePromise</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-resolveWhenBehaviorUnPaused">resolveWhenBehaviorUnPaused</a></span></span></li>
@@ -243,6 +243,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentGenFn">traverseChildrenOfLoaderParentGenFn</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentRemovingPrevious">traverseChildrenOfLoaderParentRemovingPrevious</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfRemovingPrevious">traverseChildrenOfRemovingPrevious</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-walkChildrenOfCustom">walkChildrenOfCustom</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount1Second">DelayAmount1Second</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount2Seconds">DelayAmount2Seconds</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount3Seconds">DelayAmount3Seconds</a></span></span></li>
@@ -272,6 +273,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DisconnectingWalkState">DisconnectingWalkState</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ElemOrPromiseElem">ElemOrPromiseElem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TraversalOpts">TraversalOpts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-WalkChildrenOfCustomOpts">WalkChildrenOfCustomOpts</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -709,11 +711,7 @@ export function isGenerator(obj) {
   if (!obj) return false;
   const tag = obj[Symbol.toStringTag];
   if (tag === &apos;AsyncGenerator&apos; || tag === &apos;Generator&apos;) return true;
-  if (
-    typeof obj.next === &apos;function&apos; &amp;&amp;
-    typeof obj.throw === &apos;function&apos; &amp;&amp;
-    typeof obj.return === &apos;function&apos;
-  ) {
+  if (isFunction(obj.next) &amp;&amp; isFunction(obj.throw) &amp;&amp; isFunction(obj.return)) {
     return true;
   }
   if (!obj.constructor) return false;
@@ -731,8 +729,8 @@ export function isPromise(obj) {
   return (
     obj instanceof Promise ||
     (typeof obj === &apos;object&apos; &amp;&amp;
-      typeof obj.then === &apos;function&apos; &amp;&amp;
-      typeof obj.catch === &apos;function&apos;) ||
+      isFunction(obj.then) &amp;&amp;
+      isFunction(obj.catch)) ||
     obj[Symbol.toStringTag] === &apos;Promise&apos;
   );
 }
@@ -754,18 +752,20 @@ export function isFunction(obj) {
  * @return {AsyncIterableIterator&lt;*&gt;}
  */
 export async function* mapAsyncIterator(iterator, mapper) {
-  let nextValue;
-  for await (let item of iterator) {
-    nextValue = mapper(item);
-    if (isGenerator(nextValue)) yield* nextValue;
-    else yield nextValue;
+  for await (const item of iterator) {
+    const nextValue = mapper(item);
+    if (isGenerator(nextValue)) {
+      for await (const next of noExceptGeneratorWrap(nextValue)) {
+        yield next;
+      }
+    } else yield nextValue;
   }
 }
 
 /**
  * Wraps the supplied generator in a try catch and re-yields its values generator.
  * If the wrapped generator throws an exception the wrapping generator ends.
- * @param {AsyncIterableIterator&lt;*&gt;|IterableIterator&lt;*&gt;} generator
+ * @param {AsyncIterableIterator&lt;*&gt;|IterableIterator&lt;*&gt;} generator - The generator to be wrapped
  * @param {boolean} [returnLast] - Should the last value of the supplied generator be returned
  * @return {AsyncIterableIterator&lt;*&gt;}
  */
@@ -788,7 +788,8 @@ export async function* noExceptGeneratorWrap(generator, returnLast) {
       }
     }
   } catch (e) {}
-}</code></pre>
+}
+</code></pre>
 
 </div>
 

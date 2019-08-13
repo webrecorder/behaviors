@@ -63,7 +63,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickNTimesWithDelay">selectFromAndClickNTimesWithDelay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickUntilNullWithDelay">selectFromAndClickUntilNullWithDelay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickSelectedWhileConnected">selectScrollIntoViewAndClickSelectedWhileConnected</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelaySelectedWhileConnected">selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelayWhileSelectedConnected">selectScrollIntoViewAndClickWithDelayWhileSelectedConnected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-delay">delay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-domCompletePromise">domCompletePromise</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-resolveWhenBehaviorUnPaused">resolveWhenBehaviorUnPaused</a></span></span></li>
@@ -243,6 +243,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentGenFn">traverseChildrenOfLoaderParentGenFn</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentRemovingPrevious">traverseChildrenOfLoaderParentRemovingPrevious</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfRemovingPrevious">traverseChildrenOfRemovingPrevious</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-walkChildrenOfCustom">walkChildrenOfCustom</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount1Second">DelayAmount1Second</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount2Seconds">DelayAmount2Seconds</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount3Seconds">DelayAmount3Seconds</a></span></span></li>
@@ -272,6 +273,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DisconnectingWalkState">DisconnectingWalkState</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ElemOrPromiseElem">ElemOrPromiseElem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TraversalOpts">TraversalOpts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-WalkChildrenOfCustomOpts">WalkChildrenOfCustomOpts</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -624,7 +626,7 @@ export async function selectFromAndClickUntilNullWithDelay(
  * selecting and clicking the selected element if the current reference
  * becomes disconnected from the dom or the optional stopPredicate
  * returns true. There is no dealy for delay you want
- * {@link selectScrollIntoViewAndClickWithDelaySelectedWhileConnected}
+ * {@link selectScrollIntoViewAndClickWithDelayWhileSelectedConnected}
  * @param {string} selector - The selector to be used to select the element
  * @param {SelectScrollIntoViewClickUntilNullOptions} options
  * @return {void}
@@ -652,7 +654,7 @@ export function selectScrollIntoViewAndClickSelectedWhileConnected(
  * @param {SelectScrollIntoViewClickUntilNullOptions} [options] - Additional configuration options
  * @return {Promise&lt;void&gt;}
  */
-export async function selectScrollIntoViewAndClickWithDelaySelectedWhileConnected(
+export async function selectScrollIntoViewAndClickWithDelayWhileSelectedConnected(
   selector,
   options = {}
 ) {

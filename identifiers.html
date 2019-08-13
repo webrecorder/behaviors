@@ -63,7 +63,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickNTimesWithDelay">selectFromAndClickNTimesWithDelay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickUntilNullWithDelay">selectFromAndClickUntilNullWithDelay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickSelectedWhileConnected">selectScrollIntoViewAndClickSelectedWhileConnected</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelaySelectedWhileConnected">selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelayWhileSelectedConnected">selectScrollIntoViewAndClickWithDelayWhileSelectedConnected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-delay">delay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-domCompletePromise">domCompletePromise</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-resolveWhenBehaviorUnPaused">resolveWhenBehaviorUnPaused</a></span></span></li>
@@ -243,6 +243,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentGenFn">traverseChildrenOfLoaderParentGenFn</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentRemovingPrevious">traverseChildrenOfLoaderParentRemovingPrevious</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfRemovingPrevious">traverseChildrenOfRemovingPrevious</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-walkChildrenOfCustom">walkChildrenOfCustom</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount1Second">DelayAmount1Second</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount2Seconds">DelayAmount2Seconds</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount3Seconds">DelayAmount3Seconds</a></span></span></li>
@@ -272,6 +273,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DisconnectingWalkState">DisconnectingWalkState</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ElemOrPromiseElem">ElemOrPromiseElem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TraversalOpts">TraversalOpts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-WalkChildrenOfCustomOpts">WalkChildrenOfCustomOpts</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -1328,7 +1330,7 @@ returns true.</p>
           <span data-ice="kind-icon" class="kind-function">F</span>
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelaySelectedWhileConnected">selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</a></span></span><span class="code" data-ice="signature">(selector: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="typedef/index.html#static-typedef-SelectScrollIntoViewClickUntilNullOptions">SelectScrollIntoViewClickUntilNullOptions</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>void</span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelayWhileSelectedConnected">selectScrollIntoViewAndClickWithDelayWhileSelectedConnected</a></span></span><span class="code" data-ice="signature">(selector: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="typedef/index.html#static-typedef-SelectScrollIntoViewClickUntilNullOptions">SelectScrollIntoViewClickUntilNullOptions</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>void</span>&gt;</span>
         </p>
       </div>
       <div>
@@ -6525,7 +6527,7 @@ the return value of the function.</p>
           <span data-ice="kind-icon" class="kind-function">F</span>
           <span data-ice="async">async</span>
           <span data-ice="generator">*</span>
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentGenFn">traverseChildrenOfLoaderParentGenFn</a></span></span><span class="code" data-ice="signature">(parentElement: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, genFn: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>()</span>: <span>*</span></span>, fn: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(element: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, additionalArgs: <span>*</span>)</span>: <span>*</span></span>, additionalArgs: <span>*</span>): <span>AsyncIterableIterator</span>&lt;<span>*</span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentGenFn">traverseChildrenOfLoaderParentGenFn</a></span></span><span class="code" data-ice="signature">(parentElement: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, genFn: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>()</span>: <span><a href="typedef/index.html#static-typedef-BoolOrPromiseBool">BoolOrPromiseBool</a></span></span>, fn: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(element: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, additionalArgs: <span>*</span>)</span>: <span>*</span></span>, additionalArgs: <span>*</span>): <span>AsyncIterableIterator</span>&lt;<span>*</span>&gt;</span>
         </p>
       </div>
       <div>
@@ -6592,6 +6594,35 @@ and then removing the previously considered child element from the DOM.</p>
         
         <div data-ice="description"><p>Applies a function to the children of the supplied parent element yielding the return value of the function
 and then removing the previously considered child element from the DOM.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          <span data-ice="kind-icon" class="kind-function">F</span>
+          <span data-ice="async">async</span>
+          <span data-ice="generator">*</span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-walkChildrenOfCustom">walkChildrenOfCustom</a></span></span><span class="code" data-ice="signature">(opts: <span><a href="typedef/index.html#static-typedef-WalkChildrenOfCustomOpts">WalkChildrenOfCustomOpts</a></span>): <span>AsyncIterableIterator</span>&lt;<span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Walks the children of the supplied parent element yielding its children.</p>
 </div>
       </div>
     </td>
@@ -7405,6 +7436,34 @@ and then removing the previously considered child element from the DOM.</p>
           
           
           <span class="code" data-ice="name"><span><a href="typedef/index.html#static-typedef-TraversalOpts">TraversalOpts</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          <span data-ice="kind-icon" class="kind-typedef">T</span>
+          
+          
+          <span class="code" data-ice="name"><span><a href="typedef/index.html#static-typedef-WalkChildrenOfCustomOpts">WalkChildrenOfCustomOpts</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>

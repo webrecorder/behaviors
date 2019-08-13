@@ -1080,9 +1080,9 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "lib/clicks.js~selectscrollintoviewandclickwithdelayselectedwhileconnected",
-    "function/index.html#static-function-selectScrollIntoViewAndClickWithDelaySelectedWhileConnected",
-    "<span>selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
+    "lib/clicks.js~selectscrollintoviewandclickwithdelaywhileselectedconnected",
+    "function/index.html#static-function-selectScrollIntoViewAndClickWithDelayWhileSelectedConnected",
+    "<span>selectScrollIntoViewAndClickWithDelayWhileSelectedConnected</span> <span class=\"search-result-import-path\">lib/clicks.js</span>",
     "function"
   ],
   [
@@ -1299,6 +1299,12 @@ window.esdocSearchIndex = [
     "lib/delays.js~waituntilelementisremovedfromdom",
     "function/index.html#static-function-waitUntilElementIsRemovedFromDom",
     "<span>waitUntilElementIsRemovedFromDom</span> <span class=\"search-result-import-path\">lib/delays.js</span>",
+    "function"
+  ],
+  [
+    "lib/traversals.js~walkchildrenofcustom",
+    "function/index.html#static-function-walkChildrenOfCustom",
+    "<span>walkChildrenOfCustom</span> <span class=\"search-result-import-path\">lib/traversals.js</span>",
     "function"
   ],
   [
@@ -2067,6 +2073,12 @@ window.esdocSearchIndex = [
     "lib/traversals.js~traversalopts",
     "typedef/index.html#static-typedef-TraversalOpts",
     "lib/traversals.js~TraversalOpts",
+    "typedef"
+  ],
+  [
+    "lib/traversals.js~walkchildrenofcustomopts",
+    "typedef/index.html#static-typedef-WalkChildrenOfCustomOpts",
+    "lib/traversals.js~WalkChildrenOfCustomOpts",
     "typedef"
   ]
 ]

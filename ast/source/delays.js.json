@@ -1,29 +1,29 @@
 {
   "type": "File",
   "start": 0,
-  "end": 11335,
+  "end": 11338,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 368,
-      "column": 3
+      "line": 369,
+      "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 11335,
+    "end": 11338,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 368,
-        "column": 3
+        "line": 369,
+        "column": 0
       }
     },
     "sourceType": "module",
@@ -15822,7 +15822,7 @@
       {
         "type": "ExportNamedDeclaration",
         "start": 10035,
-        "end": 10171,
+        "end": 10173,
         "loc": {
           "start": {
             "line": 339,
@@ -15838,7 +15838,7 @@
         "declaration": {
           "type": "FunctionDeclaration",
           "start": 10042,
-          "end": 10171,
+          "end": 10173,
           "loc": {
             "start": {
               "line": 339,
@@ -15874,7 +15874,7 @@
             {
               "type": "ObjectPattern",
               "start": 10067,
-              "end": 10092,
+              "end": 10094,
               "loc": {
                 "start": {
                   "line": 339,
@@ -15882,22 +15882,22 @@
                 },
                 "end": {
                   "line": 339,
-                  "column": 57
+                  "column": 59
                 }
               },
               "properties": [
                 {
                   "type": "ObjectProperty",
-                  "start": 10068,
-                  "end": 10076,
+                  "start": 10069,
+                  "end": 10077,
                   "loc": {
                     "start": {
                       "line": 339,
-                      "column": 33
+                      "column": 34
                     },
                     "end": {
                       "line": 339,
-                      "column": 41
+                      "column": 42
                     }
                   },
                   "method": false,
@@ -15905,16 +15905,16 @@
                   "computed": false,
                   "key": {
                     "type": "Identifier",
-                    "start": 10068,
-                    "end": 10076,
+                    "start": 10069,
+                    "end": 10077,
                     "loc": {
                       "start": {
                         "line": 339,
-                        "column": 33
+                        "column": 34
                       },
                       "end": {
                         "line": 339,
-                        "column": 41
+                        "column": 42
                       },
                       "identifierName": "selector"
                     },
@@ -15922,16 +15922,16 @@
                   },
                   "value": {
                     "type": "Identifier",
-                    "start": 10068,
-                    "end": 10076,
+                    "start": 10069,
+                    "end": 10077,
                     "loc": {
                       "start": {
                         "line": 339,
-                        "column": 33
+                        "column": 34
                       },
                       "end": {
                         "line": 339,
-                        "column": 41
+                        "column": 42
                       },
                       "identifierName": "selector"
                     },
@@ -15943,16 +15943,16 @@
                 },
                 {
                   "type": "ObjectProperty",
-                  "start": 10078,
-                  "end": 10082,
+                  "start": 10079,
+                  "end": 10083,
                   "loc": {
                     "start": {
                       "line": 339,
-                      "column": 43
+                      "column": 44
                     },
                     "end": {
                       "line": 339,
-                      "column": 47
+                      "column": 48
                     }
                   },
                   "method": false,
@@ -15960,16 +15960,16 @@
                   "computed": false,
                   "key": {
                     "type": "Identifier",
-                    "start": 10078,
-                    "end": 10082,
+                    "start": 10079,
+                    "end": 10083,
                     "loc": {
                       "start": {
                         "line": 339,
-                        "column": 43
+                        "column": 44
                       },
                       "end": {
                         "line": 339,
-                        "column": 47
+                        "column": 48
                       },
                       "identifierName": "cntx"
                     },
@@ -15977,16 +15977,16 @@
                   },
                   "value": {
                     "type": "Identifier",
-                    "start": 10078,
-                    "end": 10082,
+                    "start": 10079,
+                    "end": 10083,
                     "loc": {
                       "start": {
                         "line": 339,
-                        "column": 43
+                        "column": 44
                       },
                       "end": {
                         "line": 339,
-                        "column": 47
+                        "column": 48
                       },
                       "identifierName": "cntx"
                     },
@@ -15998,16 +15998,16 @@
                 },
                 {
                   "type": "ObjectProperty",
-                  "start": 10084,
-                  "end": 10091,
+                  "start": 10085,
+                  "end": 10092,
                   "loc": {
                     "start": {
                       "line": 339,
-                      "column": 49
+                      "column": 50
                     },
                     "end": {
                       "line": 339,
-                      "column": 56
+                      "column": 57
                     }
                   },
                   "method": false,
@@ -16015,16 +16015,16 @@
                   "computed": false,
                   "key": {
                     "type": "Identifier",
-                    "start": 10084,
-                    "end": 10091,
+                    "start": 10085,
+                    "end": 10092,
                     "loc": {
                       "start": {
                         "line": 339,
-                        "column": 49
+                        "column": 50
                       },
                       "end": {
                         "line": 339,
-                        "column": 56
+                        "column": 57
                       },
                       "identifierName": "options"
                     },
@@ -16032,16 +16032,16 @@
                   },
                   "value": {
                     "type": "Identifier",
-                    "start": 10084,
-                    "end": 10091,
+                    "start": 10085,
+                    "end": 10092,
                     "loc": {
                       "start": {
                         "line": 339,
-                        "column": 49
+                        "column": 50
                       },
                       "end": {
                         "line": 339,
-                        "column": 56
+                        "column": 57
                       },
                       "identifierName": "options"
                     },
@@ -16056,12 +16056,12 @@
           ],
           "body": {
             "type": "BlockStatement",
-            "start": 10094,
-            "end": 10171,
+            "start": 10096,
+            "end": 10173,
             "loc": {
               "start": {
                 "line": 339,
-                "column": 59
+                "column": 61
               },
               "end": {
                 "line": 341,
@@ -16071,8 +16071,8 @@
             "body": [
               {
                 "type": "ReturnStatement",
-                "start": 10098,
-                "end": 10169,
+                "start": 10100,
+                "end": 10171,
                 "loc": {
                   "start": {
                     "line": 340,
@@ -16085,8 +16085,8 @@
                 },
                 "argument": {
                   "type": "CallExpression",
-                  "start": 10105,
-                  "end": 10168,
+                  "start": 10107,
+                  "end": 10170,
                   "loc": {
                     "start": {
                       "line": 340,
@@ -16099,8 +16099,8 @@
                   },
                   "callee": {
                     "type": "Identifier",
-                    "start": 10105,
-                    "end": 10121,
+                    "start": 10107,
+                    "end": 10123,
                     "loc": {
                       "start": {
                         "line": 340,
@@ -16117,8 +16117,8 @@
                   "arguments": [
                     {
                       "type": "ArrowFunctionExpression",
-                      "start": 10122,
-                      "end": 10158,
+                      "start": 10124,
+                      "end": 10160,
                       "loc": {
                         "start": {
                           "line": 340,
@@ -16136,8 +16136,8 @@
                       "params": [],
                       "body": {
                         "type": "CallExpression",
-                        "start": 10128,
-                        "end": 10158,
+                        "start": 10130,
+                        "end": 10160,
                         "loc": {
                           "start": {
                             "line": 340,
@@ -16150,8 +16150,8 @@
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 10128,
-                          "end": 10142,
+                          "start": 10130,
+                          "end": 10144,
                           "loc": {
                             "start": {
                               "line": 340,
@@ -16168,8 +16168,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 10143,
-                            "end": 10151,
+                            "start": 10145,
+                            "end": 10153,
                             "loc": {
                               "start": {
                                 "line": 340,
@@ -16185,8 +16185,8 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 10153,
-                            "end": 10157,
+                            "start": 10155,
+                            "end": 10159,
                             "loc": {
                               "start": {
                                 "line": 340,
@@ -16205,8 +16205,8 @@
                     },
                     {
                       "type": "Identifier",
-                      "start": 10160,
-                      "end": 10167,
+                      "start": 10162,
+                      "end": 10169,
                       "loc": {
                         "start": {
                           "line": 340,
@@ -16249,8 +16249,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @typedef {Object} WaitForOptions\n * @property {number} [pollRate = 1000] - The rate at which the condition will be checked\n * @property {?number} [max = 15000] - The maximum length of time the polling will happen in milliseconds\n ",
-              "start": 10173,
-              "end": 10412,
+              "start": 10175,
+              "end": 10414,
               "loc": {
                 "start": {
                   "line": 343,
@@ -16265,8 +16265,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @typedef {Object} GuardedWaitForOptions\n * @property {function(): boolean} [guard] - Function polled to determine if the wait\n * is considered done by additional conditions\n * @property {number} [pollRate = 1000] - The rate at which the condition will be checked\n * @property {?number} [max] - The maximum length of time the polling will happen in milliseconds\n ",
-              "start": 10414,
-              "end": 10785,
+              "start": 10416,
+              "end": 10787,
               "loc": {
                 "start": {
                   "line": 349,
@@ -16281,8 +16281,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @typedef {Object} WaitResult\n * @property {boolean} predicate - T/F indicating if the stopping condition(s) of a wait was met, this includes guards\n * @property {boolean} maxExceeded - T/F indicating if the configured maximum wait time was exceeded\n ",
-              "start": 10787,
-              "end": 11046,
+              "start": 10789,
+              "end": 11048,
               "loc": {
                 "start": {
                   "line": 357,
@@ -16297,8 +16297,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @typedef {Object} WaitForSelectorOptions\n * @property {string} selector - The selector to be waited for\n * @param {SomeElement|Document} [cntx] - element to use rather than document for the querySelector call\n * @param {WaitForOptions} [options] - Options controlling the wait\n ",
-              "start": 11048,
-              "end": 11335,
+              "start": 11050,
+              "end": 11337,
               "loc": {
                 "start": {
                   "line": 363,
@@ -16334,8 +16334,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @typedef {Object} WaitForOptions\n * @property {number} [pollRate = 1000] - The rate at which the condition will be checked\n * @property {?number} [max = 15000] - The maximum length of time the polling will happen in milliseconds\n ",
-            "start": 10173,
-            "end": 10412,
+            "start": 10175,
+            "end": 10414,
             "loc": {
               "start": {
                 "line": 343,
@@ -16350,8 +16350,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @typedef {Object} GuardedWaitForOptions\n * @property {function(): boolean} [guard] - Function polled to determine if the wait\n * is considered done by additional conditions\n * @property {number} [pollRate = 1000] - The rate at which the condition will be checked\n * @property {?number} [max] - The maximum length of time the polling will happen in milliseconds\n ",
-            "start": 10414,
-            "end": 10785,
+            "start": 10416,
+            "end": 10787,
             "loc": {
               "start": {
                 "line": 349,
@@ -16366,8 +16366,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @typedef {Object} WaitResult\n * @property {boolean} predicate - T/F indicating if the stopping condition(s) of a wait was met, this includes guards\n * @property {boolean} maxExceeded - T/F indicating if the configured maximum wait time was exceeded\n ",
-            "start": 10787,
-            "end": 11046,
+            "start": 10789,
+            "end": 11048,
             "loc": {
               "start": {
                 "line": 357,
@@ -16382,8 +16382,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @typedef {Object} WaitForSelectorOptions\n * @property {string} selector - The selector to be waited for\n * @param {SomeElement|Document} [cntx] - element to use rather than document for the querySelector call\n * @param {WaitForOptions} [options] - Options controlling the wait\n ",
-            "start": 11048,
-            "end": 11335,
+            "start": 11050,
+            "end": 11337,
             "loc": {
               "start": {
                 "line": 363,
@@ -16676,8 +16676,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @typedef {Object} WaitForOptions\n * @property {number} [pollRate = 1000] - The rate at which the condition will be checked\n * @property {?number} [max = 15000] - The maximum length of time the polling will happen in milliseconds\n ",
-      "start": 10173,
-      "end": 10412,
+      "start": 10175,
+      "end": 10414,
       "loc": {
         "start": {
           "line": 343,
@@ -16692,8 +16692,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @typedef {Object} GuardedWaitForOptions\n * @property {function(): boolean} [guard] - Function polled to determine if the wait\n * is considered done by additional conditions\n * @property {number} [pollRate = 1000] - The rate at which the condition will be checked\n * @property {?number} [max] - The maximum length of time the polling will happen in milliseconds\n ",
-      "start": 10414,
-      "end": 10785,
+      "start": 10416,
+      "end": 10787,
       "loc": {
         "start": {
           "line": 349,
@@ -16708,8 +16708,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @typedef {Object} WaitResult\n * @property {boolean} predicate - T/F indicating if the stopping condition(s) of a wait was met, this includes guards\n * @property {boolean} maxExceeded - T/F indicating if the configured maximum wait time was exceeded\n ",
-      "start": 10787,
-      "end": 11046,
+      "start": 10789,
+      "end": 11048,
       "loc": {
         "start": {
           "line": 357,
@@ -16724,8 +16724,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @typedef {Object} WaitForSelectorOptions\n * @property {string} selector - The selector to be waited for\n * @param {SomeElement|Document} [cntx] - element to use rather than document for the querySelector call\n * @param {WaitForOptions} [options] - Options controlling the wait\n ",
-      "start": 11048,
-      "end": 11335,
+      "start": 11050,
+      "end": 11337,
       "loc": {
         "start": {
           "line": 363,
@@ -48382,16 +48382,16 @@
         "binop": null
       },
       "value": "selector",
-      "start": 10068,
-      "end": 10076,
+      "start": 10069,
+      "end": 10077,
       "loc": {
         "start": {
           "line": 339,
-          "column": 33
+          "column": 34
         },
         "end": {
           "line": 339,
-          "column": 41
+          "column": 42
         }
       }
     },
@@ -48408,16 +48408,16 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 10076,
-      "end": 10077,
+      "start": 10077,
+      "end": 10078,
       "loc": {
         "start": {
           "line": 339,
-          "column": 41
+          "column": 42
         },
         "end": {
           "line": 339,
-          "column": 42
+          "column": 43
         }
       }
     },
@@ -48434,16 +48434,16 @@
         "binop": null
       },
       "value": "cntx",
-      "start": 10078,
-      "end": 10082,
+      "start": 10079,
+      "end": 10083,
       "loc": {
         "start": {
           "line": 339,
-          "column": 43
+          "column": 44
         },
         "end": {
           "line": 339,
-          "column": 47
+          "column": 48
         }
       }
     },
@@ -48460,16 +48460,16 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 10082,
-      "end": 10083,
+      "start": 10083,
+      "end": 10084,
       "loc": {
         "start": {
           "line": 339,
-          "column": 47
+          "column": 48
         },
         "end": {
           "line": 339,
-          "column": 48
+          "column": 49
         }
       }
     },
@@ -48486,16 +48486,16 @@
         "binop": null
       },
       "value": "options",
-      "start": 10084,
-      "end": 10091,
+      "start": 10085,
+      "end": 10092,
       "loc": {
         "start": {
           "line": 339,
-          "column": 49
+          "column": 50
         },
         "end": {
           "line": 339,
-          "column": 56
+          "column": 57
         }
       }
     },
@@ -48511,16 +48511,16 @@
         "postfix": false,
         "binop": null
       },
-      "start": 10091,
-      "end": 10092,
+      "start": 10093,
+      "end": 10094,
       "loc": {
         "start": {
           "line": 339,
-          "column": 56
+          "column": 58
         },
         "end": {
           "line": 339,
-          "column": 57
+          "column": 59
         }
       }
     },
@@ -48529,31 +48529,6 @@
         "label": ")",
         "beforeExpr": false,
         "startsExpr": false,
-        "rightAssociative": false,
-        "isLoop": false,
-        "isAssign": false,
-        "prefix": false,
-        "postfix": false,
-        "binop": null
-      },
-      "start": 10092,
-      "end": 10093,
-      "loc": {
-        "start": {
-          "line": 339,
-          "column": 57
-        },
-        "end": {
-          "line": 339,
-          "column": 58
-        }
-      }
-    },
-    {
-      "type": {
-        "label": "{",
-        "beforeExpr": true,
-        "startsExpr": true,
         "rightAssociative": false,
         "isLoop": false,
         "isAssign": false,
@@ -48576,6 +48551,31 @@
     },
     {
       "type": {
+        "label": "{",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 10096,
+      "end": 10097,
+      "loc": {
+        "start": {
+          "line": 339,
+          "column": 61
+        },
+        "end": {
+          "line": 339,
+          "column": 62
+        }
+      }
+    },
+    {
+      "type": {
         "label": "return",
         "keyword": "return",
         "beforeExpr": true,
@@ -48589,8 +48589,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 10098,
-      "end": 10104,
+      "start": 10100,
+      "end": 10106,
       "loc": {
         "start": {
           "line": 340,
@@ -48615,8 +48615,8 @@
         "binop": null
       },
       "value": "waitForPredicate",
-      "start": 10105,
-      "end": 10121,
+      "start": 10107,
+      "end": 10123,
       "loc": {
         "start": {
           "line": 340,
@@ -48640,8 +48640,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 10121,
-      "end": 10122,
+      "start": 10123,
+      "end": 10124,
       "loc": {
         "start": {
           "line": 340,
@@ -48665,8 +48665,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 10122,
-      "end": 10123,
+      "start": 10124,
+      "end": 10125,
       "loc": {
         "start": {
           "line": 340,
@@ -48690,8 +48690,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 10123,
-      "end": 10124,
+      "start": 10125,
+      "end": 10126,
       "loc": {
         "start": {
           "line": 340,
@@ -48716,8 +48716,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 10125,
-      "end": 10127,
+      "start": 10127,
+      "end": 10129,
       "loc": {
         "start": {
           "line": 340,
@@ -48742,8 +48742,8 @@
         "binop": null
       },
       "value": "selectorExists",
-      "start": 10128,
-      "end": 10142,
+      "start": 10130,
+      "end": 10144,
       "loc": {
         "start": {
           "line": 340,
@@ -48767,8 +48767,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 10142,
-      "end": 10143,
+      "start": 10144,
+      "end": 10145,
       "loc": {
         "start": {
           "line": 340,
@@ -48793,8 +48793,8 @@
         "binop": null
       },
       "value": "selector",
-      "start": 10143,
-      "end": 10151,
+      "start": 10145,
+      "end": 10153,
       "loc": {
         "start": {
           "line": 340,
@@ -48819,8 +48819,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 10151,
-      "end": 10152,
+      "start": 10153,
+      "end": 10154,
       "loc": {
         "start": {
           "line": 340,
@@ -48845,8 +48845,8 @@
         "binop": null
       },
       "value": "cntx",
-      "start": 10153,
-      "end": 10157,
+      "start": 10155,
+      "end": 10159,
       "loc": {
         "start": {
           "line": 340,
@@ -48870,8 +48870,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 10157,
-      "end": 10158,
+      "start": 10159,
+      "end": 10160,
       "loc": {
         "start": {
           "line": 340,
@@ -48896,8 +48896,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 10158,
-      "end": 10159,
+      "start": 10160,
+      "end": 10161,
       "loc": {
         "start": {
           "line": 340,
@@ -48922,8 +48922,8 @@
         "binop": null
       },
       "value": "options",
-      "start": 10160,
-      "end": 10167,
+      "start": 10162,
+      "end": 10169,
       "loc": {
         "start": {
           "line": 340,
@@ -48947,8 +48947,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 10167,
-      "end": 10168,
+      "start": 10169,
+      "end": 10170,
       "loc": {
         "start": {
           "line": 340,
@@ -48973,8 +48973,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 10168,
-      "end": 10169,
+      "start": 10170,
+      "end": 10171,
       "loc": {
         "start": {
           "line": 340,
@@ -48998,8 +48998,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 10170,
-      "end": 10171,
+      "start": 10172,
+      "end": 10173,
       "loc": {
         "start": {
           "line": 341,
@@ -49014,8 +49014,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @typedef {Object} WaitForOptions\n * @property {number} [pollRate = 1000] - The rate at which the condition will be checked\n * @property {?number} [max = 15000] - The maximum length of time the polling will happen in milliseconds\n ",
-      "start": 10173,
-      "end": 10412,
+      "start": 10175,
+      "end": 10414,
       "loc": {
         "start": {
           "line": 343,
@@ -49030,8 +49030,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @typedef {Object} GuardedWaitForOptions\n * @property {function(): boolean} [guard] - Function polled to determine if the wait\n * is considered done by additional conditions\n * @property {number} [pollRate = 1000] - The rate at which the condition will be checked\n * @property {?number} [max] - The maximum length of time the polling will happen in milliseconds\n ",
-      "start": 10414,
-      "end": 10785,
+      "start": 10416,
+      "end": 10787,
       "loc": {
         "start": {
           "line": 349,
@@ -49046,8 +49046,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @typedef {Object} WaitResult\n * @property {boolean} predicate - T/F indicating if the stopping condition(s) of a wait was met, this includes guards\n * @property {boolean} maxExceeded - T/F indicating if the configured maximum wait time was exceeded\n ",
-      "start": 10787,
-      "end": 11046,
+      "start": 10789,
+      "end": 11048,
       "loc": {
         "start": {
           "line": 357,
@@ -49062,8 +49062,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @typedef {Object} WaitForSelectorOptions\n * @property {string} selector - The selector to be waited for\n * @param {SomeElement|Document} [cntx] - element to use rather than document for the querySelector call\n * @param {WaitForOptions} [options] - Options controlling the wait\n ",
-      "start": 11048,
-      "end": 11335,
+      "start": 11050,
+      "end": 11337,
       "loc": {
         "start": {
           "line": 363,
@@ -49088,16 +49088,16 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 11335,
-      "end": 11335,
+      "start": 11338,
+      "end": 11338,
       "loc": {
         "start": {
-          "line": 368,
-          "column": 3
+          "line": 369,
+          "column": 0
         },
         "end": {
-          "line": 368,
-          "column": 3
+          "line": 369,
+          "column": 0
         }
       }
     }

@@ -1,7 +1,7 @@
 {
   "coverage": "100%",
-  "expectCount": 278,
-  "actualCount": 278,
+  "expectCount": 279,
+  "actualCount": 279,
   "files": {
     "lib/behaviorRunner.js": {
       "expectCount": 20,
@@ -79,8 +79,8 @@
       "undocumentLines": []
     },
     "lib/traversals.js": {
-      "expectCount": 8,
-      "actualCount": 8,
+      "expectCount": 9,
+      "actualCount": 9,
       "undocumentLines": []
     }
   }

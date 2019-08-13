@@ -4,59 +4,63 @@
     "filePath": "lib/traversals.js",
     "lines": [
       {
-        "lineNumber": 128,
+        "lineNumber": 138,
         "line": "/**"
       },
       {
-        "lineNumber": 129,
+        "lineNumber": 139,
         "line": " * Applies a function to the children of the supplied parent element yielding the return value of the function."
       },
       {
-        "lineNumber": 130,
-        "line": " *"
-      },
-      {
-        "lineNumber": 131,
-        "line": " * When a child of the parent element does not have a next element sibling, the supplied genFun is called and a wait"
-      },
-      {
-        "lineNumber": 132,
-        "line": " * for additional child elements to be added is done for a maximum of 15 seconds."
-      },
-      {
-        "lineNumber": 133,
-        "line": " * After the wait ends and if the current child element still does not have a next element sibling the generator ends."
-      },
-      {
-        "lineNumber": 134,
-        "line": " *"
-      },
-      {
-        "lineNumber": 135,
-        "line": " * @param {SomeElement} parentElement - The parent element who's children are to be traversed"
-      },
-      {
-        "lineNumber": 136,
-        "line": " * @param {function(): *} genFn - Function used to generator more elements"
-      },
-      {
-        "lineNumber": 137,
-        "line": " * @param {function(element: SomeElement, additionalArgs: *): *} fn - The function to be applied to each child element"
-      },
-      {
-        "lineNumber": 138,
-        "line": " * @param {*} [additionalArgs] - Any additional arguments to be supplied to the function applied to each child element"
-      },
-      {
-        "lineNumber": 139,
-        "line": " * @return {AsyncIterableIterator<*>}"
-      },
-      {
         "lineNumber": 140,
-        "line": " */"
+        "line": " *"
       },
       {
         "lineNumber": 141,
+        "line": " * When a child of the parent element does not have a next element sibling, the supplied genFun is called and a wait"
+      },
+      {
+        "lineNumber": 142,
+        "line": " * for additional child elements to be added is done for a maximum of 15 seconds."
+      },
+      {
+        "lineNumber": 143,
+        "line": " * After the wait ends and if the current child element still does not have a next element sibling the generator ends."
+      },
+      {
+        "lineNumber": 144,
+        "line": " *"
+      },
+      {
+        "lineNumber": 145,
+        "line": " * @param {SomeElement} parentElement - The parent element who's children are to be traversed"
+      },
+      {
+        "lineNumber": 146,
+        "line": " * @param {function(): BoolOrPromiseBool} genFn - Function used to generator more elements returning T/F indicating if"
+      },
+      {
+        "lineNumber": 147,
+        "line": " * a wait should be done"
+      },
+      {
+        "lineNumber": 148,
+        "line": " * @param {function(element: SomeElement, additionalArgs: *): *} fn - The function to be applied to each child element"
+      },
+      {
+        "lineNumber": 149,
+        "line": " * @param {*} [additionalArgs] - Any additional arguments to be supplied to the function applied to each child element"
+      },
+      {
+        "lineNumber": 150,
+        "line": " * @return {AsyncIterableIterator<*>}"
+      },
+      {
+        "lineNumber": 151,
+        "line": " */"
+      },
+      {
+        "lineNumber": 152,
         "line": "export async function* traverseChildrenOfLoaderParentGenFn("
       }
     ],

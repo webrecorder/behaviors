@@ -63,7 +63,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickNTimesWithDelay">selectFromAndClickNTimesWithDelay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickUntilNullWithDelay">selectFromAndClickUntilNullWithDelay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickSelectedWhileConnected">selectScrollIntoViewAndClickSelectedWhileConnected</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelaySelectedWhileConnected">selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelayWhileSelectedConnected">selectScrollIntoViewAndClickWithDelayWhileSelectedConnected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-delay">delay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-domCompletePromise">domCompletePromise</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-resolveWhenBehaviorUnPaused">resolveWhenBehaviorUnPaused</a></span></span></li>
@@ -243,6 +243,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentGenFn">traverseChildrenOfLoaderParentGenFn</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentRemovingPrevious">traverseChildrenOfLoaderParentRemovingPrevious</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfRemovingPrevious">traverseChildrenOfRemovingPrevious</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-walkChildrenOfCustom">walkChildrenOfCustom</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount1Second">DelayAmount1Second</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount2Seconds">DelayAmount2Seconds</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount3Seconds">DelayAmount3Seconds</a></span></span></li>
@@ -272,6 +273,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DisconnectingWalkState">DisconnectingWalkState</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ElemOrPromiseElem">ElemOrPromiseElem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TraversalOpts">TraversalOpts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-WalkChildrenOfCustomOpts">WalkChildrenOfCustomOpts</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -884,6 +886,34 @@
           
           
           <span class="code" data-ice="name"><span><a href="typedef/index.html#static-typedef-WaitResult">WaitResult</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="typedef/index.html#static-typedef-WalkChildrenOfCustomOpts">WalkChildrenOfCustomOpts</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -2373,9 +2403,10 @@ to the handler function</p>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default:  false</li></ul></td>
-      <td data-ice="description"><p>Should the traversal expect
-that the parent element could have additional child elements added?
-e.g. infinite loading</p>
+      <td data-ice="description"><p>Should the traversal expect that the parent element
+could have additional child elements added e.g. infinite loading.
+If loader is falsy and either or both shouldWait and wait function(s) are supplied then the walk
+behaves as if the loader was set to true</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
@@ -2581,6 +2612,123 @@ the wait for more children</p>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>T/F indicating if the configured maximum wait time was exceeded</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-typedef-WalkChildrenOfCustomOpts">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">WalkChildrenOfCustomOpts</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumberundefined">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Properties:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">parentElement</td>
+      <td data-ice="type" class="code"><span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The element who&apos;s children are to
+be visited, if not supplied it is expected that a setup function is</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">nextChild</td>
+      <td data-ice="type" class="code"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(parent: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, child: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>)</span>: <span><a href="typedef/index.html#static-typedef-ElemOrPromiseElem">ElemOrPromiseElem</a></span></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Function used to get the next child to be visited</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">selector</td>
+      <td data-ice="type" class="code"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(child: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>)</span>: <span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">Element</a></span></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Function used to select a more specific element to be used</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">filter</td>
+      <td data-ice="type" class="code"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(child: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>)</span>: <span><a href="typedef/index.html#static-typedef-BoolOrPromiseBool">BoolOrPromiseBool</a></span></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Function used to determine if a specific child is to be handled</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">shouldWait</td>
+      <td data-ice="type" class="code"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(parent: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, child: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>)</span>: <span><a href="typedef/index.html#static-typedef-BoolOrPromiseBool">BoolOrPromiseBool</a></span></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Function used to determine if a wait for additional children should be done</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">wait</td>
+      <td data-ice="type" class="code"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(parent: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, child: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>)</span>: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>*</span>&gt;</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Function used
+to perform the wait for additional children</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">loader</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default:  false</li></ul></td>
+      <td data-ice="description"><p>Should the walk expect that the parent element
+could have additional child elements added e.g. infinite loading.
+If loader is falsy and either or both shouldWait and wait function(s) are supplied then the walk
+behaves as if the loader was set to true</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">waitOptions</td>
+      <td data-ice="type" class="code"><span><a href="typedef/index.html#static-typedef-WaitForOptions">WaitForOptions</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Options controlling
+the wait for more children <span><a href="function/index.html#static-function-waitForAdditionalElemChildren">waitForAdditionalElemChildren</a></span> when no custom
+wait function is supplied</p>
 </td>
     </tr>
 </tbody>

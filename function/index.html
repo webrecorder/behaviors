@@ -63,7 +63,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickNTimesWithDelay">selectFromAndClickNTimesWithDelay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectFromAndClickUntilNullWithDelay">selectFromAndClickUntilNullWithDelay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickSelectedWhileConnected">selectScrollIntoViewAndClickSelectedWhileConnected</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelaySelectedWhileConnected">selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelayWhileSelectedConnected">selectScrollIntoViewAndClickWithDelayWhileSelectedConnected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-delay">delay</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-domCompletePromise">domCompletePromise</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-resolveWhenBehaviorUnPaused">resolveWhenBehaviorUnPaused</a></span></span></li>
@@ -243,6 +243,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentGenFn">traverseChildrenOfLoaderParentGenFn</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentRemovingPrevious">traverseChildrenOfLoaderParentRemovingPrevious</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfRemovingPrevious">traverseChildrenOfRemovingPrevious</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-walkChildrenOfCustom">walkChildrenOfCustom</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount1Second">DelayAmount1Second</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount2Seconds">DelayAmount2Seconds</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DelayAmount3Seconds">DelayAmount3Seconds</a></span></span></li>
@@ -272,6 +273,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DisconnectingWalkState">DisconnectingWalkState</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ElemOrPromiseElem">ElemOrPromiseElem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TraversalOpts">TraversalOpts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-WalkChildrenOfCustomOpts">WalkChildrenOfCustomOpts</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -5365,7 +5367,7 @@ returns true.</p>
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelaySelectedWhileConnected">selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</a></span></span><span class="code" data-ice="signature">(selector: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="typedef/index.html#static-typedef-SelectScrollIntoViewClickUntilNullOptions">SelectScrollIntoViewClickUntilNullOptions</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>void</span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelayWhileSelectedConnected">selectScrollIntoViewAndClickWithDelayWhileSelectedConnected</a></span></span><span class="code" data-ice="signature">(selector: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="typedef/index.html#static-typedef-SelectScrollIntoViewClickUntilNullOptions">SelectScrollIntoViewClickUntilNullOptions</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>void</span>&gt;</span>
         </p>
       </div>
       <div>
@@ -6073,7 +6075,7 @@ the return value of the function.</p>
           
           <span data-ice="async">async</span>
           <span data-ice="generator">*</span>
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentGenFn">traverseChildrenOfLoaderParentGenFn</a></span></span><span class="code" data-ice="signature">(parentElement: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, genFn: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>()</span>: <span>*</span></span>, fn: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(element: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, additionalArgs: <span>*</span>)</span>: <span>*</span></span>, additionalArgs: <span>*</span>): <span>AsyncIterableIterator</span>&lt;<span>*</span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-traverseChildrenOfLoaderParentGenFn">traverseChildrenOfLoaderParentGenFn</a></span></span><span class="code" data-ice="signature">(parentElement: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, genFn: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>()</span>: <span><a href="typedef/index.html#static-typedef-BoolOrPromiseBool">BoolOrPromiseBool</a></span></span>, fn: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(element: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, additionalArgs: <span>*</span>)</span>: <span>*</span></span>, additionalArgs: <span>*</span>): <span>AsyncIterableIterator</span>&lt;<span>*</span>&gt;</span>
         </p>
       </div>
       <div>
@@ -6456,6 +6458,35 @@ returns a truthy value.</p>
       <div>
         <p>
           
+          <span data-ice="async">async</span>
+          <span data-ice="generator">*</span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-walkChildrenOfCustom">walkChildrenOfCustom</a></span></span><span class="code" data-ice="signature">(opts: <span><a href="typedef/index.html#static-typedef-WalkChildrenOfCustomOpts">WalkChildrenOfCustomOpts</a></span>): <span>AsyncIterableIterator</span>&lt;<span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Walks the children of the supplied parent element yielding its children.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
           
           
           <span class="code" data-ice="name"><span><a href="function/index.html#static-function-xpathOneOf">xpathOneOf</a></span></span><span class="code" data-ice="signature">(options: <span><a href="typedef/index.html#static-typedef-XPathOnOfOpts">XPathOnOfOpts</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>&gt;</span>
@@ -6552,11 +6583,11 @@ but likely less performant</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber175">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber174">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {addBehaviorStyle} from &apos;<span><a href="file/lib/dom.js.html#lineNumber175">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {addBehaviorStyle} from &apos;<span><a href="file/lib/dom.js.html#lineNumber174">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Creates a style tag if one was not created before and adds
@@ -6629,11 +6660,11 @@ where the keys are the selectors in camelcase and the value is the raw selector<
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber483">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber482">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {addClass} from &apos;<span><a href="file/lib/dom.js.html#lineNumber483">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {addClass} from &apos;<span><a href="file/lib/dom.js.html#lineNumber482">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Adds a CSS classname to the supplied element</p>
@@ -6821,11 +6852,11 @@ element with href property or string to add to the collected outlinks</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber931">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber930">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {anySelectorExists} from &apos;<span><a href="file/lib/dom.js.html#lineNumber931">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {anySelectorExists} from &apos;<span><a href="file/lib/dom.js.html#lineNumber930">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Determines if the element the supplied selector selects exists.</p>
@@ -6909,11 +6940,11 @@ existence check</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber258">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber257">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {attr} from &apos;<span><a href="file/lib/dom.js.html#lineNumber258">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {attr} from &apos;<span><a href="file/lib/dom.js.html#lineNumber257">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Retrieves the value of an elements attribute if it exists</p>
@@ -6990,11 +7021,11 @@ existence check</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber273">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber272">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {attrEq} from &apos;<span><a href="file/lib/dom.js.html#lineNumber273">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {attrEq} from &apos;<span><a href="file/lib/dom.js.html#lineNumber272">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Tests to determine if the value of elements attribute equals
@@ -7576,11 +7607,11 @@ will call the supplied function and return the expected output.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber201">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber200">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {canAccessIf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber201">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {canAccessIf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber200">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Determines if the supplied iframe is accessible from this
@@ -7838,11 +7869,11 @@ does not throw an exception and the contentDocument is not falsy.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber399">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber398">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {chainFistChildElemOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber399">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {chainFistChildElemOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber398">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Chains <span><a href="function/index.html#static-function-firstChildElementOf">firstChildElementOf</a></span> on the supplied element n <code>times</code></p>
@@ -7918,11 +7949,11 @@ does not throw an exception and the contentDocument is not falsy.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber435">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber434">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {chainLastChildElemOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber435">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {chainLastChildElemOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber434">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Chains <span><a href="function/index.html#static-function-lastChildElementOf">lastChildElementOf</a></span> n <code>times</code> starting with the supplied element</p>
@@ -7998,11 +8029,11 @@ does not throw an exception and the contentDocument is not falsy.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber384">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber383">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {chainNthChildElementOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber384">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {chainNthChildElementOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber383">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Chains <span><a href="function/index.html#static-function-nthChildElementOf">nthChildElementOf</a></span> for each nth child element in <code>nths</code></p>
@@ -8086,11 +8117,11 @@ const child = chainNthChildElementOf(parentElement, 3, 4, 5);</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber300">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber299">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {chainNthChildNodeOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber300">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {chainNthChildNodeOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber299">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Chains <span>nthChildElemOf</span> for each nth child in <code>nths</code></p>
@@ -8174,11 +8205,11 @@ const child = chainNthChildNodeOf(parentElement, 3, 4, 5);</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber466">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber465">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {chainQs} from &apos;<span><a href="file/lib/dom.js.html#lineNumber466">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {chainQs} from &apos;<span><a href="file/lib/dom.js.html#lineNumber465">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Consecutively calls querySelector(selector) on the element returned by the previous invocation</p>
@@ -8262,11 +8293,11 @@ const child = chainNthChildNodeOf(parentElement, 3, 4, 5);</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1165">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1163">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {childElementIterator} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1165">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {childElementIterator} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1163">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns an iterator over the supplied parent element&apos;s child elements that
@@ -8337,11 +8368,11 @@ ends once the current child has no next element sibling.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1182">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1180">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {childNodeIterator} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1182">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {childNodeIterator} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1180">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns an iterator over the supplied parent element&apos;s child nodes that
@@ -9910,11 +9941,11 @@ specified by delayTime.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber323">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber378">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {disconnectingWalk} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber323">lib/traversals.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {disconnectingWalk} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber378">lib/traversals.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Yields the child elements of the found parent element.
@@ -9984,11 +10015,11 @@ the parent element and current child are re-found.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1042">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1041">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {docBaseURIEndsWith} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1042">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {docBaseURIEndsWith} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1041">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the documents baseURI ends with the supplied string</p>
@@ -10065,11 +10096,11 @@ defaulting to the current execution contexts document object</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1054">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1053">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {docBaseURIEquals} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1054">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {docBaseURIEquals} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1053">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the documents baseURI equals the supplied string</p>
@@ -10146,11 +10177,11 @@ defaulting to the current execution contexts document object</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber841">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber840">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {documentScrollPosition} from &apos;<span><a href="file/lib/dom.js.html#lineNumber841">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {documentScrollPosition} from &apos;<span><a href="file/lib/dom.js.html#lineNumber840">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   
@@ -10346,11 +10377,11 @@ defaulting to the current execution contexts document object</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1125">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1123">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemDataValue} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1125">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemDataValue} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1123">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the value of the elements data attribute if it exists
@@ -10427,11 +10458,11 @@ If the element is null/undefined or does not have data attributes null is return
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1138">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1136">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemDataValueEqs} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1138">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemDataValueEqs} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1136">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the element has data attribute equal to the supplied value</p>
@@ -10514,11 +10545,11 @@ If the element is null/undefined or does not have data attributes null is return
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1149">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1147">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemHasChildren} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1149">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemHasChildren} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1147">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the supplied element has children.
@@ -10588,11 +10619,11 @@ If the supplied element is null/undefined false is returned.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber585">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber584">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemHasSibling} from &apos;<span><a href="file/lib/dom.js.html#lineNumber585">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemHasSibling} from &apos;<span><a href="file/lib/dom.js.html#lineNumber584">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the supplied element has an sibling element</p>
@@ -10660,11 +10691,11 @@ If the supplied element is null/undefined false is returned.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber608">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber607">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemHasZeroBoundingRect} from &apos;<span><a href="file/lib/dom.js.html#lineNumber608">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemHasZeroBoundingRect} from &apos;<span><a href="file/lib/dom.js.html#lineNumber607">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Determines if the supplied elements bounding client rect&apos;s
@@ -10736,11 +10767,11 @@ Note this function returns true if the element is null/undefined;</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber758">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber757">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemInnerText} from &apos;<span><a href="file/lib/dom.js.html#lineNumber758">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemInnerText} from &apos;<span><a href="file/lib/dom.js.html#lineNumber757">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the supplied elements innerText</p>
@@ -10815,11 +10846,11 @@ Note this function returns true if the element is null/undefined;</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber793">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber792">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemInnerTextEqs} from &apos;<span><a href="file/lib/dom.js.html#lineNumber793">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemInnerTextEqs} from &apos;<span><a href="file/lib/dom.js.html#lineNumber792">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F if the supplied elements innerText equals the supplied string case sensitive</p>
@@ -10902,11 +10933,11 @@ Note this function returns true if the element is null/undefined;</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber806">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber805">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemInnerTextEqsInsensitive} from &apos;<span><a href="file/lib/dom.js.html#lineNumber806">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemInnerTextEqsInsensitive} from &apos;<span><a href="file/lib/dom.js.html#lineNumber805">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F if the supplied elements innerText equals the supplied string case in-sensitive</p>
@@ -10987,11 +11018,11 @@ Note this function returns true if the element is null/undefined;</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber818">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber817">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemInnerTextEqsOneOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber818">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemInnerTextEqsOneOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber817">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F if the supplied elements innerText equals one of the supplied string case sensitive</p>
@@ -11065,11 +11096,11 @@ Note this function returns true if the element is null/undefined;</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber771">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber770">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemInnerTextMatchesRegex} from &apos;<span><a href="file/lib/dom.js.html#lineNumber771">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemInnerTextMatchesRegex} from &apos;<span><a href="file/lib/dom.js.html#lineNumber770">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F if the supplied elements innerText matches the supplied regex</p>
@@ -11143,11 +11174,11 @@ Note this function returns true if the element is null/undefined;</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber545">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber544">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemMatchesSelector} from &apos;<span><a href="file/lib/dom.js.html#lineNumber545">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemMatchesSelector} from &apos;<span><a href="file/lib/dom.js.html#lineNumber544">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the element matches the supplied selector</p>
@@ -11221,11 +11252,11 @@ Note this function returns true if the element is null/undefined;</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber149">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber148">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemOffsetTopZero} from &apos;<span><a href="file/lib/dom.js.html#lineNumber149">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemOffsetTopZero} from &apos;<span><a href="file/lib/dom.js.html#lineNumber148">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns true if the supplied elements <code>offsetTop === 0</code></p>
@@ -11295,11 +11326,11 @@ offsetTop</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber832">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber831">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemTextContent} from &apos;<span><a href="file/lib/dom.js.html#lineNumber832">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elemTextContent} from &apos;<span><a href="file/lib/dom.js.html#lineNumber831">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the textContent of the supplied element</p>
@@ -11367,11 +11398,11 @@ offsetTop</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber666">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber665">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elementTextContains} from &apos;<span><a href="file/lib/dom.js.html#lineNumber666">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elementTextContains} from &apos;<span><a href="file/lib/dom.js.html#lineNumber665">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the supplied element&apos;s textContents contains the supplied string</p>
@@ -11453,11 +11484,11 @@ offsetTop</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber719">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber718">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elementTextEndsWith} from &apos;<span><a href="file/lib/dom.js.html#lineNumber719">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elementTextEndsWith} from &apos;<span><a href="file/lib/dom.js.html#lineNumber718">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the supplied element&apos;s textContent ends with the supplied string</p>
@@ -11532,11 +11563,11 @@ offsetTop</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber681">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber680">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elementTextEqs} from &apos;<span><a href="file/lib/dom.js.html#lineNumber681">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elementTextEqs} from &apos;<span><a href="file/lib/dom.js.html#lineNumber680">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the supplied element&apos;s textContents equals the supplied string</p>
@@ -11618,11 +11649,11 @@ offsetTop</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber706">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber705">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elementTextStartsWith} from &apos;<span><a href="file/lib/dom.js.html#lineNumber706">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elementTextStartsWith} from &apos;<span><a href="file/lib/dom.js.html#lineNumber705">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the supplied element&apos;s textContent starts with the supplied string</p>
@@ -11697,11 +11728,11 @@ offsetTop</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber696">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber695">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elementTextStartsWithAndEndsWith} from &apos;<span><a href="file/lib/dom.js.html#lineNumber696">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elementTextStartsWithAndEndsWith} from &apos;<span><a href="file/lib/dom.js.html#lineNumber695">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the supplied element&apos; textContent starts and ends with the supplied start and end strings</p>
@@ -11783,11 +11814,11 @@ offsetTop</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber947">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber946">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elementsNameEquals} from &apos;<span><a href="file/lib/dom.js.html#lineNumber947">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {elementsNameEquals} from &apos;<span><a href="file/lib/dom.js.html#lineNumber946">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the elements name (localName) is equal to the supplied name</p>
@@ -11945,11 +11976,11 @@ on the new object</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber80">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber79">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {filteredQs} from &apos;<span><a href="file/lib/dom.js.html#lineNumber80">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {filteredQs} from &apos;<span><a href="file/lib/dom.js.html#lineNumber79">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Utility function for <code>(document||element).querySelector(selector)</code></p>
@@ -12190,11 +12221,11 @@ to be descended looking for the one with key</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1201">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1199">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {findDirectChildElement} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1201">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {findDirectChildElement} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1199">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Applies the supplied <code>predicate</code> to every child element of the supplied
@@ -12345,11 +12376,11 @@ otherwise returns null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber244">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber243">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {findTag} from &apos;<span><a href="file/lib/dom.js.html#lineNumber244">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {findTag} from &apos;<span><a href="file/lib/dom.js.html#lineNumber243">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Attempts to find a tag using the supplied function that accepts
@@ -12442,11 +12473,11 @@ the element the supplied predicate function returns a truthy value for</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/events.js.html#lineNumber132">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/events.js.html#lineNumber128">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {fireEventOn} from &apos;<span><a href="file/lib/events.js.html#lineNumber132">lib/events.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {fireEventOn} from &apos;<span><a href="file/lib/events.js.html#lineNumber128">lib/events.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Fires the supplied event on the supplied element</p>
@@ -12510,11 +12541,11 @@ the element the supplied predicate function returns a truthy value for</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/events.js.html#lineNumber108">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/events.js.html#lineNumber104">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {fireMouseEventsOnElement} from &apos;<span><a href="file/lib/events.js.html#lineNumber108">lib/events.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {fireMouseEventsOnElement} from &apos;<span><a href="file/lib/events.js.html#lineNumber104">lib/events.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Creates mouse events and fires them in order configured using the supplied options</p>
@@ -12570,11 +12601,11 @@ the element the supplied predicate function returns a truthy value for</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber318">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber317">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {firstChildElemOfParent} from &apos;<span><a href="file/lib/dom.js.html#lineNumber318">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {firstChildElemOfParent} from &apos;<span><a href="file/lib/dom.js.html#lineNumber317">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the first child element of the supplied elements parent element.
@@ -12644,11 +12675,11 @@ If the supplied element or the elements parent is null/undefined null is returne
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber329">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber328">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {firstChildElementOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber329">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {firstChildElementOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber328">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the supplied elements first element child. If the element is null
@@ -12718,11 +12749,11 @@ null is returned</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber340">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber339">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {firstChildElementOfSelector} from &apos;<span><a href="file/lib/dom.js.html#lineNumber340">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {firstChildElementOfSelector} from &apos;<span><a href="file/lib/dom.js.html#lineNumber339">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the first child element of the element matching the supplied selector</p>
@@ -12798,11 +12829,11 @@ null is returned</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber564">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber563">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getElemSibling} from &apos;<span><a href="file/lib/dom.js.html#lineNumber564">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getElemSibling} from &apos;<span><a href="file/lib/dom.js.html#lineNumber563">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the supplied elements next element sibling</p>
@@ -12872,11 +12903,11 @@ null is returned</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber595">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber594">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getElemSiblingAndRemoveElem} from &apos;<span><a href="file/lib/dom.js.html#lineNumber595">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getElemSiblingAndRemoveElem} from &apos;<span><a href="file/lib/dom.js.html#lineNumber594">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the supplied elements next element sibling and removes the
@@ -12947,11 +12978,11 @@ supplied element</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber900">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber899">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getElementClientPageCenter} from &apos;<span><a href="file/lib/dom.js.html#lineNumber900">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getElementClientPageCenter} from &apos;<span><a href="file/lib/dom.js.html#lineNumber899">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Get the center of the passed DOM element</p>
@@ -13025,11 +13056,11 @@ supplied element</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber879">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber878">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getElementClientPagePosition} from &apos;<span><a href="file/lib/dom.js.html#lineNumber879">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getElementClientPagePosition} from &apos;<span><a href="file/lib/dom.js.html#lineNumber878">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Get the position of the passed DOM element</p>
@@ -13103,11 +13134,11 @@ supplied element</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber859">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber858">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getElementPositionWidthHeight} from &apos;<span><a href="file/lib/dom.js.html#lineNumber859">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getElementPositionWidthHeight} from &apos;<span><a href="file/lib/dom.js.html#lineNumber858">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Helper function to get the actual x and y position,
@@ -13182,11 +13213,11 @@ page x and y position (scroll) and the height, width of a given element</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber575">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber574">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getElemsParentsSibling} from &apos;<span><a href="file/lib/dom.js.html#lineNumber575">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getElemsParentsSibling} from &apos;<span><a href="file/lib/dom.js.html#lineNumber574">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the next element sibling of the parent element of the
@@ -13330,11 +13361,11 @@ Property <code>_internalRoot</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber646">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber645">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getNthParentElement} from &apos;<span><a href="file/lib/dom.js.html#lineNumber646">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {getNthParentElement} from &apos;<span><a href="file/lib/dom.js.html#lineNumber645">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the Nth parent element of the supplied element (indexing assumes start is 1)</p>
@@ -13725,11 +13756,11 @@ all properties. The existence check is <code>obj[prop] != null</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber531">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber530">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {hasAnyClass} from &apos;<span><a href="file/lib/dom.js.html#lineNumber531">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {hasAnyClass} from &apos;<span><a href="file/lib/dom.js.html#lineNumber530">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Tests to see if the supplied element has any of the supplied css classes</p>
@@ -13806,11 +13837,11 @@ all properties. The existence check is <code>obj[prop] != null</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber506">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber505">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {hasClass} from &apos;<span><a href="file/lib/dom.js.html#lineNumber506">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {hasClass} from &apos;<span><a href="file/lib/dom.js.html#lineNumber505">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Tests to see if the supplied element has a css class</p>
@@ -13887,11 +13918,11 @@ all properties. The existence check is <code>obj[prop] != null</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber517">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber516">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {hasClasses} from &apos;<span><a href="file/lib/dom.js.html#lineNumber517">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {hasClasses} from &apos;<span><a href="file/lib/dom.js.html#lineNumber516">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Tests to see if the supplied element has the supplied css classes</p>
@@ -13968,11 +13999,11 @@ all properties. The existence check is <code>obj[prop] != null</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber105">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber104">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {id} from &apos;<span><a href="file/lib/dom.js.html#lineNumber105">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {id} from &apos;<span><a href="file/lib/dom.js.html#lineNumber104">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Utility function for <code>document.getElementById(id)</code></p>
@@ -14049,11 +14080,11 @@ the current JS context&apos;s</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber230">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber229">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {idExists} from &apos;<span><a href="file/lib/dom.js.html#lineNumber230">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {idExists} from &apos;<span><a href="file/lib/dom.js.html#lineNumber229">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Determines if the element the supplied id identifies exists</p>
@@ -14131,11 +14162,11 @@ than the current JS context&apos;s document object</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/behaviorRunner.js.html#lineNumber240">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/behaviorRunner.js.html#lineNumber238">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {initRunnableBehavior} from &apos;<span><a href="file/lib/behaviorRunner.js.html#lineNumber240">lib/behaviorRunner.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {initRunnableBehavior} from &apos;<span><a href="file/lib/behaviorRunner.js.html#lineNumber238">lib/behaviorRunner.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Performs the setup required for integration with Webrecorders automation system
@@ -14210,11 +14241,11 @@ Adds as propeties to the supplied window object</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber782">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber781">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {innerTextOfSelected} from &apos;<span><a href="file/lib/dom.js.html#lineNumber782">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {innerTextOfSelected} from &apos;<span><a href="file/lib/dom.js.html#lineNumber781">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the inner text of the element the supplied selectors matches</p>
@@ -14434,11 +14465,11 @@ Adds as propeties to the supplied window object</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber555">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber554">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {isClasslessElem} from &apos;<span><a href="file/lib/dom.js.html#lineNumber555">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {isClasslessElem} from &apos;<span><a href="file/lib/dom.js.html#lineNumber554">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the supplied element has not CSS classes</p>
@@ -14506,11 +14537,11 @@ Adds as propeties to the supplied window object</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber633">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber632">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {isElemVisible} from &apos;<span><a href="file/lib/dom.js.html#lineNumber633">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {isElemVisible} from &apos;<span><a href="file/lib/dom.js.html#lineNumber632">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the supplied element is visible.</p>
@@ -14654,11 +14685,11 @@ the visibility of the element is visible.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/general.js.html#lineNumber466">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/general.js.html#lineNumber462">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {isFunction} from &apos;<span><a href="file/lib/general.js.html#lineNumber466">lib/general.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {isFunction} from &apos;<span><a href="file/lib/general.js.html#lineNumber462">lib/general.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the supplied arument is a function</p>
@@ -14942,11 +14973,11 @@ the visibility of the element is visible.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/general.js.html#lineNumber450">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/general.js.html#lineNumber446">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {isPromise} from &apos;<span><a href="file/lib/general.js.html#lineNumber450">lib/general.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {isPromise} from &apos;<span><a href="file/lib/general.js.html#lineNumber446">lib/general.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the supplied object is a Promise or Promise like</p>
@@ -15086,11 +15117,11 @@ the visibility of the element is visible.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber414">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber413">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {lastChildElementOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber414">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {lastChildElementOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber413">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the last child element of the supplied element</p>
@@ -15159,11 +15190,11 @@ the visibility of the element is visible.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber425">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber424">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {lastChildElementOfSelector} from &apos;<span><a href="file/lib/dom.js.html#lineNumber425">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {lastChildElementOfSelector} from &apos;<span><a href="file/lib/dom.js.html#lineNumber424">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the last child element of the element the selector selects</p>
@@ -15388,11 +15419,11 @@ to the value of <code>window.location.href</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/general.js.html#lineNumber477">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/general.js.html#lineNumber473">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {mapAsyncIterator} from &apos;<span><a href="file/lib/general.js.html#lineNumber477">lib/general.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {mapAsyncIterator} from &apos;<span><a href="file/lib/general.js.html#lineNumber473">lib/general.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Like map for arrays but over async-iterators</p>
@@ -15469,11 +15500,11 @@ to have a mapping function applied over</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber161">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber160">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {markElemAsVisited} from &apos;<span><a href="file/lib/dom.js.html#lineNumber161">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {markElemAsVisited} from &apos;<span><a href="file/lib/dom.js.html#lineNumber160">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Marks the supplied element as visited by adding the marker
@@ -15541,11 +15572,11 @@ defaults to <code>wrvistited</code></p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber52">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber51">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {maybePolyfillXPG} from &apos;<span><a href="file/lib/dom.js.html#lineNumber52">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {maybePolyfillXPG} from &apos;<span><a href="file/lib/dom.js.html#lineNumber51">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Ensures that if the value of the chrome console utility $x
@@ -15615,11 +15646,11 @@ function behaves exactly like it.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber117">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber116">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {maybeRemoveElem} from &apos;<span><a href="file/lib/dom.js.html#lineNumber117">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {maybeRemoveElem} from &apos;<span><a href="file/lib/dom.js.html#lineNumber116">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Removes the element selected by the supplied querySelector, if it exits,
@@ -15696,11 +15727,11 @@ returning true to indicate the element was removed and false otherwise</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber134">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber133">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {maybeRemoveElemById} from &apos;<span><a href="file/lib/dom.js.html#lineNumber134">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {maybeRemoveElemById} from &apos;<span><a href="file/lib/dom.js.html#lineNumber133">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Removes the element with the supplied id, if it exits, returning
@@ -15778,11 +15809,11 @@ the current JS context&apos;s</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/general.js.html#lineNumber493">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/general.js.html#lineNumber491">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {noExceptGeneratorWrap} from &apos;<span><a href="file/lib/general.js.html#lineNumber493">lib/general.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {noExceptGeneratorWrap} from &apos;<span><a href="file/lib/general.js.html#lineNumber491">lib/general.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Wraps the supplied generator in a try catch and re-yields its values generator.
@@ -15803,7 +15834,8 @@ If the wrapped generator throws an exception the wrapping generator ends.</p>
       <td data-ice="name" class="code" data-depth="0">generator</td>
       <td data-ice="type" class="code"><span>AsyncIterableIterator</span>&lt;<span>*&gt;</span>|<span>IterableIterator&lt;*</span>&gt;</td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>The generator to be wrapped</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">returnLast</td>
@@ -15938,11 +15970,11 @@ if any was thrown. Returns true indicating call to play was successful otherwise
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber958">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber957">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {nodesNameEquals} from &apos;<span><a href="file/lib/dom.js.html#lineNumber958">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {nodesNameEquals} from &apos;<span><a href="file/lib/dom.js.html#lineNumber957">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns T/F indicating if the nodes name (nodeName) is equal to the supplied name</p>
@@ -16062,11 +16094,11 @@ if any was thrown. Returns true indicating call to play was successful otherwise
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber365">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber364">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {nthChildElementOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber365">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {nthChildElementOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber364">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the Nth child element of the supplied element (indexing assumes start is 1)</p>
@@ -16143,11 +16175,11 @@ if any was thrown. Returns true indicating call to play was successful otherwise
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber284">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber283">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {nthChildNodeOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber284">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {nthChildNodeOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber283">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the Nth child node of the supplied element (indexing assumes start is 1)</p>
@@ -16224,11 +16256,11 @@ if any was thrown. Returns true indicating call to play was successful otherwise
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber350">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber349">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {nthPreviousSibling} from &apos;<span><a href="file/lib/dom.js.html#lineNumber350">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {nthPreviousSibling} from &apos;<span><a href="file/lib/dom.js.html#lineNumber349">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the nth previous sibling of the supplied element if it is not null/undefined or the supplied element is not null/undefined</p>
@@ -16304,11 +16336,11 @@ if any was thrown. Returns true indicating call to play was successful otherwise
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber452">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber451">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {numElemChildren} from &apos;<span><a href="file/lib/dom.js.html#lineNumber452">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {numElemChildren} from &apos;<span><a href="file/lib/dom.js.html#lineNumber451">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the number of child elements the supplied element has if it is not
@@ -16831,11 +16863,11 @@ passed as arguments to the executor function</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber68">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber67">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {qs} from &apos;<span><a href="file/lib/dom.js.html#lineNumber68">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {qs} from &apos;<span><a href="file/lib/dom.js.html#lineNumber67">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Utility function for <code>(document||element).querySelector(selector)</code></p>
@@ -16911,11 +16943,11 @@ passed as arguments to the executor function</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber991">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber990">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {qsOneOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber991">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {qsOneOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber990">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the results of querySelector using one of the supplied selectors
@@ -16984,11 +17016,11 @@ one if one of the selectors yields results otherwise null/undefined</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber93">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber92">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {qsa} from &apos;<span><a href="file/lib/dom.js.html#lineNumber93">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {qsa} from &apos;<span><a href="file/lib/dom.js.html#lineNumber92">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Utility function for <code>document.querySelectorAll(selector)</code></p>
@@ -17064,11 +17096,11 @@ one if one of the selectors yields results otherwise null/undefined</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1008">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1007">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {qsaOneOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1008">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {qsaOneOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1007">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the results of querySelectorAll using one of the supplied
@@ -17300,11 +17332,11 @@ component is selected</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber494">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber493">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {removeClass} from &apos;<span><a href="file/lib/dom.js.html#lineNumber494">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {removeClass} from &apos;<span><a href="file/lib/dom.js.html#lineNumber493">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Removes a CSS classname to the supplied element</p>
@@ -17368,11 +17400,11 @@ component is selected</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1069">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1068">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {repeatedXpathQueryIterator} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1069">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {repeatedXpathQueryIterator} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1068">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Repeatably performs the supplied xpath query yielding the results
@@ -17458,11 +17490,11 @@ try yields another empty set the iterator ends</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1095">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1093">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {repeatedXpathQueryIteratorAsync} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1095">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {repeatedXpathQueryIteratorAsync} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1093">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Repeatably performs the supplied xpath query yielding the results
@@ -19922,7 +19954,7 @@ waiting for delay time afters each click.</p>
 selecting and clicking the selected element if the current reference
 becomes disconnected from the dom or the optional stopPredicate
 returns true. There is no dealy for delay you want
-<span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelaySelectedWhileConnected">selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</a></span></p>
+<span><a href="function/index.html#static-function-selectScrollIntoViewAndClickWithDelayWhileSelectedConnected">selectScrollIntoViewAndClickWithDelayWhileSelectedConnected</a></span></p>
 </div>
 
   
@@ -19983,14 +20015,14 @@ returns true. There is no dealy for delay you want
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="static-function-selectScrollIntoViewAndClickWithDelaySelectedWhileConnected">
+  <h3 data-ice="anchor" id="static-function-selectScrollIntoViewAndClickWithDelayWhileSelectedConnected">
     <span class="access" data-ice="access">public</span>
     
     
     
     <span data-ice="async">async</span>
     
-    <span class="code" data-ice="name">selectScrollIntoViewAndClickWithDelaySelectedWhileConnected</span><span class="code" data-ice="signature">(selector: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="typedef/index.html#static-typedef-SelectScrollIntoViewClickUntilNullOptions">SelectScrollIntoViewClickUntilNullOptions</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>void</span>&gt;</span>
+    <span class="code" data-ice="name">selectScrollIntoViewAndClickWithDelayWhileSelectedConnected</span><span class="code" data-ice="signature">(selector: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="typedef/index.html#static-typedef-SelectScrollIntoViewClickUntilNullOptions">SelectScrollIntoViewClickUntilNullOptions</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>void</span>&gt;</span>
     <span class="right-info">
       
       
@@ -19998,7 +20030,7 @@ returns true. There is no dealy for delay you want
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {selectScrollIntoViewAndClickWithDelaySelectedWhileConnected} from &apos;<span><a href="file/lib/clicks.js.html#lineNumber376">lib/clicks.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {selectScrollIntoViewAndClickWithDelayWhileSelectedConnected} from &apos;<span><a href="file/lib/clicks.js.html#lineNumber376">lib/clicks.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Like <span><a href="function/index.html#static-function-selectFromAndClickUntilNullWithDelay">selectFromAndClickUntilNullWithDelay</a></span> but will stop
@@ -20077,11 +20109,11 @@ returns true.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1027">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber1026">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {selectedNextElementSibling} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1027">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {selectedNextElementSibling} from &apos;<span><a href="file/lib/dom.js.html#lineNumber1026">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the next element sibling of the supplied selector IFF
@@ -20160,11 +20192,11 @@ to be returned</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber219">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber218">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {selectorExists} from &apos;<span><a href="file/lib/dom.js.html#lineNumber219">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {selectorExists} from &apos;<span><a href="file/lib/dom.js.html#lineNumber218">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Determines if the element the supplied selector selects exists</p>
@@ -20592,11 +20624,11 @@ of the behavior</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber732">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber731">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {splitElemInnerText} from &apos;<span><a href="file/lib/dom.js.html#lineNumber732">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {splitElemInnerText} from &apos;<span><a href="file/lib/dom.js.html#lineNumber731">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the results of splitting the supplied elements innerText using the supplied splitter</p>
@@ -20670,11 +20702,11 @@ of the behavior</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber745">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber744">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {splitElemTextContents} from &apos;<span><a href="file/lib/dom.js.html#lineNumber745">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {splitElemTextContents} from &apos;<span><a href="file/lib/dom.js.html#lineNumber744">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the results of splitting the supplied elements textContent using the supplied splitter</p>
@@ -21645,11 +21677,11 @@ The value returned should be yield&apos;d to the behavior runner</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber84">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber90">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {traverseChildrenOf} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber84">lib/traversals.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {traverseChildrenOf} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber90">lib/traversals.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Applies a function to the children of the supplied parent element yielding the return value of the function.</p>
@@ -21733,19 +21765,22 @@ The value returned should be yield&apos;d to the behavior runner</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber177">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber259">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {traverseChildrenOfCustom} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber177">lib/traversals.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {traverseChildrenOfCustom} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber259">lib/traversals.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Traverses the children of the supplied element applying the supplied function to each child and yielding
 the return value of the function.</p>
-<p>When a child of the parent element does not have a next element sibling, a wait
-for additional child elements to be added is done for a maximum of 15 seconds.
+<p>If the loader option is true or shouldWait and or wait function(s) are supplied then the walk
+behaves as if the loader was set to true.</p>
+<p>When operating in loader mode and a child of the parent element does not have a next element sibling, a wait
+for additional child elements to be added is done, if no custom wait function was supplied the wait happens for a maximum of 15 seconds.
 After the wait ends and if the current child element still does not have a next element sibling the generator ends.</p>
-<p>See the documenation for <span><a href="typedef/index.html#static-typedef-TraversalOpts">TraversalOpts</a></span> for the customization options available</p>
+<p>When not operating in loader mode and the current child element does not have a next element sibling the traversal ends.</p>
+<p>See the documentation for <span><a href="typedef/index.html#static-typedef-TraversalOpts">TraversalOpts</a></span> for the customization options available.</p>
 </div>
 
   
@@ -21811,11 +21846,11 @@ After the wait ends and if the current child element still does not have a next 
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber17">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber22">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {traverseChildrenOfLoaderParent} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber17">lib/traversals.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {traverseChildrenOfLoaderParent} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber22">lib/traversals.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Applies a function to the children of the supplied parent element yielding the return value of the function.</p>
@@ -21897,15 +21932,15 @@ if the current child element still does not have a next element sibling the gene
     
     <span data-ice="async">async</span>
     <span data-ice="generator">*</span>
-    <span class="code" data-ice="name">traverseChildrenOfLoaderParentGenFn</span><span class="code" data-ice="signature">(parentElement: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, genFn: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>()</span>: <span>*</span></span>, fn: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(element: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, additionalArgs: <span>*</span>)</span>: <span>*</span></span>, additionalArgs: <span>*</span>): <span>AsyncIterableIterator</span>&lt;<span>*</span>&gt;</span>
+    <span class="code" data-ice="name">traverseChildrenOfLoaderParentGenFn</span><span class="code" data-ice="signature">(parentElement: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, genFn: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>()</span>: <span><a href="typedef/index.html#static-typedef-BoolOrPromiseBool">BoolOrPromiseBool</a></span></span>, fn: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(element: <span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>, additionalArgs: <span>*</span>)</span>: <span>*</span></span>, additionalArgs: <span>*</span>): <span>AsyncIterableIterator</span>&lt;<span>*</span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber142">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber153">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {traverseChildrenOfLoaderParentGenFn} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber142">lib/traversals.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {traverseChildrenOfLoaderParentGenFn} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber153">lib/traversals.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Applies a function to the children of the supplied parent element yielding the return value of the function.</p>
@@ -21933,9 +21968,10 @@ After the wait ends and if the current child element still does not have a next 
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">genFn</td>
-      <td data-ice="type" class="code"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>()</span>: <span>*</span></span></td>
+      <td data-ice="type" class="code"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>()</span>: <span><a href="typedef/index.html#static-typedef-BoolOrPromiseBool">BoolOrPromiseBool</a></span></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Function used to generator more elements</p>
+      <td data-ice="description"><p>Function used to generator more elements returning T/F indicating if
+a wait should be done</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
@@ -21998,11 +22034,11 @@ After the wait ends and if the current child element still does not have a next 
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber52">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber56">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {traverseChildrenOfLoaderParentRemovingPrevious} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber52">lib/traversals.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {traverseChildrenOfLoaderParentRemovingPrevious} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber56">lib/traversals.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Applies a function to the children of the supplied parent element yielding the return value of the function
@@ -22089,11 +22125,11 @@ if the current child element still does not have a next element sibling the gene
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber110">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber115">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {traverseChildrenOfRemovingPrevious} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber110">lib/traversals.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {traverseChildrenOfRemovingPrevious} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber115">lib/traversals.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Applies a function to the children of the supplied parent element yielding the return value of the function
@@ -22576,11 +22612,11 @@ call.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/events.js.html#lineNumber147">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/events.js.html#lineNumber143">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {waitForEventTargetToFireEvent} from &apos;<span><a href="file/lib/events.js.html#lineNumber147">lib/events.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {waitForEventTargetToFireEvent} from &apos;<span><a href="file/lib/events.js.html#lineNumber143">lib/events.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns a promise that resolves to true once the supplied event is fired from the supplied
@@ -22983,6 +23019,86 @@ unless <code>max = -1</code> which in this case there is no maximum.</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-walkChildrenOfCustom">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    <span data-ice="async">async</span>
+    <span data-ice="generator">*</span>
+    <span class="code" data-ice="name">walkChildrenOfCustom</span><span class="code" data-ice="signature">(opts: <span><a href="typedef/index.html#static-typedef-WalkChildrenOfCustomOpts">WalkChildrenOfCustomOpts</a></span>): <span>AsyncIterableIterator</span>&lt;<span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/traversals.js.html#lineNumber196">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {walkChildrenOfCustom} from &apos;<span><a href="file/lib/traversals.js.html#lineNumber196">lib/traversals.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Walks the children of the supplied parent element yielding its children.</p>
+<p>If the loader option is true or shouldWait and or wait function(s) are supplied then the walk
+behaves as if the loader was set to true.</p>
+<p>When operating in loader mode and a child of the parent element does not have a next element sibling, a wait
+for additional child elements to be added is done, if no custom wait function was supplied the wait happens for a maximum of 15 seconds.
+After the wait ends and if the current child element still does not have a next element sibling the generator ends.</p>
+<p>When not operating in loader mode and the current child element does not have a next element sibling the traversal ends.</p>
+<p>See the documentation for <span><a href="typedef/index.html#static-typedef-WalkChildrenOfCustomOpts">WalkChildrenOfCustomOpts</a></span> for the customization options available</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">opts</td>
+      <td data-ice="type" class="code"><span><a href="typedef/index.html#static-typedef-WalkChildrenOfCustomOpts">WalkChildrenOfCustomOpts</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Options for configuring the walk</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>AsyncIterableIterator</span>&lt;<span><a href="typedef/index.html#static-typedef-SomeElement">SomeElement</a></span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="static-function-xpathOneOf">
     <span class="access" data-ice="access">public</span>
     
@@ -22994,11 +23110,11 @@ unless <code>max = -1</code> which in this case there is no maximum.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber976">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/dom.js.html#lineNumber975">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {xpathOneOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber976">lib/dom.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {xpathOneOf} from &apos;<span><a href="file/lib/dom.js.html#lineNumber975">lib/dom.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Returns the results of evaluating one of the supplied xpath queries if

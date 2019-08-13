@@ -12403,7 +12403,7 @@
           "trailingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Like {@link selectFromAndClickUntilNullWithDelay} but will stop\n * selecting and clicking the selected element if the current reference\n * becomes disconnected from the dom or the optional stopPredicate\n * returns true. There is no dealy for delay you want\n * {@link selectScrollIntoViewAndClickWithDelaySelectedWhileConnected}\n * @param {string} selector - The selector to be used to select the element\n * @param {SelectScrollIntoViewClickUntilNullOptions} options\n * @return {void}\n ",
+              "value": "*\n * Like {@link selectFromAndClickUntilNullWithDelay} but will stop\n * selecting and clicking the selected element if the current reference\n * becomes disconnected from the dom or the optional stopPredicate\n * returns true. There is no dealy for delay you want\n * {@link selectScrollIntoViewAndClickWithDelayWhileSelectedConnected}\n * @param {string} selector - The selector to be used to select the element\n * @param {SelectScrollIntoViewClickUntilNullOptions} options\n * @return {void}\n ",
               "start": 11878,
               "end": 12372,
               "loc": {
@@ -12440,7 +12440,7 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Like {@link selectFromAndClickUntilNullWithDelay} but will stop\n * selecting and clicking the selected element if the current reference\n * becomes disconnected from the dom or the optional stopPredicate\n * returns true. There is no dealy for delay you want\n * {@link selectScrollIntoViewAndClickWithDelaySelectedWhileConnected}\n * @param {string} selector - The selector to be used to select the element\n * @param {SelectScrollIntoViewClickUntilNullOptions} options\n * @return {void}\n ",
+            "value": "*\n * Like {@link selectFromAndClickUntilNullWithDelay} but will stop\n * selecting and clicking the selected element if the current reference\n * becomes disconnected from the dom or the optional stopPredicate\n * returns true. There is no dealy for delay you want\n * {@link selectScrollIntoViewAndClickWithDelayWhileSelectedConnected}\n * @param {string} selector - The selector to be used to select the element\n * @param {SelectScrollIntoViewClickUntilNullOptions} options\n * @return {void}\n ",
             "start": 11878,
             "end": 12372,
             "loc": {
@@ -13419,7 +13419,7 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Like {@link selectFromAndClickUntilNullWithDelay} but will stop\n * selecting and clicking the selected element if the current reference\n * becomes disconnected from the dom or the optional stopPredicate\n * returns true. There is no dealy for delay you want\n * {@link selectScrollIntoViewAndClickWithDelaySelectedWhileConnected}\n * @param {string} selector - The selector to be used to select the element\n * @param {SelectScrollIntoViewClickUntilNullOptions} options\n * @return {void}\n ",
+              "value": "*\n * Like {@link selectFromAndClickUntilNullWithDelay} but will stop\n * selecting and clicking the selected element if the current reference\n * becomes disconnected from the dom or the optional stopPredicate\n * returns true. There is no dealy for delay you want\n * {@link selectScrollIntoViewAndClickWithDelayWhileSelectedConnected}\n * @param {string} selector - The selector to be used to select the element\n * @param {SelectScrollIntoViewClickUntilNullOptions} options\n * @return {void}\n ",
               "start": 11878,
               "end": 12372,
               "loc": {
@@ -13456,7 +13456,7 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Like {@link selectFromAndClickUntilNullWithDelay} but will stop\n * selecting and clicking the selected element if the current reference\n * becomes disconnected from the dom or the optional stopPredicate\n * returns true. There is no dealy for delay you want\n * {@link selectScrollIntoViewAndClickWithDelaySelectedWhileConnected}\n * @param {string} selector - The selector to be used to select the element\n * @param {SelectScrollIntoViewClickUntilNullOptions} options\n * @return {void}\n ",
+            "value": "*\n * Like {@link selectFromAndClickUntilNullWithDelay} but will stop\n * selecting and clicking the selected element if the current reference\n * becomes disconnected from the dom or the optional stopPredicate\n * returns true. There is no dealy for delay you want\n * {@link selectScrollIntoViewAndClickWithDelayWhileSelectedConnected}\n * @param {string} selector - The selector to be used to select the element\n * @param {SelectScrollIntoViewClickUntilNullOptions} options\n * @return {void}\n ",
             "start": 11878,
             "end": 12372,
             "loc": {
@@ -13533,9 +13533,9 @@
                 "line": 376,
                 "column": 81
               },
-              "identifierName": "selectScrollIntoViewAndClickWithDelaySelectedWhileConnected"
+              "identifierName": "selectScrollIntoViewAndClickWithDelayWhileSelectedConnected"
             },
-            "name": "selectScrollIntoViewAndClickWithDelaySelectedWhileConnected",
+            "name": "selectScrollIntoViewAndClickWithDelayWhileSelectedConnected",
             "leadingComments": null
           },
           "generator": false,
@@ -18065,7 +18065,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * Like {@link selectFromAndClickUntilNullWithDelay} but will stop\n * selecting and clicking the selected element if the current reference\n * becomes disconnected from the dom or the optional stopPredicate\n * returns true. There is no dealy for delay you want\n * {@link selectScrollIntoViewAndClickWithDelaySelectedWhileConnected}\n * @param {string} selector - The selector to be used to select the element\n * @param {SelectScrollIntoViewClickUntilNullOptions} options\n * @return {void}\n ",
+      "value": "*\n * Like {@link selectFromAndClickUntilNullWithDelay} but will stop\n * selecting and clicking the selected element if the current reference\n * becomes disconnected from the dom or the optional stopPredicate\n * returns true. There is no dealy for delay you want\n * {@link selectScrollIntoViewAndClickWithDelayWhileSelectedConnected}\n * @param {string} selector - The selector to be used to select the element\n * @param {SelectScrollIntoViewClickUntilNullOptions} options\n * @return {void}\n ",
       "start": 11878,
       "end": 12372,
       "loc": {
@@ -42226,7 +42226,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * Like {@link selectFromAndClickUntilNullWithDelay} but will stop\n * selecting and clicking the selected element if the current reference\n * becomes disconnected from the dom or the optional stopPredicate\n * returns true. There is no dealy for delay you want\n * {@link selectScrollIntoViewAndClickWithDelaySelectedWhileConnected}\n * @param {string} selector - The selector to be used to select the element\n * @param {SelectScrollIntoViewClickUntilNullOptions} options\n * @return {void}\n ",
+      "value": "*\n * Like {@link selectFromAndClickUntilNullWithDelay} but will stop\n * selecting and clicking the selected element if the current reference\n * becomes disconnected from the dom or the optional stopPredicate\n * returns true. There is no dealy for delay you want\n * {@link selectScrollIntoViewAndClickWithDelayWhileSelectedConnected}\n * @param {string} selector - The selector to be used to select the element\n * @param {SelectScrollIntoViewClickUntilNullOptions} options\n * @return {void}\n ",
       "start": 11878,
       "end": 12372,
       "loc": {
@@ -44408,7 +44408,7 @@
         "postfix": false,
         "binop": null
       },
-      "value": "selectScrollIntoViewAndClickWithDelaySelectedWhileConnected",
+      "value": "selectScrollIntoViewAndClickWithDelayWhileSelectedConnected",
       "start": 13251,
       "end": 13310,
       "loc": {
