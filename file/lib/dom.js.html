@@ -1115,7 +1115,9 @@ export function elemTextContent(elem) {
 }
 
 /**
- * @param {?Document} doc
+ * Returns the scrollTop and scrollLeft values of the supplied document if one
+ * was supplied other wise the values are from the current document
+ * @param {?Document} [doc]
  * @return {{scrollTop: number, scrollLeft: number}}
  */
 export function documentScrollPosition(doc) {
