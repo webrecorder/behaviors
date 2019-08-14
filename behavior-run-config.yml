@@ -3,7 +3,7 @@ behavior: ./behaviors/instagram/user.js
 url: 'https://www.instagram.com/rhizomedotorg/'
 
 # path to chrome executable or command
-chromeEXE: google-chrome-beta
+#chromeEXE: google-chrome-beta
 openDevTools: true
 
 mode: build-watch
