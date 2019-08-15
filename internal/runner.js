@@ -224,7 +224,8 @@ async function launchBrowser(runConfig) {
     '--autoplay-policy=no-user-gesture-required',
   ];
   if (runConfig.openDevTools) {
-    args.push('--auto-open-devtools-for-tabs');
+    console.log('open dev tools is currently disabled');
+    // args.push('--auto-open-devtools-for-tabs');
   }
   const { closeBrowser, browserWSEndpoint, chromeProcess } = await launch({
     executable: runConfig.chromeEXE,
