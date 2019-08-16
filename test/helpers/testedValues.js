@@ -8,7 +8,7 @@ module.exports = {
         defaultBehavior: true,
         description:
           'Default behavior for any page. Automatically scrolls down the page as much as possible. If additional content loads that increases page height, scrolling will continue until autopilot is stopped by user. Any discovered audio/video is played, but no other interactions are performed.',
-        updated: '2019-07-26T13:27:29-07:00',
+        updated: '2019-08-16T20:03:13.955Z',
         fileName: 'autoscrollBehavior.js',
       },
       url: 'https://example.com',
@@ -341,7 +341,7 @@ module.exports = {
     defaultBehavior: true,
     description:
       'Default behavior for any page. Automatically scrolls down the page as much as possible. If additional content loads that increases page height, scrolling will continue until autopilot is stopped by user. Any discovered audio/video is played, but no other interactions are performed.',
-    updated: '2019-07-26T13:27:29-07:00',
+    updated: '2019-08-16T20:03:13.955Z',
     fileName: 'autoscrollBehavior.js',
   },
   allResult: {
@@ -354,7 +354,7 @@ module.exports = {
         defaultBehavior: true,
         description:
           'Default behavior for any page. Automatically scrolls down the page as much as possible. If additional content loads that increases page height, scrolling will continue until autopilot is stopped by user. Any discovered audio/video is played, but no other interactions are performed.',
-        updated: '2019-07-26T13:27:29-07:00',
+        updated: '2019-08-16T20:03:13.955Z',
         fileName: 'autoscrollBehavior.js',
       },
       behaviors: {
