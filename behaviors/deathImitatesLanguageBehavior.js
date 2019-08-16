@@ -32,7 +32,7 @@ export const metadata = {
   },
   description:
     'Scrolls the page clicking all the images rendered at the current scroll level',
-  updated: '2019-07-24T14:14:51-07:00',
+  updated: '2019-08-21T16:17:10-04:00',
 };
 
 export const isBehavior = true;

@@ -225,7 +225,7 @@ async function launchBrowser(runConfig) {
   ];
   if (runConfig.openDevTools) {
     console.log('open dev tools is currently disabled');
-    // args.push('--auto-open-devtools-for-tabs');
+    args.push('--auto-open-devtools-for-tabs');
   }
   const { closeBrowser, browserWSEndpoint, chromeProcess } = await launch({
     executable: runConfig.chromeEXE,

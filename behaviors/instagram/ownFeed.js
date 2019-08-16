@@ -104,7 +104,7 @@ export const metadata = {
   },
   description:
     'Capture all stories, images, videos and comments on the logged in users feed.',
-  updated: '2019-07-26T13:27:59-07:00',
+  updated: '2019-08-21T16:17:10-04:00',
 };
 
 export const isBehavior = true;

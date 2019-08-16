@@ -1,5 +1,5 @@
 import * as lib from '../../lib';
-import { annoyingElements, buttonSelectors, xpathQueries } from './shared';
+import * as selectors from './selectors';
 
 let behaviorStyle;
 if (debug) {
@@ -9,55 +9,29 @@ if (debug) {
 }
 
 const delayTime = 1500;
-const loadDelayTime = 3000;
 
-let removedAnnoying = lib.maybeRemoveElemById(annoyingElements.pageletGrowthId);
+let removedAnnoying = lib.maybeRemoveElemById(selectors.PageletGrowthId);
 
-let totalFeedItems = 0;
-
-async function clickLoadMoreReplies(tlItem) {
-  const replies = lib.qs(buttonSelectors.moreReplies, tlItem);
-  if (replies) {
-    if (debug) replies.classList.add('wr-debug-visited');
-    await lib.scrollIntoViewAndClickWithDelay(replies, delayTime);
-    return true;
-  }
-  return false;
-}
-
-/**
- *
- * @param tlItem
- * @return {AsyncIterator<*>}
- */
-async function* clickRepliesToReplies(tlItem) {
-  let rToR = lib.qsa(buttonSelectors.repliesToRepliesA, tlItem);
-  let i = 0;
-  let length = rToR.length;
-  let rtr;
-  let totalReplies = 0;
-  while (i < length) {
-    rtr = rToR[i];
-    if (debug) lib.addClass(rtr, behaviorStyle.wrDebugVisited);
-    await lib.scrollIntoViewAndClickWithDelay(rtr, delayTime);
-    totalReplies += 1;
-    yield lib.stateWithMsgNoWait(
-      `viewed reply #${totalReplies} of feed item #${totalFeedItems}`
-    );
-    i += 1;
-  }
-  rToR = lib.qsa(buttonSelectors.repliesToRepliesA, tlItem);
-  if (rToR.length) {
-    i = 0;
-    length = rToR.length;
-    while (i < length) {
-      rtr = rToR[i];
-      if (debug) lib.addClass(rtr, behaviorStyle.wrDebugVisited);
-      await lib.scrollIntoViewAndClickWithDelay(rtr, delayTime);
-      yield lib.stateWithMsgNoWait(
-        `viewed reply #${totalReplies} of feed item #${totalFeedItems}`
-      );
-      i += 1;
+async function* walkUserTimeline() {
+  let items = lib.xpathSnapShot(selectors.UserTimelineItemXPath);
+  while (items.snapshotLength) {
+    for (let i = 0; i < items.snapshotLength; ++i) {
+      yield items.snapshotItem(i);
+    }
+    items = lib.xpathSnapShot(selectors.UserTimelineItemXPath);
+    if (items.snapshotLength === 0) {
+      const feedPlaceHolder = lib.qs(selectors.UserFeedMore);
+      if (feedPlaceHolder && feedPlaceHolder.isConnected) {
+        // scroll the placeholder feed item into view in order
+        // to initiate the loading of more elements
+        lib.scrollIntoView(feedPlaceHolder);
+        // once the new feed items are loaded, the feed place holder
+        // will be removed
+        await lib.waitUntilElementIsRemovedFromDom(feedPlaceHolder);
+      } else {
+        await lib.delay();
+      }
+      items = lib.xpathSnapShot(selectors.UserTimelineItemXPath);
     }
   }
 }
@@ -79,48 +53,43 @@ async function* clickRepliesToReplies(tlItem) {
  * @return {AsyncIterator<*>}
  */
 export default async function* initFBUserFeedBehaviorIterator(cliAPI) {
-  let timelineItems = cliAPI.$x(xpathQueries.userTimelineItem);
-  let tlItem;
-  let replies;
-  let i;
-  let length;
-  let playVideo;
-  const state = {
-    videos: 0,
-    posts: 0,
-  };
-  let wait = false;
-  do {
-    length = timelineItems.length;
-    for (i = 0; i < length; i++) {
-      tlItem = timelineItems[i];
-      totalFeedItems += 1;
-      if (debug) tlItem.classList.add('wr-debug-visited');
-      await lib.scrollIntoViewWithDelay(tlItem, delayTime);
-      lib.markElemAsVisited(tlItem);
-      lib.collectOutlinksFrom(tlItem);
-      playVideo = lib.qs('i > input[aria-label="Play video"]', tlItem);
-      if (playVideo) {
-        wait = true;
-        state.videos++;
-        await lib.clickWithDelay(playVideo);
-      }
-      state.posts++;
-      yield lib.createState(wait, `viewed feed item ${totalFeedItems}`, state);
-      wait = false;
+  const state = { videos: 0, posts: 0 };
+  for await (const timelineItem of walkUserTimeline()) {
+    state.posts++;
+    await lib.scrollIntoViewWithDelay(timelineItem, delayTime);
+    lib.markElemAsVisited(timelineItem);
+    lib.collectOutlinksFrom(timelineItem);
+    const playVideo = lib.qs(selectors.PlayVideoSelector, timelineItem);
+    let wait = false;
+    if (playVideo) {
+      wait = true;
+      state.videos++;
+      await lib.clickWithDelay(playVideo);
     }
-    timelineItems = cliAPI.$x(xpathQueries.userTimelineItem);
-    if (timelineItems.length === 0) {
-      await lib.scrollDownByElemHeightWithDelay(tlItem, loadDelayTime);
-      timelineItems = cliAPI.$x(xpathQueries.userTimelineItem);
+    let moreCommentsLoaded = 0;
+    // the load more comments/replies element is removed once clicked
+    // thus we need only to continually select all of the currently rendered
+    // ones and click them
+    for (const loadMoreComments of lib.repeatedQSAIterator(
+      selectors.MoreCommentsSelector,
+      timelineItem
+    )) {
+      await lib.scrollIntoViewAndClickWithDelay(loadMoreComments);
+      yield lib.stateWithMsgWait(
+        `Loaded more comments ${++moreCommentsLoaded} time for feed item ${
+          state.posts
+        }`,
+        state
+      );
     }
-  } while (timelineItems.length > 0 && lib.canScrollDownMore());
+    yield lib.createState(wait, `Viewed feed item ${state.posts}`, state);
+  }
   return lib.stateWithMsgNoWait('Behavior done', state);
 }
 
 export const postStep = lib.buildCustomPostStepFn(() => {
   if (!removedAnnoying) {
-    removedAnnoying = lib.maybeRemoveElemById(annoyingElements.pageletGrowthId);
+    removedAnnoying = lib.maybeRemoveElemById(selectors.PageletGrowthId);
   }
 });
 
@@ -132,7 +101,7 @@ export const metadata = {
   },
   description:
     'Capture all items and comments in the Facebook page and scroll down to load more content where possible.',
-  updated: '2019-07-26T13:27:59-07:00',
+  updated: '2019-08-21T16:17:10-04:00',
 };
 
 export const isBehavior = true;
