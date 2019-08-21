@@ -206,7 +206,7 @@ export const metadata = {
   },
   description:
     'Capture all stories, images, videos and comments on user’s page.',
-  updated: '2019-08-13T08:50:12-07:00',
+  updated: '2019-08-21T16:17:10-04:00',
 };
 
 export const isBehavior = true;

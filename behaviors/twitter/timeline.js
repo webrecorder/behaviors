@@ -168,7 +168,7 @@ export const metadata = {
   },
   description:
     'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.',
-  updated: '2019-08-06T16:34:20-07:00',
+  updated: '2019-08-21T16:17:10-04:00',
 };
 
 export const isBehavior = true;
