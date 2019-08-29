@@ -37,7 +37,10 @@ fs.ensureFileSync(newBehaviorPath);
 
 fs.writeFileSync(
   newBehaviorPath,
-  `import * as lib from '${path.relative(behaviorDirPath, libDir)}';
+  `import * as lib from '${path.relative(
+    path.dirname(newBehaviorPath),
+    libDir
+  )}';
 
 export default async function* behavior(cliAPI) {
   // your behaviors implementation goes here
@@ -48,7 +51,7 @@ export const isBehavior = true;
 export const metadata = {
   name: 'myAwesomeBehavior',
   match: {
-    regex: /https?:\/\/(?:www\.)?example\.com/;
+    regex: /https?:\\/\\/(?:www\.)?example\.com/
   },
   description: '',
 }; 
