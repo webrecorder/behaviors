@@ -622,6 +622,13 @@ function getElemToClickForShowMoreTweet(tlPart) {
   return null;
 }
 
+function isImageNextButtonDisabled(imageNext) {
+  return (
+    lib.elemMatchesSelector(imageNext, 'div[aria-disabled="true"]') ||
+    imageNext.disabled
+  );
+}
+
 async function* viewTweetImages(byInfo, tlLocation) {
   yield Reporter.msgWithState(`Viewing tweet image - ${byInfo}`);
   // we may or may not have multiple images
@@ -664,8 +671,12 @@ async function* viewTweetImages(byInfo, tlLocation) {
     // we have viewed all images
     imageNext = lib.qs(selectors.NextImage, imageModal);
     if (imageNext != null) {
-      yield Reporter.msgWithState(`Viewing next tweet image - ${byInfo}`);
-      await lib.clickAndWaitForHistoryChange(imageNext);
+      if (!isImageNextButtonDisabled(imageNext)) {
+        yield Reporter.msgWithState(`Viewing next tweet image - ${byInfo}`);
+        await lib.clickAndWaitForHistoryChange(imageNext);
+      } else {
+        break;
+      }
     }
   } while (imageNext != null);
   const closeDiv = lib.qs(selectors.ImagePopupCloser);
