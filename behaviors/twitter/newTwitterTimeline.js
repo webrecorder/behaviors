@@ -447,11 +447,16 @@ function findTweetImage(container) {
 }
 
 /**
+ * Returns the root, tweet loader, of a subtimeline
  * @return {?SomeElement}
  */
 function subTimelineRoot() {
-  const timelineStart = lib.qs(selectors.SubTimelineConversationStart);
-  return lib.chainFistChildElemOf(timelineStart, 2);
+  // twitter now uses css transitions to show tweets loading
+  // the element does the loading is the first child of the
+  // element with aria-label "timeline: conversation"
+  return lib.firstChildElementOfSelector(
+    selectors.SubTimelineConversationStart
+  );
 }
 
 function findCovoPartChildNum(convoRoot, convoPart) {
@@ -467,10 +472,8 @@ function findCovoPartChildNum(convoRoot, convoPart) {
 
 function refindConvoPositionByIdx(convoRoot, prevIdx) {
   if (convoRoot && convoRoot.childElementCount > 0) {
-    for (let i = 0; i < convoRoot.children.length; i++) {
-      if (prevIdx === i) {
-        return convoRoot.children[i];
-      }
+    if (prevIdx !== -1 && prevIdx < convoRoot.children.length) {
+      return convoRoot.children[prevIdx];
     }
   }
   return null;
@@ -572,6 +575,32 @@ async function waitUntilSubTimelineLoaded(noDefaultDelay) {
   await lib.delay(1500);
 }
 
+/**
+ * This function waits for the the tweets of some subtimeline to be loaded
+ * If twitter decides to show a progress bar, a wait for it to go away is done
+ * If the root of the subtimelines tweets is not rendered yet, a wait for it
+ * to be rendered is done.
+ * If the root of the subtimelines tweet does not have any children yet,
+ * a wait is made for those children to be shown
+ * @param {SomeElement} selectFrom
+ * @return {Promise<void>}
+ */
+async function waitUntilSubTimelineLoadedAndTweetDisplayed(selectFrom) {
+  // attempt to catch the progress bar if it was shown at all
+  await waitForTwitterProgressBarToGoAway(selectFrom);
+  // we need to determine if the subtimeline root is displayed
+  let tlRoot = subTimelineRoot();
+  if (!tlRoot) {
+    // it was not so we need to wait for it to be created
+    await lib.waitForPredicate(() => subTimelineRoot() != null, { max: 10000 });
+    tlRoot = subTimelineRoot();
+  }
+  // check for the no kids case and if there are none wait for them
+  if (tlRoot && lib.numElemChildren(tlRoot) === 0) {
+    await lib.waitForAdditionalElemChildren(tlRoot);
+  }
+}
+
 const MoreRepliesRe = /more\srepl(y|ies)/i;
 
 function getElemToClickForShowMoreTweet(tlPart) {
@@ -591,6 +620,13 @@ function getElemToClickForShowMoreTweet(tlPart) {
     return lib.qs('div[role="button"]', tlPart);
   }
   return null;
+}
+
+function isImageNextButtonDisabled(imageNext) {
+  return (
+    lib.elemMatchesSelector(imageNext, 'div[aria-disabled="true"]') ||
+    imageNext.disabled
+  );
 }
 
 async function* viewTweetImages(byInfo, tlLocation) {
@@ -635,8 +671,12 @@ async function* viewTweetImages(byInfo, tlLocation) {
     // we have viewed all images
     imageNext = lib.qs(selectors.NextImage, imageModal);
     if (imageNext != null) {
-      yield Reporter.msgWithState(`Viewing next tweet image - ${byInfo}`);
-      await lib.clickAndWaitForHistoryChange(imageNext);
+      if (!isImageNextButtonDisabled(imageNext)) {
+        yield Reporter.msgWithState(`Viewing next tweet image - ${byInfo}`);
+        await lib.clickAndWaitForHistoryChange(imageNext);
+      } else {
+        break;
+      }
     }
   } while (imageNext != null);
   const closeDiv = lib.qs(selectors.ImagePopupCloser);
@@ -653,9 +693,8 @@ async function* viewTweetImages(byInfo, tlLocation) {
 async function* viewMainTimelineTweet(tweetInfo, tlLocation) {
   // attempt to catch the progress spinner to know when the sub timeline has loaded
   // also attempt to get the root on a good network day
-  await waitForTwitterProgressBarToGoAway(
-    lib.qs(selectors.SubTimelineConversationStart),
-    subTimelineRoot()
+  await waitUntilSubTimelineLoadedAndTweetDisplayed(
+    lib.qs(selectors.SubTimelineConversationStart)
   );
   if (subTimelineRoot() == null) {
     await gobackTo(tlLocation);
@@ -754,7 +793,10 @@ export default async function* newTwitterTimeline(cliApi) {
   let childRefinder;
   const walker = new lib.DisconnectingWalk({
     loader: true,
-    findParent: () => lib.chainFistChildElemOf(lib.qs(info.tlStartSelector), 2),
+    // twitter now uses css transitions to show tweets loading
+    // the element does the loading is the first child of the
+    // element with aria-label "Timeline: <user>’s Tweets"
+    findParent: () => lib.firstChildElementOfSelector(info.tlStartSelector),
     refindChild: (parent, child) =>
       lib.findDirectChildElement(parent, childRefinder),
     async wait(parent, child) {

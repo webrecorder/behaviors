@@ -106,7 +106,7 @@ export const ImageProgressBar =
 export const ImageModalRoot =
   'div[aria-labelledby="modal-header"][aria-modal="true"]';
 export const NextImage =
-  'div[aria-label="Next"][role="button"][aria-disabled="false"]';
+  'div[aria-label="Next"][role="button"]';
 export const AlertDiv = 'div[role="alert"][data-testid="toast"]';
 
 export const LostConnectionXpath =
