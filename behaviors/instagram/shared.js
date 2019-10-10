@@ -227,7 +227,17 @@ export async function viewMultiPost(content, viewing) {
     numMulti += 1;
     const playButton = lib.qs(selectors.videoSpritePlayButton, part);
     if (playButton) {
+      const maybeNewPlayButton = lib.getElemsParentsSibling(playButton);
       const video = lib.qs('video', part);
+      if (
+        maybeNewPlayButton &&
+        lib.elemInnerTextEqsInsensitive(
+          lib.firstChildElementOf(maybeNewPlayButton),
+          'control'
+        )
+      ) {
+        await lib.clickWithDelay(maybeNewPlayButton);
+      }
       if (video) {
         const loadedPromise = lib.uaThinksMediaElementCanPlayAllTheWay(video);
         await lib.clickWithDelay(playButton).then(() => loadedPromise);
