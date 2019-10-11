@@ -197,7 +197,7 @@ export const metadata = {
     regex: /^(?:https?:\/\/(?:www\.)?)?soundcloud\.com\/(?!(?:discover|stream))[^/]+(?:\/(?:tracks|albums|sets|reposts))?(?:\/)?$/,
   },
   description: 'Capture every track on Soundcloud profile.',
-  updated: '2019-08-21T16:17:10-04:00',
+  updated: '2019-08-21T14:52:23-07:00',
 };
 
 export const isBehavior = true;
