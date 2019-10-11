@@ -31,8 +31,9 @@ const TestURLs = {
   autoscroll: 'https://example.com',
   deathimitateslanguage: 'https://deathimitateslanguage.harmvandendorpel.com',
   fulcrum: {
-    epub: 'https://www.fulcrum.org/epubs/b5644s18r?locale=en#/6/2[cover]!/4/1:0'
-  }
+    epub:
+      'https://www.fulcrum.org/epubs/b5644s18r?locale=en#/6/2[cover]!/4/1:0',
+  },
 };
 
 const BaseAPIUrl = 'http://localhost:3030';

@@ -84,5 +84,5 @@ export const metadata = {
     regex: /https?:\/\/(www\.)?fulcrum\.org\/epubs\/.+/,
   },
   description: 'Views the content of an Epub',
-    updated: '2019-09-23T17:19:38-04:00'
+  updated: '2019-09-23T17:19:38-04:00',
 };
