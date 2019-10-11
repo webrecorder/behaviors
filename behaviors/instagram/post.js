@@ -33,8 +33,7 @@ export default async function* instagramPostBehavior(cliAPI) {
   try {
     result = await shared.handlePostContent({
       thePost: postMain,
-      multiImgElem: postMain,
-      videoElem: postMain,
+      content: postMain,
       viewing: shared.ViewingSinglePost,
       info,
       postId,

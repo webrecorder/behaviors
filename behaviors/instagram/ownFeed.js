@@ -68,8 +68,7 @@ export default function instagramOwnFeedBehavior(cliAPI) {
         result = await shared.handlePostContent({
           viewing: shared.ViewingOwnTimeline,
           thePost: post,
-          multiImgElem: post,
-          videoElem: post,
+          content: post,
           info,
           postId: 'a post',
         });

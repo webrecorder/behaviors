@@ -40,17 +40,13 @@ async function* handlePost(post, { cliAPI, info }) {
     ? maybeCloseButton
     : null;
   // get a reference to the posts contents (div.dialog > article)
-  const content = lib.qs(selectors.userPostTopMostContainer, popupDialog);
-  // the next image button exists in the popup post even if the post is not
-  // multi-image, so lets get a reference to it
-  const displayDiv = lib.qs(selectors.userMultiImageDisplayDiv, content);
+  const content = lib.qs(selectors.userPostTopMostContainer, innerDivDialog);
   let result;
   try {
     result = await shared.handlePostContent({
       thePost: post,
-      multiImgElem: content,
-      videoElem: displayDiv,
       viewing: shared.ViewingUser,
+      content,
       info,
       postId,
     });
