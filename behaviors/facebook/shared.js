@@ -44,10 +44,10 @@ export async function maybeViewPostOrImageInTheater(timelineItem) {
         () => lib.hasClass(theater, THEATER_READY_CLASS),
         MAX_WAIT
       );
-      // lets give it a second after the theater is ready
-      // before containing on
-      await lib.delay(lib.DelayAmount1Second);
     }
+    // lets give it a second after the theater is ready
+    // before containing on
+    await lib.delay(lib.DelayAmount1Second);
     await lib.selectElemFromAndClickWithDelay(theater, selectors.CloseTheater);
   }
 }
