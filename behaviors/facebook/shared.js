@@ -1,50 +1,53 @@
-export const storySelectors = {
-  hyperFeedStory: 'div[id^=hyperfeed_story]',
-  userStory: 'div[role="article"]',
-};
+import * as lib from '../../lib';
+import * as selectors from './selectors';
 
-export const buttonSelectors = {
-  moreReplies: 'a[role="button"].UFIPagerLink',
-  repliesToRepliesA: 'a[role="button"].UFICommentLink',
-  spanReplies:
-    'span.UFIReplySocialSentenceLinkText.UFIReplySocialSentenceVerified',
-};
-
-export const annoyingElements = {
-  pageletGrowthId: 'pagelet_growth_expanding_cta',
-};
-
-export const elementIds = {
-  userPostsTimelineMainCol: 'pagelet_timeline_main_column',
-};
+const MAX_WAIT = { max: 10000 };
+const THEATER_READY_CLASS = 'pagingReady';
+const FindTheaterPredicate = () => findTheater() != null;
 
 /**
- * @desc
- *
- * Queries:
- *  - feedItem: This xpath query is based on the fact that the first item in a FB news feed
- *   is fixed and all other feed items are lazily loaded.  Each lazily loaded feed item
- *   has `id="hyperfeed_story_id_5b90323a90ce80648983726"` but we do not care about
- *   the `_[a-z0-9]+` portion of it. Like how we handle twitter feeds, a visited it is
- *   marked by adding `$wrvisited$` to its classList so we look for elements with ids
- *  starting with `hyperfeed_story_id` and their classList does not contain `$wrvisited$`
- *
- *
- * @type {{userTimelineItem: string, feedItem: string}}
+ * Attempts to select the popup theater used to display
+ * a post or image
+ * @return {?SomeElement}
  */
-export const xpathQueries = {
-  feedItem:
-    '//div[starts-with(@id,"hyperfeed_story_id") and not(contains(@class, "wrvistited"))]',
-  userTimelineItem:
-    '//div[contains(@class, "userContentWrapper") and not(contains(@class, "wrvistited"))]',
-  repliesA:
-    '//a[@role="button" and contains(@class, "UFICommentLink") and not(contains(@class, "wrvistited")) and not(contains(text(), "Write a comment"))]',
-  subReplies:
-    '//span[contains(@class, "UFIReplySocialSentenceLinkText") and not(contains(@class, "wrvistited")) and contains(text(), "Reply")] | //span[contains(@class, "UFIReplySocialSentenceLinkText") and not(contains(@class, "wrvistited")) and contains(text(), "Replies")]',
-  genericReplies: '//a/div/span[contains(text(), "Replies")]',
-};
+function findTheater() {
+  // try the basic selector
+  const theater = lib.qs(selectors.TheaterSelector);
+  if (theater) return theater;
+  // lastly try the currently known theater id
+  return lib.id(selectors.TheaterId);
+}
 
-// hyperfeed_story_id_5c4f8af9e0bd66660400368
-
-const repliesToRepliesSpan =
-  'span.UFIReplySocialSentenceLinkText.UFIReplySocialSentenceVerified';
+/**
+ * Attempts to view a post or an image in the popup theater.
+ * @param {SomeElement} timelineItem
+ * @return {Promise<void>}
+ */
+export async function maybeViewPostOrImageInTheater(timelineItem) {
+  const theaterItems = lib.qsa(selectors.TheaterItem, timelineItem);
+  // if not theater items return
+  if (!theaterItems.length) return;
+  // the theater remains in the dom once created but not before
+  let theater = findTheater();
+  for (let i = 0; i < theaterItems.length; i++) {
+    await lib.clickWithDelay(theaterItems[i]);
+    if (!theater) {
+      // first time we are viewing something in the theater so we
+      // need to wait for it to be created
+      await lib.waitForPredicate(FindTheaterPredicate, MAX_WAIT);
+      theater = findTheater();
+      // it was not created so we need to stop
+      if (!theater) return;
+    }
+    if (!lib.hasClass(theater, THEATER_READY_CLASS)) {
+      await lib.waitForPredicate(
+        () => lib.hasClass(theater, THEATER_READY_CLASS),
+        MAX_WAIT
+      );
+      // lets give it a second after the theater is ready
+      // before containing on
+      await lib.delay(lib.DelayAmount1Second);
+    }
+    await lib.selectElemFromAndClickWithDelay(theater, selectors.CloseTheater);
+  }
+}
