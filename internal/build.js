@@ -102,34 +102,26 @@ async function resolveWhatPath(opts, operation) {
   }
 
   const relResolvedWhat = Path.resolve(opts.what);
-  if (await fs.pathExists(relResolvedWhat)) return relResolvedWhat;
-
-  const behaviorDirPlusWhat = Path.join(opts.behaviorDir, opts.what);
-  if (await fs.pathExists(behaviorDirPlusWhat)) return behaviorDirPlusWhat;
-
-  const cwdPlusWhat = Path.join(process.cwd(), opts.what);
-  if (await fs.pathExists(cwdPlusWhat)) return cwdPlusWhat;
-
-  const behaviorDirPlusRelResolvedWhat = Path.join(
-    opts.behaviorDir,
-    relResolvedWhat
-  );
-  if (await fs.pathExists(behaviorDirPlusRelResolvedWhat))
-    return behaviorDirPlusRelResolvedWhat;
-
-  const cwdPlusRelResolvedWhat = Path.join(process.cwd(), relResolvedWhat);
-  if (await fs.pathExists(cwdPlusRelResolvedWhat))
-    return cwdPlusRelResolvedWhat;
-
+  if (await fs.pathExists(relResolvedWhat)) {
+    return relResolvedWhat;
+  }
+  const pathsToTry = [
+    Path.join(opts.behaviorDir, opts.what),
+    Path.join(process.cwd(), opts.what),
+    Path.join(opts.behaviorDir, relResolvedWhat),
+    Path.join(process.cwd(), relResolvedWhat),
+  ];
+  for (const p of pathsToTry) {
+    if (await fs.pathExists(p)) {
+      return p;
+    }
+  }
   throw new Error(
-    Utils.joinStrings(
-      `${operation} failed because the behavior(s) path ${opts.what} does not exist and we tried the following paths:`,
-      relResolvedWhat,
-      behaviorDirPlusWhat,
-      cwdPlusWhat,
-      behaviorDirPlusRelResolvedWhat,
-      cwdPlusRelResolvedWhat
-    )
+    `${operation} failed because the behavior(s) path ${
+      opts.what
+    } does not exist and we tried the following paths: \n-- ${relResolvedWhat}${pathsToTry.join(
+      '\n-- '
+    )}`
   );
 }
 

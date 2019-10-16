@@ -713,6 +713,7 @@ async function* viewMainTimelineTweet(tweetInfo, tlLocation) {
       subTimelineInfo.type === TwitterTimelineTypes.tweet &&
       subTimelineInfo.body
     ) {
+      lib.collectOutlinksFrom(subTLPart);
       await lib.scrollIntoViewWithDelay(subTimelineInfo.body);
       currentConvoPos = findCovoPartChildNum(walker.parent, subTLPart);
       yield Reporter.msgWithState(`Viewing tweet by ${subTimelineInfo.byInfo}`);
@@ -821,6 +822,7 @@ export default async function* newTwitterTimeline(cliApi) {
   }
 
   for await (const timelineItem of walker.walk()) {
+    lib.collectOutlinksFrom(timelineItem);
     let timelineInfo = extractTimelineItemInfo(timelineItem);
     if (timelineInfo.type === TwitterTimelineTypes.tweet) {
       if (timelineInfo.body) {

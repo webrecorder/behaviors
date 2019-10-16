@@ -266,6 +266,7 @@ export async function viewMultiPost(content, viewing) {
   if (!multiList) return 0;
   // view each part of multi-post handling videos
   for (const postPart of lib.childElementIterator(multiList)) {
+    lib.collectOutlinksFrom(postPart);
     numMulti += 1;
     if (lib.selectorExists('video', postPart)) {
       await playPostVideo(postPart);

@@ -88,7 +88,7 @@ export default function instagramOwnFeedBehavior(cliAPI) {
     },
     postTraversal(failure) {
       const msg = failure
-        ? 'Behavior finished due to failure to find posts container, reverting to auto scroll'
+        ? 'Behavior finished due to failure to find posts container, reverted to auto scroll'
         : 'Viewed all posts in the timeline';
       return lib.stateWithMsgNoWait(msg, info.state);
     },
