@@ -208,74 +208,102 @@ export async function* viewComments({ commentList, info, postId, $x }) {
 }
 
 /**
- * @param {Element} content
- * @param {symbol} viewing
+ * Attempts to find the correct play button used to play a posts video
+ * @param {SomeElement} postContent - The post
+ * @return {?SomeElement|null}
+ */
+function getVideoPlayButton(postContent) {
+  const playButton = lib.qs(selectors.videoSpritePlayButton, postContent);
+  if (!playButton) return null;
+  // the play button may now only be decorative, so we need to check for
+  // the new play button that is next sibling of the old play buttons parent
+  const maybeNewPlayButton = lib.getElemsParentsSibling(playButton);
+  let useNewPlayButton = false;
+  if (maybeNewPlayButton) {
+    useNewPlayButton = lib.elemInnerTextEqsInsensitive(
+      lib.firstChildElementOf(maybeNewPlayButton),
+      'control'
+    );
+  }
+  return useNewPlayButton ? maybeNewPlayButton : playButton;
+}
+
+/**
+ * Attempts to play a posts video at 10x speed
+ * @param {SomeElement} postContent - The post that contains a video
+ * @return {Promise<void>}
+ */
+async function playPostVideo(postContent) {
+  // find relevant elements
+  const video = lib.qs('video', postContent);
+  const playButton = getVideoPlayButton(postContent);
+  // if they do not exist we can not do anything
+  if (!playButton || !video) return;
+  // set the playback rate and play the video
+  lib.setMediaElemPlaybackRate(video, 10);
+  const loadedPromise = lib.uaThinksMediaElementCanPlayAllTheWay(video);
+  await Promise.all([lib.clickWithDelay(playButton), loadedPromise]);
+}
+
+/**
+ * Views all parts of multi-part post
+ * @param {Element} content - The primary container of the post
+ * @param {symbol} viewing - What context is this post in, single or user
  * @return {Promise<number>}
  */
 export async function viewMultiPost(content, viewing) {
   let numMulti = 0;
+  // get a reference to the next part icon/button
+  // it is removed when there is no next part
   const NextPart = lib.qs(
     viewing === ViewingSinglePost
       ? selectors.postNextImage
       : selectors.nextImageIconDiv,
     content
   );
+  // the multi-part posts content is in a ul
   const multiList = lib.qs('ul', content);
   if (!multiList) return 0;
-  let part = multiList.firstElementChild;
-  while (part) {
+  // view each part of multi-post handling videos
+  for (const postPart of lib.childElementIterator(multiList)) {
+    lib.collectOutlinksFrom(postPart);
     numMulti += 1;
-    const playButton = lib.qs(selectors.videoSpritePlayButton, part);
-    if (playButton) {
-      const video = lib.qs('video', part);
-      if (video) {
-        const loadedPromise = lib.uaThinksMediaElementCanPlayAllTheWay(video);
-        await lib.clickWithDelay(playButton).then(() => loadedPromise);
-      } else {
-        await lib.clickWithDelay(playButton);
-      }
+    if (lib.selectorExists('video', postPart)) {
+      await playPostVideo(postPart);
     }
-    part = part.nextElementSibling;
-    if (part) {
-      await lib.clickWithDelay(NextPart);
-    }
+    await lib.clickWithDelay(NextPart);
   }
   return numMulti;
 }
 
-export async function handlePostContent({
-  thePost,
-  multiImgElem,
-  videoElem,
-  viewing,
-  info,
-  postId,
-}) {
+/**
+ * @typedef {Object} PostDetails
+ * @property {SomeElement} thePost - The top most post container
+ * @property {SomeElement} content - The element containing the posts content
+ * @property {symbol} viewing - The symbol indicating the context of what we are viewing
+ * @property {Object} info - The state of the behavior
+ * @property {string} postId - The id of the post
+ */
+
+/**
+ * Views the posts content.
+ * @param {PostDetails} postDetails - The post to be handled
+ * @return {Promise<{msg: string, wait: boolean, state: Object}>}
+ */
+export async function handlePostContent(postDetails) {
+  const { thePost, content, viewing, info, postId } = postDetails;
   const baseMsg = `Viewed the contents of ${postId}`;
-  const result = { msg: null, wait: false, state: info.state };
+  const result = { msg: '', wait: false, state: info.state };
   switch (determinePostType(thePost, viewing)) {
     case postTypes.multiImage:
-      const n = await viewMultiPost(multiImgElem, viewing);
+      const n = await viewMultiPost(content, viewing);
       result.msg = `${baseMsg} that had #${n} images or videos`;
       break;
     case postTypes.video:
       // select and play the video. The video is maybe an mp4 that is already loaded
       // need to only play it for the length of time we are visiting the post
       // just in case
-      const video = lib.qs('video', videoElem);
-      let playthroughp;
-      if (video) {
-        playthroughp = lib.uaThinksMediaElementCanPlayAllTheWay(video);
-      }
-      await lib.selectElemFromAndClickWithDelay(
-        videoElem,
-        viewing === ViewingSinglePost
-          ? selectors.postPlayVideo
-          : selectors.userPlayVideo
-      );
-      if (playthroughp) {
-        await playthroughp;
-      }
+      await playPostVideo(content);
       result.msg = `${baseMsg} that had a video`;
       result.wait = true;
       break;

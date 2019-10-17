@@ -164,7 +164,7 @@ export const metadata = {
   },
   description:
     'Capture every tweet in hashtag search, including embedded videos, images and replies.',
-  updated: '2019-08-21T16:17:10-04:00',
+  updated: '2019-08-21T14:52:23-07:00',
 };
 
 export const isBehavior = true;

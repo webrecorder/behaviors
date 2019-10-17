@@ -3,6 +3,40 @@ import * as shared from './shared';
 import * as selectors from './selectors';
 import autoScrollBehavior from '../autoscroll';
 
+function extractPostPopupElem(postPopup) {
+  // get the next inner div.dialog because its next sibling is the close button
+  // until instagram decides to change things
+  const innerDivDialog = lib.qs(selectors.userDivDialog, postPopup);
+  // maybe our friendo the close button
+  const maybeCloseButton = lib.getElemSibling(innerDivDialog);
+  const closeButton = lib.elementsNameEquals(maybeCloseButton, 'button')
+    ? maybeCloseButton
+    : null;
+  // get a reference to the posts contents (div.dialog > article)
+  const content = lib.qs(selectors.userPostTopMostContainer, innerDivDialog);
+  return { innerDivDialog, closeButton, content };
+}
+
+async function openPost(maybeA) {
+  await lib.clickWithDelay(maybeA);
+  // wait for the post dialog to open and get a reference to that dom element
+  return lib.waitForAndSelectElement(document, selectors.userDivDialog);
+}
+
+function closePost(closeButton, cliAPI) {
+  // The load more comments button, depending on the number of comments,
+  // will contain two variations of text (see xpathQ for those two variations).
+  // getMoreComments handles getting that button for the two variations
+  if (closeButton != null) {
+    return lib.clickWithDelay(closeButton);
+  }
+  const found = lib.xpathOneOf({
+    xpg: cliAPI.$x,
+    queries: selectors.postPopupCloseXpath,
+  });
+  return lib.clickWithDelay(found.length ? found[0] : found.snapshotItem(0));
+}
+
 async function* handlePost(post, { cliAPI, info }) {
   // open the post (displayed in a separate part of the dom)
   // click the first child of the post div (a tag)
@@ -17,12 +51,8 @@ async function* handlePost(post, { cliAPI, info }) {
     return lib.stateWithMsgNoWait('Encountered a non-post', info.state);
   }
   const postId = shared.postId(maybeA);
-  await lib.clickWithDelay(maybeA);
   // wait for the post dialog to open and get a reference to that dom element
-  const popupDialog = await lib.waitForAndSelectElement(
-    document,
-    selectors.userDivDialog
-  );
+  const popupDialog = await openPost(maybeA);
   if (!popupDialog) {
     return lib.stateWithMsgNoWait(
       `Failed to open ${postId} for viewing`,
@@ -31,26 +61,13 @@ async function* handlePost(post, { cliAPI, info }) {
   }
   yield info.viewingPost(postId);
   lib.collectOutlinksFrom(popupDialog);
-  // get the next inner div.dialog because its next sibling is the close button
-  // until instagram decides to change things
-  const innerDivDialog = lib.qs(selectors.userDivDialog, popupDialog);
-  // maybe our friendo the close button
-  const maybeCloseButton = lib.getElemSibling(innerDivDialog);
-  const closeButton = lib.elementsNameEquals(maybeCloseButton, 'button')
-    ? maybeCloseButton
-    : null;
-  // get a reference to the posts contents (div.dialog > article)
-  const content = lib.qs(selectors.userPostTopMostContainer, popupDialog);
-  // the next image button exists in the popup post even if the post is not
-  // multi-image, so lets get a reference to it
-  const displayDiv = lib.qs(selectors.userMultiImageDisplayDiv, content);
+  const { content, closeButton } = extractPostPopupElem(popupDialog);
   let result;
   try {
     result = await shared.handlePostContent({
       thePost: post,
-      multiImgElem: content,
-      videoElem: displayDiv,
       viewing: shared.ViewingUser,
+      content,
       info,
       postId,
     });
@@ -73,18 +90,7 @@ async function* handlePost(post, { cliAPI, info }) {
     }
   }
   yield info.fullyViewedPost(postId);
-  // The load more comments button, depending on the number of comments,
-  // will contain two variations of text (see xpathQ for those two variations).
-  // getMoreComments handles getting that button for the two variations
-  if (closeButton != null) {
-    await lib.clickWithDelay(closeButton);
-  } else {
-    const found = lib.xpathOneOf({
-      xpg: cliAPI.$x,
-      queries: selectors.postPopupCloseXpath,
-    });
-    await lib.clickWithDelay(found.length ? found[0] : found.snapshotItem(0));
-  }
+  await closePost(closeButton, cliAPI);
 }
 
 function viewStoriesAndLoadPostView(cliAPI, info) {
@@ -111,14 +117,19 @@ function viewStoriesAndLoadPostView(cliAPI, info) {
     yield lib.stateWithMsgNoWait('Loading single post view', info.state);
 
     const initialArticle = lib.qs('article');
-
-    const firstPostHref = lib.qs('a', initialArticle).href;
-
+    const firstPostA = lib.qs('a', initialArticle);
+    const firstPostHref = firstPostA.href;
     const origLoc = window.location.href;
+
+    // need to actually click on a post first in order to get
+    // instagrams internals warmed up
+    const popup = await openPost(firstPostA);
+    const { closeButton } = extractPostPopupElem(popup);
+    await lib.delay(lib.DelayAmount2Seconds);
+    await closePost(closeButton, cliAPI);
 
     window.history.replaceState({}, '', firstPostHref);
     window.dispatchEvent(new PopStateEvent('popstate', { state: {} }));
-
     let postArticle = null;
 
     await lib.waitForPredicate(() => {
@@ -206,7 +217,7 @@ export const metadata = {
   },
   description:
     'Capture all stories, images, videos and comments on user’s page.',
-  updated: '2019-08-21T16:17:10-04:00',
+  updated: '2019-10-11T17:08:12-04:00',
 };
 
 export const isBehavior = true;

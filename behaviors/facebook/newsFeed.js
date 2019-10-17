@@ -1,5 +1,6 @@
 import * as lib from '../../lib';
 import * as selectors from './selectors';
+import { maybeViewPostOrImageInTheater } from './shared';
 
 let behaviorClasses;
 if (debug) {
@@ -66,6 +67,7 @@ export default async function* initFBNewsFeedBehaviorIterator(cliAPI) {
       state.videos++;
       await lib.clickWithDelay(playVideo);
     }
+    await maybeViewPostOrImageInTheater(feedItem);
     let moreCommentsLoaded = 0;
     // the load more comments/replies element is removed once clicked
     // thus we need only to continually select all of the currently rendered
@@ -103,7 +105,7 @@ export const metadata = {
   },
   description:
     'Capture all items and comments in the Facebook timeline and scroll down to load more.',
-  updated: '2019-08-21T16:17:10-04:00',
+  updated: '2019-08-21T14:52:23-07:00',
 };
 
 export const isBehavior = true;
