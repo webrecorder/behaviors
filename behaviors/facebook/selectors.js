@@ -5,7 +5,8 @@ export const UserTimelineItemXPath =
   '//div[contains(@class, "userContentWrapper") and not(contains(@class, "wrvistited"))]';
 export const TheaterItem = 'a[rel="theater"]';
 export const TheaterId = 'photos_snowlift';
-export const TheaterSelector = 'div[aria-label="Facebook Photo Theater"][role="dialog"]';
+export const TheaterSelector =
+  'div[aria-label="Facebook Photo Theater"][role="dialog"]';
 export const CloseTheater = 'a[href="#"]';
 // hyperfeed_story_id_5c4f8af9e0bd66660400368
 

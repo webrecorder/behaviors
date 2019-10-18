@@ -34,6 +34,10 @@ const TestURLs = {
     epub:
       'https://www.fulcrum.org/epubs/b5644s18r?locale=en#/6/2[cover]!/4/1:0',
   },
+  yahoo: {
+    groupconvomessages:
+      'https://groups.yahoo.com/neo/groups/extremeprogramming/conversations/messages',
+  },
 };
 
 const BaseAPIUrl = 'http://localhost:3030';

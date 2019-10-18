@@ -133,7 +133,7 @@ async function performNextStep(runnerHandle, stopEE) {
 async function autorun({ browser, stopEE, runConfig }) {
   const page = await browser.newPage();
   const behavior = await fs.readFile(runConfig.builtPath, 'utf8');
-  await page.goto(runConfig.url, { waitUntil: 'networkidle2' });
+  await page.goto(runConfig.url, { waitUntil: 'load' });
 
   await page.evaluateWithCliAPI(behavior);
 

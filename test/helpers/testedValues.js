@@ -360,6 +360,34 @@ module.exports = {
       behaviorByNameURL:
         'http://localhost:3030/behavior?name=twitterTimelineBehavior',
     },
+    {
+      name: 'Yahoo Groupconvomessages',
+      metadata: {
+        name: 'yahooGroupConvoMessagesBehavior',
+        displayName: 'Yahoo Group Conversation Messages',
+        match: {
+          regex:
+            '^https?:\\/\\/(?:www\\.)?groups\\.yahoo\\.com\\/neo\\/groups\\/[^\\/]+\\/conversations\\/messages(?:[?].+)?$',
+        },
+        description: 'Views conversation messages of a Yahoo Group',
+        updated: '2019-10-23T15:04:10-04:00',
+        fileName: 'yahooGroupsConversationMessagesBehavior.js',
+      },
+      url:
+        'https://groups.yahoo.com/neo/groups/extremeprogramming/conversations/messages',
+      infoURL:
+        'http://localhost:3030/info?url=https://groups.yahoo.com/neo/groups/extremeprogramming/conversations/messages',
+      infoByNameURL:
+        'http://localhost:3030/info?name=yahooGroupConvoMessagesBehavior',
+      infoListURL:
+        'http://localhost:3030/info-list?url=https://groups.yahoo.com/neo/groups/extremeprogramming/conversations/messages',
+      infoListByNameURL:
+        'http://localhost:3030/info-list?name=yahooGroupConvoMessagesBehavior',
+      behaviorURL:
+        'http://localhost:3030/behavior?url=https://groups.yahoo.com/neo/groups/extremeprogramming/conversations/messages',
+      behaviorByNameURL:
+        'http://localhost:3030/behavior?name=yahooGroupConvoMessagesBehavior',
+    },
   ],
   defaultBMD: {
     name: 'autoScrollBehavior',
@@ -372,7 +400,7 @@ module.exports = {
   },
   allResult: {
     url: 'http://localhost:3030/info-all',
-    count: 13,
+    count: 14,
     value: {
       defaultBehavior: {
         name: 'autoScrollBehavior',
@@ -527,6 +555,17 @@ module.exports = {
             'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.',
           updated: '2019-08-21T14:52:23-07:00',
           fileName: 'twitterTimelineBehavior.js',
+        },
+        yahooGroupConvoMessagesBehavior: {
+          name: 'yahooGroupConvoMessagesBehavior',
+          displayName: 'Yahoo Group Conversation Messages',
+          match: {
+            regex:
+              '^https?:\\/\\/(?:www\\.)?groups\\.yahoo\\.com\\/neo\\/groups\\/[^\\/]+\\/conversations\\/messages(?:[?].+)?$',
+          },
+          description: 'Views conversation messages of a Yahoo Group',
+          updated: '2019-10-23T15:04:10-04:00',
+          fileName: 'yahooGroupsConversationMessagesBehavior.js',
         },
       },
     },
