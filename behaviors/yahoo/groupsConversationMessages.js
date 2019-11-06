@@ -125,7 +125,7 @@ export default async function* yahooGroupConvoMessagesBehavior() {
     refindChild: (parent, child) => childRefinder(parent),
     wait: (parent, child) => lib.waitForAdditionalElemChildren(parent),
   });
-  let didFirstMessageLoad = false;
+
   for await (const messageRow of walker.walk()) {
     // if this row in the message list is not a message, skip it
     // there is an invisible h1 that is the first child of the message list
@@ -134,13 +134,16 @@ export default async function* yahooGroupConvoMessagesBehavior() {
       continue;
     }
     const { view, refind, whichMsg } = messageInfo(messageRow);
-    if (!didFirstMessageLoad) {
+
+    if (state.messages === 0) {
       yield lib.stateWithMsgNoWait(
         'Ensuring messages can be viewed individually',
         state
       );
+
+      lib.sendAutoFetchWorkerURLs(selectors.ExtraComboUrls);
+
       await lib.loadPageViaIframe(view.href);
-      didFirstMessageLoad = true;
     }
     childRefinder = refind;
     state.messages++;
@@ -189,7 +192,7 @@ export default async function* yahooGroupConvoMessagesBehavior() {
       'Ensuring next previous message buttons work for current message',
       state
     );
-    await ensureNextPreviousMsgWorks();
+    //await ensureNextPreviousMsgWorks();
     await clickAndCheckLoading(lib.qs(selectors.ViewingMessageBack));
     yield lib.stateWithMsgNoWait(`Viewed message - ${whichMsg}`, state);
   }
