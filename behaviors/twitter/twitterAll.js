@@ -32,17 +32,20 @@ class HistoryState {
     return window.location.href !== this.loc;
   }
 
-  goBack(func) {
+  goBack(backButtonQuery) {
     if (!this.changed) {
       return Promise.resolve(true);
     }
+
+    const backButton = xpathNode(backButtonQuery);
 
     return new Promise((resolve, reject) => {
       window.addEventListener('popstate', (event) => {
       resolve();
       }, {once: true});
-      if (func) {
-        func();
+
+      if (backButton) {
+        backButton.click();
       } else {
         window.history.back();
       }
@@ -75,7 +78,9 @@ function xpathString(path, root) {
 // ===========================================================================
 class TwitterTimeline
 {
-  constructor() {
+  constructor(maxDepth) {
+    this.maxDepth = maxDepth || 0;
+
     this.rootPath = "//div[starts-with(@aria-label, 'Timeline')]/*[1]";
     this.anchorQuery = ".//article";
     this.childMatchSelect = "string(.//article//a[starts-with(@href, '/') and @title]/@href)";
@@ -87,12 +92,14 @@ class TwitterTimeline
     this.imageQuery = ".//a[@role='link' and @aria-haspopup='false' and starts-with(@href, '/') and contains(@href, '/photo/')]";
     this.imageNextQuery = "//div[@aria-label='Next']";
     this.imageCloseQuery = "//div[@aria-label='Close' and @role='button']";
+    this.backButtonQuery = "//div[@aria-label='Back' and @role='button']";
 
     this.progressQuery = ".//*[@role='progressbar']";
 
     this.promoted = './/*[text()="Promoted"]';
 
     this.seenTweets = new Set();
+    this.seenMediaTweets = new Set();
 
     this.state = {
       videos: 0,
@@ -199,7 +206,11 @@ class TwitterTimeline
 
     try {
       const mediaTweetUrl = new URL(xpathString(this.childMatchSelect, tweet.parentElement), window.location.origin).href;
+      if (this.seenMediaTweets.has(mediaTweetUrl)) {
+        return;
+      }
       msg += "for " + mediaTweetUrl;
+      this.seenMediaTweets.add(mediaTweetUrl);
     } catch (e) {
 
     }
@@ -218,7 +229,7 @@ class TwitterTimeline
     await p;
   }
 
-  async* iterTimeline(depth = 0, maxDepth = 0) {
+  async* iterTimeline(depth = 0) {
     if (this.seenTweets.has(window.location.href)) {
       return;
     }
@@ -262,12 +273,7 @@ class TwitterTimeline
 
         await sleep(500);
 
-        const closeButton = xpathNode(this.imageCloseQuery);
-        if (closeButton) {
-          await imageState.goBack(() => closeButton.click()); 
-        } else {
-          await imageState.goBack();
-        }
+        await imageState.goBack(this.imageCloseQuery);
       }
 
       // process quoted tweet
@@ -283,7 +289,7 @@ class TwitterTimeline
         // wait
         await sleep(500);
 
-        await quoteState.goBack();
+        await quoteState.goBack(this.backButtonQuery);
         //tweet = await quoteState.restore(rootPath, childMatch);
 
         // wait before continuing
@@ -302,28 +308,30 @@ class TwitterTimeline
       if (tweetState.changed) {
         yield this.getState("Capturing Tweet: " + window.location.href);
 
-        if (!this.seenTweets.has(window.location.href) && depth < maxDepth) {
+        if (!this.seenTweets.has(window.location.href) && depth < this.maxDepth) {
           this.seenTweets.add(window.location.href);
-          yield* this.iterTimeline(depth + 1, maxDepth);
+          yield* this.iterTimeline(depth + 1, this.maxDepth);
         }
 
         // wait
         await sleep(500);
 
-        await tweetState.goBack();
+        await tweetState.goBack(this.backButtonQuery);
+      }
 
+      if (depth === 0) {
         this.state.viewedFully++;
+      } else {
+        this.state.threadsOrReplies++;
       }
 
       // wait before continuing
       await sleep(500);
-
-      this.state.threadsOrReplies++;
     }
   }
 
   async* [Symbol.asyncIterator]() {
-    yield* this.iterTimeline(0, 2);
+    yield* this.iterTimeline(0);
     yield this.getState("All Done!");
   }
 }
