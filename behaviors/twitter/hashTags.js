@@ -167,4 +167,4 @@ export const metadata = {
   updated: '2019-08-21T14:52:23-07:00',
 };
 
-export const isBehavior = true;
+//export const isBehavior = true;
