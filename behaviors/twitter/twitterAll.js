@@ -109,12 +109,12 @@ class TwitterTimeline
     };
   }
 
-  getState(msg, incrValue) {
+  getState(msg, incrValue, done=false) {
     if (incrValue && this.state[incrValue] != undefined) {
       this.state[incrValue]++;
     }
 
-    return {state: this.state, msg};
+    return {state: this.state, msg, done};
   }
 
   async waitForNext(child) {
@@ -332,7 +332,7 @@ class TwitterTimeline
 
   async* [Symbol.asyncIterator]() {
     yield* this.iterTimeline(0);
-    yield this.getState("All Done!");
+    yield this.getState("All Done!", done=true);
   }
 }
 
