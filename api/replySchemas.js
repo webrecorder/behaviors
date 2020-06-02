@@ -9,6 +9,7 @@ function addSchemas(server) {
       description: { type: 'string' },
       updated: { type: 'string' },
       displayName: { type: 'string' },
+      functional: { type: 'boolean' },
       match: {
         type: 'object',
         properties: {
