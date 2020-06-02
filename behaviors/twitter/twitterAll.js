@@ -243,7 +243,7 @@ class TwitterTimeline
         continue;
       }
 
-      await sleep(500);
+      await sleep(1000);
 
       // process images
       const imagePopup = xpathNode(this.imageQuery, tweet);
@@ -253,25 +253,25 @@ class TwitterTimeline
 
         yield this.getState("Loading Image: " + window.location.href, "images");
 
-        await sleep(500);
+        await sleep(1000);
 
         let nextImage = null;
         let prevLocation = window.location.href;
 
         while (nextImage = xpathNode(this.imageNextQuery)) {
           nextImage.click();
-          await sleep(200);
+          await sleep(400);
 
           if (window.location.href === prevLocation) {
+            await sleep(1000);
             break;
           }
           prevLocation = window.location.href;
 
           yield this.getState("Loading Image: " + window.location.href, "images");
-          await sleep(500);
+          await sleep(1000);
         }
 
-        await sleep(500);
 
         await imageState.goBack(this.imageCloseQuery);
       }
@@ -286,14 +286,19 @@ class TwitterTimeline
 
         yield this.getState("Capturing Quote: " + window.location.href);
 
+        if (!this.seenTweets.has(window.location.href) && depth < this.maxDepth) {
+          yield* this.iterTimeline(depth + 1, this.maxDepth);
+          this.seenTweets.add(window.location.href);
+        }
+
         // wait
-        await sleep(500);
+        await sleep(2000);
 
         await quoteState.goBack(this.backButtonQuery);
         //tweet = await quoteState.restore(rootPath, childMatch);
 
         // wait before continuing
-        await sleep(500);
+        await sleep(1000);
       }
 
       // await any video or audio
@@ -303,14 +308,14 @@ class TwitterTimeline
       // track location to see if click goes to new url
       const tweetState = new HistoryState(() => tweet.click());
 
-      await sleep(100);
+      await sleep(200);
 
       if (tweetState.changed) {
         yield this.getState("Capturing Tweet: " + window.location.href);
 
         if (!this.seenTweets.has(window.location.href) && depth < this.maxDepth) {
-          this.seenTweets.add(window.location.href);
           yield* this.iterTimeline(depth + 1, this.maxDepth);
+          this.seenTweets.add(window.location.href);
         }
 
         // wait
@@ -326,7 +331,7 @@ class TwitterTimeline
       }
 
       // wait before continuing
-      await sleep(500);
+      await sleep(1000);
     }
   }
 
@@ -337,8 +342,9 @@ class TwitterTimeline
 }
 
 
+
 export default async function* timelineIterator(cliApi) {
-  yield* new TwitterTimeline(2);
+  yield* new TwitterTimeline(1);
 }
 
 
@@ -354,3 +360,5 @@ export const metadata = {
 };
 
 export const isBehavior = true;
+
+
