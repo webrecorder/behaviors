@@ -98,6 +98,7 @@ export default function instagramOwnFeedBehavior(cliAPI) {
 export const metadata = {
   name: 'instagramOwnFeedBehavior',
   displayName: 'Instagram User Feed',
+  functional: true,
   match: {
     regex: /^https?:\/\/(www\.)?instagram\.com(?:\/)?$/,
   },

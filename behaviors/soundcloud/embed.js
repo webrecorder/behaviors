@@ -55,6 +55,7 @@ export default async function* soundCloudEmbedBehavior(cliAPI) {
 export const metadata = {
   name: 'soundCloudEmbedBehavior',
   displayName: 'Soundcloud Embed',
+  functional: true,
   match: {
     regex: /^https?:\/\/w\.soundcloud\.com\/player\/.+/,
   },

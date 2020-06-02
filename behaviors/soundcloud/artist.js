@@ -193,6 +193,7 @@ export default async function* visitSoundItems(cliAPI) {
 export const metadata = {
   name: 'soundCloudArtistBehavior',
   displayName: 'Soundcloud Profile',
+  functional: true,
   match: {
     regex: /^(?:https?:\/\/(?:www\.)?)?soundcloud\.com\/(?!(?:discover|stream))[^/]+(?:\/(?:tracks|albums|sets|reposts))?(?:\/)?$/,
   },

@@ -224,6 +224,7 @@ export const isBehavior = true;
 export const metadata = {
   name: 'yahooGroupConvoMessagesBehavior',
   displayName: 'Yahoo Group Conversation Messages',
+  functional: true,
   match: {
     regex: /^https?:\/\/(?:www\.)?groups\.yahoo\.com\/neo\/groups\/[^/]+\/conversations\/messages(?:[?].+)?$/,
   },

@@ -56,6 +56,7 @@ export default async function* instagramPostBehavior(cliAPI) {
 export const metadata = {
   name: 'instagramPostBehavior',
   displayName: 'Instagram Post',
+  functional: true,
   match: {
     regex: /^https?:\/\/(www\.)?instagram\.com\/p\/[^/]+(?:\/)?$/,
   },
