@@ -81,9 +81,9 @@ class TwitterTimeline
   constructor(maxDepth) {
     this.maxDepth = maxDepth || 0;
 
-    this.rootPath = "//div[starts-with(@aria-label, 'Timeline')]/*[1]";
+    this.rootPath = "//div[starts-with(@aria-label, 'Timeline')]/*[1]/*[1]";
     this.anchorQuery = ".//article";
-    this.childMatchSelect = "string(.//article//a[starts-with(@href, '/') and @title]/@href)";
+    this.childMatchSelect = "string(.//article//a[starts-with(@href, '/') and @aria-label]/@href)";
     this.childMatch = "child::div[.//a[@href='$1']]";
 
     this.expandQuery = ".//div[@role='button' and @aria-haspopup='false']//*[contains(text(), 'more repl')]";
@@ -226,7 +226,7 @@ class TwitterTimeline
       media.addEventListener("pause", () => resolve());
     });
 
-    await p;
+    await Promise.race([p, sleep(60000)]);
   }
 
   async* iterTimeline(depth = 0) {
@@ -337,11 +337,9 @@ class TwitterTimeline
 
   async* [Symbol.asyncIterator]() {
     yield* this.iterTimeline(0);
-    yield this.getState("All Done!", done=true);
+    yield this.getState("All Done!", true);
   }
 }
-
-
 
 export default async function* timelineIterator(cliApi) {
   yield* new TwitterTimeline(1);
@@ -351,6 +349,7 @@ export default async function* timelineIterator(cliApi) {
 export const metadata = {
   name: 'twitterTimelineBehavior',
   displayName: 'Twitter Timeline',
+  functional: true,
   match: {
     regex: /^(?:https?:[/]{2}(?:www[.])?)?twitter[.]com[/]?.*/,
   },

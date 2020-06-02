@@ -93,6 +93,7 @@ export default async function* autoScrollBehavior(init) {
 
 export const metadata = {
   name: 'autoScrollBehavior',
+  functional: true,
   displayName: 'Default Scrolling',
   defaultBehavior: true,
   description:

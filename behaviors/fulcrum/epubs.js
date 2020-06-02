@@ -80,6 +80,7 @@ export const isBehavior = true;
 export const metadata = {
   name: 'fulcrumEpubBehavior',
   displayName: 'Fulcrum Epub',
+  functional: true,
   match: {
     regex: /https?:\/\/(www\.)?fulcrum\.org\/epubs\/.+/,
   },
