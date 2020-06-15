@@ -45,7 +45,7 @@
     "build-docs": "esdoc",
     "build-prod": "rollup -c rollup.prod.config.js",
     "build-watch": "rollup --watch -c rollup.dev.config.js",
-    "generate-runnable-behaviors": "node bin/cli-build -b",
+    "generate-runnable-behaviors": "node bin/cli-behaviors -b",
     "generate-stdlib-debug": "node ./bin/cli-stdlib --debug-script",
     "generate-stdlib-index": "node ./bin/cli-stdlib --gen-index",
     "generate-test-helper-values": "node ./internal/generateTestHelperValues.js",
