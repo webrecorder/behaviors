@@ -29,6 +29,7 @@
     "plur": "^3.1.1",
     "prettier": "^1.18.2",
     "pretty-time": "^1.1.0",
+    "puppeteer": "^3.3.0",
     "qs": "^6.9.0",
     "rollup": "^1.23.1",
     "rollup-plugin-alias": "^2.0.1",
