@@ -12,6 +12,7 @@
     "@babel/traverse": "^7.6.3",
     "@babel/types": "^7.6.3",
     "acorn": "^7.1.0",
+    "cdxj": "^1.0.2",
     "chalk": "^2.4.2",
     "cheerio": "^1.0.0-rc.2",
     "chokidar": "^3.2.1",
@@ -35,6 +36,7 @@
     "rollup-plugin-alias": "^2.0.1",
     "rollup-plugin-cleanup": "^3.1.1",
     "rollup-plugin-node-resolve": "^5.2.0",
+    "run-series": "^1.1.8",
     "ts-morph": "^4.2.0",
     "typescript": "^3.6.4",
     "uuid": "^3.3.3"

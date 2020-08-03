@@ -1,8 +1,9 @@
 const puppeteer = require('puppeteer');
 
-export default async (t, run) => {
+module.exports = async (t, run) => {
   const browser = await puppeteer.launch({
-    ignoreHTTPSErrors: true
+    ignoreHTTPSErrors: true,
+    args: [ '--proxy-server=http://127.0.0.1:8080' ]
   });
   const page = await browser.newPage({
     waitUntil: 'networkIdle'

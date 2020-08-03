@@ -3,13 +3,10 @@ import rp from 'request-promise-native';
 import startServer from './helpers/testServer';
 import { tests, allResult, defaultBMD } from './helpers/testedValues';
 import { loadBehavior } from './helpers/utils';
-import withPage from './_withPage'
 import fs from 'fs'
 import path from 'path'
 
 const output = path.join(__dirname, 'output')
-
-var stream = fs.createWriteStream(output)
 
 /**
  * @type {fastify.FastifyInstance}
@@ -26,17 +23,6 @@ test.after.always(t => {
 });
 
 for (const aTest of tests) {
-  test(`Retrieving the behavior js for "${
-    aTest.name
-  }" by URL should work`, withPage, async (t, page) => {
-    const response = await rp(aTest.behaviorURL);
-    const expectedBehavior = await loadBehavior(aTest.metadata.fileName);
-    t.is(response, expectedBehavior);
-    console.log(expectedBehavior)
-    await page.goto(aTest.url);
-    await page.addScriptTag({content: expectedBehavior});
-  });
-
   test(`Retrieving the behavior info for "${
     aTest.name
   }" by URL should work`, async t => {

@@ -97,3 +97,11 @@ The default configuration of the image is to run the api server, however you can
 with any of the cli commands listed previously.
 
 For more information please consult the provided `Dockerfile` and `docker-compose.yml` files.
+
+#### Testing
+
+```
+yarn build-dev
+yarn generate-test-helper-values
+yarn generate-runnable-behaviors
+```

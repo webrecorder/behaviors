@@ -4,6 +4,7 @@ module.exports = {
       name: 'Autoscroll',
       metadata: {
         name: 'autoScrollBehavior',
+        functional: true,
         displayName: 'Default Scrolling',
         defaultBehavior: true,
         description:
@@ -53,6 +54,7 @@ module.exports = {
       metadata: {
         name: 'slideShareBehavior',
         displayName: 'SlideShare',
+        functional: true,
         match: {
           regex: '^(?:https?:\\/\\/(?:www\\.)?)slideshare\\.net\\/.+',
         },
@@ -80,6 +82,7 @@ module.exports = {
       metadata: {
         name: 'youtubeVideoBehavior',
         displayName: 'Youtube',
+        functional: true,
         match: {
           regex: '^(?:https?:\\/\\/(?:www\\.)?)?youtube\\.com\\/watch[?]v=.+',
         },
@@ -130,7 +133,7 @@ module.exports = {
         name: 'facebookUserFeed',
         displayName: 'Facebook Page',
         match: {
-          regex: '^https?:\\/\\/(www\\.)?facebook\\.com\\/[^\\/]+\\/?$',
+          regex: '^https?:\\/\\/(www\\.)?facebook\\.com\\/[^/]+\\/?$',
         },
         description:
           'Capture all items and comments in the Facebook page and scroll down to load more content where possible.',
@@ -154,6 +157,7 @@ module.exports = {
       metadata: {
         name: 'fulcrumEpubBehavior',
         displayName: 'Fulcrum Epub',
+        functional: true,
         match: {
           regex: 'https?:\\/\\/(www\\.)?fulcrum\\.org\\/epubs\\/.+',
         },
@@ -180,6 +184,7 @@ module.exports = {
       metadata: {
         name: 'instagramOwnFeedBehavior',
         displayName: 'Instagram User Feed',
+        functional: true,
         match: {
           regex: '^https?:\\/\\/(www\\.)?instagram\\.com(?:\\/)?$',
         },
@@ -205,9 +210,9 @@ module.exports = {
       metadata: {
         name: 'instagramPostBehavior',
         displayName: 'Instagram Post',
+        functional: true,
         match: {
-          regex:
-            '^https?:\\/\\/(www\\.)?instagram\\.com\\/p\\/[^\\/]+(?:\\/)?$',
+          regex: '^https?:\\/\\/(www\\.)?instagram\\.com\\/p\\/[^/]+(?:\\/)?$',
         },
         description:
           'Capture every image and/or video, retrieve all comments, and scroll down to load more.',
@@ -232,9 +237,10 @@ module.exports = {
       metadata: {
         name: 'instagramUserBehavior',
         displayName: 'Instagram User Page',
+        functional: true,
         match: {
           regex:
-            '^https?:\\/\\/(www\\.)?instagram\\.com\\/[^\\/]+(?:\\/(?:[?].+)?(?:tagged(?:\\/)?)?)?$',
+            '^https?:\\/\\/(www\\.)?instagram\\.com\\/[^/]+(?:\\/(?:[?].+)?(?:tagged(?:\\/)?)?)?$',
         },
         description:
           'Capture all stories, images, videos and comments on user’s page.',
@@ -259,9 +265,10 @@ module.exports = {
       metadata: {
         name: 'soundCloudArtistBehavior',
         displayName: 'Soundcloud Profile',
+        functional: true,
         match: {
           regex:
-            '^(?:https?:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/(?!(?:discover|stream))[^\\/]+(?:\\/(?:tracks|albums|sets|reposts))?(?:\\/)?$',
+            '^(?:https?:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/(?!(?:discover|stream))[^/]+(?:\\/(?:tracks|albums|sets|reposts))?(?:\\/)?$',
         },
         description: 'Capture every track on Soundcloud profile.',
         updated: '2019-08-21T14:52:23-07:00',
@@ -285,6 +292,7 @@ module.exports = {
       metadata: {
         name: 'soundCloudEmbedBehavior',
         displayName: 'Soundcloud Embed',
+        functional: true,
         match: {
           regex: '^https?:\\/\\/w\\.soundcloud\\.com\\/player\\/.+',
         },
@@ -307,45 +315,18 @@ module.exports = {
         'http://localhost:3030/behavior?name=soundCloudEmbedBehavior',
     },
     {
-      name: 'Twitter Hashtags',
-      metadata: {
-        name: 'twitterHashTagsBehavior',
-        displayName: 'Twitter Hashtag',
-        match: {
-          regex:
-            '^(?:https?:\\/\\/(?:www\\.)?)?twitter\\.com\\/hashtag\\/[^?]+.*',
-        },
-        description:
-          'Capture every tweet in hashtag search, including embedded videos, images and replies.',
-        updated: '2019-08-21T14:52:23-07:00',
-        fileName: 'twitterHashTagsBehavior.js',
-      },
-      url: 'https://twitter.com/hashtag/iipcwac18?vertical=default&src=hash',
-      infoURL:
-        'http://localhost:3030/info?url=https://twitter.com/hashtag/iipcwac18?vertical=default&src=hash',
-      infoByNameURL: 'http://localhost:3030/info?name=twitterHashTagsBehavior',
-      infoListURL:
-        'http://localhost:3030/info-list?url=https://twitter.com/hashtag/iipcwac18?vertical=default&src=hash',
-      infoListByNameURL:
-        'http://localhost:3030/info-list?name=twitterHashTagsBehavior',
-      behaviorURL:
-        'http://localhost:3030/behavior?url=https://twitter.com/hashtag/iipcwac18?vertical=default&src=hash',
-      behaviorByNameURL:
-        'http://localhost:3030/behavior?name=twitterHashTagsBehavior',
-    },
-    {
       name: 'Twitter Timeline',
       metadata: {
         name: 'twitterTimelineBehavior',
         displayName: 'Twitter Timeline',
+        functional: true,
         match: {
-          regex:
-            '^(?:https?:[\\/]{2}(?:www[.])?)?twitter[.]com[\\/]?(?:[^\\/]+[\\/]?)?$',
+          regex: '^(?:https?:[/]{2}(?:www[.])?)?twitter[.]com[/]?.*',
         },
         description:
-          'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.',
-        updated: '2019-08-21T14:52:23-07:00',
-        fileName: 'twitterTimelineBehavior.js',
+          'Capture every tweet, including quotes, embedded videos, images, replies and/or related tweets in thread.',
+        updated: '2020-04-27T00:00:00Z',
+        fileName: 'twitterTwitterAllBehavior.js',
       },
       url: 'https://twitter.com/webrecorder_io',
       infoURL:
@@ -365,9 +346,10 @@ module.exports = {
       metadata: {
         name: 'yahooGroupConvoMessagesBehavior',
         displayName: 'Yahoo Group Conversation Messages',
+        functional: true,
         match: {
           regex:
-            '^https?:\\/\\/(?:www\\.)?groups\\.yahoo\\.com\\/neo\\/groups\\/[^\\/]+\\/conversations\\/messages(?:[?].+)?$',
+            '^https?:\\/\\/(?:www\\.)?groups\\.yahoo\\.com\\/neo\\/groups\\/[^/]+\\/conversations\\/messages(?:[?].+)?$',
         },
         description: 'Views conversation messages of a Yahoo Group',
         updated: '2019-10-23T15:04:10-04:00',
@@ -391,6 +373,7 @@ module.exports = {
   ],
   defaultBMD: {
     name: 'autoScrollBehavior',
+    functional: true,
     displayName: 'Default Scrolling',
     defaultBehavior: true,
     description:
@@ -400,10 +383,11 @@ module.exports = {
   },
   allResult: {
     url: 'http://localhost:3030/info-all',
-    count: 14,
+    count: 13,
     value: {
       defaultBehavior: {
         name: 'autoScrollBehavior',
+        functional: true,
         displayName: 'Default Scrolling',
         defaultBehavior: true,
         description:
@@ -426,6 +410,7 @@ module.exports = {
         slideShareBehavior: {
           name: 'slideShareBehavior',
           displayName: 'SlideShare',
+          functional: true,
           match: {
             regex: '^(?:https?:\\/\\/(?:www\\.)?)slideshare\\.net\\/.+',
           },
@@ -437,6 +422,7 @@ module.exports = {
         youtubeVideoBehavior: {
           name: 'youtubeVideoBehavior',
           displayName: 'Youtube',
+          functional: true,
           match: {
             regex: '^(?:https?:\\/\\/(?:www\\.)?)?youtube\\.com\\/watch[?]v=.+',
           },
@@ -459,7 +445,7 @@ module.exports = {
           name: 'facebookUserFeed',
           displayName: 'Facebook Page',
           match: {
-            regex: '^https?:\\/\\/(www\\.)?facebook\\.com\\/[^\\/]+\\/?$',
+            regex: '^https?:\\/\\/(www\\.)?facebook\\.com\\/[^/]+\\/?$',
           },
           description:
             'Capture all items and comments in the Facebook page and scroll down to load more content where possible.',
@@ -469,6 +455,7 @@ module.exports = {
         fulcrumEpubBehavior: {
           name: 'fulcrumEpubBehavior',
           displayName: 'Fulcrum Epub',
+          functional: true,
           match: {
             regex: 'https?:\\/\\/(www\\.)?fulcrum\\.org\\/epubs\\/.+',
           },
@@ -479,6 +466,7 @@ module.exports = {
         instagramOwnFeedBehavior: {
           name: 'instagramOwnFeedBehavior',
           displayName: 'Instagram User Feed',
+          functional: true,
           match: {
             regex: '^https?:\\/\\/(www\\.)?instagram\\.com(?:\\/)?$',
           },
@@ -490,9 +478,10 @@ module.exports = {
         instagramPostBehavior: {
           name: 'instagramPostBehavior',
           displayName: 'Instagram Post',
+          functional: true,
           match: {
             regex:
-              '^https?:\\/\\/(www\\.)?instagram\\.com\\/p\\/[^\\/]+(?:\\/)?$',
+              '^https?:\\/\\/(www\\.)?instagram\\.com\\/p\\/[^/]+(?:\\/)?$',
           },
           description:
             'Capture every image and/or video, retrieve all comments, and scroll down to load more.',
@@ -502,9 +491,10 @@ module.exports = {
         instagramUserBehavior: {
           name: 'instagramUserBehavior',
           displayName: 'Instagram User Page',
+          functional: true,
           match: {
             regex:
-              '^https?:\\/\\/(www\\.)?instagram\\.com\\/[^\\/]+(?:\\/(?:[?].+)?(?:tagged(?:\\/)?)?)?$',
+              '^https?:\\/\\/(www\\.)?instagram\\.com\\/[^/]+(?:\\/(?:[?].+)?(?:tagged(?:\\/)?)?)?$',
           },
           description:
             'Capture all stories, images, videos and comments on user’s page.',
@@ -514,9 +504,10 @@ module.exports = {
         soundCloudArtistBehavior: {
           name: 'soundCloudArtistBehavior',
           displayName: 'Soundcloud Profile',
+          functional: true,
           match: {
             regex:
-              '^(?:https?:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/(?!(?:discover|stream))[^\\/]+(?:\\/(?:tracks|albums|sets|reposts))?(?:\\/)?$',
+              '^(?:https?:\\/\\/(?:www\\.)?)?soundcloud\\.com\\/(?!(?:discover|stream))[^/]+(?:\\/(?:tracks|albums|sets|reposts))?(?:\\/)?$',
           },
           description: 'Capture every track on Soundcloud profile.',
           updated: '2019-08-21T14:52:23-07:00',
@@ -525,6 +516,7 @@ module.exports = {
         soundCloudEmbedBehavior: {
           name: 'soundCloudEmbedBehavior',
           displayName: 'Soundcloud Embed',
+          functional: true,
           match: {
             regex: '^https?:\\/\\/w\\.soundcloud\\.com\\/player\\/.+',
           },
@@ -532,36 +524,25 @@ module.exports = {
           updated: '2019-08-21T14:52:23-07:00',
           fileName: 'soundcloudEmbedBehavior.js',
         },
-        twitterHashTagsBehavior: {
-          name: 'twitterHashTagsBehavior',
-          displayName: 'Twitter Hashtag',
-          match: {
-            regex:
-              '^(?:https?:\\/\\/(?:www\\.)?)?twitter\\.com\\/hashtag\\/[^?]+.*',
-          },
-          description:
-            'Capture every tweet in hashtag search, including embedded videos, images and replies.',
-          updated: '2019-08-21T14:52:23-07:00',
-          fileName: 'twitterHashTagsBehavior.js',
-        },
         twitterTimelineBehavior: {
           name: 'twitterTimelineBehavior',
           displayName: 'Twitter Timeline',
+          functional: true,
           match: {
-            regex:
-              '^(?:https?:[\\/]{2}(?:www[.])?)?twitter[.]com[\\/]?(?:[^\\/]+[\\/]?)?$',
+            regex: '^(?:https?:[/]{2}(?:www[.])?)?twitter[.]com[/]?.*',
           },
           description:
-            'Capture every tweet, including embedded videos, images, replies and/or related tweets in thread.',
-          updated: '2019-08-21T14:52:23-07:00',
-          fileName: 'twitterTimelineBehavior.js',
+            'Capture every tweet, including quotes, embedded videos, images, replies and/or related tweets in thread.',
+          updated: '2020-04-27T00:00:00Z',
+          fileName: 'twitterTwitterAllBehavior.js',
         },
         yahooGroupConvoMessagesBehavior: {
           name: 'yahooGroupConvoMessagesBehavior',
           displayName: 'Yahoo Group Conversation Messages',
+          functional: true,
           match: {
             regex:
-              '^https?:\\/\\/(?:www\\.)?groups\\.yahoo\\.com\\/neo\\/groups\\/[^\\/]+\\/conversations\\/messages(?:[?].+)?$',
+              '^https?:\\/\\/(?:www\\.)?groups\\.yahoo\\.com\\/neo\\/groups\\/[^/]+\\/conversations\\/messages(?:[?].+)?$',
           },
           description: 'Views conversation messages of a Yahoo Group',
           updated: '2019-10-23T15:04:10-04:00',

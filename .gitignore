@@ -60,3 +60,9 @@ typings/
 .vuepress/dist
 .serverless
 docs
+## status
+test/status/proxy-certs
+test/status/templates
+test/status/static
+test/status/collections
+
