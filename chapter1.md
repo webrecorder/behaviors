@@ -12,7 +12,13 @@ Web archives may be utilized by future researchers, historians and the general p
 Autopilot is a tool that navigates a website similarly to how a human would, doing things like scrolling, clicking buttons, and playing videos. These actions executed through functions called "behaviors." Because Autopilot can go through the technically complicated aspects of a website, it is useful for recording high-fidelity websites.
 
 ## Installing Autopilot
-Both [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) must be installed to run Autopilot. 
+
+To use this project you must first install its dependencies
+
+`$ yarn install
+# or "npm install"`
+
+If you wish to use this project via Docker, install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/).
 
 To install Autopilot, use Terminal to clone the Webrecorder repository: 
 1. `git clone `
@@ -22,10 +28,13 @@ To install Autopilot, use Terminal to clone the Webrecorder repository:
 
 The Autopilot instance can be accessed in the browser at `http://localhost:8089`.
 
-^^ EXPLAIN BETTER, also do I need to explain remote browsers/what Docker is?
 
 ## Autopilot basics
-	Autopilot 
+	Autopilot uses [behaviors](https://github.com/webrecorder/behaviors/blob/master/manual/behaviors.md) to collect metadata from websites. Behaviors are Javascript modules which 
+
+##About Web Traffic
+
+
 ## Status page: pre-made behaviors
 
 
