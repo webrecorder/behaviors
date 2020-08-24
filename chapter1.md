@@ -36,22 +36,6 @@ The Autopilot instance can be accessed in the browser at `http://localhost:8089`
 ## Autopilot basics
 Autopilot uses [behaviors](https://github.com/webrecorder/behaviors/blob/master/manual/behaviors.md) to collect metadata from websites. Behaviors are Javascript modules which perform a series of actions on a webpage in order to collect information. 
 
-Autopilot has a cli, which has the following commands available. 
-
-```
-$ ./bin/cli --help
-
-Usage: cli [options] [command]
-
-Options:
-  -V, --version  output the version number
-  -h, --help     output usage information
-
-Commands:
-  api            Start the behavior api sever
-  behaviors      Build and or validate behaviors, or generate their metadata
-  help [cmd]     display help for [cmd]
-```
 
 The cli provides two commands API and behaviors and each command has its own options.
 
@@ -60,24 +44,6 @@ The cli provides two commands API and behaviors and each command has its own opt
 Execute `./bin/cli behaviors -b` to build the behaviors made available, using the config file located at the root of the project. 
 
 The built behaviors, along with a behavior metadata file (`behaviorMetadata.js`), can be found in the `dist` directory which will be created for you if it does not exist in the root of this project.
-
-The following options are available to use with the behaviors command:
-
-```
-
-$ ./bin/cli behaviors --help
-
-Usage: cli-behaviors [options]
-
-Options:
-  -V, --version                    output the version number
-  -v, --validate [fileOrDir]       
-  -c, --config [configPath]        Path to the behavior config file (default: "<path to wr-behaviors>/behavior-config.yml")
-  -b, --build [fileOrDir]          Build a behaviors or all behaviors contained within a directory (default: true)
-  -w, --watch [behaviorFileOrDir]  Watch the files, and their imports, in the build directory for re-bundling on changes (placed in dist directory)
-  --metadata [dumpDir]             Generate behavior metadata, optionally supplying a path to directory where metadata is to be placed. Defaults to current working directory
-  -h, --help                       output usage information
-```
 
 
 # API command
@@ -88,22 +54,6 @@ This will start the API server after all behaviors provided by this project have
 
 If you have already built the behaviors using the `behaviors` command provided by the cli then you may omit the `--build-behaviors` flag.
 
-The following options are available to use with the API command:
-
-```
-$ ./bin/cli api --help
-
-Usage: cli-api [options]
-
-Options:
-  -V, --version                        output the version number
-  -p, --port [port]                    The port the api server is to bind to (default: 3030)
-  -h, --host [host]                    The host address the server is listen on (default: "127.0.0.1")
-  -b, --behaviorDir [behaviorDir]      The path to the directory containing the build behaviors (default: "<path to wr-behaviors>/dist")
-  -m, --behaviorMetadata [medataPath]  The path to the behavior metadata (default: "<path to wr-behaviors>/dist/behaviorMetadata.js")
-  --build-behaviors                    Should the api server build the behaviors for starting up
-  -h, --help                           output usage information
-```
 
 Some configuration of the API server can be done via the environment variables listed below
 
