@@ -63,12 +63,29 @@ Some configuration of the API server can be done via the environment variables l
 * `WR_BEHAVIOR_METADATA_PATH`: path to the behavior metadata file
 * `BUILD_BEHAVIORS`: should the api server build the behaviors before starting
 
-//I can't yet explain how to use autopilot in the browser since the extension isn't finished yet, right? 
+
+
+# Docker
+To build the wr-behaviors docker image (`webrecorder/behaviors:latest`) execute `docker-compose build`.
+
+The image created is suitable for building behaviors and running the behavior api server.
+
+The default configuration of the image is to run the api server, however you can substitute the default command with any of the cli commands listed previously.
+
+For more information please consult the provided `Dockerfile` and `docker-compose.yml` files.
 
 ## About Web Traffic
 
 
 ## Status page: pre-made behaviors
+
+# Autoscrool
+
+# Instagram
+
+# Twitter
+
+# Youtube Video
 
 
 
