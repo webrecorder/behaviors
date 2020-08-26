@@ -21,15 +21,35 @@ Every behavior has:
 
 1. a **default export** that is an [async generator function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_generators) or a function returning an [async iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_generators).
 
+```js
+export detault async function* myBehavior(cliAPI){...}
+```
 
-2. named export metadata that is an object
+2. named export ***metadata*** that is an object
+
+	Details: the ***metadata*** object gives information about the behavior. In this object you should include the data about the name, whether it's functional, the display name, whether it's a default behavior, a description about the behavior, and when it was last updated.
+
+	Example of expected format, taken from the [autoscroll behavior](https://github.com/webrecorder/behaviors/blob/master/behaviors/autoscroll.js):
+```js
+export const metadata = {
+  name: 'autoScrollBehavior',
+  functional: true,
+  displayName: 'Default Scrolling',
+  defaultBehavior: true,
+  description:
+    'Default behavior for any page. Automatically scrolls down the page as much as possible. If additional content loads that increases page height, scrolling will continue until autopilot is stopped by user. Any discovered audio/video is played, but no other interactions are performed.',
+  updated: '2019-08-21T14:52:23-07:00',
+};
+```
 
 3. named export **isBehavior**.
 
-Details: **isBehavior** is a constant that you will flag as **true** when the behavior is complete and ready to be used. Otherwise, while the behavior is in progress, keep it as **false**.
+	Details: **isBehavior** is a constant that you will flag as **true** when the file is complete and ready to be used. Otherwise, while the file is still in progress, keep it as **false**.
 
-Example of expected format:
-`export const isBehavior = true;`
+	Example of expected format:
+```js
+export const isBehavior = true;
+```
 
 
 
