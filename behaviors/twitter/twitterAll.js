@@ -81,7 +81,7 @@ class TwitterTimeline
   constructor(maxDepth) {
     this.maxDepth = maxDepth || 0;
 
-    this.rootPath = "//div[starts-with(@aria-label, 'Timeline')]/*[1]/*[1]";
+    this.rootPath = "//div[starts-with(@aria-label, 'Timeline')]/*[1]";
     this.anchorQuery = ".//article";
     this.childMatchSelect = "string(.//article//a[starts-with(@href, '/') and @aria-label]/@href)";
     this.childMatch = "child::div[.//a[@href='$1']]";
