@@ -25,23 +25,18 @@ Every behavior has:
 export detault async function* myBehavior(cliAPI){...}
 ```
 
+More details on how the default export should be written can be found under the [Default Export](#default-heading) section.
+
 2. an export named ***metadata*** that is an object
 
-	Details: the ***metadata*** object gives information about the behavior. In this object you should include the data about the name, whether it's functional, the display name, whether it's a default behavior, a description about the behavior, and when it was last updated.
+	Details: the ***metadata*** object gives information about the behavior, such as when it was last updated, whether it's functional, its display name, etc.
 
-	Example of expected format, taken from the [autoscroll behavior](https://github.com/webrecorder/behaviors/blob/master/behaviors/autoscroll.js):
+	Example of expected format:
 ```js
-export const metadata = {
-  name: 'autoScrollBehavior',
-  functional: true,
-  displayName: 'Default Scrolling',
-  defaultBehavior: true,
-  description:
-    'Default behavior for any page. Automatically scrolls down the page as much as possible. If additional content loads that increases page height, scrolling will continue until autopilot is stopped by user. Any discovered audio/video is played, but no other interactions are performed.',
-  updated: '2019-08-21T14:52:23-07:00',
-};
+	export const metadata = { ... };
 ```
-More details on metadata and how the metadata object should be written can be found under the [Metadata](#metadata-heading) section.
+
+More details on how the metadata object should be written can be found under the [Metadata](#metadata-heading) section.
 
 3. an export named **isBehavior**.
 
@@ -59,7 +54,7 @@ to use.
 
 It's important to note that the tools will not recognize that the behavior is ready for use and valid if any of these three main components (the default export, **isBehavior**, and **metadata**) are missing.
 
-The export `postStep` can be called after each action to convert the yielded results into the [expected format] (https://github.com/webrecorder/behaviors/blob/master/typedef/index.html#static-typedef-BehaviorStepResults).
+The export `postStep` can be called after each action to convert the yielded results into the [expected format](https://github.com/webrecorder/behaviors/blob/master/typedef/index.html#static-typedef-BehaviorStepResults).
 <!-- The link for this is broken.-->
 
 It is recommended that you use the library function [lib.buildCustomPostStepFn](https://github.com/webrecorder/behaviors/blob/master/function/index.html#static-function-buildCustomPostStepFn) if you want to perform some kind of action after each behavior step that is not directly tied to the running of the behavior.
@@ -70,12 +65,23 @@ export const postStep = lib.buildCustomPostStepFn(() => { ... });
 ```
 
 ###Metadata {#metadata-heading}
-A behavior's exported metadata is used to:
+A behavior's exported metadata object is used to:
 
 - describe how the behavior should be matched to the pages it is written for
 - provide an overview of what the behavior does
-- have a more specific name associated with it when querying for it using the behavior api
+- provide a more specific name associated with it when querying for it using the behavior api
 - embed any additional information about the behavior
+
+With those usages in mind, every metadata object is expected to have the following properties:
+
+- name (string): the name for your behavior to be used when querying the behavior API for it by name
+- description (string): a description of the behavior
+- match (object): how the behavior will be matched to the page(s) it is written for
+
+
+
+
+###Default Export (#default-heading)
 
 ## Testing your first behavior
 
