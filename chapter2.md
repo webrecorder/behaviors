@@ -74,10 +74,44 @@ A behavior's exported metadata object is used to:
 
 With those usages in mind, every metadata object is expected to have the following properties:
 
-- name (string): the name for your behavior to be used when querying the behavior API for it by name
-- description (string): a description of the behavior
-- match (object): how the behavior will be matched to the page(s) it is written for
+- ***name*** (string): the name for your behavior to be used when querying the behavior API for it by name
+- ***description*** (string): a description of the behavior
+- ***match*** (object): how the behavior will be matched to the page(s) it is written for
 
+The ***match*** object has two variations and is shown below in the context of two valid metadata exports.
+
+```js
+// variation 1
+export const metadata = {
+  name: 'the name of your behavior',
+  match: {
+    regex: /a regular expression dictating the URL the behavior will run on/,
+  },
+  description: 'an description of what your behavior does',
+};
+```
+The first variation, shown above, defines a single property `regex` that is an JavaScript [RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp). The behavior using variation one is considered matched to an URL when the regular expression, defined in the `regex` property of match, matches the URL.
+
+
+The second variation, shown below, has two properties `base` (RegExp) and `sub` (Array).
+
+The `base` regular expression is used as a generic test. If `base` matches a URL, the regular expressions in the `sub` array will be tested against the same URL.
+
+```js
+// variation 2
+export const metadata = {
+  name: 'the name of your behavior',
+  match: {
+    regex: {
+      base: /a regular expression dictating the base URL the behavior will run on/,
+      sub: [
+        /an array of regular expressions dictating more specific parts of the base URL the behavior will run on/,
+      ],
+    },
+  },
+  description: 'a description of what your behavior does',
+};
+```
 
 
 
@@ -86,5 +120,7 @@ With those usages in mind, every metadata object is expected to have the followi
 ## Testing your first behavior
 
 ## Fixing a broken behavior
+
+When a behavior breaks, they click “fix this behavior,” and if someone has little js knowledge then they should be able to fix it
 
 ## Checking behavior status
