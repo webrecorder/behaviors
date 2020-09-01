@@ -64,7 +64,7 @@ It is recommended that you use the library function [lib.buildCustomPostStepFn](
 export const postStep = lib.buildCustomPostStepFn(() => { ... });
 ```
 
-###Metadata {#metadata-heading}
+### Metadata {#metadata-heading}
 A behavior's exported metadata object is used to:
 
 - describe how the behavior should be matched to the pages it is written for
@@ -74,11 +74,11 @@ A behavior's exported metadata object is used to:
 
 With those usages in mind, every metadata object is expected to have the following properties:
 
-- ***name*** (string): the name for your behavior to be used when querying the behavior API for it by name
-- ***description*** (string): a description of the behavior
-- ***match*** (object): how the behavior will be matched to the page(s) it is written for
+- **name** (string): the name for your behavior to be used when querying the behavior API for it by name
+- **description** (string): a description of the behavior
+- **match** (object): how the behavior will be matched to the page(s) it is written for
 
-The ***match*** object has two variations and is shown below in the context of two valid metadata exports.
+The **match** object has two variations and is shown below in the context of two valid metadata exports.
 
 ```js
 // variation 1
@@ -90,12 +90,14 @@ export const metadata = {
   description: 'an description of what your behavior does',
 };
 ```
-The first variation, shown above, defines a single property `regex` that is an JavaScript [RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp). The behavior using variation one is considered matched to an URL when the regular expression, defined in the `regex` property of match, matches the URL.
+The first variation of `match`, shown above, defines a single property `regex` that is an JavaScript [RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp). The behavior using variation one is considered matched to an URL when the regular expression, defined in the `regex` property of match, matches the URL.
 
 
-The second variation, shown below, has two properties `base` (RegExp) and `sub` (Array).
+The second variation of `match`, shown below, has the two properties `base` (RegExp) and `sub` (Array).
 
-The `base` regular expression is used as a generic test. If `base` matches a URL, the regular expressions in the `sub` array will be tested against the same URL.
+The `base` regular expression is used as a generic test. If `base` matches a URL, the regular expressions in the `sub` array will be tested against the same URL. The behavior is considered matched to a URL when the `base` regular expression matches the URL and one of the `sub` regular expressions also matches the URL.
+
+
 
 ```js
 // variation 2
@@ -115,12 +117,161 @@ export const metadata = {
 
 
 
-###Default Export (#default-heading)
+### Default Export {#default-heading}
+
+#### Asyncronous generator functions
+
+The purpose of an [asyncronous generator function](https://thecodebarbarian.com/async-generator-functions-in-javascript.html#:~:text=Async%20generator%20functions%20behave%20similarly,()%20function%20returns%20a%20promise.) is to collect data from a source that has too much data to return all at once (or would take too long to return all at once). Instead, the generator is a function that returns an object with a next() method on it. The programmer can keep calling next() until all of the data is received. An asynchronous generator function uses promises for the same purpose (promises will be expanded upon in the following section).
+
+The primary reasons that a behavior's **default export** is required to be an async generator function or a function returning an [async iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/asyncIterator) are:
+
+
+- async generators are widely supported in Javascript
+- they provide a simple way to run the behavior in the browser or through [browsertrix](https://github.com/webrecorder/browsertrix)
+- they allow information about the behavior and its state to be easily retrieved by code executing the behavior
+
+Consider the following example:
+
+```javascript=
+import * as lib from '../lib';
+
+export default async function* myBehavior(cliAPI) {
+  // behavior code will be developed here
+}
+
+export const metadata = {
+  name: 'myBehavior',
+  match: {
+    regex: /^(?:https?:\/\/(?:www\.)?)?:myAwesomeWebSite.com.*$/,
+  },
+  description: 'It does really cool stuff',
+};
+
+export const isBehavior = true;
+```
+
+In this example, `myBehavior` is an asynchronous generator function that's being exported for our behavior and this behavior would work for any website with myAwesomeWebSite.com in its name (notice the regex for the matching above). Much of this boiler plate code shown above has been generated automatically by the cli command [insert command here].
+
+#### Promises
+
+Next, you may have notticed looking over some of the behavior documentation that many of the functions return [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+
+Now, without turning into a JavaScript tutorial, the only thing you need to know about promises is that they can be awaited, that is to say you can await for their completion.
+
+This comes in handy when you want to wait for the the document's state to become ready since the pages of myAwesomeWebSite.com take a long time to load and can be done as easily as shown in `step 1`. This is the beginning of the code that will go in the default async function.
+
+```javascript=
+// step 1, wait for the page to complete loading
+await lib.domCompletePromise();
+```
+
+Now that we know the browser has fully loaded the page, we can safely start executing behaviors on the page.
+
+The next step is to initialize our state and report it, which is done by yielding a value as shown in `step 2`, where state contains the number of videos played.
+
+```javascript=
+// step 2, initialize state and return it
+const state = { videosPlayed: 0 };
+yield lib.stateWithMsgNoWait('Document ready!', state);
+```
+
+The function `lib.stateWithMsgNoWait` indicates to the code executing the behavior that it has an update to report and that it does not have to wait.
+
+If the behavior was being run by [browsertrix](https://github.com/webrecorder/browsertrix) and the other function `lib.stateWithMsgWait` was used, browsertrix would have waited until the HTTP requests made by the page had significantly slowed down (no request made for set period of time) before executing further code in the function. However, since we use the *no wait* variant, the behavior will immediately return state.
+
+When you `yield` a value from the behavior you can consider the behavior paused until the runner initiates the `next()` action.
+
+Additionally, it should be noted that the second argument supplied to `lib.stateWithMsgNoWait` is optional but useful for reporting to yourself more detailed information about the state of your behavior.
+
+Continuing on with the creation of our behavior, let us assume that the page that the behavior is operating in has a list videos we want to play. Our behavior will generate the next video to play each iteration.
+
+We can accomplish this as shown in `step 3`.
+
+```javascript=
+// step 3
+for (const videoListItem of lib.childElementIterator(lib.id('videos'))) {
+  // videoListItem is a child of the element with id == 'videos'
+  // that has a video as child element
+  const videoWasPlayed = await lib.selectAndPlay('video', videoListItem);
+  if (videoWasPlayed) {
+    // increment our states counter for number of videos played
+    state.videosPlayed += 1;
+    // let ourselves know we played a video
+    yield lib.stateWithMsgNoWait('Played a video!', state);
+  } else {
+    yield lib.stateWithMsgNoWait('Failed to play a video using the standard DOM methods', state);
+  }
+}
+return lib.stateWithMsgNoWait('Done!', state);
+```
+
+In step three we use the function `childElementIterator` that returns an iterator over the child elements of the supplied parent element and then for each child of the element with `id="videos"` we:
+
+- select the video element that is a descendant of the `videoListItems` and play the video
+- increment the number of videos played in our behavior's state
+- let ourselves know that we played a video
+
+Also seen in `step 3` is the usage keyword `yield*`.
+
+`yield*` means that we are yielding another generator, that is to say all actions of the generator are to be treated as if we yielded them ourselves.
+
+In short, `step 3` can be described as playing a video contained in every child of the element with `id == video`, and once we have played all the videos on the page return a message with our final state from the behavior.
+
+The full behavior is shown below:
+
+```javascript=
+import * as lib from '../lib';
+
+export default async function* myBehavior(cliAPI) {
+  // behavior code
+  // step 1
+  await lib.domCompletePromise();
+  // step 2
+  const state = { videosPlayed: 0 };
+  yield lib.stateWithMsgNoWait('Document ready!', state);
+  // step 3
+  for (const videoListItem of lib.childElementIterator(lib.id('videos'))) {
+    // videoListItem is a child of the element with id == 'videos'
+    // that has a video as child element
+    const videoWasPlayed = await lib.selectAndPlay('video', videoListItem);
+    if (videoWasPlayed) {
+      // increment our states counter for number of videos played
+      state.videosPlayed += 1;
+      // let ourselves know we played a video
+      yield lib.stateWithMsgNoWait('Played a video!', state);
+    } else {
+      yield lib.stateWithMsgNoWait('Failed to play a video using the standard DOM methods', state);
+    }
+  }
+  return lib.stateWithMsgNoWait('Done!', state);
+}
+
+export const metadata = {
+  name: 'myBehavior',
+  match: {
+    regex: /^(?:https?:\/\/(?:www\.)?)?:myAwesomeWebSite.com.*$/,
+  },
+  description: 'It does really cool stuff',
+};
+
+export const isBehavior = true;
+```
+
+
+
 
 ## Testing your first behavior
+
+An example of the video playing thing embedded in a webpage. Show html code that was used for the website, js that was used to run a behavior.
+
+Tell them to write this test example (video recording thing) for me and I can link to it in github.
 
 ## Fixing a broken behavior
 
 When a behavior breaks, they click “fix this behavior,” and if someone has little js knowledge then they should be able to fix it
 
 ## Checking behavior status
+
+how do you check behavior status and is this done in js
+
+
