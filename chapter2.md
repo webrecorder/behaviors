@@ -64,7 +64,7 @@ It is recommended that you use the library function [lib.buildCustomPostStepFn](
 export const postStep = lib.buildCustomPostStepFn(() => { ... });
 ```
 
-### Metadata {#metadata-heading}
+### [Metadata](#metadata-heading)
 A behavior's exported metadata object is used to:
 
 - describe how the behavior should be matched to the pages it is written for
@@ -117,7 +117,7 @@ export const metadata = {
 
 
 
-### Default Export {#default-heading}
+### [Default Export](#default-heading)
 
 #### Asyncronous generator functions
 
