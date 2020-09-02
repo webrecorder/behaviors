@@ -9,7 +9,7 @@ WORKDIR /app
 
 COPY . ./
 
-RUN yarn install && ./bin/cli build -c ./behavior-config.yml -b
+RUN yarn install && ./bin/cli behaviors -c ./behavior-config.yml -b
 
 VOLUME ["/app/behaviors", "/app/build", "/app/dist", "/app/lib"]
 
