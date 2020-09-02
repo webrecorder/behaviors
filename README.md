@@ -9,6 +9,13 @@ $ yarn install
 # or "npm install"
 ```
 
+### Build behaviors
+
+```
+npm run generate-runnable-behaviors
+npm run build-dev
+```
+
 If you wish to use this project via Docker, see the **Docker** portion of the **Usage** section.
 
 ### Usage
