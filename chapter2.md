@@ -1,22 +1,35 @@
-# Chapter 2: Using Autopilot
+# Chapter 2: Creating your first behavior
 
+A behavior is a [Javascript Module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) which executes a series of actions that collect some information (metadata) about a webpage. Before you create your first behavior, you should first take a look at the Pre-Made Behaviors on the Status Page <!-- add links to this once the Status Page is done -->. This will give you a basic idea of what kind of behaviors already have been created.
 
-## Creating your first behavior
-A behavior is a [Javascript Module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) which executes a series of actions that collect some information (metadata) about a webpage. When creating a behavior, you should first take a look at the Pre-Made Behaviors on the Status Page <!-- add links to this once the Status Page is done -->. This will give you a basic idea of what kind of behaviors already have been created.
-
+## Setting up your file
 Once you have an idea of what you want your behavior to do, clone the webrecorder repository so that you can work locally on your computer.
 
 1. `mkdir webrecorder` (or skip these two steps and use an already existing directory)
 2. `cd webrecorder`
 3. `git clone https://github.com/webrecorder/behaviors.git`
 
-Next, make a file in the appropriate directory.
+Next, make a JavaScript file in the appropriate directory.
 
 For example, if the behavior is specific to Facebook, put the file under the Facebook directory:
 
-`touch webrecorder/facebook/myBehavior.js`
+`touch webrecorder/behaviors/facebook/myBehavior.js`
+
+You should also download a package manager like npm, and make sure that you are using the correct version.
+```
+$ yarn install
+# or "npm install"
+```
+
+To check your version of npm, type the command `npm --version`. You can check the [npm website](https://www.npmjs.com/package/npm?activeTab=versions) to see what the latest version is.
+
+### Opening the
+
 
 ### Format
+
+
+
 Every behavior has:
 
 1. a **default export** that is an [async generator function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_generators) or a function returning an [async iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_generators). This is the function that will retrieve the metadata we want from the webpage.
@@ -25,7 +38,7 @@ Every behavior has:
 export detault async function* myBehavior(cliAPI){...}
 ```
 
-More details on how the default export should be written can be found under the [Default Export](#default-heading) section.
+More details on how the default export should be written can be found under the [Default Export](#default-export) section.
 
 2. an export named ***metadata*** that is an object
 
@@ -36,7 +49,7 @@ More details on how the default export should be written can be found under the 
 	export const metadata = { ... };
 ```
 
-More details on how the metadata object should be written can be found under the [Metadata](#metadata-heading) section.
+More details on how the metadata object should be written can be found under the [Metadata](#metadata) section.
 
 3. an export named **isBehavior**.
 
@@ -64,7 +77,7 @@ It is recommended that you use the library function [lib.buildCustomPostStepFn](
 export const postStep = lib.buildCustomPostStepFn(() => { ... });
 ```
 
-### [Metadata](#metadata-heading)
+### Metadata (#metadata-heading)
 A behavior's exported metadata object is used to:
 
 - describe how the behavior should be matched to the pages it is written for
@@ -117,11 +130,11 @@ export const metadata = {
 
 
 
-### [Default Export](#default-heading)
+### Default Export(#default-heading)
 
-#### Asyncronous generator functions
+#### Asyncronous Generator Functions
 
-The purpose of an [asyncronous generator function](https://thecodebarbarian.com/async-generator-functions-in-javascript.html#:~:text=Async%20generator%20functions%20behave%20similarly,()%20function%20returns%20a%20promise.) is to collect data from a source that has too much data to return all at once (or would take too long to return all at once). Instead, the generator is a function that returns an object with a next() method on it. The programmer can keep calling next() until all of the data is received. An asynchronous generator function uses promises for the same purpose (promises will be expanded upon in the following section).
+The purpose of an [asyncronous generator function](https://thecodebarbarian.com/async-generator-functions-in-javascript.html#:~:text=Async%20generator%20functions%20behave%20similarly,()%20function%20returns%20a%20promise.) is to collect data from a source that has too much data to return all at once (or would take too long to return all at once. Instead, the generator is a function that returns an object with a next() method on it. The programmer can keep calling next() until all of the data is received. An asynchronous generator function uses promises for the same purpose (promises will be expanded upon in the following section).
 
 The primary reasons that a behavior's **default export** is required to be an async generator function or a function returning an [async iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/asyncIterator) are:
 
@@ -205,7 +218,7 @@ for (const videoListItem of lib.childElementIterator(lib.id('videos'))) {
 return lib.stateWithMsgNoWait('Done!', state);
 ```
 
-In step three we use the function `childElementIterator` that returns an iterator over the child elements of the supplied parent element and then for each child of the element with `id="videos"` we:
+In `step 3` we use the function `childElementIterator` that returns an iterator over the child elements of the supplied parent element. Then for each child of the element with `id="videos"` we:
 
 - select the video element that is a descendant of the `videoListItems` and play the video
 - increment the number of videos played in our behavior's state
