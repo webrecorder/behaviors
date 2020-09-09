@@ -23,7 +23,9 @@ $ yarn install
 
 To check your version of npm, type the command `npm --version`. You can check the [npm website](https://www.npmjs.com/package/npm?activeTab=versions) to see what the latest version is.
 
-### Opening the
+### Getting started using the CLI
+
+
 
 
 ### Format
