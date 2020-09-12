@@ -5,15 +5,9 @@ A behavior is a [Javascript Module](https://developer.mozilla.org/en-US/docs/Web
 ## Setting up your file
 Once you have an idea of what you want your behavior to do, clone the webrecorder repository so that you can work locally on your computer.
 
-1. `mkdir webrecorder` (or skip these two steps and use an already existing directory)
+1. `mkdir webrecorder` (or skip steps 1-2 and use an already existing directory)
 2. `cd webrecorder`
 3. `git clone https://github.com/webrecorder/behaviors.git`
-
-Next, make a JavaScript file in the appropriate directory.
-
-For example, if the behavior is specific to Facebook, put the file under the Facebook directory:
-
-`touch webrecorder/behaviors/facebook/myBehavior.js`
 
 You should also download a package manager like npm, and make sure that you are using the correct version.
 ```
@@ -25,7 +19,11 @@ To check your version of npm, type the command `npm --version`. You can check th
 
 ### Getting started using the CLI
 
+You should now create a Javascript file for your new behavior. You can do this using the CLI.
 
+The `newBehavior` command provides a simple way to create a new behavior by generating a new file in the behavior directory containing the required boiler plate.
+
+Executing `./bin/cli newBehavior awesomeBehavior` will create a new behavior file a`wesomeBehavior.js` located in the behavior directory.
 
 
 ### Format
@@ -276,6 +274,9 @@ export const isBehavior = true;
 
 
 ## Testing your first behavior
+Should mention the runner CLI in this section (this was found in the manual here https://github.com/webrecorder/behaviors/blob/master/manual/cli.md):
+	The runner command allows you to automatically run a behavior on a specified URL using a Chrome/Chromium browser installed on your machine.
+
 
 An example of the video playing thing embedded in a webpage. Show html code that was used for the website, js that was used to run a behavior.
 
