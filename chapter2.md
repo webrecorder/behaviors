@@ -1,6 +1,6 @@
 # Chapter 2: Creating your first behavior
 
-A behavior is a [Javascript Module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) which executes a series of actions that collect some information (metadata) about a webpage. Before you create your first behavior, you should first take a look at the Pre-Made Behaviors on the Status Page <!-- add links to this once the Status Page is done -->. This will give you a basic idea of what kind of behaviors already have been created.
+A behavior is a [Javascript Module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) which executes a series of actions that collect some information (metadata) about a webpage. Before you create your first behavior, you should first take a look at the Pre-Made Behaviors on the Status Page<!-- add links to this once the Status Page is done -->. This will give you a basic idea of what kind of behaviors have already been created.
 
 ## Setting up your file
 Once you have an idea of what you want your behavior to do, clone the webrecorder repository so that you can work locally on your computer.
@@ -8,6 +8,7 @@ Once you have an idea of what you want your behavior to do, clone the webrecorde
 1. `mkdir webrecorder` (or skip steps 1-2 and use an already existing directory)
 2. `cd webrecorder`
 3. `git clone https://github.com/webrecorder/behaviors.git`
+4. `cd behaviors`
 
 You should also download a package manager like yarn or npm, and make sure that you are using the correct version.
 ```
@@ -17,13 +18,15 @@ $ yarn install
 
 To check your version of npm, type the command `npm --version`. You can check the [npm website](https://www.npmjs.com/package/npm?activeTab=versions) to see what the latest version is.
 
+You should also check to make sure that your version of node is 12 or above.
+
 ### Getting started using the CLI
 
 You should now create a Javascript file for your new behavior. You can do this using the CLI.
 
 The `newBehavior` command provides a simple way to create a new behavior by generating a new file in the behavior directory containing the required boiler plate.
 
-Executing `./bin/cli newBehavior awesomeBehavior` will create a new behavior file a`wesomeBehavior.js` located in the behavior directory.
+Executing `./bin/cli newBehavior awesomeBehavior` will create a new behavior file `awesomeBehavior.js` located in the behavior directory.
 
 
 ### Format
@@ -132,7 +135,7 @@ export const metadata = {
 
 #### Asyncronous Generator Functions
 
-The purpose of an [asyncronous generator function](https://thecodebarbarian.com/async-generator-functions-in-javascript.html#:~:text=Async%20generator%20functions%20behave%20similarly,()%20function%20returns%20a%20promise.) is to collect data from a source that has too much data to return all at once (or would take too long to return all at once. Instead, the generator is a function that returns an object with a next() method on it. The programmer can keep calling next() until all of the data is received. An asynchronous generator function uses promises for the same purpose (promises will be expanded upon in the following section).
+The purpose of an [asyncronous generator function](https://thecodebarbarian.com/async-generator-functions-in-javascript.html#:~:text=Async%20generator%20functions%20behave%20similarly,()%20function%20returns%20a%20promise.) is to collect data from a source that has too much data to return all at once (or would take too long to return all at once). Instead, the generator is a function that returns an object with a next() method on it. The programmer can keep calling next() until all of the data is received. An asynchronous generator function uses promises for the same purpose (promises will be expanded upon in the following section).
 
 The primary reasons that a behavior's **default export** is required to be an async generator function or a function returning an [async iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/asyncIterator) are:
 
@@ -142,7 +145,7 @@ The primary reasons that a behavior's **default export** is required to be an as
 
 Consider the following example:
 
-```javascript=
+```js
 import * as lib from '../lib';
 
 export default async function* myBehavior(cliAPI) {
@@ -171,7 +174,7 @@ Now, without turning into a JavaScript tutorial, the only thing you need to know
 
 This comes in handy when you want to wait for the the document's state to become ready since the pages of myAwesomeWebSite.com take a long time to load and can be done as easily as shown in `step 1`. This is the beginning of the code that will go in the default async function.
 
-```javascript=
+```js
 // step 1, wait for the page to complete loading
 await lib.domCompletePromise();
 ```
@@ -180,7 +183,7 @@ Now that we know the browser has fully loaded the page, we can safely start exec
 
 The next step is to initialize our state and report it, which is done by yielding a value as shown in `step 2`, where state contains the number of videos played.
 
-```javascript=
+```js
 // step 2, initialize state and return it
 const state = { videosPlayed: 0 };
 yield lib.stateWithMsgNoWait('Document ready!', state);
@@ -194,11 +197,11 @@ When you `yield` a value from the behavior you can consider the behavior paused 
 
 Additionally, it should be noted that the second argument supplied to `lib.stateWithMsgNoWait` is optional but useful for reporting to yourself more detailed information about the state of your behavior.
 
-Continuing on with the creation of our behavior, let us assume that the page that the behavior is operating in has a list videos we want to play. Our behavior will generate the next video to play each iteration.
+Continuing on with the creation of our behavior, let us assume that the page that the behavior is operating in has a list of videos we want to play. Our behavior will generate the next video to play each iteration.
 
 We can accomplish this as shown in `step 3`.
 
-```javascript=
+```js
 // step 3
 for (const videoListItem of lib.childElementIterator(lib.id('videos'))) {
   // videoListItem is a child of the element with id == 'videos'
@@ -230,7 +233,7 @@ In short, `step 3` can be described as playing a video contained in every child 
 
 The full behavior is shown below:
 
-```javascript=
+```js
 import * as lib from '../lib';
 
 export default async function* myBehavior(cliAPI) {
@@ -269,6 +272,8 @@ export const isBehavior = true;
 ```
 
 ## Testing your first behavior
+
+Blocked by [PR 63](https://github.com/webrecorder/behaviors/pull/63)
 
 You should use the runner CLI to test your behavior. The runner command allows you to automatically run a behavior on a specified URL using a Chrome/Chromium browser installed on your machine.
 
