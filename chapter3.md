@@ -3,6 +3,7 @@ advanced chapter 2 basically
 lib and metadata can go in here, should be able to control F to find what you're looking for in here
 ## Contributing to Autopilot
 ## Tools of the Trade
+
 ## Advanced Behavior API
 What should be here that wasn't in chapter 2?
 all that advanced shit on metadata

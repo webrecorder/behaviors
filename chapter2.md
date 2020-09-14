@@ -9,7 +9,7 @@ Once you have an idea of what you want your behavior to do, clone the webrecorde
 2. `cd webrecorder`
 3. `git clone https://github.com/webrecorder/behaviors.git`
 
-You should also download a package manager like npm, and make sure that you are using the correct version.
+You should also download a package manager like yarn or npm, and make sure that you are using the correct version.
 ```
 $ yarn install
 # or "npm install"
@@ -67,11 +67,9 @@ to use.
 
 It's important to note that the tools will not recognize that the behavior is ready for use and valid if any of these three main components (the default export, **isBehavior**, and **metadata**) are missing.
 
-The export `postStep` can be called after each action to convert the yielded results into the [expected format](https://github.com/webrecorder/behaviors/blob/master/typedef/index.html#static-typedef-BehaviorStepResults).
-<!-- The link for this is broken.-->
+The export `postStep` can be called after each action to convert the yielded results into the expected format.
 
-It is recommended that you use the library function [lib.buildCustomPostStepFn](https://github.com/webrecorder/behaviors/blob/master/function/index.html#static-function-buildCustomPostStepFn) if you want to perform some kind of action after each behavior step that is not directly tied to the running of the behavior.
-<!-- The link for this is broken.-->
+It is recommended that you use the library function `lib.buildCustomPostStepFn`if you want to perform some kind of action after each behavior step that is not directly tied to the running of the behavior.
 
 ```js
 export const postStep = lib.buildCustomPostStepFn(() => { ... });
@@ -138,7 +136,6 @@ The purpose of an [asyncronous generator function](https://thecodebarbarian.com/
 
 The primary reasons that a behavior's **default export** is required to be an async generator function or a function returning an [async iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/asyncIterator) are:
 
-
 - async generators are widely supported in Javascript
 - they provide a simple way to run the behavior in the browser or through [browsertrix](https://github.com/webrecorder/browsertrix)
 - they allow information about the behavior and its state to be easily retrieved by code executing the behavior
@@ -163,7 +160,8 @@ export const metadata = {
 export const isBehavior = true;
 ```
 
-In this example, `myBehavior` is an asynchronous generator function that's being exported for our behavior and this behavior would work for any website with myAwesomeWebSite.com in its name (notice the regex for the matching above). Much of this boiler plate code shown above has been generated automatically by the cli command [insert command here].
+In this example, `myBehavior` is an asynchronous generator function that's being exported for our behavior and this behavior would work for any website with myAwesomeWebSite.com in its name (notice the regex for the matching above). Much of this boiler plate code shown above has been generated automatically by the cli command
+`./bin/cli newBehavior [behaviorName]`.
 
 #### Promises
 
@@ -270,21 +268,36 @@ export const metadata = {
 export const isBehavior = true;
 ```
 
-
-
-
 ## Testing your first behavior
+
+You should use the runner CLI to test your behavior. The runner command allows you to automatically run a behavior on a specified URL using a Chrome/Chromium browser installed on your machine.
+
+`$ ./bin/cli help runner`
+
+Please note that in order to provide automatic running of behaviors, this command must be able to launch the Chrome/Chromium browser. In other words, an already running instance of Chrome/Chromium can not be used.
+
+First, you will need to create a config file (yaml format) to use the runner. An example run config is provided for you and can found in the root of this project (`behavior-run-config.yml`).
+
+By using the example configuration file [`behavior-run-config.yml`](./behavior-run-config.yml) all that you have to do is change two fields:
+
+- behavior: the path to your new behavior in the behavior directory of this project
+- url: the url of the page your behavior should be run in
+
+
+The simplest way to use the runner is through the usage of a config file (yaml format) and can be supplied using the -c or --config flags like so:
+
+`./bin/cli runner -c <path to run config.yaml>`.
+
+
+
 Should mention the runner CLI in this section (this was found in the manual here https://github.com/webrecorder/behaviors/blob/master/manual/cli.md):
-	The runner command allows you to automatically run a behavior on a specified URL using a Chrome/Chromium browser installed on your machine.
 
 
-An example of the video playing thing embedded in a webpage. Show html code that was used for the website, js that was used to run a behavior.
 
-Tell them to write this test example (video recording thing) for me and I can link to it in github.
 
 ## Fixing a broken behavior
 
-When a behavior breaks, they click “fix this behavior,” and if someone has little js knowledge then they should be able to fix it
+If a behavior is broken
 
 ## Checking behavior status
 

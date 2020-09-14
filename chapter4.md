@@ -1,5 +1,5 @@
 # Behind Autopilot
 ## Maintainers
 ## Contact Support
-## Discussion FOrum
+## Discussion Forum
 ## Who Uses Autopilot?
