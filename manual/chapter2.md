@@ -295,10 +295,6 @@ The simplest way to use the runner is through the usage of a config file (yaml f
 
 
 
-Should mention the runner CLI in this section (this was found in the manual here https://github.com/webrecorder/behaviors/blob/master/manual/cli.md):
-
-
-
 
 ## Fixing a broken behavior
 

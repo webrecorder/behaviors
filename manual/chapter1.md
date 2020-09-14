@@ -33,20 +33,20 @@ To install Autopilot, use Terminal to clone the Webrecorder repository:
 The Autopilot instance can be accessed in the browser at `http://localhost:8089`.
 
 
-## Autopilot basics
+# Autopilot basics
 Autopilot uses [behaviors](https://github.com/webrecorder/behaviors/blob/master/manual/behaviors.md) to collect metadata from websites. Behaviors are Javascript modules which perform a series of actions on a webpage in order to collect information.
 
 
 The cli provides two commands API and behaviors and each command has its own options.
 
-# Behaviors command
+## Behaviors command
 
 Execute `./bin/cli behaviors -b` to build the behaviors made available, using the config file located at the root of the project.
 
 The built behaviors, along with a behavior metadata file (`behaviorMetadata.js`), can be found in the `dist` directory which will be created for you if it does not exist in the root of this project.
 
 
-# API command
+## API command
 
 To run the behavior API server execute `./bin/cli api --build-behaviors`.
 
