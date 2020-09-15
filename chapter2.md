@@ -31,8 +31,6 @@ Executing `./bin/cli newBehavior awesomeBehavior` will create a new behavior fil
 
 ### Format
 
-
-
 Every behavior has:
 
 1. a **default export** that is an [async generator function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_generators) or a function returning an [async iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_generators). This is the function that will retrieve the metadata we want from the webpage.
@@ -78,7 +76,7 @@ It is recommended that you use the library function `lib.buildCustomPostStepFn`i
 export const postStep = lib.buildCustomPostStepFn(() => { ... });
 ```
 
-### Metadata (#metadata-heading)
+### Metadata
 A behavior's exported metadata object is used to:
 
 - describe how the behavior should be matched to the pages it is written for
@@ -106,32 +104,9 @@ export const metadata = {
 ```
 The first variation of `match`, shown above, defines a single property `regex` that is an JavaScript [RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp). The behavior using variation one is considered matched to an URL when the regular expression, defined in the `regex` property of match, matches the URL.
 
+The second variation of `match` is a bit more advanced and lets you compare your URL to multiple sub URLs. You can get more information on that in the [next chapter]().
 
-The second variation of `match`, shown below, has the two properties `base` (RegExp) and `sub` (Array).
-
-The `base` regular expression is used as a generic test. If `base` matches a URL, the regular expressions in the `sub` array will be tested against the same URL. The behavior is considered matched to a URL when the `base` regular expression matches the URL and one of the `sub` regular expressions also matches the URL.
-
-
-
-```js
-// variation 2
-export const metadata = {
-  name: 'the name of your behavior',
-  match: {
-    regex: {
-      base: /a regular expression dictating the base URL the behavior will run on/,
-      sub: [
-        /an array of regular expressions dictating more specific parts of the base URL the behavior will run on/,
-      ],
-    },
-  },
-  description: 'a description of what your behavior does',
-};
-```
-
-
-
-### Default Export(#default-heading)
+### Default Export
 
 #### Asyncronous Generator Functions
 
@@ -310,13 +285,19 @@ If any changes are made to the behavior or any of the files it includes while th
 
 ## Fixing a broken behavior
 
-If you nottice that a behavior isn't working right, you can use these tips to troubleshoot what might be going wrong.
+A behavior is broken when it doesn't work like it used to. Behaviors have to be fixed sometimes as websites can change at anytime. For example, a website might change its css and html names and classes, or how the Javascript behaves when you scroll. If a behavior depends on something that has changed, it may stop working.
 
-First, go into the file for the behavior. Next, you should check for these easily fixable problems:
+Here are the steps to fixing a broken behavior:
 
-1. Does the behavior have the 3 essential parts (the default export, **isBehavior**, and **metadata**)? The tools will not recognize that the behavior is ready for use and valid if any of these three components are missing.
-2. Is the **isBehavior** export flagged as false? The tools will not recognize that the behavior is ready for use if **isBehavior** is marked as **false**.
-3.
+1. Find the file of the behavior
+2. Run the behavior
+3. Note the output and check for console errors
+4. Update the offending lines
+5. [Create a fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) for your contributions
+6. Commit and push your changes to your local branch
+7. Create a pull request against the master branch
+
+You will then receive feedback on your work, which you can respond to in the pull request.
 
 
 
