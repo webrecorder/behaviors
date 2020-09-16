@@ -1,9 +1,12 @@
 # Behind Autopilot
+
 ## Maintainers
+
+Autopilot is maintained by:
 
 ## Contact Support
 
-
+Email [insert email] for support questions.
 
 ## Discussion Forum
 

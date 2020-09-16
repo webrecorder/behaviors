@@ -15,6 +15,8 @@ Autopilot is free to use.
 
 ## How can I contribute to Autopilot?
 
-Read the chapter on [Hacking Autopilot](./chapter2.md) for a guide on contributing to Autopilot.
+Read the chapter on [Hacking Autopilot](./chapter3.md) for a guide on contributing to Autopilot. We suggest that beginner developers take a look at [Chapter 2](./chapter2.md) for a simpler overview of how Autopilot works.
 
 ##Glossary of Terms
+
+

@@ -68,14 +68,6 @@ to use.
 
 It's important to note that the tools will not recognize that the behavior is ready for use and valid if any of these three main components (the default export, **isBehavior**, and **metadata**) are missing.
 
-The export `postStep` can be called after each action to convert the yielded results into the expected format.
-
-It is recommended that you use the library function `lib.buildCustomPostStepFn`if you want to perform some kind of action after each behavior step that is not directly tied to the running of the behavior.
-
-```js
-export const postStep = lib.buildCustomPostStepFn(() => { ... });
-```
-
 ### Metadata
 A behavior's exported metadata object is used to:
 
