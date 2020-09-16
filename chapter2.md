@@ -90,7 +90,7 @@ With those usages in mind, every metadata object is expected to have the followi
 - **description** (string): a description of the behavior
 - **match** (object): how the behavior will be matched to the page(s) it is written for
 
-The **match** object has two variations and is shown below in the context of two valid metadata exports.
+The **match** object has two variations, but you will probably only need to know the first.
 
 ```js
 // variation 1
@@ -104,7 +104,7 @@ export const metadata = {
 ```
 The first variation of `match`, shown above, defines a single property `regex` that is an JavaScript [RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp). The behavior using variation one is considered matched to an URL when the regular expression, defined in the `regex` property of match, matches the URL.
 
-The second variation of `match` is a bit more advanced and lets you compare your URL to multiple sub URLs. You can get more information on that in the [next chapter]().
+The second variation of `match` is a bit more advanced and lets you compare your URL to multiple sub URLs. You can get more information on that in [chapter 3](./chapter3).
 
 ### Default Export
 
@@ -285,7 +285,7 @@ If any changes are made to the behavior or any of the files it includes while th
 
 ## Fixing a broken behavior
 
-A behavior is broken when it doesn't work like it used to. Behaviors have to be fixed sometimes as websites can change at anytime. For example, a website might change its css and html names and classes, or how the Javascript behaves when you scroll. If a behavior depends on something that has changed, it may stop working.
+A behavior is broken when it doesn't work as expected or like it used to. Behaviors have to be fixed sometimes as websites can change at anytime. For example, a website might change its css and html names and classes, or how the Javascript behaves when you scroll. If a behavior depends on something that has changed, it may stop working.
 
 Here are the steps to fixing a broken behavior:
 
