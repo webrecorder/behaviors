@@ -1,6 +1,6 @@
 # Chapter 2: Creating your first behavior
 
-A behavior is a [Javascript Module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) which executes a series of actions that collect some information (metadata) about a webpage. Before you create your first behavior, you should first take a look at the Pre-Made Behaviors on the Status Page<!-- add links to this once the Status Page is done -->. This will give you a basic idea of what kind of behaviors have already been created.
+A behavior is a [Javascript Module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) which executes a series of actions that collect some information (metadata) about a webpage. Before you create your first behavior, you should first take a look at the [Pre-Made Behaviors](https://github.com/webrecorder/behaviors/blob/master/manual/premade-behaviors.md)<!-- add links to this once the Status Page is done -->. This will give you a basic idea of what kind of behaviors have already been created.
 
 ## Setting up your file
 Once you have an idea of what you want your behavior to do, clone the webrecorder repository so that you can work locally on your computer.
@@ -30,8 +30,6 @@ Executing `./bin/cli newBehavior awesomeBehavior` will create a new behavior fil
 
 
 ### Format
-
-
 
 Every behavior has:
 
@@ -70,15 +68,7 @@ to use.
 
 It's important to note that the tools will not recognize that the behavior is ready for use and valid if any of these three main components (the default export, **isBehavior**, and **metadata**) are missing.
 
-The export `postStep` can be called after each action to convert the yielded results into the expected format.
-
-It is recommended that you use the library function `lib.buildCustomPostStepFn`if you want to perform some kind of action after each behavior step that is not directly tied to the running of the behavior.
-
-```js
-export const postStep = lib.buildCustomPostStepFn(() => { ... });
-```
-
-### Metadata (#metadata-heading)
+### Metadata
 A behavior's exported metadata object is used to:
 
 - describe how the behavior should be matched to the pages it is written for
@@ -92,7 +82,7 @@ With those usages in mind, every metadata object is expected to have the followi
 - **description** (string): a description of the behavior
 - **match** (object): how the behavior will be matched to the page(s) it is written for
 
-The **match** object has two variations and is shown below in the context of two valid metadata exports.
+The **match** object has two variations, but you will probably only need to know the first.
 
 ```js
 // variation 1
@@ -106,32 +96,9 @@ export const metadata = {
 ```
 The first variation of `match`, shown above, defines a single property `regex` that is an JavaScript [RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp). The behavior using variation one is considered matched to an URL when the regular expression, defined in the `regex` property of match, matches the URL.
 
+The second variation of `match` is a bit more advanced and lets you compare your URL to multiple sub URLs. You can get more information on that in [chapter 3](./chapter3).
 
-The second variation of `match`, shown below, has the two properties `base` (RegExp) and `sub` (Array).
-
-The `base` regular expression is used as a generic test. If `base` matches a URL, the regular expressions in the `sub` array will be tested against the same URL. The behavior is considered matched to a URL when the `base` regular expression matches the URL and one of the `sub` regular expressions also matches the URL.
-
-
-
-```js
-// variation 2
-export const metadata = {
-  name: 'the name of your behavior',
-  match: {
-    regex: {
-      base: /a regular expression dictating the base URL the behavior will run on/,
-      sub: [
-        /an array of regular expressions dictating more specific parts of the base URL the behavior will run on/,
-      ],
-    },
-  },
-  description: 'a description of what your behavior does',
-};
-```
-
-
-
-### Default Export(#default-heading)
+### Default Export
 
 #### Asyncronous Generator Functions
 
@@ -275,33 +242,58 @@ export const isBehavior = true;
 
 Blocked by [PR 63](https://github.com/webrecorder/behaviors/pull/63)
 
-You should use the runner CLI to test your behavior. The runner command allows you to automatically run a behavior on a specified URL using a Chrome/Chromium browser installed on your machine.
+You should use the runner CLI to test your behavior. The runner command allows you to automatically run a behavior on a specified URL using a Chrome/Chromium browser installed on your machine. This will allow you to see if your behavior is working correctly.
 
 `$ ./bin/cli help runner`
 
 Please note that in order to provide automatic running of behaviors, this command must be able to launch the Chrome/Chromium browser. In other words, an already running instance of Chrome/Chromium can not be used.
 
-First, you will need to create a config file (yaml format) to use the runner. An example run config is provided for you and can found in the root of this project (`behavior-run-config.yml`).
+First, you will need to create a config file (yaml format) to use the runner. A run config file is provided for you and can found in the root of this project (`behavior-run-config.yml`).
 
-By using the example configuration file [`behavior-run-config.yml`](./behavior-run-config.yml) all that you have to do is change two fields:
+The file will look like this:
+```yaml
+behaviors: ./behaviors
+lib: ./lib
+build: ./build
+dist: ./dist
+tsconfig: ./tsconfig.json
+metadata: ./dist/behaviorMetadata.js
+```
 
-- behavior: the path to your new behavior in the behavior directory of this project
-- url: the url of the page your behavior should be run in
+By using the provided configuration file [`behavior-run-config.yml`](./behavior-run-config.yml) all that you have to do is change two fields:
 
+1. `behaviors`: the path to your new behavior in the behavior directory of this project
+2. `url`: the url of the page your behavior should be run in
 
-The simplest way to use the runner is through the usage of a config file (yaml format) and can be supplied using the -c or --config flags like so:
+Now you can start the build and run process by executing the following from the root directory of this project:
 
-`./bin/cli runner -c <path to run config.yaml>`.
+`./bin/cli runner -c behavior-run-config.yml`
 
+The command will launch a Chrome/Chromium browser installed on your computer, build the behavior, and then run it until completion.
+
+If any changes are made to the behavior or any of the files it includes while the behavior is being run, it will be rebuilt and re-run automatically.
 
 
 
 ## Fixing a broken behavior
 
-If a behavior is broken
+A behavior is broken when it doesn't work as expected or like it used to. Behaviors have to be fixed sometimes as websites can change at anytime. For example, a website might change its css and html names and classes, or how the Javascript behaves when you scroll. If a behavior depends on something that has changed, it may stop working.
 
-## Checking behavior status
+Here are the steps to fixing a broken behavior:
 
-how do you check behavior status and is this done in js
+1. Find the file of the behavior
+2. Run the behavior
+3. Note the output and check for console errors
+4. Update the offending lines
+5. [Create a fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) for your contributions
+6. Commit and push your changes to your local branch
+7. Create a pull request against the master branch
 
+You will then receive feedback on your work, which you can respond to in the pull request.
+
+
+
+<!-- ## Checking behavior status
+N/A
+ Blocked by website? -->
 

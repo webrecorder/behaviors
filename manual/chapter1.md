@@ -20,12 +20,14 @@ $ yarn install
 # or "npm install"
 ```
 
-If you wish to use this project via Docker, install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/).
-
 To install Autopilot, use Terminal to clone the Webrecorder repository:
 ```
 1. git clone https://github.com/webrecorder/behaviors.git
 2. cd autopilot; bash init-default.sh.
+```
+If you wish to use this project via Docker, install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/).
+
+```
 3. docker-compose build
 4. docker-compose up -d
 ```
@@ -66,6 +68,8 @@ Some configuration of the API server can be done via the environment variables l
 
 
 # Docker
+If you would like, you can use Docker to run Autopilot.
+
 To build the wr-behaviors docker image (`webrecorder/behaviors:latest`) execute `docker-compose build`.
 
 The image created is suitable for building behaviors and running the behavior api server.
@@ -77,17 +81,6 @@ For more information please consult the provided `Dockerfile` and `docker-compos
 ## About Web Traffic
 
 
-//consider making the status page space a seperate chapter or a seperate section because it kind of dominates chapter 1.
 ## Status page: pre-made behaviors
-
-# Autoscroll
-
-
-# Instagram
-
-# Twitter
-
-# Youtube Video
-
 
 
