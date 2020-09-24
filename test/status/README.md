@@ -1,9 +1,29 @@
-Prerequisites:
+## Installation
 
-Python 2.x 
+1. Install python3
+
+2. Install pip and virtualenv
 
 ```
+python3 -m pip install --user --upgrade pip
+
+python3 -m pip install --user virtualenv
+```
+
+3. Create virtualenv
+```
+python3 -m venv env
+source env/bin/activate
 pip install pywb
+```
+
+## Development
+
+Every time you open a new terminal and want to run the tests, you must activate
+the python virtual environment:
+
+```
+source env/bin/activate
 ```
 
 To test all behaviors, run
