@@ -53,7 +53,7 @@
     "generate-stdlib-index": "node ./bin/cli-stdlib --gen-index",
     "generate-test-helper-values": "node ./internal/generateTestHelperValues.js",
     "publish-docs": "gh-pages -d docs",
-    "test": "ava --verbose",
+    "test": "node test/status/all.js",
     "format": "prettier --write test/**/*.js lib/**/*.js internal/**/*.js api/**/*.js behaviors/**/*.js",
     "updateBehaviorUpdatedDates": "node ./internal/updateBehaviorUpdatedTimes.js"
   },
