@@ -5,4 +5,5 @@ echo $endlessloop_pid
 echo $1
 ./node_modules/.bin/ava --verbose ./test/status/lib/one.js --match $1
 # node lib/output-status.js $1
+wb-manager reindex $1
 kill "$endlessloop_pid"
