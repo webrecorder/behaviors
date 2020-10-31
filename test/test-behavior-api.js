@@ -3,6 +3,10 @@ import rp from 'request-promise-native';
 import startServer from './helpers/testServer';
 import { tests, allResult, defaultBMD } from './helpers/testedValues';
 import { loadBehavior } from './helpers/utils';
+import fs from 'fs'
+import path from 'path'
+
+const output = path.join(__dirname, 'output')
 
 /**
  * @type {fastify.FastifyInstance}
@@ -19,14 +23,6 @@ test.after.always(t => {
 });
 
 for (const aTest of tests) {
-  test(`Retrieving the behavior js for "${
-    aTest.name
-  }" by URL should work`, async t => {
-    const response = await rp(aTest.behaviorURL);
-    const expectedBehavior = await loadBehavior(aTest.metadata.fileName);
-    t.is(response, expectedBehavior);
-  });
-
   test(`Retrieving the behavior info for "${
     aTest.name
   }" by URL should work`, async t => {
