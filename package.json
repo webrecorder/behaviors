@@ -23,7 +23,7 @@
     "fastify-plugin": "^1.6.0",
     "fastify-swagger": "^2.4.0",
     "fastparallel": "^2.3.0",
-    "find-my-way": "^2.2.1",
+    "find-my-way": "^2.2.5",
     "fs-extra": "^8.1.0",
     "js-yaml": "^3.13.1",
     "plur": "^3.1.1",
