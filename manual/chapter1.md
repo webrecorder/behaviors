@@ -11,6 +11,9 @@ Web archives may be utilized by future researchers, historians and the general p
 
 Autopilot is a tool that navigates a website similarly to how a human would, doing things like scrolling, clicking buttons, and playing videos. These actions executed through functions called "behaviors." Because Autopilot can go through the technically complicated aspects of a website, it is useful for recording high-fidelity websites. Furthermore, Autopilot is designed to be accessible for anyone to use, and anyone with little javascript knowledge to contribute to. This makes webarchiving available to everyone.
 
+# Autopilot basics
+Autopilot uses [behaviors](https://github.com/webrecorder/behaviors/blob/master/manual/behaviors.md) to collect metadata from websites. Behaviors are Javascript modules which perform a series of actions on a webpage in order to collect information.
+
 ## Installing Autopilot
 
 To use this project you must first install its dependencies. You can do this via a package manager like [Yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable) or [npm](https://www.npmjs.com/).
@@ -21,9 +24,15 @@ $ yarn install
 ```
 
 To install Autopilot, use Terminal to clone the Webrecorder repository:
+
+**You must be using node 12~**
+
 ```
-1. git clone https://github.com/webrecorder/behaviors.git
-2. cd autopilot; bash init-default.sh.
+1. `git clone https://github.com/webrecorder/behaviors.git`
+2. `cd behaviors`
+3. `yarn build-watch`
+4. `open new terminal window`
+5. `bash scripts/init.sh`
 ```
 If you wish to use this project via Docker, install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/).
 
@@ -34,19 +43,36 @@ If you wish to use this project via Docker, install [Docker](https://docs.docker
 
 The Autopilot instance can be accessed in the browser at `http://localhost:8089`.
 
+# Running Behaviors
+1. In order to run the behaviors you will first need to build them:
+```
+npm run generate-runnable-behaviors
+<!-- npm run build-dev -->
+```
 
-# Autopilot basics
-Autopilot uses [behaviors](https://github.com/webrecorder/behaviors/blob/master/manual/behaviors.md) to collect metadata from websites. Behaviors are Javascript modules which perform a series of actions on a webpage in order to collect information.
+2. Then, go into the dist directory.
+```
+cd dist
+```
 
+3. In the dist directory you will see behavior files. Open the behavior file you want and copy the code.
+```
+open [filename]
+```
 
-The cli provides two commands API and behaviors and each command has its own options.
+4. Copy all of the behavior code and paste it into the developer console of a webpage. The console can be accessed in Chrome using the shortcut: Option + ⌘ + J (on macOS), or Shift + CTRL + J (on Windows/Linux).
+
+You can also run behaviors using the CLI:
+
+## CLI and API
+
+The cli provides two commands `API` and `behaviors` and each command has its own options.
 
 ## Behaviors command
 
-Execute `./bin/cli behaviors -b` to build the behaviors made available, using the config file located at the root of the project.
+Execute `./bin/cli behaviors -b` to build the behaviors made available. This will build the behaviors using the behavior config file located in the root of this project.
 
 The built behaviors, along with a behavior metadata file (`behaviorMetadata.js`), can be found in the `dist` directory which will be created for you if it does not exist in the root of this project.
-
 
 ## API command
 
@@ -78,9 +104,10 @@ The default configuration of the image is to run the api server, however you can
 
 For more information please consult the provided `Dockerfile` and `docker-compose.yml` files.
 
-## About Web Traffic
+<!-- ## About Web Traffic
+ -->
 
-
-## Status page: pre-made behaviors
-
+<!-- ## Status page: pre-made behaviors
+	blocked by website
+ -->
 

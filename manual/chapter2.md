@@ -1,6 +1,6 @@
 # Chapter 2: Creating your first behavior
 
-A behavior is a [Javascript Module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) which executes a series of actions that collect some information (metadata) about a webpage. Before you create your first behavior, you should first take a look at the [Pre-Made Behaviors](https://github.com/webrecorder/behaviors/blob/master/manual/premade-behaviors.md)<!-- add links to this once the Status Page is done -->. This will give you a basic idea of what kind of behaviors have already been created.
+A behavior is a [Javascript Module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) which executes a series of actions that collect some information (metadata) about a webpage. Before you create your first behavior, you should first take a look at the [Pre-Made Behaviors](https://github.com/webrecorder/behaviors/blob/master/manual/premade-behaviors.md). This will give you a basic idea of what kind of behaviors have already been created.
 
 ## Setting up your file
 Once you have an idea of what you want your behavior to do, clone the webrecorder repository so that you can work locally on your computer.
@@ -238,11 +238,13 @@ export const metadata = {
 export const isBehavior = true;
 ```
 
-## Testing your first behavior
+## Running your behavior
+The easiest way to run your behavior is to copy all of the behavior code and paste it into the developer console of a webpage.
 
-Blocked by [PR 63](https://github.com/webrecorder/behaviors/pull/63)
+The console can be accessed in Chrome using the shortcut: Option + ⌘ + J (on macOS), or Shift + CTRL + J (on Windows/Linux).
 
-You should use the runner CLI to test your behavior. The runner command allows you to automatically run a behavior on a specified URL using a Chrome/Chromium browser installed on your machine. This will allow you to see if your behavior is working correctly.
+###Runner CLI
+You can also use the runner CLI to run your behavior. The runner command allows you to automatically run a behavior on a specified URL using a Chrome/Chromium browser installed on your machine.
 
 `$ ./bin/cli help runner`
 
@@ -273,6 +275,10 @@ The command will launch a Chrome/Chromium browser installed on your computer, bu
 
 If any changes are made to the behavior or any of the files it includes while the behavior is being run, it will be rebuilt and re-run automatically.
 
+## Testing your first behavior
+
+Blocked by [PR 63](https://github.com/webrecorder/behaviors/pull/63)
+
 
 
 ## Fixing a broken behavior
@@ -295,5 +301,5 @@ You will then receive feedback on your work, which you can respond to in the pul
 
 <!-- ## Checking behavior status
 N/A
- Blocked by website? -->
+ Blocked by website -->
 
