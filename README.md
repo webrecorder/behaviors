@@ -1,3 +1,9 @@
+**Deprecated** This repository is replaced with a new, simpler behavior implementation found in [Browsertrix Behaviors](https://github.com/webrecorder/browsertrix-behaviors). The new implementation compiles all behaviors to a single JS file, which can be injected
+anywhere, removing the need for a CLI or server found in this implementation. Behaviors found here will slowly be ported over to Browsertrix Behaviors as needed.
+
+<hr>
+
+
 wr-behaviors
 =======================
 
